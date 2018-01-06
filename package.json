@@ -4,9 +4,18 @@
   "private": true,
   "dependencies": {
     "antd": "^3.1.0",
+    "firebase": "^4.8.1",
+    "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-scripts": "1.0.17"
+    "react-redux": "^5.0.6",
+    "react-redux-firebase": "^2.0.0-rc.2",
+    "react-scripts": "1.0.17",
+    "redux": "^3.7.2",
+    "redux-effects-location": "^0.2.7",
+    "redux-firestore": "^0.2.5",
+    "redux-logger": "^3.0.6",
+    "redux-saga": "^0.16.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.0.2",

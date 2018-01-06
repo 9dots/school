@@ -1,0 +1,6 @@
+
+{
+  "name": "Boot",
+  "main": "Boot.js",
+  "browser": "Boot.js"
+}
