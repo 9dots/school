@@ -1,17 +1,15 @@
-import { all } from 'redux-saga/effects'
+import createHistory from 'history/createBrowserHistory'
+import { all, takeLatest } from 'redux-saga/effects'
+import { setUrl } from 'app/actions'
 
-// Examples
-// export function * helloSaga () {
-//   yield delay(2000)
-//   yield put({ type: 'JAM' })
-// }
+const history = createHistory()
 
-// export function * hi () {
-//   yield takeLatest('HI', helloSaga)
-// }
+export function * watchSetUrl () {
+  yield takeLatest(setUrl.type, ({ payload }) => history.push(payload))
+}
 
 // notice how we now only export the rootSaga
 // single entry point to start all Sagas at once
 export default function * rootSaga () {
-  yield all([])
+  yield all([watchSetUrl()])
 }

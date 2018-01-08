@@ -4,9 +4,9 @@ import { reduxFirestore } from 'redux-firestore'
 import createSagaMiddleware from 'redux-saga'
 import location from 'redux-effects-location'
 import { createLogger } from 'redux-logger'
-import rootReducer from './reducers'
-import rootSaga from './sagas'
+import rootReducer from './app/reducers'
 import firebase from 'firebase'
+import rootSaga from './sagas'
 import 'firebase/firestore'
 
 // const loggerMiddleware = createLogger()
