@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import './Boot.less'
 
 class Boot extends Component {
   render () {
-    const { hi } = this.props
-    return <div onClick={hi}>Boot</div>
+    return <div>Boot</div>
   }
 }
 
