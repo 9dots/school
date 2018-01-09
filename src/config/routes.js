@@ -1,4 +1,4 @@
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 
 var routes = (
   <Route name='Boot'>
@@ -18,4 +18,18 @@ var routes = (
     </Route>
     <Route name='Splash' />
   </Route>
+)
+
+var route = isTeacher ? (
+  <Switch>
+    <Route name='Teacher' path='/' component={TeacherLayout}>
+      <Route name='/classes' component={Classes} />
+    </Route>
+  </Switch>
+) : (
+  <Switch>
+    <Route name='Student' path='/' component={TeacherLayout}>
+      <Route name='/classes' component={Classes} />
+    </Route>
+  </Switch>
 )
