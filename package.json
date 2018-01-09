@@ -6,6 +6,8 @@
     "@f/create-action": "^1.1.1",
     "antd": "^3.1.0",
     "firebase": "^4.8.1",
+    "fs": "^0.0.1-security",
+    "less-vars-to-js": "^1.2.1",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",

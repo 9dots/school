@@ -5,15 +5,15 @@ import './ClassList.less'
 
 const ClassList = props => {
   return (
-    <Menu>
-      <Menu.Item>
-        <Icon type='book' />
-        Classes
-      </Menu.Item>
-      <Menu.Item>
-        <Icon type='rocket' />
-        Grades
-      </Menu.Item>
+    <Menu
+      style={{
+        overflow: 'auto',
+        height: '100vh',
+        position: 'fixed',
+        left: 0,
+        width: 200
+      }}>
+      {[1, 2, 3, 4, 5].map(i => <Menu.Item>Class {i}</Menu.Item>)}
     </Menu>
   )
 }

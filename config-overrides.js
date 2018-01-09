@@ -1,6 +1,6 @@
 const { injectBabelPlugin } = require('react-app-rewired')
 const rewireLess = require('react-app-rewire-less')
-const theme = require('./theme')
+const theme = require('./src/theme/theme')
 
 module.exports = function override (config, env) {
   config = injectBabelPlugin(
