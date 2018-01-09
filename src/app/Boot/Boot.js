@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import Header from 'components/Header'
-import ClassList from 'components/ClassList'
+import ClassList from '../ClassList'
 import PropTypes from 'prop-types'
+import Header from '../Header'
 import './Boot.less'
 
 class Boot extends Component {
