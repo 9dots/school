@@ -1,7 +1,7 @@
 import { Route, Switch } from 'react-router-dom'
 
 var routes = (
-  <Route name='Boot'>
+  <Router>
     <Route name='App'>
       <Route name='Teacher'>
         <Route name='Class' />
@@ -17,14 +17,14 @@ var routes = (
       </Route>
     </Route>
     <Route name='Splash' />
-  </Route>
+  </Router>
 )
 
 var route = isTeacher ? (
   <Switch>
-    <Route name='Teacher' path='/' component={TeacherLayout}>
+    <TeacherLayout>
       <Route name='/classes' component={Classes} />
-    </Route>
+    </TeacherLayout>
   </Switch>
 ) : (
   <Switch>
