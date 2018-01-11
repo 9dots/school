@@ -19,12 +19,14 @@ class ClassList extends Component {
   render () {
     return (
       <span>
-        <UserDropdown />
         <Menu
           mode='inline'
           style={{
-            minHeight: 'calc(100vh - 64px)'
+            minHeight: 'calc(100vh - 62px)'
           }}>
+          <Menu.Item style={{ padding: 0 }}>
+            <UserDropdown />
+          </Menu.Item>
           <Menu.Divider />
           {classes.map(i => <Menu.Item key={i}>{i}</Menu.Item>)}
           <Menu.Divider />

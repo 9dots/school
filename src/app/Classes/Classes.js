@@ -1,16 +1,17 @@
 import ClassList from './ClassList'
 import StudentList from 'app/StudentList'
 import PropTypes from 'prop-types'
-import { Row, Col, Card } from 'antd'
+import { Row, Col, Card, Layout } from 'antd'
+import styles from 'theme/vars/vars.js'
 import React from 'react'
 import './Classes.less'
 
 const Classes = props => {
   return (
-    <Row>
-      <Col span={4}>
+    <Layout>
+      <Layout.Sider width={styles['@sidebar-width']}>
         <ClassList />
-      </Col>
+      </Layout.Sider>
       <Col
         style={{
           minHeight: 'calc(100vh - 64px)',
@@ -25,7 +26,7 @@ const Classes = props => {
       <Col span={4}>
         <StudentList />
       </Col>
-    </Row>
+    </Layout>
   )
 }
 
