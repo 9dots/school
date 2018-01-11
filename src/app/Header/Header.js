@@ -2,11 +2,12 @@
 import { Menu, Icon, Layout, Row, Col } from 'antd'
 import React from 'react'
 import './Header.less'
+import styles from 'theme/vars/vars.js'
 
 const Header = props => {
   return (
     <Layout className='header'>
-      <Layout.Sider width={230}>
+      <Layout.Sider width={styles['@sidebar-width']}>
         {/* <Col span={4} lg={6} xl={5} xxl={4}> */}
         <div
           className='logo'
