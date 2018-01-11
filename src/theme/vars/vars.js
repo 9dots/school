@@ -1,0 +1,1 @@
+module.exports = {"@sidebar-width":"230px"}
