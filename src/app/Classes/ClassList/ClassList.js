@@ -30,16 +30,16 @@ class ClassList extends Component {
           <Menu.Divider />
           {classes.map(i => <Menu.Item key={i}>{i}</Menu.Item>)}
           <Menu.Divider />
-          <div style={{ padding: '12px 24px' }}>
+          <Menu.Item style={{ padding: '12px 24px' }}>
             <Button style={{ width: '100%' }} onClick={this.showModal}>
               <Icon type='plus' />New Class
             </Button>
-          </div>
-          <ClassModal
-            visible={this.state.visible}
-            onOk={this.hideModal}
-            onCancel={this.hideModal} />
+          </Menu.Item>
         </Menu>
+        <ClassModal
+          visible={this.state.visible}
+          onOk={this.hideModal}
+          onCancel={this.hideModal} />
       </span>
     )
   }
@@ -53,7 +53,7 @@ const userMenu = (
 )
 
 const UserDropdown = props => (
-  <Dropdown overlay={userMenu} trigger='click' placement='bottomCenter'>
+  <Dropdown overlay={userMenu} trigger={['click']} placement='bottomCenter'>
     <Row
       type='flex'
       align='middle'
@@ -66,7 +66,7 @@ const UserDropdown = props => (
       }}>
       <Col span={6}>
         <Avatar
-          inline
+          inline='true'
           size='large'
           style={{
             background: '#faad14',
