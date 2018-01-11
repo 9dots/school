@@ -1,11 +1,19 @@
 /* Header less */
 
-.main-nav {
-  line-height: 64px;
+@import "../../theme/vars/palette.less";
+
+.header {
+  line-height: 62px;
+  background: @blue;
+
+  .main-nav {
+    line-height: inherit;
+  }
+
   .logo {
-    float: left;
-    font-weight: bolder;
-    margin: 0 20px;
+    background: @blue;
+    text-align: center;
+    border-right: 1px solid fade(white, 20);
     color: white;
   }
 }

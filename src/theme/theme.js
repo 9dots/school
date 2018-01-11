@@ -1,10 +1,7 @@
-const lessToJs = require('less-vars-to-js')
-const fs = require('fs')
-
-const paletteLess = fs.readFileSync('src/theme/colors.less', 'utf8')
-const palette = lessToJs(paletteLess)
+const palette = require('./vars/palette.js')
 
 module.exports = {
   'primary-color': palette['@blue'],
-  'layout-header-background': palette['@blue']
+  'layout-header-background': palette['@blue'],
+  'layout-sider-background': 'white'
 }
