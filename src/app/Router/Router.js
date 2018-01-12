@@ -1,7 +1,9 @@
 import { BrowserRouter, Route } from 'react-router-dom'
 import {
+  userIsNotAuthenticatedRedir,
   userIsAuthenticatedRedir,
-  userIsNotAuthenticatedRedir
+  userHasNoSchool,
+  userHasSchool
 } from '../../auth'
 import TeacherLayout from './TeacherLayout'
 import { connect } from 'react-redux'
@@ -26,7 +28,7 @@ const Router = enhance(props => {
           path='/login'
           exact
           component={userIsNotAuthenticatedRedir(Splash)} />
-        <Route path='/' exact component={userIsAuthenticatedRedir(App)} />
+        <Route path='/' component={userIsAuthenticatedRedir(App)} />
       </div>
     </BrowserRouter>
   )
@@ -35,7 +37,11 @@ const Router = enhance(props => {
 const App = props => (
   <div>
     <TeacherLayout>
-      <Route path='/' component={Classes} />
+      <Route path='/' exact component={userHasSchool(Classes)} />
+      <Route
+        path='/onboarding'
+        exact
+        component={userHasNoSchool(() => <div>onboarding</div>)} />
     </TeacherLayout>
   </div>
 )
