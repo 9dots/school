@@ -23,24 +23,24 @@ firebase.firestore()
 
 const rrfbConfig = {
   userProfile: 'users',
-  useFirestoreForProfile: true
+  useFirestoreForProfile: true,
+  // enableRedirectHandling: false,
+  onRedirectResult: (authData, firebase, dispatch) =>
+    console.log(authData, (firebase.auth().currentUser || {}).uid, 'redirect')
 }
+
+const createStoreWithFirebase = compose(
+  reactReduxFirebase(firebase, rrfbConfig),
+  reduxFirestore(firebase)
+)(createStore)
 
 export default (initialState = {}, history) => {
   const sagaMiddleware = createSagaMiddleware()
-  const middleware = [
-    sagaMiddleware,
-    location(),
-    reduxFirestore,
-    createLogger()
-  ]
-  const store = createStore(
+  const middleware = [sagaMiddleware, location(), createLogger()]
+  const store = createStoreWithFirebase(
     rootReducer,
     {}, // initial state
-    compose(
-      reactReduxFirebase(firebase, rrfbConfig),
-      applyMiddleware(...middleware)
-    )
+    applyMiddleware(...middleware)
   )
   sagaMiddleware.run(rootSaga, getFirebase)
   return store
