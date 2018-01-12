@@ -7,8 +7,8 @@ import Loading from './app/Loading'
 const locationHelper = locationHelperBuilder({})
 
 const userIsAuthenticatedDefaults = {
-  authenticatedSelector: state => !state.firebase.auth.isEmpty,
-  authenticatingSelector: state => !state.firebase.auth.isLoaded,
+  authenticatedSelector: state => !state.firebase.profile.isEmpty,
+  authenticatingSelector: state => !state.firebase.profile.isLoaded,
   wrapperDisplayName: 'UserIsAuthenticated'
 }
 
@@ -22,13 +22,22 @@ export const userIsAuthenticatedRedir = connectedRouterRedirect({
   redirectPath: '/login'
 })
 
-export const userIsAdminRedir = connectedRouterRedirect({
+export const userHasSchool = connectedRouterRedirect({
+  redirectPath: '/onboarding',
+  allowRedirectBack: false,
+  authenticatedSelector: state =>
+    state.firebase.profile &&
+    Object.keys(state.firebase.profile.schools || {}).length > 0,
+  wrapperDisplayName: 'UserHasSchool'
+})
+
+export const userHasNoSchool = connectedRouterRedirect({
   redirectPath: '/',
   allowRedirectBack: false,
   authenticatedSelector: state =>
-    state.user.data !== null && state.user.data.isAdmin,
-  predicate: user => user.isAdmin,
-  wrapperDisplayName: 'UserIsAdmin'
+    state.firebase.profile &&
+    Object.keys(state.firebase.profile.schools || {}).length === 0,
+  wrapperDisplayName: 'UserHasNoSchool'
 })
 
 const userIsNotAuthenticatedDefaults = {

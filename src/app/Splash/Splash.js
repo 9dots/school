@@ -7,10 +7,7 @@ import './Splash.less'
 const enhancer = compose(
   firebaseConnect(),
   withHandlers({
-    login: props => event =>
-      props.firebase
-        .login({ provider: 'google' })
-        .then(res => console.log('signed in', res))
+    login: props => event => props.firebase.login({ provider: 'google' })
   })
 )
 

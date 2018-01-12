@@ -23,10 +23,7 @@ firebase.firestore()
 
 const rrfbConfig = {
   userProfile: 'users',
-  useFirestoreForProfile: true,
-  // enableRedirectHandling: false,
-  onRedirectResult: (authData, firebase, dispatch) =>
-    console.log(authData, (firebase.auth().currentUser || {}).uid, 'redirect')
+  useFirestoreForProfile: true
 }
 
 const createStoreWithFirebase = compose(
