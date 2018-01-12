@@ -18,6 +18,7 @@ const Splash = enhancer(props => {
   return (
     <Row className='splash' align='middle' justify='center' type='flex'>
       <Col>
+        <div>DOCKET</div>
         <Button onClick={props.login}>Sign In</Button>
       </Col>
     </Row>
