@@ -25,7 +25,6 @@ const Router = enhance(props => {
   return (
     <BrowserRouter>
       <div>
-        <Route path='/onboarding' component={Onboarding} />
         <Route
           path='/login'
           exact
@@ -40,10 +39,7 @@ const App = props => (
   <div>
     <TeacherLayout>
       <Route path='/' exact component={userHasSchool(Classes)} />
-      <Route
-        path='/onboarding'
-        exact
-        component={userHasNoSchool(() => <div>onboarding</div>)} />
+      <Route path='/onboarding' exact component={userHasNoSchool(Onboarding)} />
     </TeacherLayout>
   </div>
 )
