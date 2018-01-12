@@ -6,6 +6,7 @@ import {
   userHasSchool
 } from '../../auth'
 import TeacherLayout from './TeacherLayout'
+import Onboarding from '../Onboarding'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import PropTypes from 'prop-types'
@@ -24,6 +25,7 @@ const Router = enhance(props => {
   return (
     <BrowserRouter>
       <div>
+        <Route path='/onboarding' component={Onboarding} />
         <Route
           path='/login'
           exact
