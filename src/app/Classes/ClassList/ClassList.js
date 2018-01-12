@@ -44,9 +44,15 @@ class ClassList extends Component {
 }
 
 const schoolMenu = (
-  <Menu style={{ margin: '0 10px' }}>
-    <Menu.Item>Test</Menu.Item>
-    <Menu.Item>Test 2</Menu.Item>
+  <Menu className='school-menu'>
+    <Menu.Item className='no-pointer'>
+      <b>My Schools </b>
+    </Menu.Item>
+    <Menu.Divider />
+    <Menu.Item>Rivera Middle School</Menu.Item>
+    <Menu.Item>Bancroft Middle School</Menu.Item>
+    <Menu.Item>Corona Del Mar High School</Menu.Item>
+    <Menu.Item>Hillside Middle School</Menu.Item>
   </Menu>
 )
 
