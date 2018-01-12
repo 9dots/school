@@ -7,7 +7,6 @@ import './Onboarding.less'
 const Onboarding = props => {
   return (
     <div>
-      <Header />
       <Modal
         title={<Title />}
         visible={true}
