@@ -1,13 +1,14 @@
 // import PropTypes from 'prop-types'
 import { Menu, Icon, Layout, Row, Col } from 'antd'
 import React from 'react'
+import UserMenu from './UserMenu'
 import './Header.less'
+import styles from 'theme/vars/vars.js'
 
 const Header = props => {
   return (
     <Layout className='header'>
-      <Layout.Sider width={230}>
-        {/* <Col span={4} lg={6} xl={5} xxl={4}> */}
+      <Layout.Sider width={styles['@sidebar-width']}>
         <div
           className='logo'
           style={{
@@ -24,8 +25,11 @@ const Header = props => {
         </div>
       </Layout.Sider>
       <Layout.Content>
-        {/* <Col span={20} lg={18} xl={19} xxl={20}> */}
-        <Menu className='main-nav' mode='horizontal' theme='dark'>
+        <Menu
+          className='main-nav'
+          mode='horizontal'
+          theme='dark'
+          style={{ float: 'left' }}>
           <Menu.Item>
             <Icon type='book' />
             Classes
@@ -39,7 +43,7 @@ const Header = props => {
             Courses
           </Menu.Item>
         </Menu>
-        {/* </Col> */}
+        <UserMenu />
       </Layout.Content>
     </Layout>
   )

@@ -1,0 +1,6 @@
+
+{
+  "name": "UserMenu",
+  "main": "UserMenu.js",
+  "browser": "UserMenu.js"
+}

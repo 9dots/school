@@ -1,19 +1,41 @@
 /* Header less */
 
 @import "../../theme/vars/palette.less";
+@import "../../theme/vars/vars.less";
 
 .header {
-  line-height: 62px;
+  line-height: unit(@header-height, px);
+  position: relative;
+  z-index: 999;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
   background: @blue;
-
-  .main-nav {
-    line-height: inherit;
-  }
 
   .logo {
     background: @blue;
     text-align: center;
     border-right: 1px solid fade(white, 20);
     color: white;
+  }
+
+  .ant-layout-content {
+    padding: 0 20px;
+  }
+
+  .main-nav {
+    line-height: inherit;
+    padding-left: 10px;
+    float: left;
+    .ant-menu-item {
+      height: unit(@header-height, px);
+      border-bottom: 3px solid @blue;
+    }
+    .ant-menu-item-selected {
+      border-bottom: 3px solid white;
+    }
+  }
+
+  .user-menu {
+    color: white;
+    float: right;
   }
 }

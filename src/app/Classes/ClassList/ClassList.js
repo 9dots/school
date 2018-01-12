@@ -18,40 +18,46 @@ class ClassList extends Component {
   }
   render () {
     return (
-      <span>
-        <UserDropdown />
-        <Menu
-          mode='inline'
-          style={{
-            minHeight: 'calc(100vh - 64px)'
-          }}>
+      <div
+        style={{
+          minHeight: 'calc(100vh - 62px)',
+          borderRight: '1px solid #e8e8e8'
+        }}>
+        <SchoolDropdown />
+        <Menu mode='inline' style={{ borderRight: 0 }}>
           <Menu.Divider />
           {classes.map(i => <Menu.Item key={i}>{i}</Menu.Item>)}
           <Menu.Divider />
-          <Menu.Item style={{ padding: '12px 24px' }}>
-            <Button style={{ width: '100%' }} onClick={this.showModal}>
-              <Icon type='plus' />New Class
-            </Button>
-          </Menu.Item>
         </Menu>
+        <div style={{ padding: '12px 24px' }}>
+          <Button style={{ width: '100%' }} onClick={this.showModal}>
+            <Icon type='plus' />New Class
+          </Button>
+        </div>
         <ClassModal
           visible={this.state.visible}
           onOk={this.hideModal}
           onCancel={this.hideModal} />
-      </span>
+      </div>
     )
   }
 }
 
-const userMenu = (
-  <Menu style={{ margin: '0 10px', border: '1px solid rgba(0,0,0,.05)' }}>
-    <Menu.Item>Test</Menu.Item>
-    <Menu.Item>Test 2</Menu.Item>
+const schoolMenu = (
+  <Menu className='school-menu'>
+    <Menu.Item className='no-pointer'>
+      <b>My Schools </b>
+    </Menu.Item>
+    <Menu.Divider />
+    <Menu.Item>Rivera Middle School</Menu.Item>
+    <Menu.Item>Bancroft Middle School</Menu.Item>
+    <Menu.Item>Corona Del Mar High School</Menu.Item>
+    <Menu.Item>Hillside Middle School</Menu.Item>
   </Menu>
 )
 
-const UserDropdown = props => (
-  <Dropdown overlay={userMenu} trigger={['click']} placement='bottomCenter'>
+const SchoolDropdown = props => (
+  <Dropdown overlay={schoolMenu} trigger={['click']} placement='bottomCenter'>
     <Row
       type='flex'
       align='middle'

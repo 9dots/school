@@ -7,6 +7,7 @@ const StudentList = props => {
   return (
     <Menu
       mode='vertical-right'
+      fluid
       style={{
         minHeight: 'calc(100vh - 64px)',
         paddingTop: 20
