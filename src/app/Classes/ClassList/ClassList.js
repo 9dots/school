@@ -53,6 +53,9 @@ const schoolMenu = (
     <Menu.Item>Bancroft Middle School</Menu.Item>
     <Menu.Item>Corona Del Mar High School</Menu.Item>
     <Menu.Item>Hillside Middle School</Menu.Item>
+    <Menu.Item>
+      <Icon type='plus' />New{' '}
+    </Menu.Item>
   </Menu>
 )
 

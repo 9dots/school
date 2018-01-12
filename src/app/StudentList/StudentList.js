@@ -9,11 +9,11 @@ const StudentList = props => {
       mode='vertical-right'
       fluid
       style={{
-        minHeight: 'calc(100vh - 64px)',
+        minHeight: 'calc(100vh - 62px)',
         paddingTop: 20
       }}>
       {[1, 2, 3, 4, 5].map(i => (
-        <Menu.Item key={i}>
+        <Menu.Item key={i} onClick={() => console.log(i)}>
           <Avatar
             size='small'
             style={{ marginRight: 10, textAlign: 'center' }}

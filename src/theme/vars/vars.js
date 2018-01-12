@@ -1,1 +1,1 @@
-module.exports = {"@sidebar-width":"250"}
+module.exports = {"@sidebar-width":"250","@header-height":"62"}
