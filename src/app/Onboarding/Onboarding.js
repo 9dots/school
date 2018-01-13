@@ -1,40 +1,53 @@
 import PropTypes from 'prop-types'
-import React from 'react'
-import { Modal, Form, Input, AutoComplete, Steps } from 'antd'
-import Header from '../Header'
+import React, { Component } from 'react'
+import { Modal, Form, Input, Row, Col, AutoComplete } from 'antd'
 import './Onboarding.less'
 
-const Onboarding = props => {
-  return (
-    <div>
-      <Modal
-        title={<Title />}
-        visible={true}
-        maskClosable={false}
-        closable={false}>
-        <Form>
-          <Form.Item label='Full Name'>
-            <Input placeholder='Mabel Royster' />
-          </Form.Item>
-          <Form.Item label='Displayed Name'>
-            <Input placeholder='Mrs. Royster' />
-          </Form.Item>
-          <Form.Item label='Username'>
-            <Input placeholder='mrsroyster' />
-          </Form.Item>
-        </Form>
-      </Modal>
-    </div>
-  )
+class Onboarding extends Component {
+  render () {
+    return (
+      <div>
+        <Modal
+          title={'Complete Your Profile!'}
+          visible={true}
+          maskClosable={false}
+          closable={false}>
+          <Form>
+            <Item {...itemLayout} label='Full Name'>
+              <Row gutter={8}>
+                <Col span={12}>
+                  <Input placeholder='Mabel' />
+                </Col>
+                <Col span={12}>
+                  <Input placeholder='Royster' />
+                </Col>
+              </Row>
+            </Item>
+            <Item label='Displayed Name'>
+              <Input placeholder='Mrs. Royster' />
+            </Item>
+            <Item label='School'>
+              <AutoComplete placeholder='type school name' />
+            </Item>
+          </Form>
+        </Modal>
+      </div>
+    )
+  }
 }
 
-const Title = props => (
-  <Steps size='small' current={0}>
-    <Steps.Step title='Name' />
-    <Steps.Step title='School' />
-    <Steps.Step title='Confirm' />
-  </Steps>
-)
+const itemLayout = {
+  labelCol: {
+    xs: { span: 24 },
+    sm: { span: 7 }
+  },
+  wrapperCol: {
+    xs: { span: 24 },
+    sm: { span: 17 }
+  }
+}
+
+const Item = props => <Form.Item {...itemLayout} {...props} />
 
 Onboarding.propTypes = {}
 
