@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types'
-import { Modal, Form, Input, AutoComplete } from 'antd'
 import React from 'react'
-import './ClassModal.less'
+import { Modal, Form, Input, AutoComplete } from 'antd'
+import './SchoolModal.less'
 
 const data = ['1', '2', '3', '4', '5']
 
-const ClassModal = props => {
+const SchoolModal = props => {
   return (
-    <Modal {...props} title='Class Modal'>
+    <Modal {...props} title='School Modal'>
       <Form>
         <Form.Item>
           <AutoComplete dataSource={data} size='large' />
@@ -23,6 +23,6 @@ const ClassModal = props => {
   )
 }
 
-ClassModal.propTypes = {}
+SchoolModal.propTypes = {}
 
-export default ClassModal
+export default SchoolModal
