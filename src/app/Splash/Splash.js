@@ -1,6 +1,6 @@
 import { firebaseConnect } from 'react-redux-firebase'
 import { compose, withHandlers } from 'recompose'
-import { Row, Col, Button } from 'antd'
+import { Row, Col, Button, Icon } from 'antd'
 import React from 'react'
 import './Splash.less'
 
@@ -15,8 +15,14 @@ const Splash = enhancer(props => {
   return (
     <Row className='splash' align='middle' justify='center' type='flex'>
       <Col>
-        <div>DOCKET</div>
-        <Button onClick={props.login}>Sign In</Button>
+        <h1>
+          <Icon type='rocket' />
+          DOCKET
+        </h1>
+        <Button onClick={props.login} ghost size='large'>
+          <Icon type='login' />
+          SIGN IN
+        </Button>
       </Col>
     </Row>
   )
