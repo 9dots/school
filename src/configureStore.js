@@ -1,11 +1,14 @@
 import { reactReduxFirebase, getFirebase } from 'react-redux-firebase'
 import { createStore, applyMiddleware, compose } from 'redux'
+import fetch, { fetchEncodeJSON } from 'redux-effects-fetch'
 import { reduxFirestore } from 'redux-firestore'
 import createSagaMiddleware from 'redux-saga'
 import location from 'redux-effects-location'
 import { createLogger } from 'redux-logger'
 import rootReducer from './app/reducers'
+import effects from 'redux-effects'
 import firebase from 'firebase'
+import thunk from 'redux-thunk'
 import rootSaga from './sagas'
 import 'firebase/firestore'
 
@@ -23,7 +26,8 @@ firebase.firestore()
 
 const rrfbConfig = {
   userProfile: 'users',
-  useFirestoreForProfile: true
+  useFirestoreForProfile: true,
+  updateProfileOnLogin: false
 }
 
 const createStoreWithFirebase = compose(
@@ -33,24 +37,20 @@ const createStoreWithFirebase = compose(
 
 export default (initialState = {}, history) => {
   const sagaMiddleware = createSagaMiddleware()
-  const middleware = [sagaMiddleware, location(), createLogger()]
+  const middleware = [
+    fetchEncodeJSON,
+    sagaMiddleware,
+    createLogger(),
+    location(),
+    effects,
+    fetch,
+    thunk
+  ]
   const store = createStoreWithFirebase(
     rootReducer,
     {}, // initial state
     applyMiddleware(...middleware)
   )
-  sagaMiddleware.run(rootSaga, getFirebase)
+  // sagaMiddleware.run(rootSaga, getFirebase)
   return store
 }
-
-// export default function configureStore (preloadedState) {
-//   const createStoreWithFirebase = compose(
-//     reactReduxFirebase(firebase, rrfbConfig),
-//     reduxFirestore(firebase)
-//   )(createStore)
-//   return createStoreWithFirebase(
-//     rootReducer,
-//     preloadedState,
-//     applyMiddleware(, location())
-//   )
-// }
