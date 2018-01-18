@@ -1,6 +1,7 @@
 import ClassList from './ClassList'
 import StudentList from 'app/StudentList'
 import PropTypes from 'prop-types'
+import Lesson from 'app/Lesson'
 import { Card, Layout } from 'antd'
 import styles from 'theme/vars/vars.js'
 import React from 'react'
@@ -18,9 +19,7 @@ const Classes = props => {
           padding: 50,
           backgroundColor: '#FAFAFA'
         }}>
-        <LessonCard title={'Lesson 1'} />
-        <LessonCard title={'Lesson 2'} />
-        <LessonCard title={'Lesson 3'} />
+        {lessons.map((lesson, i) => <Lesson lesson={lesson} key={i} />)}
       </Layout.Content>
       <Layout.Sider width={styles['@sidebar-width']}>
         <StudentList />
@@ -29,10 +28,31 @@ const Classes = props => {
   )
 }
 
-const LessonCard = ({ title }) => (
-  <Card style={{ marginBottom: 20, borderRadius: 5 }}>{title}</Card>
-)
-
 Classes.propTypes = {}
 
 export default Classes
+
+const lessons = [
+  {
+    title: 'Myster Robot',
+    status: 'active'
+  },
+  {
+    title: 'pixelBotGo'
+  },
+  {
+    title: 'Multiple Steps'
+  },
+  {
+    title: 'Step By Step'
+  },
+  {
+    title: 'Step it Up'
+  },
+  {
+    title: 'PixelBots'
+  },
+  {
+    title: 'J@m taC0 5alAd'
+  }
+]

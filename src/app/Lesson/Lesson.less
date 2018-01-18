@@ -1,0 +1,60 @@
+/* Lesson less */
+
+@import "../../theme/vars/palette.less";
+
+.lesson {
+  border-radius: 10px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  opacity: 0.85;
+
+  &.active {
+    border: 0;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    opacity: 1;
+  }
+  .ant-card-head {
+    // border-radius: 10px 10px 0 0;
+    border: 0;
+  }
+  .ant-card-head-wrapper {
+    line-height: 31px;
+  }
+  .ant-card-head-title {
+    h3 {
+      margin: 0;
+    }
+  }
+  .ant-card-extra {
+    user-select: none;
+  }
+  .assets {
+    margin-right: 12px;
+    font-size: 18px;
+    .anticon {
+      margin-right: 6px;
+      &:hover {
+        opacity: 1;
+      }
+      &,
+      &:active {
+        color: #000;
+        opacity: 0.7;
+      }
+    }
+  }
+  .assign-btn {
+    width: 108px;
+  }
+  .active-indicator {
+    background: @green;
+    color: white;
+    border-radius: 999px;
+    border: 0;
+    .anticon {
+      font-weight: bolder;
+    }
+  }
+}
