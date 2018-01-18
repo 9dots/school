@@ -1,4 +1,21 @@
 /* Splash less */
+
+@import "../../theme/vars/palette.less";
+
 .splash {
   height: 100vh;
+  text-align: center;
+  background: @blue;
+  h1 {
+    letter-spacing: 2px;
+    font-size: 60px;
+    color: white;
+    margin: -20% 0 50px;
+    .anticon {
+      margin-right: 20px;
+    }
+  }
+  .ant-btn {
+    border-width: 2px;
+  }
 }
