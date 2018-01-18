@@ -29,8 +29,9 @@ const Header = props => {
           className='main-nav'
           mode='horizontal'
           theme='dark'
+          selectedKeys={['classes']}
           style={{ float: 'left' }}>
-          <Menu.Item>
+          <Menu.Item key='classes'>
             <Icon type='book' />
             Classes
           </Menu.Item>
