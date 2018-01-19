@@ -80,6 +80,23 @@
   dependencies:
     "@f/foreach-obj" "^1.0.1"
 
+"@f/filter-array@^1.0.0":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@f/filter-array/-/filter-array-1.1.1.tgz#d675be2b8997f7dd009aff5531342d1c2156b825"
+
+"@f/filter-obj@^1.0.0":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@f/filter-obj/-/filter-obj-1.1.1.tgz#58d72b178c7050a33cc46b7071c3014366debeac"
+
+"@f/filter@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@f/filter/-/filter-1.1.1.tgz#8abe39efb48024f553082d8cf9f6648cd9fa8187"
+  dependencies:
+    "@f/filter-array" "^1.0.0"
+    "@f/filter-obj" "^1.0.0"
+    "@f/is-array" "^1.0.0"
+    "@f/is-object" "^1.0.0"
+
 "@f/foreach-obj@^1.0.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@f/foreach-obj/-/foreach-obj-1.1.1.tgz#5ad38a629c0298290a8d06a39f281d979a6804c4"
@@ -142,6 +159,10 @@
 "@f/map-obj@^1.1.2":
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/@f/map-obj/-/map-obj-1.2.2.tgz#d9a9f8bd76caa2ae11b633dda24d9c6cccc1e60d"
+
+"@f/map-values@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@f/map-values/-/map-values-1.0.0.tgz#ca5f4329047504f03a3dd08827bec87e0deaeabb"
 
 "@f/map@^1.5.3":
   version "1.5.3"

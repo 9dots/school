@@ -38,7 +38,6 @@ const Router = enhance(props => {
 const App = props => (
   <div>
     <TeacherLayout>
-      {/* <Route path='/' exact component={Classes} /> */}
       <Route path='/' exact component={userHasSchool(Classes)} />
       <Route path='/onboarding' exact component={userHasNoSchool(Onboarding)} />
     </TeacherLayout>

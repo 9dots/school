@@ -1,18 +1,38 @@
-import ClassList from './ClassList'
+import { firestoreConnect } from 'react-redux-firebase'
 import StudentList from 'app/StudentList'
-import PropTypes from 'prop-types'
-import lesson from 'app/Lesson'
+import React, { Component } from 'react'
 import { Collapse, Layout } from 'antd'
 import styles from 'theme/vars/vars.js'
-import React, { Component } from 'react'
+import ClassList from './ClassList'
+import { compose } from 'recompose'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import lesson from 'app/Lesson'
 import './Classes.less'
+
+const enhancer = compose(
+  connect(({ firebase: { auth, profile } }) => ({
+    profile
+  })),
+  firestoreConnect(props => [
+    {
+      collection: 'schools',
+      doc: props.profile.currentSchool,
+      storeAs: 'currentSchool'
+    }
+  ]),
+  connect(({ firestore: { data: { currentSchool = {} } } }, props) => ({
+    currentSchool: { ...currentSchool, id: props.profile.currentSchool }
+  }))
+)
 
 class Classes extends Component {
   render () {
+    const { currentSchool } = this.props
     return (
       <Layout>
         <Layout.Sider width={styles['@sidebar-width']}>
-          <ClassList />
+          <ClassList currentSchool={currentSchool} />
         </Layout.Sider>
         <Layout.Content
           style={{
@@ -37,7 +57,7 @@ class Classes extends Component {
 
 Classes.propTypes = {}
 
-export default Classes
+export default enhancer(Classes)
 
 const lessons = [
   {
