@@ -1,21 +1,22 @@
 import PropTypes from 'prop-types'
-import { Collapse, Button, Icon, Tooltip, Row, Col } from 'antd'
+import { Collapse, Button, Icon, Tooltip, Row, Col, List } from 'antd'
+import Task from './Task'
 import React from 'react'
 import './Lesson.less'
 
 function lesson ({ lesson, key }) {
-  const { title, assigned } = lesson
+  const { displayName, assigned, description, tasks = [] } = lesson
 
   return (
     <Collapse.Panel
       className='lesson'
       key={key}
       showArrow={false}
-      header={<Header assigned={assigned} title={title} />}>
-      <span>
-        Some Sort Of Text about things and how this works or something I dont
-        know
-      </span>
+      header={<Header assigned={assigned} title={displayName} />}>
+      <p>{description}</p>
+      <List direction='vertical'>
+        {tasks.map((task, i) => <Task task={task} key={i} i={i} />)}
+      </List>
     </Collapse.Panel>
   )
 }
@@ -31,32 +32,28 @@ const Header = ({ assigned, title }) => (
   </Row>
 )
 
-const Assets = () => (
-  <span className='assets'>
-    <Tooltip title='Lesson Plan' mouseEnterDelay={0.4}>
-      <a
-        style={{ marginRight: 12 }}
-        onClick={e => {
-          e.stopPropagation()
-        }}>
-        <Icon type='bars' />
-      </a>
-    </Tooltip>
-    <Tooltip title='Slides' mouseEnterDelay={0.4}>
-      <a
-        onClick={e => {
-          e.stopPropagation()
-        }}>
-        <Icon type='file-ppt' />
-      </a>
-    </Tooltip>
-  </span>
-)
-
 const Extra = ({ assigned }) => {
   return (
     <span>
-      <Assets />
+      <span className='assets'>
+        <Tooltip title='Lesson Plan' mouseEnterDelay={0.4}>
+          <a
+            style={{ marginRight: 12 }}
+            onClick={e => {
+              e.stopPropagation()
+            }}>
+            <Icon type='bars' />
+          </a>
+        </Tooltip>
+        <Tooltip title='Slides' mouseEnterDelay={0.4}>
+          <a
+            onClick={e => {
+              e.stopPropagation()
+            }}>
+            <Icon type='file-ppt' />
+          </a>
+        </Tooltip>
+      </span>
       <span
         onClick={e => {
           e.stopPropagation()

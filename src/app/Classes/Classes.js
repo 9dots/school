@@ -41,28 +41,58 @@ export default Classes
 
 const lessons = [
   {
-    title: 'Myster Robot',
-    assigned: true
+    displayName: 'Myster Robot',
+    assigned: true,
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+    tasks: [
+      {
+        displayName: 'Get Started',
+        description: 'Do what the task tells you to do'
+      },
+      {
+        displayName: 'Make a Taco!',
+        description: 'Follow the link that is provide www.tacojam.com'
+      },
+      {
+        displayName: 'Do a PixelBots lesson',
+        description:
+          "Go to pixelBots and do the what you're supposed to do.  Do it now!"
+      },
+      {
+        displayName: 'Get Started',
+        description: 'Do what the task tells you to do'
+      },
+      {
+        displayName: 'Make a Taco!',
+        description: 'Follow the link that is provide www.tacojam.com'
+      },
+      {
+        displayName: 'Do a PixelBots lesson',
+        description:
+          "Go to pixelBots and do the what you're supposed to do.  Do it now!"
+      }
+    ]
   },
   {
-    title: 'pixelBotGo'
+    displayName: 'pixelBotGo'
   },
   {
-    title: 'Multiple Steps'
+    displayName: 'Multiple Steps'
   },
   {
-    title: 'Step By Step'
+    displayName: 'Step By Step'
   },
   {
-    title: 'Step it Up'
+    displayName: 'Step it Up'
   },
   {
-    title: 'PixelBots'
+    displayName: 'PixelBots'
   },
   {
-    title: 'J@m taC0 5alAd'
+    displayName: 'J@m taC0 5alAd'
   },
   {
-    title: 'PixelBots'
+    displayName: 'PixelBots'
   }
 ]
