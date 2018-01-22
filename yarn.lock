@@ -6912,7 +6912,7 @@ redux-firestore@^0.2.5:
 
 "redux-form-antd@https://github.com/danleavitt0/redux-form-antd.git":
   version "0.0.15"
-  resolved "https://github.com/danleavitt0/redux-form-antd.git#205b86a83c1651ea0fdaa074e5e5f3b3361a4c04"
+  resolved "https://github.com/danleavitt0/redux-form-antd.git#54421ddb4d3d8c16c316db1d3d5b2ef286eee375"
   dependencies:
     antd "^2.13.8"
     babel-preset-env "^1.5.1"

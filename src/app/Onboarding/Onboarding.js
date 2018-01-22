@@ -1,5 +1,5 @@
 import { TextField, SelectField } from 'redux-form-antd'
-import { Modal, Form, Row, Col } from 'antd'
+import { Modal, Form, Row, Col, Button } from 'antd'
 import { Field } from 'redux-form'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
@@ -17,46 +17,53 @@ const Onboarding = props => {
       <Modal
         title={'Complete Your Profile!'}
         visible={true}
+        onOk={props.handleSubmit(props.onSubmit)}
         maskClosable={false}
-        closable={false}>
+        closable={false}
+        footer={
+          <Button type='primary' onClick={props.handleSubmit(props.onSubmit)}>
+            Submit
+          </Button>
+        }>
         <form onSubmit={props.handleSubmit(props.onSubmit)}>
-          <Row gutter={8}>
-            <Col span={12}>
-              <Item {...itemLayout} name='given' label='First Name'>
-                <Field
-                  {...commonProps}
-                  name='name.given'
-                  component={TextField}
-                  placeholder='Maybel' />
-              </Item>
-            </Col>
-            <Col span={12}>
-              <Item {...itemLayout} name='family' label='Last Name'>
-                <Field
-                  {...commonProps}
-                  name='name.family'
-                  component={TextField}
-                  placeholder='Royster' />
-              </Item>
-            </Col>
-          </Row>
+          <Item label='Full Name'>
+            <Row gutter={8}>
+              <Col span={12}>
+                <Form.Item name='given'>
+                  <Field
+                    {...commonProps}
+                    name='name.given'
+                    component={TextField}
+                    placeholder='First' />
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item name='family' style={{ marginBottom: 0 }}>
+                  <Field
+                    {...commonProps}
+                    name='name.family'
+                    component={TextField}
+                    placeholder='Last' />
+                </Form.Item>
+              </Col>
+            </Row>
+          </Item>
           <Item label='Displayed Name'>
             <Field
               {...commonProps}
               validateStatus='validating'
               name='displayName'
               component={TextField}
-              placeholder='Ms. Royster' />
+              placeholder='Ms. Lastname' />
           </Item>
           <Item label='School'>
             <Field
               {...commonProps}
               name='school'
+              placeholder='Select a School'
               options={props.schools}
-              component={SelectField}
-              placeholder='abc123' />
+              component={SelectField} />
           </Item>
-          <input type='submit' />
         </form>
       </Modal>
     </div>
