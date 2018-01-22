@@ -18,13 +18,14 @@ class ClassList extends Component {
     })
   }
   render () {
+    const { currentSchool } = this.props
     return (
       <div
         style={{
           minHeight: 'calc(100vh - 62px)',
           borderRight: '1px solid #e8e8e8'
         }}>
-        <SchoolDropdown />
+        <SchoolDropdown currentSchool={currentSchool} />
         <Menu mode='inline' style={{ borderRight: 0 }}>
           <Menu.Divider />
           {classes.map(i => <Menu.Item key={i}>{i}</Menu.Item>)}

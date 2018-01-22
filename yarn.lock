@@ -74,6 +74,129 @@
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@f/create-action/-/create-action-1.1.1.tgz#69c61666c9ec31d69a4dd1a14a915339590f72f8"
 
+"@f/extend@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@f/extend/-/extend-1.0.0.tgz#0560d9b26dda8160c655f60ef31c61bc6ee94adc"
+  dependencies:
+    "@f/foreach-obj" "^1.0.1"
+
+"@f/filter-array@^1.0.0":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@f/filter-array/-/filter-array-1.1.1.tgz#d675be2b8997f7dd009aff5531342d1c2156b825"
+
+"@f/filter-obj@^1.0.0":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@f/filter-obj/-/filter-obj-1.1.1.tgz#58d72b178c7050a33cc46b7071c3014366debeac"
+
+"@f/filter@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@f/filter/-/filter-1.1.1.tgz#8abe39efb48024f553082d8cf9f6648cd9fa8187"
+  dependencies:
+    "@f/filter-array" "^1.0.0"
+    "@f/filter-obj" "^1.0.0"
+    "@f/is-array" "^1.0.0"
+    "@f/is-object" "^1.0.0"
+
+"@f/foreach-obj@^1.0.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@f/foreach-obj/-/foreach-obj-1.1.1.tgz#5ad38a629c0298290a8d06a39f281d979a6804c4"
+
+"@f/generator@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@f/generator/-/generator-1.0.0.tgz#a1748d8157060ed78d28bd813cf265bd0d39e613"
+  dependencies:
+    "@f/iterator-symbol" "^1.0.0"
+
+"@f/is-array@^1.0.0":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@f/is-array/-/is-array-1.1.1.tgz#cb3cd2f20016fc7b6d7049013c0318d75a222590"
+
+"@f/is-function@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@f/is-function/-/is-function-1.1.1.tgz#17d342a53ef7d2ff791371c2f4fa381245ce0231"
+
+"@f/is-functor@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@f/is-functor/-/is-functor-1.0.0.tgz#0052caa70f05d7a3d55e492ea03ab9c052dba3f5"
+  dependencies:
+    "@f/is-function" "^1.1.1"
+
+"@f/is-generator@^1.3.1", "@f/is-generator@^1.3.2":
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/@f/is-generator/-/is-generator-1.3.2.tgz#96240390caea4089498b4c05255328b4dfdb03c8"
+  dependencies:
+    "@f/is-function" "^1.1.1"
+
+"@f/is-iterator@^1.0.0", "@f/is-iterator@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@f/is-iterator/-/is-iterator-1.0.1.tgz#6eae20714e6449301783f4c3c7b291dcd7cc3f2b"
+  dependencies:
+    "@f/is-function" "^1.1.1"
+
+"@f/is-object@^1.0.0":
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/@f/is-object/-/is-object-1.1.4.tgz#278ddc91bd13645ac0b73963539e0e52677b7494"
+  dependencies:
+    "@f/is-function" "^1.1.1"
+
+"@f/iterator-symbol@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@f/iterator-symbol/-/iterator-symbol-1.0.0.tgz#227390d577a4314165ca3c2a2a9d383c2dc29e74"
+
+"@f/map-array@^1.1.0":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@f/map-array/-/map-array-1.2.1.tgz#9fc7e29b480e85186f8795ddbc2cfaec120c9bf1"
+
+"@f/map-gen@^1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@f/map-gen/-/map-gen-1.6.0.tgz#82ad6ad7fc78f0d1b09537f07007108ee9e04ee1"
+  dependencies:
+    "@f/is-function" "^1.1.1"
+    "@f/is-iterator" "^1.0.0"
+    "@f/slice" "^1.0.0"
+    "@f/to-generator" "^1.0.1"
+
+"@f/map-obj@^1.1.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@f/map-obj/-/map-obj-1.2.2.tgz#d9a9f8bd76caa2ae11b633dda24d9c6cccc1e60d"
+
+"@f/map-values@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@f/map-values/-/map-values-1.0.0.tgz#ca5f4329047504f03a3dd08827bec87e0deaeabb"
+
+"@f/map@^1.5.3":
+  version "1.5.3"
+  resolved "https://registry.yarnpkg.com/@f/map/-/map-1.5.3.tgz#952947a4fb06d86cf4c55667c38186f43896d757"
+  dependencies:
+    "@f/is-array" "^1.0.0"
+    "@f/is-functor" "^1.0.0"
+    "@f/is-generator" "^1.3.2"
+    "@f/is-iterator" "^1.0.1"
+    "@f/is-object" "^1.0.0"
+    "@f/map-array" "^1.1.0"
+    "@f/map-gen" "^1.6.0"
+    "@f/map-obj" "^1.1.2"
+
+"@f/set-proto@^1.0.0":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@f/set-proto/-/set-proto-1.0.1.tgz#8ed0b2da30908e9575a0233f9f7795a22b1e5052"
+  dependencies:
+    "@f/extend" "^1.0.0"
+
+"@f/slice@^1.0.0", "@f/slice@^1.1.1":
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@f/slice/-/slice-1.1.3.tgz#f811c188d2591ffef254ed1631c244d8b4c34e70"
+
+"@f/to-generator@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@f/to-generator/-/to-generator-1.0.1.tgz#96126d97ab03b0bc69fa5a366417a556c84469b4"
+  dependencies:
+    "@f/generator" "^1.0.0"
+    "@f/is-function" "^1.1.1"
+    "@f/is-generator" "^1.3.1"
+    "@f/set-proto" "^1.0.0"
+    "@f/slice" "^1.1.1"
+
 "@firebase/app-types@0.1.0":
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/@firebase/app-types/-/app-types-0.1.0.tgz#27069ba4f8d74990eae7c88ec8f3d282e5215786"
@@ -2412,6 +2535,10 @@ es5-ext@^0.10.14, es5-ext@^0.10.35, es5-ext@^0.10.9, es5-ext@~0.10.14:
     es6-iterator "~2.0.1"
     es6-symbol "~3.1.1"
 
+es6-error@^4.0.0:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/es6-error/-/es6-error-4.1.1.tgz#9e3af407459deed47e9a91f9b885a84eb05c561d"
+
 es6-iterator@^2.0.1, es6-iterator@~2.0.1:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/es6-iterator/-/es6-iterator-2.0.3.tgz#a7de889141a05a94b0854403b2d0a0fbfa98f3b7"
@@ -2430,6 +2557,10 @@ es6-map@^0.1.3:
     es6-set "~0.1.5"
     es6-symbol "~3.1.1"
     event-emitter "~0.3.5"
+
+es6-promise@^3.0.2:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-3.3.1.tgz#a08cdde84ccdbf34d027a1451bc91d4bcd28a613"
 
 es6-promise@^4.0.5:
   version "4.2.2"
@@ -3903,7 +4034,7 @@ isobject@^2.0.0:
   dependencies:
     isarray "1.0.0"
 
-isomorphic-fetch@^2.1.1:
+isomorphic-fetch@^2.1.1, isomorphic-fetch@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/isomorphic-fetch/-/isomorphic-fetch-2.2.1.tgz#611ae1acf14f5e81f729507472819fe9733558a9"
   dependencies:
@@ -4453,7 +4584,7 @@ locate-path@^2.0.0:
     p-locate "^2.0.0"
     path-exists "^3.0.0"
 
-lodash-es@^4.2.0, lodash-es@^4.2.1:
+lodash-es@^4.17.3, lodash-es@^4.2.0, lodash-es@^4.2.1:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.4.tgz#dcc1d7552e150a0640073ba9cb31d70f032950e7"
 
@@ -6325,11 +6456,24 @@ redux-auth-wrapper@^2.0.2:
     prop-types "^15.5.0"
     query-string "4.3.4"
 
+redux-effects-fetch@^0.5.5:
+  version "0.5.5"
+  resolved "https://registry.yarnpkg.com/redux-effects-fetch/-/redux-effects-fetch-0.5.5.tgz#a54e9842c96caf60a1dcf786b82cdd57649dffc8"
+  dependencies:
+    es6-promise "^3.0.2"
+    isomorphic-fetch "^2.1.1"
+
 redux-effects-location@^0.2.7:
   version "0.2.7"
   resolved "https://registry.yarnpkg.com/redux-effects-location/-/redux-effects-location-0.2.7.tgz#f4bbd48958690dda509d934b542742f16b68e5a5"
   dependencies:
     bind-url "^0.1.2"
+
+redux-effects@^0.4.3:
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/redux-effects/-/redux-effects-0.4.3.tgz#147302d90a2674e6201dd9fe92e2ee9f5f16b0c6"
+  dependencies:
+    is-promise "^2.1.0"
 
 redux-firestore@^0.2.5:
   version "0.2.5"
@@ -6337,6 +6481,19 @@ redux-firestore@^0.2.5:
   dependencies:
     lodash "^4.17.4"
     prop-types "^15.6.0"
+
+redux-form@^7.2.0:
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/redux-form/-/redux-form-7.2.0.tgz#4465d9bc863e40b1704695d672bea75fcf81db04"
+  dependencies:
+    deep-equal "^1.0.1"
+    es6-error "^4.0.0"
+    hoist-non-react-statics "^2.3.1"
+    invariant "^2.2.2"
+    is-promise "^2.1.0"
+    lodash "^4.17.3"
+    lodash-es "^4.17.3"
+    prop-types "^15.5.9"
 
 redux-logger@^3.0.6:
   version "3.0.6"
@@ -6347,6 +6504,10 @@ redux-logger@^3.0.6:
 redux-saga@^0.16.0:
   version "0.16.0"
   resolved "https://registry.yarnpkg.com/redux-saga/-/redux-saga-0.16.0.tgz#0a231db0a1489301dd980f6f2f88d8ced418f724"
+
+redux-thunk@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.2.0.tgz#e615a16e16b47a19a515766133d1e3e99b7852e5"
 
 redux@^3.7.2:
   version "3.7.2"
