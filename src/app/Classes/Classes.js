@@ -21,10 +21,13 @@ class Classes extends Component {
             backgroundColor: '#F7F7F7'
           }}>
           <Collapse
-            defaultActiveKey={['0']}
+            defaultActiveKey={['active']}
             bordered={false}
             className='lessons-collapse'>
-            {lessons.map((val, key) => lesson({ lesson: val, key }))}
+            {lesson({ lesson: lessons[0], key: 'active' })}
+          </Collapse>
+          <Collapse bordered={false} className='lessons-collapse'>
+            {lessons.slice(1).map((val, key) => lesson({ lesson: val, key }))}
           </Collapse>
         </Layout.Content>
         <Layout.Sider width={styles['@sidebar-width']}>
