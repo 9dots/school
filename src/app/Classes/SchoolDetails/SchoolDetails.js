@@ -2,7 +2,6 @@ import { firestoreConnect } from 'react-redux-firebase'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import PropTypes from 'prop-types'
-import { Card } from 'antd'
 import React from 'react'
 
 import './SchoolDetails.less'
