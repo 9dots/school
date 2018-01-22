@@ -1,12 +1,16 @@
 import { firebaseConnect } from 'react-redux-firebase'
 import { Avatar, Dropdown, Menu, Icon } from 'antd'
 import { compose, withHandlers } from 'recompose'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'
 import './UserMenu.less'
 
 const enhancer = compose(
   firebaseConnect(),
+  connect(({ firebase: { profile } }) => ({
+    profile
+  })),
   withHandlers({
     logout: props => event => {
       switch (event.key) {
@@ -21,7 +25,7 @@ const enhancer = compose(
   })
 )
 
-const UserMenu = enhancer(({ logout }) => {
+const UserMenu = enhancer(({ logout, profile }) => {
   const overlay = (
     <Menu onClick={logout}>
       <Menu.Item>
@@ -43,7 +47,7 @@ const UserMenu = enhancer(({ logout }) => {
       <Dropdown overlay={overlay} trigger={['click']}>
         <div>
           <Avatar icon='user' />
-          Oscar Vanegas
+          {profile.displayName}
         </div>
       </Dropdown>
     </span>

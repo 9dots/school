@@ -1,15 +1,29 @@
 import { Menu, Icon, Avatar, Row, Col, Dropdown } from 'antd'
-import PropTypes from 'prop-types'
+import SchoolDetails from '../SchoolDetails'
 import React, { Component } from 'react'
 import SchoolModal from '../SchoolModal'
+import { connect } from 'react-redux'
+import mapValues from '@f/map-values'
+import { compose, withHandlers } from 'recompose'
+import PropTypes from 'prop-types'
+import { rpc } from '../../actions'
+
 import './SchoolDropdown.less'
 
-const schools = [
-  'Rivera Middle School',
-  'Bancroft Middle School',
-  'Corona Del Mar High School',
-  'Hillside Middle School'
-]
+const enhancer = compose(
+  connect(({ firebase: { profile } }, props) => ({
+    schools: mapValues((role, id) => ({ role, id }), profile.schools).filter(
+      school => school.id !== props.currentSchool.id
+    )
+  })),
+  withHandlers({
+    onSelect: ({ dispatch }) => key => {
+      return dispatch(rpc('user.setCurrentSchool', { school: key }))
+        .then(console.log)
+        .catch(console.warn)
+    }
+  })
+)
 
 class SchoolDropdown extends Component {
   state = { visible: false }
@@ -19,8 +33,7 @@ class SchoolDropdown extends Component {
         this.showModal()
         break
       default:
-        console.log(key)
-        break
+        this.props.onSelect(key)
     }
   }
   showModal = () => {
@@ -34,13 +47,18 @@ class SchoolDropdown extends Component {
     })
   }
   render () {
+    const { currentSchool, schools } = this.props
     const schoolMenu = (
       <Menu className='school-menu' onClick={this.menuClick}>
         <Menu.Item className='no-pointer'>
           <b>My Schools </b>
         </Menu.Item>
         <Menu.Divider />
-        {schools.map(val => <Menu.Item key={val}>{val}</Menu.Item>)}
+        {schools.map(val => (
+          <Menu.Item key={val.id}>
+            <SchoolDetails school={val.id} />
+          </Menu.Item>
+        ))}
         <Menu.Divider />
         <Menu.Item key='newSchool'>
           <Icon type='plus' style={{ marginRight: 10 }} /> New School
@@ -76,7 +94,7 @@ class SchoolDropdown extends Component {
               </Avatar>
             </Col>
             <Col span={18} className='ellipsis' style={{ paddingRight: 20 }}>
-              <b>Selma Middle School</b>
+              <b>{currentSchool.displayName}</b>
               <br />
               <i>Teacher</i>
               <Icon type='down' style={{ position: 'absolute', right: 0 }} />
@@ -94,4 +112,4 @@ class SchoolDropdown extends Component {
 
 SchoolDropdown.propTypes = {}
 
-export default SchoolDropdown
+export default enhancer(SchoolDropdown)
