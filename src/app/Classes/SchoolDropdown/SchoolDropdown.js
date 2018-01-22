@@ -9,15 +9,20 @@ import PropTypes from 'prop-types'
 import { rpc } from '../../actions'
 
 import './SchoolDropdown.less'
+import { firestoreConnect } from 'react-redux-firebase'
 
 const enhancer = compose(
-  connect(({ firebase: { profile } }, props) => ({
+  firestoreConnect(),
+  connect(({ firebase: { profile, auth: { uid } } }, props) => ({
     schools: mapValues((role, id) => ({ role, id }), profile.schools).filter(
       school => school.id !== props.currentSchool.id
     )
   })),
   withHandlers({
-    onSelect: ({ dispatch }) => key => {
+    onSelect: ({ dispatch, firestore, uid }) => key => {
+      // firestore.firestore().doc(`/users/${uid}`).update({
+      //   [`schools.${key}`]:
+      // })
       return dispatch(rpc('user.setCurrentSchool', { school: key }))
         .then(console.log)
         .catch(console.warn)

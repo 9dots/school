@@ -27,6 +27,7 @@
     "redux-effects-location": "^0.2.7",
     "redux-firestore": "^0.2.5",
     "redux-form": "^7.2.0",
+    "redux-form-antd": "https://github.com/danleavitt0/redux-form-antd.git",
     "redux-logger": "^3.0.6",
     "redux-saga": "^0.16.0",
     "redux-thunk": "^2.2.0"
