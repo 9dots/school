@@ -61,7 +61,7 @@ const Extra = ({ assigned }) => {
         {assigned ? (
           <Button className='active-indicator no-pointer assign-btn'>
             <Icon type='check' />
-            Assigned
+            Active
           </Button>
         ) : (
           <Button ghost type='primary' className='assign-btn'>

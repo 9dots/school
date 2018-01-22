@@ -1,7 +1,7 @@
 import { firestoreConnect } from 'react-redux-firebase'
 import StudentList from 'app/StudentList'
 import React, { Component } from 'react'
-import { Collapse, Layout } from 'antd'
+import { Collapse, Layout, Divider } from 'antd'
 import styles from 'theme/vars/vars.js'
 import ClassList from './ClassList'
 import { compose } from 'recompose'
@@ -46,6 +46,9 @@ class Classes extends Component {
             className='lessons-collapse'>
             {lesson({ lesson: lessons[0], key: 'active' })}
           </Collapse>
+          <Divider style={{ margin: '45px 0px 40px' }}>
+            Inactive Lessons
+          </Divider>
           <Collapse bordered={false} className='lessons-collapse'>
             {lessons.slice(1).map((val, key) => lesson({ lesson: val, key }))}
           </Collapse>

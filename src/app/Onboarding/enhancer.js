@@ -23,10 +23,10 @@ export default compose(
   ),
   withHandlers({
     onSubmit: ({ teacherSignUp, form, uid, dispatch }) => values => {
+      console.log(values)
       return dispatch(
         rpc('user.teacherSignUp', {
           teacher: uid,
-          school: 'abc123',
           ...values
         })
       )
