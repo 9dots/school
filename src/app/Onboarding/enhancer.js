@@ -26,7 +26,6 @@ export default compose(
       return dispatch(
         rpc('user.teacherSignUp', {
           teacher: uid,
-          school: 'abc123',
           ...values
         })
       )
