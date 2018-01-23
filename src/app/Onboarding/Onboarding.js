@@ -15,7 +15,7 @@ const Onboarding = props => {
   return (
     <div>
       <Modal
-        title={'Complete Your Profile!'}
+        title='Complete Your Profile!'
         visible={true}
         maskClosable={false}
         closable={false}>
@@ -52,9 +52,9 @@ const Onboarding = props => {
             <Field
               {...commonProps}
               name='school'
+              placeholder='Select School'
               options={props.schools}
-              component={SelectField}
-              placeholder='abc123' />
+              component={SelectField} />
           </Item>
           <input type='submit' />
         </form>
