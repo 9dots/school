@@ -34,6 +34,7 @@ class Classes extends Component {
         <Layout.Sider width={styles['@sidebar-width']}>
           <ClassList currentSchool={currentSchool} />
         </Layout.Sider>
+        {console.log(currentSchool)}
         <Layout.Content
           style={{
             minHeight: 'calc(100vh - 64px)',
@@ -43,7 +44,7 @@ class Classes extends Component {
           <Collapse
             defaultActiveKey={['active']}
             bordered={false}
-            className='lessons-collapse'>
+            className='lessons-collapse active-lesson'>
             {lesson({ lesson: lessons[0], key: 'active' })}
           </Collapse>
           <Divider style={{ margin: '45px 0px 40px' }}>
