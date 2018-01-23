@@ -52,16 +52,20 @@ class SchoolDropdown extends Component {
     const { currentSchool, schools } = this.props
     const schoolMenu = (
       <Menu className='school-menu' onClick={this.menuClick}>
-        <Menu.Item className='no-pointer'>
-          <b>My Schools </b>
-        </Menu.Item>
-        <Menu.Divider />
-        {schools.map(val => (
-          <Menu.Item key={val.id}>
-            <SchoolDetails school={val.id} />
-          </Menu.Item>
-        ))}
-        <Menu.Divider />
+        {schools.length && (
+          <span>
+            <Menu.Item className='no-pointer'>
+              <b>My Schools </b>
+            </Menu.Item>
+            <Menu.Divider />
+            {schools.map(val => (
+              <Menu.Item key={val.id}>
+                <SchoolDetails school={val.id} />
+              </Menu.Item>
+            ))}
+            <Menu.Divider />
+          </span>
+        )}
         <Menu.Item key='newSchool'>
           <Icon type='plus' style={{ marginRight: 10 }} /> New School
         </Menu.Item>

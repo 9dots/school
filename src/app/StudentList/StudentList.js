@@ -1,11 +1,16 @@
 import { Button, Modal, Avatar, Menu, Icon } from 'antd'
 import AddStudentModal from './AddStudentModal'
 import PropTypes from 'prop-types'
+<<<<<<< HEAD
+=======
+import { Menu, Avatar, Progress } from 'antd'
+>>>>>>> 1bf7d12f9041eb0d0d4e8b8390bdf1ec00584792
 import React from 'react'
 
 import './StudentList.less'
 
 const StudentList = props => {
+  const h = '40px'
   return (
     <div
       style={{
@@ -40,6 +45,7 @@ const StudentList = props => {
 
 StudentList.propTypes = {}
 
+<<<<<<< HEAD
 const ModalContainer = Component => {
   return class HOC extends React.Component {
     state = { visible: false }
@@ -66,3 +72,30 @@ const ModalContainer = Component => {
 }
 
 export default ModalContainer(StudentList)
+=======
+export default StudentList
+
+const students = [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19,
+  20,
+  21
+]
+>>>>>>> 1bf7d12f9041eb0d0d4e8b8390bdf1ec00584792

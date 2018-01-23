@@ -27,7 +27,7 @@ const enhancer = compose(
 
 const UserMenu = enhancer(({ logout, profile }) => {
   const overlay = (
-    <Menu onClick={logout}>
+    <Menu onClick={logout} style={{ minWidth: 150 }}>
       <Menu.Item>
         <Icon type='user' style={{ marginRight: 10 }} />
         Profile

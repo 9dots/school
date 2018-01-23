@@ -4,7 +4,7 @@ import React from 'react'
 import './Task.less'
 
 const style = {
-  marginRight: -20,
+  marginRight: -22,
   border: '1px solid white'
 }
 
@@ -17,10 +17,13 @@ const Task = props => {
         title={task.displayName}
         description={task.description || 'description'} />
       <span style={{ marginRight: 30, display: 'inline-block' }}>
-        <Avatar style={style} icon='user' />
-        <Avatar style={style} icon='user' />
-        <Avatar style={style} icon='user' />
-        <Avatar style={style} icon='user' />
+        {Math.round(Math.random()) ? <Avatar style={style} icon='user' /> : ''}
+        {Math.round(Math.random()) ? <Avatar style={style} icon='user' /> : ''}
+        {Math.round(Math.random()) ? <Avatar style={style} icon='user' /> : ''}
+        {Math.round(Math.random()) ? <Avatar style={style} icon='user' /> : ''}
+        {Math.round(Math.random()) ? <Avatar style={style} icon='user' /> : ''}
+        {Math.round(Math.random()) ? <Avatar style={style} icon='user' /> : ''}
+        {Math.round(Math.random()) ? <Avatar style={style} icon='user' /> : ''}
       </span>
 
       <Progress
