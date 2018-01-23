@@ -1,5 +1,5 @@
 import { TextField, SelectField } from 'redux-form-antd'
-import { Modal, Button, Form } from 'antd'
+import { Modal, Form } from 'antd'
 import { Field } from 'redux-form'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'

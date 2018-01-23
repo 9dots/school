@@ -1,12 +1,12 @@
 import { Menu, Icon, Avatar, Row, Col, Dropdown } from 'antd'
+import { compose, withHandlers } from 'recompose'
 import SchoolDetails from '../SchoolDetails'
 import React, { Component } from 'react'
 import SchoolModal from '../SchoolModal'
 import { connect } from 'react-redux'
 import mapValues from '@f/map-values'
-import { compose, withHandlers } from 'recompose'
-import PropTypes from 'prop-types'
 import { rpc } from '../../actions'
+import PropTypes from 'prop-types'
 
 import './SchoolDropdown.less'
 import { firestoreConnect } from 'react-redux-firebase'
@@ -20,9 +20,6 @@ const enhancer = compose(
   })),
   withHandlers({
     onSelect: ({ dispatch, firestore, uid }) => key => {
-      // firestore.firestore().doc(`/users/${uid}`).update({
-      //   [`schools.${key}`]:
-      // })
       return dispatch(rpc('user.setCurrentSchool', { school: key }))
         .then(console.log)
         .catch(console.warn)
