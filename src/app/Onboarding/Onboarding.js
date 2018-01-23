@@ -64,6 +64,7 @@ const Onboarding = props => {
               options={props.schools}
               component={SelectField} />
           </Item>
+          <button type='submit' style={{ display: 'none' }} />
         </form>
       </Modal>
     </div>
