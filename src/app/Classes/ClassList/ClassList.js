@@ -1,5 +1,3 @@
-// import PropTypes from 'prop-types'
-// import { firestoreConnect } from 'redux-firestore'
 import { firestoreConnect } from 'react-redux-firebase'
 import SchoolDropdown from '../SchoolDropdown'
 import { Menu, Button, Icon } from 'antd'
@@ -7,6 +5,7 @@ import React, { Component } from 'react'
 import ClassModal from '../ClassModal'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
+import PropTypes from 'prop-types'
 import './ClassList.less'
 
 const enhancer = compose(

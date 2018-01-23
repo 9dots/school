@@ -4,12 +4,12 @@ import { rpc } from '../../actions'
 
 export default compose(
   reduxForm({
-    form: 'createClass'
+    form: 'addStudent'
   }),
   withHandlers({
     onSubmit: ({ dispatch, school, onOk }) => values => {
       return dispatch(
-        rpc('class.createClass', {
+        rpc('class.addStudent', {
           ...values,
           school
         })
