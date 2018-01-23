@@ -3,9 +3,10 @@ import StudentList from 'app/StudentList'
 import React, { Component } from 'react'
 import { Collapse, Layout, Divider } from 'antd'
 import styles from 'theme/vars/vars.js'
+import { connect } from 'react-redux'
+import mapValues from '@f/map-values'
 import ClassList from './ClassList'
 import { compose } from 'recompose'
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import lesson from 'app/Lesson'
 import './Classes.less'
@@ -14,15 +15,18 @@ const enhancer = compose(
   connect(({ firebase: { auth, profile } }) => ({
     profile
   })),
-  firestoreConnect(props => [
-    {
-      collection: 'schools',
-      doc: props.profile.currentSchool,
-      storeAs: 'currentSchool'
-    }
-  ]),
-  connect(({ firestore: { data: { currentSchool = {} } } }, props) => ({
-    currentSchool: { ...currentSchool, id: props.profile.currentSchool }
+  firestoreConnect(props =>
+    mapValues(
+      (school, key) => ({
+        collection: 'schools',
+        doc: key,
+        storeAs: key
+      }),
+      props.profile.schools
+    )
+  ),
+  connect(({ firestore: { data } }, { profile: { currentSchool } }) => ({
+    currentSchool: { ...data[currentSchool], id: currentSchool }
   }))
 )
 

@@ -15,7 +15,7 @@ const Onboarding = props => {
   return (
     <div>
       <Modal
-        title={'Complete Your Profile!'}
+        title='Complete Your Profile!'
         visible={true}
         onOk={props.handleSubmit(props.onSubmit)}
         maskClosable={false}

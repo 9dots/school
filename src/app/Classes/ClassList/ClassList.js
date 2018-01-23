@@ -1,9 +1,28 @@
 // import PropTypes from 'prop-types'
+// import { firestoreConnect } from 'redux-firestore'
+import { firestoreConnect } from 'react-redux-firebase'
+import SchoolDropdown from '../SchoolDropdown'
 import { Menu, Button, Icon } from 'antd'
 import React, { Component } from 'react'
-import './ClassList.less'
-import SchoolDropdown from '../SchoolDropdown'
 import ClassModal from '../ClassModal'
+import { connect } from 'react-redux'
+import { compose } from 'recompose'
+import './ClassList.less'
+
+const enhancer = compose(
+  connect(({ firebase: { auth: { uid } } }) => ({ uid })),
+  firestoreConnect(props => [
+    {
+      collection: 'classes',
+      where: [
+        [`teachers.${props.uid}`, '==', true],
+        ['school', '==', props.currentSchool.id]
+      ],
+      storeAs: 'myClasses'
+    }
+  ]),
+  connect(({ firestore: { ordered: { myClasses } } }) => ({ myClasses }))
+)
 
 class ClassList extends Component {
   state = { visible: false }
@@ -18,7 +37,7 @@ class ClassList extends Component {
     })
   }
   render () {
-    const { currentSchool } = this.props
+    const { currentSchool, myClasses = [] } = this.props
     return (
       <div
         style={{
@@ -28,7 +47,9 @@ class ClassList extends Component {
         <SchoolDropdown currentSchool={currentSchool} />
         <Menu mode='inline' style={{ borderRight: 0 }}>
           <Menu.Divider />
-          {classes.map(i => <Menu.Item key={i}>{i}</Menu.Item>)}
+          {myClasses.map(({ displayName, id }) => (
+            <Menu.Item key={id}>{displayName}</Menu.Item>
+          ))}
           <Menu.Divider />
         </Menu>
         <div style={{ padding: '12px 24px' }}>
@@ -38,6 +59,7 @@ class ClassList extends Component {
         </div>
         <ClassModal
           visible={this.state.visible}
+          school={currentSchool.id}
           onOk={this.hideModal}
           onCancel={this.hideModal} />
       </div>
@@ -47,11 +69,4 @@ class ClassList extends Component {
 
 ClassList.propTypes = {}
 
-export default ClassList
-
-const classes = [
-  'American History P1',
-  'American History P2',
-  'English Literature P4',
-  'English Literature P5'
-]
+export default enhancer(ClassList)
