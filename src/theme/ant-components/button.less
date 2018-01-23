@@ -1,0 +1,33 @@
+@import "../vars/palette.less";
+
+.btn-color(@color) {
+  background-color: @color;
+  border-color: @color;
+}
+
+.ant-btn {
+  &-primary.secondary {
+    .btn-color(@pink);
+    color: white;
+    &:hover,
+    &:focus {
+      .btn-color(lighten(@pink, 10));
+    }
+    &:active {
+      .btn-color(darken(@pink, 7));
+    }
+    &.ant-btn-background-ghost {
+      color: @pink;
+      &:hover,
+      &:focus {
+        color: lighten(@pink, 10);
+      }
+      &:active {
+        color: darken(@pink, 7);
+      }
+    }
+  }
+  &-clicked:after {
+    border-color: @pink;
+  }
+}

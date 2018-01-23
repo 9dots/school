@@ -45,7 +45,7 @@ class ClassList extends Component {
         }}>
         <SchoolDropdown currentSchool={currentSchool} />
         <Menu mode='inline' style={{ borderRight: 0 }}>
-          <Menu.Divider />
+          {!!myClasses.length && <Menu.Divider />}
           {myClasses.map(({ displayName, id }) => (
             <Menu.Item key={id}>{displayName}</Menu.Item>
           ))}
