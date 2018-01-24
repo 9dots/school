@@ -38,8 +38,7 @@ class Classes extends Component {
         <Layout.Sider width={styles['@sidebar-width']}>
           <ClassList currentSchool={currentSchool} />
         </Layout.Sider>
-        {console.log(currentSchool)}
-        {!classes.length ? (
+        {classes.length ? (
           <EmptyState
             text='No Classes Yet. Create Your First Class'
             icon='book'
