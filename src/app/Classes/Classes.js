@@ -9,6 +9,8 @@ import ClassList from './ClassList'
 import { compose } from 'recompose'
 import EmptyState from 'app/EmptyState'
 import Class from './Class'
+import ClassModal from './ClassModal'
+import backpack from 'assets/images/emptypack.png'
 import './Classes.less'
 
 const enhancer = compose(
@@ -31,6 +33,17 @@ const enhancer = compose(
 )
 
 class Classes extends Component {
+  state = { visible: false }
+  showModal = () => {
+    this.setState({
+      visible: true
+    })
+  }
+  hideModal = () => {
+    this.setState({
+      visible: false
+    })
+  }
   render () {
     const { currentSchool, classes = [] } = this.props
     return (
@@ -41,18 +54,23 @@ class Classes extends Component {
         {console.log(currentSchool)}
         {!classes.length ? (
           <EmptyState
-            text='No Classes Yet. Create Your First Class'
-            icon='book'
-            // image='http://dancefactory.lu/wp-content/uploads/2017/06/no-class_1.jpg'
+            header='No Classes Yet'
+            text='Create Your First Class Now!'
+            image={backpack}
             btnText={
               <span>
                 <Icon type='plus' style={{ marginRight: 10 }} />New Class
               </span>
             }
-            action={() => {}} />
+            action={this.showModal} />
         ) : (
           <Class />
         )}
+        <ClassModal
+          visible={this.state.visible}
+          school={currentSchool.id}
+          onOk={this.hideModal}
+          onCancel={this.hideModal} />
       </Layout>
     )
   }
