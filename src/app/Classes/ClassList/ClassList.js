@@ -1,5 +1,6 @@
 import { firestoreConnect } from 'react-redux-firebase'
 import SchoolDropdown from '../SchoolDropdown'
+import ModalContainer from 'components/ModalContainer'
 import { Menu, Button, Icon } from 'antd'
 import React, { Component } from 'react'
 import ClassModal from '../ClassModal'
@@ -20,23 +21,19 @@ const enhancer = compose(
       storeAs: 'myClasses'
     }
   ]),
+  ModalContainer,
   connect(({ firestore: { ordered: { myClasses } } }) => ({ myClasses }))
 )
 
 class ClassList extends Component {
-  state = { visible: false }
-  showModal = () => {
-    this.setState({
-      visible: true
-    })
-  }
-  hideModal = () => {
-    this.setState({
-      visible: false
-    })
-  }
   render () {
-    const { currentSchool, myClasses = [] } = this.props
+    const {
+      currentSchool,
+      myClasses = [],
+      showModal,
+      hideModal,
+      modalVisible
+    } = this.props
     return (
       <div
         style={{
@@ -52,15 +49,15 @@ class ClassList extends Component {
           <Menu.Divider />
         </Menu>
         <div style={{ padding: '12px 24px' }}>
-          <Button style={{ width: '100%' }} onClick={this.showModal}>
+          <Button style={{ width: '100%' }} onClick={showModal}>
             <Icon type='plus' />New Class
           </Button>
         </div>
         <ClassModal
-          visible={this.state.visible}
+          visible={modalVisible}
           school={currentSchool.id}
-          onOk={this.hideModal}
-          onCancel={this.hideModal} />
+          onOk={hideModal}
+          onCancel={hideModal} />
       </div>
     )
   }

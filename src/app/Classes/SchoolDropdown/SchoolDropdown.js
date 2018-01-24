@@ -1,4 +1,5 @@
 import { Menu, Icon, Avatar, Row, Col, Dropdown } from 'antd'
+import ModalContainer from 'components/ModalContainer'
 import { compose, withHandlers } from 'recompose'
 import SchoolDetails from '../SchoolDetails'
 import React, { Component } from 'react'
@@ -13,6 +14,7 @@ import { firestoreConnect } from 'react-redux-firebase'
 
 const enhancer = compose(
   firestoreConnect(),
+  ModalContainer,
   connect(({ firebase: { profile, auth: { uid } } }, props) => ({
     schools: mapValues((role, id) => ({ role, id }), profile.schools).filter(
       school => school.id !== props.currentSchool.id
@@ -28,28 +30,17 @@ const enhancer = compose(
 )
 
 class SchoolDropdown extends Component {
-  state = { visible: false }
   menuClick = ({ key }) => {
     switch (key) {
       case 'newSchool':
-        this.showModal()
+        this.props.showModal()
         break
       default:
         this.props.onSelect(key)
     }
   }
-  showModal = () => {
-    this.setState({
-      visible: true
-    })
-  }
-  hideModal = () => {
-    this.setState({
-      visible: false
-    })
-  }
   render () {
-    const { currentSchool, schools } = this.props
+    const { currentSchool, schools, hideModal, modalVisible } = this.props
     const schoolMenu = (
       <Menu className='school-menu' onClick={this.menuClick}>
         {schools.length && (
@@ -108,9 +99,9 @@ class SchoolDropdown extends Component {
           </Row>
         </Dropdown>
         <SchoolModal
-          visible={this.state.visible}
-          onOk={this.hideModal}
-          onCancel={this.hideModal} />
+          visible={modalVisible}
+          onOk={hideModal}
+          onCancel={hideModal} />
       </span>
     )
   }

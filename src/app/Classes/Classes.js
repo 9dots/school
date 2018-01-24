@@ -1,5 +1,5 @@
 import { firestoreConnect } from 'react-redux-firebase'
-
+import ModalContainer from 'components/ModalContainer'
 import React, { Component } from 'react'
 import { Layout, Icon } from 'antd'
 import styles from 'theme/vars/vars.js'
@@ -27,23 +27,13 @@ const enhancer = compose(
       props.profile.schools
     )
   ),
+  ModalContainer,
   connect(({ firestore: { data } }, { profile: { currentSchool } }) => ({
     currentSchool: { ...data[currentSchool], id: currentSchool }
   }))
 )
 
 class Classes extends Component {
-  state = { visible: false }
-  showModal = () => {
-    this.setState({
-      visible: true
-    })
-  }
-  hideModal = () => {
-    this.setState({
-      visible: false
-    })
-  }
   render () {
     const { currentSchool, classes = [] } = this.props
     return (
@@ -51,7 +41,7 @@ class Classes extends Component {
         <Layout.Sider width={styles['@sidebar-width']}>
           <ClassList currentSchool={currentSchool} />
         </Layout.Sider>
-        {classes.length ? (
+        {!classes.length ? (
           <EmptyState
             header='No Classes Yet'
             text='Create Your First Class Now!'
@@ -61,15 +51,15 @@ class Classes extends Component {
                 <Icon type='plus' style={{ marginRight: 10 }} />New Class
               </span>
             }
-            action={this.showModal} />
+            action={this.props.showModal} />
         ) : (
           <Class />
         )}
         <ClassModal
-          visible={this.state.visible}
+          visible={this.props.modalVisible}
           school={currentSchool.id}
-          onOk={this.hideModal}
-          onCancel={this.hideModal} />
+          onOk={this.props.hideModal}
+          onCancel={this.props.hideModal} />
       </Layout>
     )
   }
