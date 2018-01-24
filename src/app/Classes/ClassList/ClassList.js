@@ -1,7 +1,8 @@
 import { firestoreConnect } from 'react-redux-firebase'
-import SchoolDropdown from '../SchoolDropdown'
 import ModalContainer from 'components/ModalContainer'
-import { Menu, Button, Icon } from 'antd'
+import SchoolDropdown from '../SchoolDropdown'
+import AddStudentModal from 'app/StudentList/AddStudentModal'
+import { Menu, Button, Icon, Row, Col } from 'antd'
 import React, { Component } from 'react'
 import ClassModal from '../ClassModal'
 import { connect } from 'react-redux'
@@ -41,13 +42,7 @@ class ClassList extends Component {
           borderRight: '1px solid #e8e8e8'
         }}>
         <SchoolDropdown currentSchool={currentSchool} />
-        <Menu mode='inline' style={{ borderRight: 0 }}>
-          {!!myClasses.length && <Menu.Divider />}
-          {myClasses.map(({ displayName, id }) => (
-            <Menu.Item key={id}>{displayName}</Menu.Item>
-          ))}
-          <Menu.Divider />
-        </Menu>
+        <ClassMenu classes={myClasses} />
         <div style={{ padding: '12px 24px' }}>
           <Button style={{ width: '100%' }} onClick={showModal}>
             <Icon type='plus' />New Class
@@ -62,6 +57,37 @@ class ClassList extends Component {
     )
   }
 }
+
+const ClassMenu = ModalContainer(
+  ({ classes, hideModal, modalVisible, showModal }) => {
+    return (
+      <Menu mode='inline' style={{ borderRight: 0 }}>
+        {!!classes.length && <Menu.Divider />}
+        {classes.map(({ displayName, id }) => (
+          <Menu.Item key={id} className='class-item'>
+            <Row type='flex' justify='space-between' align='middle'>
+              <Col>{displayName}</Col>
+              <Col className='class-actions'>
+                <Button
+                  onClick={showModal}
+                  type='primary'
+                  ghost
+                  icon='user-add'
+                  shape='circle'
+                  size='small' />
+              </Col>
+            </Row>
+            <AddStudentModal
+              onOk={hideModal}
+              onCancel={hideModal}
+              visible={modalVisible} />
+          </Menu.Item>
+        ))}
+        <Menu.Divider />
+      </Menu>
+    )
+  }
+)
 
 ClassList.propTypes = {}
 

@@ -31,7 +31,7 @@ const ClassModal = props => {
     <Modal
       {...props}
       onOk={props.handleSubmit(props.onSubmit)}
-      title='Class Modal'>
+      title='Create A Class'>
       <Form>
         <Form.Item label='Name'>
           <Field
