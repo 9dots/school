@@ -1,5 +1,4 @@
-import { TextField } from 'redux-form-antd'
-import { Modal, Form } from 'antd'
+import { Modal, Form, AutoComplete } from 'antd'
 import { Field } from 'redux-form'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
@@ -23,21 +22,7 @@ const AddStudentModal = props => {
             {...commonProps}
             name='name.given'
             placeholder='Michael'
-            component={TextField} />
-        </Form.Item>
-        <Form.Item label='Last'>
-          <Field
-            {...commonProps}
-            name='name.family'
-            placeholder='Scott'
-            component={TextField} />
-        </Form.Item>
-        <Form.Item label='Student ID'>
-          <Field
-            {...commonProps}
-            name='studentId'
-            placeholder='abc123'
-            component={TextField} />
+            component={AutoComplete} />
         </Form.Item>
       </Form>
     </Modal>

@@ -1,32 +1,30 @@
 import { reduxForm, SubmissionError } from 'redux-form'
-import { firestoreConnect } from 'react-redux-firebase'
 import { compose, withHandlers } from 'recompose'
-import { connect } from 'react-redux'
 import { rpc } from '../../actions'
 
 export default compose(
-  firestoreConnect(props => [
-    {
-      collection: 'users',
-      where: [`schools.${props.school}`, '==', 'student'],
-      storeAs: 'studentList'
-    }
-  ]),
-  connect(({ firestore: { data, ordered: { studentList } } }) => ({
-    log: console.log(data),
-    studentList
-  })),
   reduxForm({
-    form: 'addStudent'
+    form: 'createStudent'
   }),
   withHandlers({
-    onSubmit: ({ dispatch, school, onOk }) => values => {
+    onSubmit: ({ dispatch, school, classId, onOk }) => values => {
       return dispatch(
-        rpc('class.addStudent', {
+        rpc('user.createStudent', {
           ...values,
           school
         })
       )
+        .then(res => {
+          if (!res.ok) {
+            throw new Error(res.error)
+          }
+          return dispatch(
+            rpc('class.addStudent', {
+              class: '26rMGzhQMbs6v40oWGOu',
+              student: res.student
+            })
+          )
+        })
         .then(res => {
           if (!res.ok) {
             throw new Error(res.error)
