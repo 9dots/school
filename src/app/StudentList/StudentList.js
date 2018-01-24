@@ -7,7 +7,6 @@ import React from 'react'
 import './StudentList.less'
 
 const StudentList = props => {
-  const h = '40px'
   return (
     <div
       style={{
@@ -33,9 +32,8 @@ const StudentList = props => {
       <AddStudentModal
         onOk={props.hideModal}
         onCancel={props.hideModal}
-        visible={props.modalVisible}>
-        Party
-      </AddStudentModal>
+        school={props.school}
+        visible={props.modalVisible} />
     </div>
   )
 }
