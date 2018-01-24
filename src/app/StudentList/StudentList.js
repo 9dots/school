@@ -1,3 +1,4 @@
+import ModalContainer from '../../components/ModalContainer'
 import { Button, Avatar, Menu, Icon } from 'antd'
 import AddStudentModal from './AddStudentModal'
 import PropTypes from 'prop-types'
@@ -41,53 +42,4 @@ const StudentList = props => {
 
 StudentList.propTypes = {}
 
-const ModalContainer = Component => {
-  return class HOC extends React.Component {
-    state = { visible: false }
-    showModal = () => {
-      this.setState({
-        visible: true
-      })
-    }
-    hideModal = () => {
-      this.setState({
-        visible: false
-      })
-    }
-    render () {
-      return (
-        <Component
-          showModal={this.showModal.bind(this)}
-          hideModal={this.hideModal.bind(this)}
-          modalVisible={this.state.visible}
-          {...this.props} />
-      )
-    }
-  }
-}
-
 export default ModalContainer(StudentList)
-
-const students = [
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-  7,
-  8,
-  9,
-  10,
-  11,
-  12,
-  13,
-  14,
-  15,
-  16,
-  17,
-  18,
-  19,
-  20,
-  21
-]
