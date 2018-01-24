@@ -16,7 +16,7 @@ const AddStudentModal = props => {
     <Modal
       {...props}
       onOk={props.handleSubmit(props.onSubmit)}
-      title='Class Modal'>
+      title='Add a Student to Your Class'>
       <Form>
         <Form.Item label='First'>
           <Field
