@@ -1,13 +1,12 @@
 import ModalContainer from '../../components/ModalContainer'
+import CreateStudentModal from './CreateStudentModal'
 import { Button, Avatar, Menu, Icon } from 'antd'
-import AddStudentModal from './AddStudentModal'
 import PropTypes from 'prop-types'
 import React from 'react'
 
 import './StudentList.less'
 
 const StudentList = props => {
-  const h = '40px'
   return (
     <div
       style={{
@@ -30,12 +29,11 @@ const StudentList = props => {
           <Icon type='plus' />Add Student
         </Button>
       </div>
-      <AddStudentModal
+      <CreateStudentModal
         onOk={props.hideModal}
         onCancel={props.hideModal}
-        visible={props.modalVisible}>
-        Party
-      </AddStudentModal>
+        school={props.school}
+        visible={props.modalVisible} />
     </div>
   )
 }

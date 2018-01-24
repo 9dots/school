@@ -41,7 +41,7 @@ class Classes extends Component {
         <Layout.Sider width={styles['@sidebar-width']}>
           <ClassList currentSchool={currentSchool} />
         </Layout.Sider>
-        {!classes.length ? (
+        {classes.length ? (
           <EmptyState
             header='No Classes Yet'
             text='Create Your First Class Now!'
@@ -53,7 +53,7 @@ class Classes extends Component {
             }
             action={this.props.showModal} />
         ) : (
-          <Class />
+          <Class school={currentSchool.id} />
         )}
         <ClassModal
           visible={this.props.modalVisible}
