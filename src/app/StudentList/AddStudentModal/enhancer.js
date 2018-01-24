@@ -1,8 +1,21 @@
 import { reduxForm, SubmissionError } from 'redux-form'
+import { firestoreConnect } from 'react-redux-firebase'
 import { compose, withHandlers } from 'recompose'
+import { connect } from 'react-redux'
 import { rpc } from '../../actions'
 
 export default compose(
+  firestoreConnect(props => [
+    {
+      collection: 'users',
+      where: [`schools.${props.school}`, '==', 'student'],
+      storeAs: 'studentList'
+    }
+  ]),
+  connect(({ firestore: { data, ordered: { studentList } } }) => ({
+    log: console.log(data),
+    studentList
+  })),
   reduxForm({
     form: 'addStudent'
   }),

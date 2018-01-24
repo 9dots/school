@@ -26,7 +26,7 @@ const Class = props => {
         </Collapse>
       </Layout.Content>
       <Layout.Sider width={styles['@sidebar-width']}>
-        <StudentList />
+        <StudentList school={props.school} />
       </Layout.Sider>
     </Layout>
   )
