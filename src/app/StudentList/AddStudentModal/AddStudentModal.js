@@ -11,7 +11,6 @@ const commonProps = {
 }
 
 const AddStudentModal = props => {
-  console.log(props)
   return (
     <Modal
       {...props}

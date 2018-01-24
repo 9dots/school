@@ -1,6 +1,6 @@
 import ModalContainer from '../../components/ModalContainer'
+import CreateStudentModal from './CreateStudentModal'
 import { Button, Avatar, Menu, Icon } from 'antd'
-import AddStudentModal from './AddStudentModal'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -29,7 +29,7 @@ const StudentList = props => {
           <Icon type='plus' />Add Student
         </Button>
       </div>
-      <AddStudentModal
+      <CreateStudentModal
         onOk={props.hideModal}
         onCancel={props.hideModal}
         school={props.school}
