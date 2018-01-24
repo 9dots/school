@@ -3,21 +3,22 @@ import React from 'react'
 import { Button, Layout, Icon } from 'antd'
 import './EmptyState.less'
 
-const EmptyState = ({ btnText, text, image, icon, action }) => {
+const EmptyState = ({ btnText, header, text, image, icon, action }) => {
   return (
     <Layout>
       <div className='empty-state'>
-        {image ? <img src={image} /> : !!icon && <Icon type={icon} />}
+        {image ? (
+          <img src={image} style={{ maxWidth: 200 }} />
+        ) : (
+          !!icon && <Icon type={icon} />
+        )}
+        <h2>{header}</h2>
         <h3>{text}</h3>
         <Button
           onClick={action}
           size='large'
           className='secondary'
-          type='primary'
-          ghost>
-          {btnText}
-        </Button>
-        <Button onClick={action} size='large' type='primary' ghost>
+          type='primary'>
           {btnText}
         </Button>
       </div>
