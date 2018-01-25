@@ -1,7 +1,7 @@
 import { firestoreConnect } from 'react-redux-firebase'
 import ModalContainer from 'components/ModalContainer'
 import SchoolDropdown from '../SchoolDropdown'
-import AddStudentModal from 'app/StudentList/AddStudentModal'
+import CreateStudentModal from 'app/StudentList/CreateStudentModal'
 import { Menu, Button, Icon, Row, Col } from 'antd'
 import React, { Component } from 'react'
 import ClassModal from '../ClassModal'
@@ -42,7 +42,15 @@ class ClassList extends Component {
           borderRight: '1px solid #e8e8e8'
         }}>
         <SchoolDropdown currentSchool={currentSchool} />
-        <ClassMenu classes={myClasses} />
+        <Menu mode='inline' style={{ borderRight: 0 }}>
+          {!!myClasses.length && <Menu.Divider />}
+          {myClasses.map(cls => (
+            <Menu.Item key={cls.id} className='class-item'>
+              <ClassItem cls={cls} school={currentSchool.id} />
+            </Menu.Item>
+          ))}
+          <Menu.Divider />
+        </Menu>
         <div style={{ padding: '12px 24px' }}>
           <Button style={{ width: '100%' }} onClick={showModal}>
             <Icon type='plus' />New Class
@@ -58,33 +66,29 @@ class ClassList extends Component {
   }
 }
 
-const ClassMenu = ModalContainer(
-  ({ classes, hideModal, modalVisible, showModal }) => {
+const ClassItem = ModalContainer(
+  ({ cls, hideModal, modalVisible, showModal, school }) => {
     return (
-      <Menu mode='inline' style={{ borderRight: 0 }}>
-        {!!classes.length && <Menu.Divider />}
-        {classes.map(({ displayName, id }) => (
-          <Menu.Item key={id} className='class-item'>
-            <Row type='flex' justify='space-between' align='middle'>
-              <Col>{displayName}</Col>
-              <Col className='class-actions'>
-                <Button
-                  onClick={showModal}
-                  type='primary'
-                  ghost
-                  icon='user-add'
-                  shape='circle'
-                  size='small' />
-              </Col>
-            </Row>
-            <AddStudentModal
-              onOk={hideModal}
-              onCancel={hideModal}
-              visible={modalVisible} />
-          </Menu.Item>
-        ))}
-        <Menu.Divider />
-      </Menu>
+      <span>
+        <Row type='flex' justify='space-between' align='middle'>
+          <Col>{cls.displayName}</Col>
+          <Col className='class-actions'>
+            <Button
+              onClick={showModal}
+              type='primary'
+              ghost
+              icon='user-add'
+              shape='circle'
+              size='small' />
+          </Col>
+        </Row>
+        <CreateStudentModal
+          onOk={hideModal}
+          class={cls}
+          school={school}
+          onCancel={hideModal}
+          visible={modalVisible} />
+      </span>
     )
   }
 )
