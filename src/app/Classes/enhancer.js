@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import mapValues from '@f/map-values'
 import getProp from '@f/get-prop'
 import { compose } from 'recompose'
+import { setUrl } from '../actions'
 import './Classes.less'
 
 export default compose(
@@ -26,14 +27,18 @@ export default compose(
         ['school', '==', getProp('profile.nav.school', props) || null],
         [`teachers.${props.uid}`, '==', true]
       ],
-      storeAs: 'myClasses'
+      storeAs: `myClasses-${getProp('profile.nav.school', props) || null}`
     }
   ]),
   ModalContainer,
-  connect(({ firestore: { data, ordered: { myClasses } } }, { profile }) => ({
-    currentSchool: getSchool(data, profile),
-    myClasses
-  }))
+  connect(
+    ({ profileReady, firestore: { data, ordered } }, { profile }) => ({
+      currentSchool: getSchool(data, profile),
+      profileReady,
+      myClasses: ordered[`myClasses-${getProp('nav.school', profile) || null}`]
+    }),
+    { setUrl }
+  )
 )
 
 function getSchool (data, profile) {

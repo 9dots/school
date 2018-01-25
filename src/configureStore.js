@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import fetch, { fetchEncodeJSON } from 'redux-effects-fetch'
 import { reactReduxFirebase } from 'react-redux-firebase'
+import profileMw from './middleware/profileUpdating'
 import { reduxFirestore } from 'redux-firestore'
 import createSagaMiddleware from 'redux-saga'
 import location from 'redux-effects-location'
@@ -41,6 +42,7 @@ export default (initialState = {}, history) => {
     sagaMiddleware,
     // createLogger(),
     location(),
+    profileMw,
     effects,
     fetch,
     thunk

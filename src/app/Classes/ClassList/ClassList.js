@@ -20,11 +20,13 @@ const enhancer = compose(
         [`teachers.${props.uid}`, '==', true],
         ['school', '==', props.currentSchool.id]
       ],
-      storeAs: 'myClasses'
+      storeAs: `myClasses-${props.currentSchool.id}`
     }
   ]),
   ModalContainer,
-  connect(({ firestore: { ordered: { myClasses } } }) => ({ myClasses }))
+  connect(({ firestore: { ordered } }, props) => ({
+    myClasses: ordered[`myClasses-${props.currentSchool.id}`]
+  }))
 )
 
 class ClassList extends Component {

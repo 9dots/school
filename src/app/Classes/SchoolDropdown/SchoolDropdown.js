@@ -1,4 +1,6 @@
+import { startSetProfile } from '../../../middleware/profileUpdating'
 import { Menu, Icon, Avatar, Row, Col, Dropdown } from 'antd'
+import { firestoreConnect } from 'react-redux-firebase'
 import ModalContainer from 'components/ModalContainer'
 import { compose, withHandlers } from 'recompose'
 import { withRouter } from 'react-router-dom'
@@ -11,7 +13,6 @@ import mapValues from '@f/map-values'
 import PropTypes from 'prop-types'
 
 import './SchoolDropdown.less'
-import { firestoreConnect } from 'react-redux-firebase'
 
 const enhancer = compose(
   withRouter,
@@ -24,6 +25,7 @@ const enhancer = compose(
   })),
   withHandlers({
     onSelect: ({ dispatch, firestore, history, uid }) => key => {
+      dispatch(startSetProfile())
       return dispatch(rpc('user.setNav', { 'nav.school': key }))
         .then(() => dispatch(setUrl(history, '/')))
         .catch(console.warn)
