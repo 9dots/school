@@ -40,7 +40,6 @@ const CreateStudentModal = props => {
             placeholder='abc123'
             component={TextField} />
         </Form.Item>
-        <button style={{ display: 'none' }} />
       </Form>
     </Modal>
   )

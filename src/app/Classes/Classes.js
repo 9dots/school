@@ -20,13 +20,11 @@ class Classes extends Component {
     } = this.props
     const currentClass = (match.params || {}).classId
     const lastClass = nav.class ? nav.class[nav.school] : myClasses[0] || {}
-
-    console.log(nav.class, nav.school, myClasses)
-
     return (
       <Layout>
         <Layout.Sider width={styles['@sidebar-width']}>
           <ClassList
+            history={this.props.history}
             currentClass={currentClass}
             currentSchool={currentSchool} />
         </Layout.Sider>

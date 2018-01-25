@@ -13,14 +13,16 @@ const StudentList = props => {
     <div
       style={{
         minHeight: 'calc(100vh - 62px)',
+        borderLeft: '1px solid #e8e8e8',
         paddingTop: 20
       }}>
-      <Menu mode='vertical-right' fluid>
+      <Menu mode='vertical-right' fluid style={{ borderLeft: 'none' }}>
         {students.map(uid => (
           <Menu.Item key={uid} onClick={() => console.log(uid)}>
             <StudentItem uid={uid} />
           </Menu.Item>
         ))}
+        {!!students.length && <Menu.Divider />}
       </Menu>
       <div style={{ padding: '12px 24px' }}>
         <Button style={{ width: '100%' }} onClick={props.showModal}>
