@@ -12,10 +12,16 @@ import './Classes.less'
 
 class Classes extends Component {
   render () {
-    const { match, currentSchool, profile: { nav = {} } } = this.props
+    const {
+      match,
+      currentSchool,
+      profile: { nav = {} },
+      myClasses = []
+    } = this.props
     const currentClass = (match.params || {}).classId
-    const lastClass =
-      nav.class[nav.school] || Object.keys(currentSchool.classes)[0]
+    const lastClass = nav.class ? nav.class[nav.school] : myClasses[0] || {}
+
+    console.log(nav.class, nav.school, myClasses)
 
     return (
       <Layout>
@@ -29,7 +35,7 @@ class Classes extends Component {
           <Route
             path='/'
             component={props => (
-              <NoClasses lastClass={lastClass} {...this.props} />
+              <NoClasses lastClass={lastClass.id} {...this.props} />
             )} />
         </Switch>
         <ClassModal
