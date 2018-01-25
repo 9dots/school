@@ -1,7 +1,8 @@
+import CreateStudentModal from 'app/StudentList/CreateStudentModal'
 import { firestoreConnect } from 'react-redux-firebase'
 import ModalContainer from 'components/ModalContainer'
+import { Menu, Button, Icon, Row, Col } from 'antd'
 import SchoolDropdown from '../SchoolDropdown'
-import { Menu, Button, Icon } from 'antd'
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import ClassModal from '../ClassModal'
@@ -48,9 +49,9 @@ class ClassList extends Component {
           mode='inline'
           style={{ borderRight: 0 }}>
           {!!myClasses.length && <Menu.Divider />}
-          {myClasses.map(({ displayName, id }) => (
-            <Menu.Item key={id}>
-              <Link to={`/class/${id}`}>{displayName}</Link>
+          {myClasses.map(cls => (
+            <Menu.Item key={cls.id} className='class-item'>
+              <ClassItem cls={cls} school={currentSchool.id} />
             </Menu.Item>
           ))}
           <Menu.Divider />
@@ -69,6 +70,33 @@ class ClassList extends Component {
     )
   }
 }
+
+const ClassItem = ModalContainer(
+  ({ cls, hideModal, modalVisible, showModal, school }) => {
+    return (
+      <Link to={`/class/${cls.id}`}>
+        <Row type='flex' justify='space-between' align='middle'>
+          <Col>{cls.displayName}</Col>
+          <Col className='class-actions'>
+            <Button
+              onClick={showModal}
+              type='primary'
+              ghost
+              icon='user-add'
+              shape='circle'
+              size='small' />
+          </Col>
+        </Row>
+        <CreateStudentModal
+          onOk={hideModal}
+          class={cls}
+          school={school}
+          onCancel={hideModal}
+          visible={modalVisible} />
+      </Link>
+    )
+  }
+)
 
 ClassList.propTypes = {}
 

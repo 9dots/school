@@ -7,7 +7,7 @@ const data = ['1', '2', '3', '4', '5']
 
 const SchoolModal = props => {
   return (
-    <Modal {...props} title='School Modal'>
+    <Modal {...props} title='Create A School'>
       <Form>
         <Form.Item>
           <AutoComplete dataSource={data} size='large' />
