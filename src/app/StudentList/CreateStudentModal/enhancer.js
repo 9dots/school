@@ -7,7 +7,7 @@ export default compose(
     form: 'createStudent'
   }),
   withHandlers({
-    onSubmit: ({ dispatch, school, class: classId, onOk }) => values => {
+    onSubmit: ({ dispatch, school, class: { id }, onOk }) => values => {
       return dispatch(
         rpc('user.createStudent', {
           ...values,
@@ -20,7 +20,7 @@ export default compose(
           }
           return dispatch(
             rpc('class.addStudent', {
-              class: classId,
+              class: id,
               student: res.student
             })
           )
