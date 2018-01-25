@@ -107,6 +107,12 @@
   dependencies:
     "@f/iterator-symbol" "^1.0.0"
 
+"@f/get-prop@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@f/get-prop/-/get-prop-1.1.1.tgz#525cbe5c037e0e70ce2bf8021eeb862db3aef4f0"
+  dependencies:
+    "@f/is-string" "^1.0.1"
+
 "@f/is-array@^1.0.0":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@f/is-array/-/is-array-1.1.1.tgz#cb3cd2f20016fc7b6d7049013c0318d75a222590"
@@ -138,6 +144,10 @@
   resolved "https://registry.yarnpkg.com/@f/is-object/-/is-object-1.1.4.tgz#278ddc91bd13645ac0b73963539e0e52677b7494"
   dependencies:
     "@f/is-function" "^1.1.1"
+
+"@f/is-string@^1.0.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@f/is-string/-/is-string-1.1.1.tgz#02a098ff44562e42ad795380909b46824b0f06db"
 
 "@f/iterator-symbol@^1.0.0":
   version "1.0.0"
