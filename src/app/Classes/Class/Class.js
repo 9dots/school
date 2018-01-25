@@ -32,7 +32,7 @@ const Class = props => {
       <Layout.Sider width={styles['@sidebar-width']}>
         <StudentList
           students={Object.keys(classData.students || {})}
-          class={classId}
+          class={{ ...classData, id: classId }}
           school={classData.school} />
       </Layout.Sider>
     </Layout>

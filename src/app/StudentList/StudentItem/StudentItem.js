@@ -21,15 +21,7 @@ const enhancer = compose(
 
 const StudentItem = props => {
   const { user = {} } = props
-  return (
-    <div>
-      <Avatar
-        size='small'
-        style={{ marginRight: 10, textAlign: 'center' }}
-        icon='user' />
-      {user.displayName}
-    </div>
-  )
+  return <div>{user.displayName}</div>
 }
 
 StudentItem.propTypes = {}
