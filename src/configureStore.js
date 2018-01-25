@@ -9,7 +9,6 @@ import rootReducer from './app/reducers'
 import effects from 'redux-effects'
 import firebase from 'firebase'
 import thunk from 'redux-thunk'
-import rootSaga from './sagas'
 import 'firebase/firestore'
 
 // const loggerMiddleware = createLogger()
@@ -40,7 +39,7 @@ export default (initialState = {}, history) => {
   const middleware = [
     fetchEncodeJSON,
     sagaMiddleware,
-    createLogger(),
+    // createLogger(),
     location(),
     effects,
     fetch,

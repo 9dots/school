@@ -1,8 +1,9 @@
 import { firestoreConnect } from 'react-redux-firebase'
-import SchoolDropdown from '../SchoolDropdown'
 import ModalContainer from 'components/ModalContainer'
+import SchoolDropdown from '../SchoolDropdown'
 import { Menu, Button, Icon } from 'antd'
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import ClassModal from '../ClassModal'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
@@ -29,6 +30,7 @@ class ClassList extends Component {
   render () {
     const {
       currentSchool,
+      currentClass,
       myClasses = [],
       showModal,
       hideModal,
@@ -41,10 +43,15 @@ class ClassList extends Component {
           borderRight: '1px solid #e8e8e8'
         }}>
         <SchoolDropdown currentSchool={currentSchool} />
-        <Menu mode='inline' style={{ borderRight: 0 }}>
+        <Menu
+          selectedKeys={[currentClass]}
+          mode='inline'
+          style={{ borderRight: 0 }}>
           {!!myClasses.length && <Menu.Divider />}
           {myClasses.map(({ displayName, id }) => (
-            <Menu.Item key={id}>{displayName}</Menu.Item>
+            <Menu.Item key={id}>
+              <Link to={`/class/${id}`}>{displayName}</Link>
+            </Menu.Item>
           ))}
           <Menu.Divider />
         </Menu>

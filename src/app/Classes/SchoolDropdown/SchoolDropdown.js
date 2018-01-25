@@ -22,7 +22,7 @@ const enhancer = compose(
   })),
   withHandlers({
     onSelect: ({ dispatch, firestore, uid }) => key => {
-      return dispatch(rpc('user.setCurrentSchool', { school: key }))
+      return dispatch(rpc('user.setNav', { 'nav.school': key }))
         .then(console.log)
         .catch(console.warn)
     }

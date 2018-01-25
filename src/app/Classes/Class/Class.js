@@ -1,11 +1,15 @@
-import React from 'react'
-import lesson from 'app/Lesson'
+import { Collapse, Layout, Divider } from 'antd'
 import StudentList from 'app/StudentList'
 import styles from 'theme/vars/vars.js'
-import { Collapse, Layout, Divider } from 'antd'
+import enhancer from './enhancer'
+import lesson from 'app/Lesson'
+import React from 'react'
 import './Class.less'
 
 const Class = props => {
+  const { classId } = props.match.params
+  const { classData = {} } = props
+
   return (
     <Layout>
       <Layout.Content
@@ -26,7 +30,10 @@ const Class = props => {
         </Collapse>
       </Layout.Content>
       <Layout.Sider width={styles['@sidebar-width']}>
-        <StudentList school={props.school} />
+        <StudentList
+          students={Object.keys(classData.students || {})}
+          class={classId}
+          school={classData.school} />
       </Layout.Sider>
     </Layout>
   )
@@ -34,7 +41,7 @@ const Class = props => {
 
 Class.propTypes = {}
 
-export default Class
+export default enhancer(Class)
 
 const lessons = [
   {
