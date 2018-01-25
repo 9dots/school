@@ -6,6 +6,7 @@ import styles from 'theme/vars/vars.js'
 import ClassModal from './ClassModal'
 import { Layout, Icon } from 'antd'
 import ClassList from './ClassList'
+import Loading from '../Loading'
 import enhancer from './enhancer'
 import Class from './Class'
 import './Classes.less'
@@ -16,10 +17,16 @@ class Classes extends Component {
       match,
       currentSchool,
       profile: { nav = {} },
+      profileReady,
       myClasses = []
     } = this.props
     const currentClass = (match.params || {}).classId
-    const lastClass = (nav.class ? nav.class[nav.school] : myClasses[0]) || {}
+    const lastClass =
+      (nav.class ? { id: nav.class[nav.school] } : myClasses[0]) || {}
+
+    if (!profileReady) {
+      return <Loading />
+    }
 
     return (
       <Layout>
@@ -47,9 +54,9 @@ class Classes extends Component {
 }
 
 const NoClasses = props => {
-  if (props.lastClass) {
-    return <Redirect to={`/class/${props.lastClass}`} />
-  }
+  // if (props.lastClass) {
+  //   return <Redirect to={`/class/${props.lastClass}`} />
+  // }
   return (
     <EmptyState
       header='No Classes Yet'

@@ -1,3 +1,4 @@
+import { profileReducer } from '../middleware/profileUpdating'
 import { reducer as rpcReducer } from '../middleware/rpc'
 import { firebaseReducer } from 'react-redux-firebase'
 import { reducer as formReducer } from 'redux-form'
@@ -9,6 +10,7 @@ function main (state = {}, action) {
 }
 
 export default combineReducers({
+  profileReady: profileReducer,
   firestore: firestoreReducer,
   firebase: firebaseReducer,
   form: formReducer,
