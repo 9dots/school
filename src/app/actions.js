@@ -2,8 +2,6 @@ import { getFirebase } from 'react-redux-firebase'
 import createAction from '@f/create-action'
 import fetch from 'isomorphic-fetch'
 
-const setUrl = createAction('SET_URL')
-
 const rpc = (method, data) => dispatch =>
   getIdToken(getFirebase)
     .then(idToken =>
@@ -22,6 +20,11 @@ function getIdToken (getFirebase) {
   return getFirebase()
     .auth()
     .currentUser.getIdToken()
+}
+
+const setUrl = (history, url, opts = {}) => dispatch => {
+  console.log(history, url)
+  return history.push(url, opts)
 }
 
 export { setUrl, rpc }

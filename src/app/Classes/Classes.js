@@ -19,7 +19,8 @@ class Classes extends Component {
       myClasses = []
     } = this.props
     const currentClass = (match.params || {}).classId
-    const lastClass = nav.class ? nav.class[nav.school] : myClasses[0] || {}
+    const lastClass = (nav.class ? nav.class[nav.school] : myClasses[0]) || {}
+
     return (
       <Layout>
         <Layout.Sider width={styles['@sidebar-width']}>
