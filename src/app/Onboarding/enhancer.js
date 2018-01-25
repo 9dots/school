@@ -23,7 +23,6 @@ export default compose(
   ),
   withHandlers({
     onSubmit: ({ teacherSignUp, form, uid, dispatch }) => values => {
-      console.log(values)
       return dispatch(
         rpc('user.teacherSignUp', {
           teacher: uid,
@@ -36,6 +35,7 @@ export default compose(
           }
         })
         .catch(e => {
+          console.warn(e)
           throw new SubmissionError({
             school: 'School code not found.'
           })
