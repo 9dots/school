@@ -4,7 +4,7 @@ import ModalContainer from 'components/ModalContainer'
 import { Menu, Button, Icon, Row, Col } from 'antd'
 import SchoolDropdown from '../SchoolDropdown'
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, history } from 'react-router-dom'
 import ClassModal from '../ClassModal'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
@@ -28,6 +28,7 @@ const enhancer = compose(
 )
 
 class ClassList extends Component {
+  handleClick = e => {}
   render () {
     const {
       currentSchool,
@@ -47,6 +48,7 @@ class ClassList extends Component {
         <Menu
           selectedKeys={[currentClass]}
           mode='inline'
+          onClick={this.handleClick}
           style={{ borderRight: 0 }}>
           {!!myClasses.length && <Menu.Divider />}
           {myClasses.map(cls => (
@@ -81,6 +83,10 @@ const ClassItem = ModalContainer(
             <Button
               type='primary'
               ghost
+              onClick={e => {
+                e.preventDefault()
+                return showModal()
+              }}
               icon='user-add'
               shape='circle'
               size='small' />
