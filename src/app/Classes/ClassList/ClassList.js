@@ -28,7 +28,6 @@ const enhancer = compose(
 )
 
 class ClassList extends Component {
-  handleClick = e => {}
   render () {
     const {
       currentSchool,
@@ -48,7 +47,6 @@ class ClassList extends Component {
         <Menu
           selectedKeys={[currentClass]}
           mode='inline'
-          onClick={this.handleClick}
           style={{ borderRight: 0 }}>
           {!!myClasses.length && <Menu.Divider />}
           {myClasses.map(cls => (
