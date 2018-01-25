@@ -79,7 +79,6 @@ const ClassItem = ModalContainer(
           <Col>{cls.displayName}</Col>
           <Col className='class-actions'>
             <Button
-              onClick={showModal}
               type='primary'
               ghost
               icon='user-add'
