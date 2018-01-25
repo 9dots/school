@@ -1,6 +1,6 @@
-import { reactReduxFirebase, getFirebase } from 'react-redux-firebase'
 import { createStore, applyMiddleware, compose } from 'redux'
 import fetch, { fetchEncodeJSON } from 'redux-effects-fetch'
+import { reactReduxFirebase } from 'react-redux-firebase'
 import { reduxFirestore } from 'redux-firestore'
 import createSagaMiddleware from 'redux-saga'
 import location from 'redux-effects-location'
@@ -50,6 +50,5 @@ export default (initialState = {}, history) => {
     {}, // initial state
     applyMiddleware(...middleware)
   )
-  // sagaMiddleware.run(rootSaga, getFirebase)
   return store
 }
