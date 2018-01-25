@@ -19,9 +19,7 @@ class Classes extends Component {
       myClasses = []
     } = this.props
     const currentClass = (match.params || {}).classId
-    const lastClass = nav.class ? nav.class[nav.school] : myClasses[0] || {}
-
-    console.log(nav.class, nav.school, myClasses)
+    const lastClass = (nav.class ? nav.class[nav.school] : myClasses[0]) || {}
 
     return (
       <Layout>
