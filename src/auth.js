@@ -57,3 +57,16 @@ export const userIsNotAuthenticatedRedir = connectedRouterRedirect({
     locationHelper.getRedirectQueryParam(ownProps) || '/',
   allowRedirectBack: false
 })
+
+// lastSchool: 'school1'
+// lastClass: {
+//   school1: 'class1',
+//   school2: 'class1',
+//   school3: 'class3'
+// }
+
+// updateLastSchool(schoolId)
+// componentWillMount () {
+//   updateLastClass('route')
+//   updateLastSchool(classData.school)
+// }

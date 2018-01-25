@@ -1,0 +1,6 @@
+
+{
+  "name": "StudentItem",
+  "main": "StudentItem.js",
+  "browser": "StudentItem.js"
+}

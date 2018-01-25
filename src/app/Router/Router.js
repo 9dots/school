@@ -1,4 +1,4 @@
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import {
   userIsNotAuthenticatedRedir,
   userIsAuthenticatedRedir,
@@ -29,7 +29,13 @@ const Router = enhance(props => {
           path='/login'
           exact
           component={userIsNotAuthenticatedRedir(Splash)} />
-        <Route path='/' component={userIsAuthenticatedRedir(App)} />
+        <Route
+          path='/onboarding'
+          exact
+          component={userHasNoSchool(Onboarding)} />
+        <Route
+          path='/'
+          component={userIsAuthenticatedRedir(userHasSchool(App))} />
       </div>
     </BrowserRouter>
   )
@@ -38,8 +44,10 @@ const Router = enhance(props => {
 const App = props => (
   <div>
     <TeacherLayout>
-      <Route path='/' exact component={userHasSchool(Classes)} />
-      <Route path='/onboarding' exact component={userHasNoSchool(Onboarding)} />}
+      <Switch>
+        <Route path='/class/:classId' component={Classes} />
+        <Route path='/' component={Classes} />
+      </Switch>
     </TeacherLayout>
   </div>
 )
