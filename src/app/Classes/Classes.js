@@ -25,7 +25,6 @@ class Classes extends Component {
       <Layout>
         <Layout.Sider width={styles['@sidebar-width']}>
           <ClassList
-            history={this.props.history}
             currentClass={currentClass}
             currentSchool={currentSchool} />
         </Layout.Sider>
