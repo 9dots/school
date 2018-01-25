@@ -1,5 +1,5 @@
 import { TextField } from 'redux-form-antd'
-import { Modal, Form } from 'antd'
+import { Modal, Form, Button } from 'antd'
 import { Field } from 'redux-form'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
@@ -12,12 +12,13 @@ const commonProps = {
 }
 
 const CreateStudentModal = props => {
+  const displayName = props.class && props.class.displayName
   return (
     <Modal
       {...props}
       onOk={props.handleSubmit(props.onSubmit)}
-      title='Class Modal'>
-      <Form>
+      title={'Add Student to ' + displayName}>
+      <Form onSubmit={props.handleSubmit(props.onSubmit)}>
         <Form.Item label='First'>
           <Field
             {...commonProps}
@@ -39,6 +40,7 @@ const CreateStudentModal = props => {
             placeholder='abc123'
             component={TextField} />
         </Form.Item>
+        <button style={{ display: 'none' }} />
       </Form>
     </Modal>
   )
