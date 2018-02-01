@@ -1,6 +1,5 @@
-
 {
-  "name": "ModalContainer",
-  "main": "ModalContainer.js",
-  "browser": "ModalContainer.js"
+  "name": "modalContainer",
+  "main": "modalContainer.js",
+  "browser": "modalContainer.js"
 }

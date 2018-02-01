@@ -1,4 +1,3 @@
-import ModalContainer from '../../components/ModalContainer'
 import CreateStudentModal from './CreateStudentModal'
 import { Button, Menu, Icon } from 'antd'
 import StudentItem from './StudentItem'
@@ -8,7 +7,7 @@ import React from 'react'
 import './StudentList.less'
 
 const StudentList = props => {
-  const { students } = props
+  const { students, hideModal, showModal, addStudentSuccess } = props
   return (
     <div
       style={{
@@ -18,27 +17,27 @@ const StudentList = props => {
       }}>
       <Menu mode='vertical-right' fluid style={{ borderLeft: 'none' }}>
         {students.map(uid => (
-          <Menu.Item key={uid} onClick={() => console.log(uid)}>
+          <Menu.Item key={uid}>
             <StudentItem uid={uid} />
           </Menu.Item>
         ))}
         {!!students.length && <Menu.Divider />}
       </Menu>
       <div style={{ padding: '12px 24px' }}>
-        <Button style={{ width: '100%' }} onClick={props.showModal}>
+        <Button style={{ width: '100%' }} onClick={showModal('createStudent')}>
           <Icon type='plus' />Add Student
         </Button>
       </div>
       <CreateStudentModal
-        onOk={props.hideModal}
-        onCancel={props.hideModal}
+        onOk={addStudentSuccess}
+        onCancel={hideModal('createStudent')}
         class={props.class}
         school={props.school}
-        visible={props.modalVisible} />
+        visible={props.isVisible('createStudent')} />
     </div>
   )
 }
 
 StudentList.propTypes = {}
 
-export default ModalContainer(StudentList)
+export default StudentList

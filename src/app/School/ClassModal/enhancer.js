@@ -5,7 +5,9 @@ import { connect } from 'react-redux'
 import { rpc } from '../../actions'
 
 export default compose(
-  formModal({ form: 'createStudent' }),
+  formModal({
+    form: 'createClass'
+  }),
   connect(
     (state, props) => ({
       ok: props.close(props.onOk),
@@ -14,18 +16,20 @@ export default compose(
     { rpc }
   ),
   withHandlers({
-    onSubmit: props => async values => {
-      const { setLoading, school, class: { id }, rpc, ok } = props
+    onSubmit: ({ school, ok, setLoading, rpc }) => async values => {
       setLoading(true)
       try {
-        const res = await rpc('user.createStudent', { ...values, school })
-        await rpc('class.addStudent', { class: id, student: res.student })
-        ok('Success! Added student.')
+        const cls = await rpc('class.createClass', { ...values, school })
+        await rpc('user.setNav', {
+          [`nav.class.${school}`]: cls.class,
+          [`nav.school`]: school
+        })
+        ok(`Success! Created ${values.displayName}.`)
       } catch (e) {
         setLoading(false)
-        if (e === 'studentId_taken') {
+        if (e === 'school_not_found') {
           throw new SubmissionError({
-            studentId: 'Student ID taken'
+            school: 'School code not found.'
           })
         }
       }

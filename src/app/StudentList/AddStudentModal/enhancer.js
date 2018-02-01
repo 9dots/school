@@ -13,7 +13,6 @@ export default compose(
     }
   ]),
   connect(({ firestore: { data, ordered: { studentList } } }) => ({
-    log: console.log(data),
     studentList
   })),
   reduxForm({

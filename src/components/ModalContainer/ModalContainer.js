@@ -1,33 +1,32 @@
+import { showModal, hideModal } from '../../ducks/modals'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import curry from 'curry'
 import React from 'react'
 
-import './ModalContainer.less'
+import './modalContainer.less'
 
-const ModalContainer = Component => {
-  return class HOC extends React.Component {
-    state = { visible: false }
-    showModal = () => {
-      this.setState({
-        visible: true
-      })
+const enhancer = connect(({ modal }) => ({ modal }), { showModal, hideModal })
+
+const modalContainer = Component => {
+  return enhancer(
+    class HOC extends React.Component {
+      showModal = curry((name, e) => this.props.showModal(name))
+      hideModal = curry((name, e) => this.props.hideModal(name))
+      isVisible = name => this.props.modal[name] || false
+      render () {
+        return (
+          <Component
+            {...this.props}
+            showModal={this.showModal}
+            hideModal={this.hideModal}
+            isVisible={this.isVisible} />
+        )
+      }
     }
-    hideModal = () => {
-      this.setState({
-        visible: false
-      })
-    }
-    render () {
-      return (
-        <Component
-          showModal={this.showModal.bind(this)}
-          hideModal={this.hideModal.bind(this)}
-          modalVisible={this.state.visible}
-          {...this.props} />
-      )
-    }
-  }
+  )
 }
 
-ModalContainer.propTypes = {}
+modalContainer.propTypes = {}
 
-export default ModalContainer
+export default modalContainer

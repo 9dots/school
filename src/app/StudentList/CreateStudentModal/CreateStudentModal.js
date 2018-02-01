@@ -1,5 +1,5 @@
 import { TextField } from 'redux-form-antd'
-import { Modal, Form, Button } from 'antd'
+import { Modal, Form } from 'antd'
 import { Field } from 'redux-form'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
@@ -16,7 +16,9 @@ const CreateStudentModal = props => {
   return (
     <Modal
       {...props}
+      onCancel={props.close(props.onCancel)}
       onOk={props.handleSubmit(props.onSubmit)}
+      confirmLoading={props.confirmLoading}
       title={'Add Student to ' + displayName}>
       <Form onSubmit={props.handleSubmit(props.onSubmit)}>
         <Form.Item label='First'>
