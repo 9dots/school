@@ -1,0 +1,6 @@
+
+{
+  "name": "waitFor",
+  "main": "waitFor.js",
+  "browser": "waitFor.js"
+}

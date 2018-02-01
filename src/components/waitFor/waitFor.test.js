@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import modalContainer from '.'
+import waitFor from '.'
 
 it('renders without crashing', () => {
   const div = document.createElement('div')
-  ReactDOM.render(<modalContainer />, div)
+  ReactDOM.render(<waitFor />, div)
 })

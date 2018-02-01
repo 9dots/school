@@ -1,0 +1,6 @@
+
+{
+  "name": "formModal",
+  "main": "formModal.js",
+  "browser": "formModal.js"
+}

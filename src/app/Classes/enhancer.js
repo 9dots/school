@@ -1,5 +1,5 @@
 import { firestoreConnect } from 'react-redux-firebase'
-import ModalContainer from 'components/ModalContainer'
+import modalContainer from 'components/modalContainer'
 import { connect } from 'react-redux'
 import mapValues from '@f/map-values'
 import getProp from '@f/get-prop'
@@ -30,7 +30,7 @@ export default compose(
       storeAs: `myClasses-${getProp('profile.nav.school', props) || null}`
     }
   ]),
-  ModalContainer,
+  modalContainer,
   connect(
     ({ profileReady, firestore: { data, ordered } }, { profile }) => ({
       currentSchool: getSchool(data, profile),

@@ -5,8 +5,6 @@ import { rpc } from '../app/actions'
 import map from '@f/map'
 
 const setRpcChannel = createAction('<RPC:/>: SET_RPC_CHANNEL')
-// const rpcSucceeded = createAction('<RPC:/>: RPC_SUCCEEDED')
-// const rpcFailed = createAction('<RPC:/>: RPC_FAILED')
 
 function mapToDispatch (methodFamily, methods, dispatch) {
   return map(

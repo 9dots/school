@@ -1,6 +1,7 @@
 import { Collapse, Layout, Divider } from 'antd'
 import StudentList from 'app/StudentList'
 import styles from 'theme/vars/vars.js'
+import Loading from '../../Loading'
 import enhancer from './enhancer'
 import lesson from 'app/Lesson'
 import React from 'react'
@@ -8,7 +9,9 @@ import './Class.less'
 
 const Class = props => {
   const { classId } = props.match.params
-  const { classData = {} } = props
+  const { isLoaded, classData = {} } = props
+
+  if (!isLoaded) return <Loading />
 
   return (
     <Layout>
@@ -32,6 +35,10 @@ const Class = props => {
       <Layout.Sider width={styles['@sidebar-width']}>
         <StudentList
           students={Object.keys(classData.students || {})}
+          addStudentSuccess={props.addStudentSuccess}
+          showModal={props.showModal}
+          hideModal={props.hideModal}
+          isVisible={props.isVisible}
           class={{ ...classData, id: classId }}
           school={classData.school} />
       </Layout.Sider>

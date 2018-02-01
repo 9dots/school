@@ -1,13 +1,12 @@
-import { startSetProfile } from '../../../middleware/profileUpdating'
 import { Menu, Icon, Avatar, Row, Col, Dropdown } from 'antd'
-import { firestoreConnect } from 'react-redux-firebase'
-import ModalContainer from 'components/ModalContainer'
+import modalContainer from 'components/modalContainer'
 import { compose, withHandlers } from 'recompose'
 import { withRouter } from 'react-router-dom'
 import SchoolDetails from '../SchoolDetails'
-import { rpc, setUrl } from '../../actions'
+import { profile } from '../../../selectors'
 import React, { Component } from 'react'
 import SchoolModal from '../SchoolModal'
+import { setUrl } from '../../actions'
 import { connect } from 'react-redux'
 import mapValues from '@f/map-values'
 import PropTypes from 'prop-types'
@@ -16,20 +15,16 @@ import './SchoolDropdown.less'
 
 const enhancer = compose(
   withRouter,
-  firestoreConnect(),
-  ModalContainer,
-  connect(({ firebase: { profile, auth: { uid } } }, props) => ({
-    schools: mapValues((role, id) => ({ role, id }), profile.schools).filter(
-      school => school.id !== props.currentSchool.id
-    )
+  modalContainer,
+  connect((state, props) => ({
+    schools: mapValues(
+      (role, id) => ({ role, id }),
+      profile(state).schools
+    ).filter(school => school.id !== props.school)
   })),
   withHandlers({
-    onSelect: ({ dispatch, firestore, history, uid }) => key => {
-      dispatch(startSetProfile())
-      return dispatch(rpc('user.setNav', { 'nav.school': key }))
-        .then(() => dispatch(setUrl(history, '/')))
-        .catch(console.warn)
-    }
+    onSelect: ({ dispatch, firestore, history }) => key =>
+      dispatch(setUrl(history, `/school/${key}`))
   })
 )
 
@@ -44,7 +39,7 @@ class SchoolDropdown extends Component {
     }
   }
   render () {
-    const { currentSchool, schools = [], hideModal, modalVisible } = this.props
+    const { schoolData, schools = [], hideModal, modalVisible } = this.props
     const schoolMenu = (
       <Menu className='school-menu' onClick={this.menuClick}>
         {schools.length && [
@@ -54,9 +49,7 @@ class SchoolDropdown extends Component {
           <Menu.Divider key='divider1' />,
           ...schools.map(val => (
             <Menu.Item key={val.id}>
-              {/* <Link to='/'> */}
               <SchoolDetails school={val.id} />
-              {/* </Link> */}
             </Menu.Item>
           )),
           <Menu.Divider key='divider2' />
@@ -95,7 +88,7 @@ class SchoolDropdown extends Component {
               </Avatar>
             </Col>
             <Col span={18} className='ellipsis' style={{ paddingRight: 20 }}>
-              <b>{currentSchool.displayName}</b>
+              <b>{schoolData.displayName}</b>
               <br />
               <i>Teacher</i>
               <Icon type='down' style={{ position: 'absolute', right: 0 }} />

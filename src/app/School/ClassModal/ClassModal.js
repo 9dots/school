@@ -4,6 +4,7 @@ import { Field } from 'redux-form'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
 import React from 'react'
+
 import './ClassModal.less'
 
 const commonProps = {
@@ -30,6 +31,7 @@ const ClassModal = props => {
   return (
     <Modal
       {...props}
+      onCancel={props.close(props.onCancel)}
       onOk={props.handleSubmit(props.onSubmit)}
       title='Create A Class'>
       <Form>

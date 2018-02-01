@@ -1,57 +1,45 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import TeacherLayout from './TeacherLayout'
+import Onboarding from '../Onboarding'
+import { connect } from 'react-redux'
+import { compose } from 'recompose'
+import PropTypes from 'prop-types'
+import School from 'app/School'
+import Splash from '../Splash'
+import Home from 'app/Home'
+import React from 'react'
 import {
   userIsNotAuthenticatedRedir,
   userIsAuthenticatedRedir,
   userHasNoSchool,
   userHasSchool
 } from '../../auth'
-import TeacherLayout from './TeacherLayout'
-import Onboarding from '../Onboarding'
-import { connect } from 'react-redux'
-import { compose } from 'recompose'
-import PropTypes from 'prop-types'
-import Classes from 'app/Classes'
-import Splash from '../Splash'
-import React from 'react'
+
 import './Router.less'
-
-const enhance = compose(
-  connect(({ firebase: { auth, profile } }) => ({
-    profile
-  }))
-)
-
-const Router = enhance(props => {
-  return (
-    <BrowserRouter>
-      <div>
-        <Route
-          path='/login'
-          exact
-          component={userIsNotAuthenticatedRedir(Splash)} />
-        <Route
-          path='/onboarding'
-          exact
-          component={userHasNoSchool(Onboarding)} />
-        <Route
-          path='/'
-          component={userIsAuthenticatedRedir(userHasSchool(App))} />
-      </div>
-    </BrowserRouter>
-  )
-})
 
 const App = props => (
   <div>
     <TeacherLayout>
       <Switch>
-        <Route path='/class/:classId' component={Classes} />
-        <Route path='/' component={Classes} />
+        <Route exact path='/school/:school/class/:classId' component={School} />
+        <Route exact path='/school/:school' component={School} />
+        <Route exact path='/' component={Home} />
       </Switch>
     </TeacherLayout>
   </div>
 )
 
-Router.propTypes = {}
+const routes = (
+  <div>
+    <Route
+      path='/login'
+      exact
+      component={userIsNotAuthenticatedRedir(Splash)} />
+    <Route path='/onboarding' exact component={userHasNoSchool(Onboarding)} />
+    <Route path='/' component={userIsAuthenticatedRedir(userHasSchool(App))} />
+  </div>
+)
+
+const Router = props => <BrowserRouter>{routes}</BrowserRouter>
 
 export default Router

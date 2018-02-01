@@ -9,6 +9,7 @@
     "@f/map": "^1.5.3",
     "@f/map-values": "^1.0.0",
     "antd": "^3.1.0",
+    "curry": "^1.2.0",
     "firebase": "^4.8.1",
     "fs": "^0.0.1-security",
     "isomorphic-fetch": "^2.2.1",

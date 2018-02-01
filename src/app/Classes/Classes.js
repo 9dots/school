@@ -44,10 +44,10 @@ class Classes extends Component {
             )} />
         </Switch>
         <ClassModal
-          visible={this.props.modalVisible}
+          visible={this.props.isVisible('classModal')}
           school={currentSchool.id}
-          onOk={this.props.hideModal}
-          onCancel={this.props.hideModal} />
+          onOk={this.props.hideModal('classModal')}
+          onCancel={this.props.hideModal('classModal')} />
       </Layout>
     )
   }
@@ -67,7 +67,7 @@ const NoClasses = props => {
           <Icon type='plus' style={{ marginRight: 10 }} />New Class
         </span>
       }
-      action={props.showModal} />
+      action={props.showModal('classModal')} />
   )
 }
 
