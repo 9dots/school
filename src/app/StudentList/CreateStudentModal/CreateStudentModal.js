@@ -1,4 +1,5 @@
 import { TextField } from 'redux-form-antd'
+import { isEmail } from '../../../utils'
 import { Modal, Form } from 'antd'
 import { Field } from 'redux-form'
 import PropTypes from 'prop-types'
@@ -10,6 +11,8 @@ import './CreateStudentModal.less'
 const commonProps = {
   validate: v => (v ? '' : 'Required')
 }
+
+const email = value => (isEmail(value) ? 'Invalid email address' : undefined)
 
 const CreateStudentModal = props => {
   const displayName = props.class && props.class.displayName
@@ -40,6 +43,16 @@ const CreateStudentModal = props => {
             {...commonProps}
             name='studentId'
             placeholder='abc123'
+            component={TextField} />
+        </Form.Item>
+        <Form.Item label='Email (optional)'>
+          <Field
+            // {...commonProps}
+            // validate={v => (isEmail(v) ? 'Invalid Email' : undefined)}
+            validate={email}
+            type='email'
+            name='email'
+            placeholder='student@email.com'
             component={TextField} />
         </Form.Item>
       </Form>

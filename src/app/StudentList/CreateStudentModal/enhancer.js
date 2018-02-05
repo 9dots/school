@@ -3,6 +3,7 @@ import { compose, withHandlers } from 'recompose'
 import { SubmissionError } from 'redux-form'
 import { connect } from 'react-redux'
 import { rpc } from '../../actions'
+import { message } from 'antd'
 
 export default compose(
   formModal({ form: 'createStudent' }),
@@ -28,6 +29,7 @@ export default compose(
             studentId: 'Student ID taken'
           })
         }
+        message.error('Unknown error. Please try again.')
       }
     }
   })

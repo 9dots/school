@@ -3,6 +3,7 @@ import { compose, withHandlers } from 'recompose'
 import { SubmissionError } from 'redux-form'
 import { connect } from 'react-redux'
 import { rpc } from '../../actions'
+import { message } from 'antd'
 
 export default compose(
   formModal({
@@ -20,11 +21,11 @@ export default compose(
       setLoading(true)
       try {
         const cls = await rpc('class.createClass', { ...values, school })
+        ok(`Success! Created ${values.displayName}.`)
         await rpc('user.setNav', {
           [`nav.class.${school}`]: cls.class,
           [`nav.school`]: school
         })
-        ok(`Success! Created ${values.displayName}.`)
       } catch (e) {
         setLoading(false)
         if (e === 'school_not_found') {
@@ -32,6 +33,7 @@ export default compose(
             school: 'School code not found.'
           })
         }
+        message.error('Unknown error. Please try again.')
       }
     }
   })

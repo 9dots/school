@@ -1,12 +1,14 @@
 import { reduxForm, SubmissionError } from 'redux-form'
 import { firestoreConnect } from 'react-redux-firebase'
+import formModal from '../../components/formModal'
 import { compose, withHandlers } from 'recompose'
 import { connect } from 'react-redux'
 import { rpc } from '../actions'
+import { message } from 'antd'
 
 export default compose(
   firestoreConnect([{ collection: 'schools', orderBy: ['displayName'] }]),
-  reduxForm({
+  formModal({
     form: 'onboarding'
   }),
   connect(
@@ -19,27 +21,23 @@ export default compose(
         value: school.id
       })),
       uid
-    })
+    }),
+    { rpc }
   ),
   withHandlers({
-    onSubmit: ({ teacherSignUp, form, uid, dispatch }) => values => {
-      return dispatch(
-        rpc('user.teacherSignUp', {
-          teacher: uid,
-          ...values
-        })
-      )
-        .then(res => {
-          if (!res.ok) {
-            throw new Error(res.error)
-          }
-        })
-        .catch(e => {
-          console.warn(e)
+    onSubmit: ({ uid, dispatch, rpc, setLoading }) => async values => {
+      setLoading(true)
+      try {
+        await rpc('user.teacherSignUp', { teacher: uid, ...values })
+      } catch (e) {
+        setLoading(false)
+        if (e === 'school_not_found') {
           throw new SubmissionError({
             school: 'School code not found.'
           })
-        })
+        }
+        message.error('Unknown error. Please try again.')
+      }
     }
   })
 )

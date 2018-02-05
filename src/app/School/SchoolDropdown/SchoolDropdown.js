@@ -1,4 +1,4 @@
-import { Menu, Icon, Avatar, Row, Col, Dropdown } from 'antd'
+import { Menu, Icon, Avatar, Row, Col, Dropdown, message } from 'antd'
 import modalContainer from 'components/modalContainer'
 import { compose, withHandlers } from 'recompose'
 import { withRouter } from 'react-router-dom'
@@ -24,7 +24,11 @@ const enhancer = compose(
   })),
   withHandlers({
     onSelect: ({ dispatch, firestore, history }) => key =>
-      dispatch(setUrl(history, `/school/${key}`))
+      dispatch(setUrl(history, `/school/${key}`)),
+    onOk: props => msg => {
+      props.hideModal('schoolModal', null)
+      message.success(msg)
+    }
   })
 )
 
@@ -32,14 +36,14 @@ class SchoolDropdown extends Component {
   menuClick = ({ key }) => {
     switch (key) {
       case 'newSchool':
-        this.props.showModal()
+        this.props.showModal('schoolModal', null)
         break
       default:
         this.props.onSelect(key)
     }
   }
   render () {
-    const { schoolData, schools = [], hideModal, modalVisible } = this.props
+    const { schoolData, schools = [], hideModal, isVisible, onOk } = this.props
     const schoolMenu = (
       <Menu className='school-menu' onClick={this.menuClick}>
         {schools.length && [
@@ -96,9 +100,9 @@ class SchoolDropdown extends Component {
           </Row>
         </Dropdown>
         <SchoolModal
-          visible={modalVisible}
-          onOk={hideModal}
-          onCancel={hideModal} />
+          visible={isVisible('schoolModal')}
+          onOk={onOk}
+          onCancel={hideModal('schoolModal')} />
       </span>
     )
   }
