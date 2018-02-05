@@ -13,8 +13,10 @@ const formModal = form => Component => {
       }
     ),
     withHandlers({
-      close: ({ destroy }) => handler => (...args) => {
-        destroy()
+      close: ({ reset, dispatch, setLoading, ...props }) => handler => (
+        ...args
+      ) => {
+        setLoading(false)
         handler(...args)
       }
     })

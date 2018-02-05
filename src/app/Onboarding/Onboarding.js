@@ -17,13 +17,9 @@ const Onboarding = props => {
       title='Complete Your Profile!'
       visible={true}
       onOk={props.handleSubmit(props.onSubmit)}
+      confirmLoading={props.confirmLoading}
       maskClosable={false}
-      closable={false}
-      footer={
-        <Button type='primary' onClick={props.handleSubmit(props.onSubmit)}>
-          Submit
-        </Button>
-      }>
+      closable={false}>
       <form onSubmit={props.handleSubmit(props.onSubmit)}>
         <Item label='Full Name'>
           <Row gutter={8}>

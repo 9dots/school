@@ -47,7 +47,7 @@ const noClasses = props => (
         <Icon type='plus' style={{ marginRight: 10 }} />New Class
       </span>
     }
-    action={props.showModal} />
+    action={props.showModal('classModal')} />
 )
 
 function getRedirect (props) {

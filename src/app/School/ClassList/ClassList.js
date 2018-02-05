@@ -28,8 +28,8 @@ class ClassList extends Component {
         }}>
         <SchoolDropdown schoolData={schoolData} school={school} />
         <Menu
-          selectedKeys={[currentClass]}
           mode='inline'
+          selectedKeys={[currentClass]}
           style={{ borderRight: 0 }}>
           {!!myClasses.length && <Menu.Divider />}
           {myClasses.map(cls => (
@@ -44,11 +44,13 @@ class ClassList extends Component {
             <Icon type='plus' />New Class
           </Button>
         </div>
-        <ClassModal
-          visible={isVisible('classModal')}
-          school={school}
-          onOk={onCreateClass}
-          onCancel={hideModal('classModal')} />
+        {isVisible('classModal') && (
+          <ClassModal
+            visible
+            school={school}
+            onOk={onCreateClass}
+            onCancel={hideModal('classModal')} />
+        )}
       </div>
     )
   }
@@ -66,7 +68,8 @@ const ClassItem = modalContainer(
               ghost
               onClick={e => {
                 e.preventDefault()
-                return showModal('studentModal')
+                e.stopPropagation()
+                showModal('createStudent', null)
               }}
               icon='user-add'
               shape='circle'
