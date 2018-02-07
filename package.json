@@ -8,6 +8,7 @@
     "@f/get-prop": "^1.1.1",
     "@f/map": "^1.5.3",
     "@f/map-values": "^1.0.0",
+    "@f/set-prop": "^1.0.1",
     "antd": "^3.1.0",
     "curry": "^1.2.0",
     "firebase": "^4.8.1",
@@ -32,7 +33,8 @@
     "redux-form-antd": "https://github.com/danleavitt0/redux-form-antd.git",
     "redux-logger": "^3.0.6",
     "redux-saga": "^0.16.0",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "school-schema": "^0.1.1"
   },
   "devDependencies": {
     "babel-eslint": "^8.0.2",

@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import TeacherLayout from './TeacherLayout'
 import Onboarding from '../Onboarding'
+import PropTypes from 'prop-types'
 import Courses from 'app/Courses'
 import Course from 'app/Course'
 import School from 'app/School'
@@ -10,7 +11,6 @@ import React from 'react'
 import {
   userIsNotAuthenticatedRedir,
   userIsAuthenticatedRedir,
-  userHasNoSchool,
   userHasSchool
 } from '../../auth'
 
@@ -31,14 +31,12 @@ const App = props => (
 )
 
 const routes = (
-  <div>
-    <Route
-      path='/login'
-      exact
-      component={userIsNotAuthenticatedRedir(Splash)} />
-    <Route path='/onboarding' exact component={userHasNoSchool(Onboarding)} />
+  <Switch>
+    <Route path='/login' component={userIsNotAuthenticatedRedir(Splash)} />
+    <Route path='/onboarding/class' component={Onboarding} />
+    <Route path='/onboarding' component={Onboarding} />
     <Route path='/' component={userIsAuthenticatedRedir(userHasSchool(App))} />
-  </div>
+  </Switch>
 )
 
 const Router = props => <BrowserRouter>{routes}</BrowserRouter>

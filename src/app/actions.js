@@ -14,7 +14,7 @@ const rpc = (method, data) => dispatch =>
       })
     )
     .then(res => res.json())
-    .then(res => (res.ok ? res : Promise.reject(res.error)))
+    .then(res => (res.ok ? res : Promise.reject(res)))
 
 function getIdToken (getFirebase) {
   return getFirebase()
