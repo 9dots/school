@@ -1,8 +1,14 @@
+import enhancer, {
+  profileDetailEnhancer,
+  classOnboardingEnhancer
+} from './enhancer'
 import { TextField, SelectField } from 'redux-form-antd'
 import { Modal, Form, Row, Col, Button } from 'antd'
+import { Switch, Route } from 'react-router-dom'
+import ClassModal from '../School/ClassModal'
+import Loading from '../Loading/Loading'
 import { Field } from 'redux-form'
 import PropTypes from 'prop-types'
-import enhancer from './enhancer'
 import React from 'react'
 
 import './Onboarding.less'
@@ -12,6 +18,28 @@ const commonProps = {
 }
 
 const Onboarding = props => {
+  if (!props.isLoaded) return <Loading />
+  return (
+    <Switch>
+      <Route
+        path='/onboarding'
+        exact
+        render={routeProps => <ProfileDetails {...props} />} />
+      <Route
+        path='/onboarding/class'
+        exact
+        render={routeProps => <ClassOnboarding {...props} />} />
+    </Switch>
+  )
+}
+
+const ClassOnboarding = classOnboardingEnhancer(props => {
+  return (
+    <ClassModal onOk={props.close} onCancel={props.close} visible {...props} />
+  )
+})
+
+const ProfileDetails = profileDetailEnhancer(props => {
   return (
     <Modal
       title='Complete Your Profile!'
@@ -19,6 +47,14 @@ const Onboarding = props => {
       onOk={props.handleSubmit(props.onSubmit)}
       confirmLoading={props.confirmLoading}
       maskClosable={false}
+      footer={
+        <Button
+          loading={props.confirmLoading}
+          onClick={props.handleSubmit(props.onSubmit)}
+          type='primary'>
+          Next
+        </Button>
+      }
       closable={false}>
       <form onSubmit={props.handleSubmit(props.onSubmit)}>
         <Item label='Full Name'>
@@ -63,7 +99,7 @@ const Onboarding = props => {
       </form>
     </Modal>
   )
-}
+})
 
 const itemLayout = {
   labelCol: {
