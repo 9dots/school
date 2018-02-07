@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import { Collapse, Button, Icon, List, Avatar } from 'antd'
+import { Link } from 'react-router-dom'
 import React from 'react'
 import './LessonList.less'
 
@@ -46,10 +47,10 @@ const Tasks = ({ tasks }) => (
           title={displayName}
           description={description} />
 
-        <div className='extra'>
+        <Link to={'/'} className='extra'>
           <Icon type='eye-o' />
           Preview
-        </div>
+        </Link>
       </List.Item>
     ))}
   </List>
