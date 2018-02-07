@@ -6,7 +6,7 @@ class TeacherLayout extends Component {
   render () {
     return (
       <div>
-        <Header />
+        <Header location={this.props.location} />
         {this.props.children}
       </div>
     )
