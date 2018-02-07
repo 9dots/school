@@ -1,10 +1,13 @@
-import { Collapse, Layout, Divider } from 'antd'
+import { Collapse, Layout, Divider, Icon, Button } from 'antd'
+import backpack from 'assets/images/emptypack.png'
 import StudentList from 'app/StudentList'
+import EmptyState from 'app/EmptyState'
 import styles from 'theme/vars/vars.js'
 import Loading from '../../Loading'
 import enhancer from './enhancer'
 import lesson from 'app/Lesson'
 import React from 'react'
+import { Link } from 'react-router-dom'
 import './Class.less'
 
 const Class = props => {
@@ -18,19 +21,26 @@ const Class = props => {
       <Layout.Content
         style={{
           minHeight: 'calc(100vh - 64px)',
-          padding: 50,
-          backgroundColor: '#F7F7F7'
+          padding: 50
         }}>
-        <Collapse
-          defaultActiveKey={['active']}
-          bordered={false}
-          className='lessons-collapse active-lesson'>
-          {lesson({ lesson: lessons[0], key: 'active' })}
-        </Collapse>
-        <Divider style={{ margin: '45px 0px 40px' }}>Inactive Lessons</Divider>
-        <Collapse bordered={false} className='lessons-collapse'>
-          {lessons.slice(1).map((val, key) => lesson({ lesson: val, key }))}
-        </Collapse>
+        {true ? (
+          <NoCourses />
+        ) : (
+          <span>
+            <Collapse
+              defaultActiveKey={['active']}
+              bordered={false}
+              className='lessons-collapse active-lesson'>
+              {lesson({ lesson: lessons[0], key: 'active' })}
+            </Collapse>
+            <Divider style={{ margin: '45px 0px 40px' }}>
+              Inactive Lessons
+            </Divider>
+            <Collapse bordered={false} className='lessons-collapse'>
+              {lessons.slice(1).map((val, key) => lesson({ lesson: val, key }))}
+            </Collapse>
+          </span>
+        )}
       </Layout.Content>
       <Layout.Sider width={styles['@sidebar-width']}>
         <StudentList
@@ -49,6 +59,26 @@ const Class = props => {
 Class.propTypes = {}
 
 export default enhancer(Class)
+
+const NoCourses = props => {
+  return (
+    <EmptyState
+      header='Your Class Has No Courses'
+      text={
+        <span>
+          Browse the library of courses <br /> and assign one to your class!
+        </span>
+      }
+      image={backpack}
+      btn={
+        <Link to='/courses'>
+          <Button size='large' className='secondary' type='primary'>
+            <Icon type='search' style={{ marginRight: 10 }} />Find A Course
+          </Button>
+        </Link>
+      } />
+  )
+}
 
 const lessons = [
   {

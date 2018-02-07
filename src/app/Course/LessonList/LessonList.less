@@ -1,0 +1,44 @@
+/* LessonList less */
+
+.lesson-list {
+  &.ant-collapse-borderless > .ant-collapse-item:last-child {
+    border-radius: 0;
+    border-bottom: none;
+  }
+
+  &.ant-collapse > .ant-collapse-item > .ant-collapse-header {
+    padding-right: 40px;
+    padding-left: 45px;
+    .lesson-number {
+      position: absolute;
+      left: 16px;
+      line-height: 44px;
+      margin-right: 14px;
+      font-size: 20px;
+      font-weight: 200;
+    }
+
+    .arrow {
+      right: 16px;
+      left: auto;
+      line-height: 67px;
+    }
+
+    h3,
+    p {
+      font-weight: normal;
+      margin-bottom: 0;
+    }
+    .lesson-header {
+      float: left;
+    }
+
+    .extra {
+      float: right;
+      margin-top: 6px;
+    }
+  }
+  .ant-collapse-content {
+    padding: 0 45px;
+  }
+}
