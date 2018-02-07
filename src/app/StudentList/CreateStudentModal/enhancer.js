@@ -3,6 +3,7 @@ import { compose, withHandlers } from 'recompose'
 import { SubmissionError } from 'redux-form'
 import { connect } from 'react-redux'
 import { rpc } from '../../actions'
+import setProp from '@f/set-prop'
 import { message } from 'antd'
 
 export default compose(
@@ -24,10 +25,17 @@ export default compose(
         ok('Success! Added student.')
       } catch (e) {
         setLoading(false)
-        if (e === 'studentId_taken') {
+        if (e.error === 'studentId_taken') {
           throw new SubmissionError({
             studentId: 'Student ID taken'
           })
+        } else if (e.errorDetails) {
+          throw new SubmissionError(
+            e.errorDetails.reduce(
+              (acc, { field, message }) => setProp(field, acc, message),
+              {}
+            )
+          )
         }
         message.error('Unknown error. Please try again.')
       }

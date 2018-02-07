@@ -28,14 +28,14 @@ const StudentList = props => {
           <Icon type='plus' />Add Student
         </Button>
       </div>
-      {isVisible('createStudent') && (
+      {
         <CreateStudentModal
           onCancel={hideModal('createStudent')}
           onOk={addStudentSuccess}
           school={props.school}
           class={props.class}
-          visible />
-      )}
+          visible={isVisible('createStudent')} />
+      }
     </div>
   )
 }

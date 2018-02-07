@@ -39,7 +39,7 @@ export default (initialState = {}, history) => {
   const middleware = [
     fetchEncodeJSON,
     sagaMiddleware,
-    createLogger(),
+    // createLogger(),
     location(),
     effects,
     fetch,

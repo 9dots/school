@@ -39,7 +39,7 @@ class Classes extends Component {
           <Route path='/class/:classId' component={Class} />
           <Route
             path='/'
-            component={props => (
+            render={props => (
               <NoClasses lastClass={lastClass.id} {...this.props} />
             )} />
         </Switch>
