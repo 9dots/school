@@ -8,5 +8,7 @@ module.exports = {
   'success-color': palette['@green'],
   'primary-color': palette['@blue'],
   'layout-header-background': palette['@blue'],
-  'layout-sider-background': 'white'
+  'layout-sider-background': 'white',
+  'body-background': palette['@off-white'],
+  'layout-body-background': palette['@off-white']
 }

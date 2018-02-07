@@ -1,0 +1,6 @@
+
+{
+  "name": "Course",
+  "main": "Course.js",
+  "browser": "Course.js"
+}
