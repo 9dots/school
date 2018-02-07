@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { Collapse, Button } from 'antd'
+import { Collapse, Button, Icon, List, Avatar } from 'antd'
 import React from 'react'
 import './LessonList.less'
 
@@ -9,8 +9,7 @@ const LessonList = ({ lessons = [], ...rest }) => {
       {lessons.map((lesson, key) => {
         return (
           <Collapse.Panel key={key} header={<Header {...lesson} i={key} />}>
-            Lorem ipsum doler etat. Something else about how awesome this lesson
-            and its tasks are. Yay Yay Yay.
+            <Tasks tasks={lessons} />
           </Collapse.Panel>
         )
       })}
@@ -20,16 +19,40 @@ const LessonList = ({ lessons = [], ...rest }) => {
 
 const Header = ({ displayName, description, i }) => (
   <div className='clearfix'>
-    <div className='lesson-number'>{i + 1}</div>
+    {/* <div className='lesson-number'>{i + 1}</div> */}
     <div className='lesson-header'>
       <h3 className='ellipsis'>{displayName}</h3>
       <p className='ellipsis'>{description}</p>
     </div>
     <div className='extra'>
-      <Button style={{ marginRight: 10 }}>Slides</Button>
-      <Button>Lesson Plan</Button>
+      <Button style={{ marginRight: 10 }} onClick={e => e.stopPropagation()}>
+        <Icon type='file-ppt' />
+        Slides
+      </Button>
+      <Button onClick={e => e.stopPropagation()}>
+        <Icon type='profile' />
+        Lesson Plan
+      </Button>
     </div>
   </div>
+)
+
+const Tasks = ({ tasks }) => (
+  <List className='task-list'>
+    {tasks.map(({ displayName, description }, i) => (
+      <List.Item key={i}>
+        <List.Item.Meta
+          avatar={<Avatar size='small'>{i + 1}</Avatar>}
+          title={displayName}
+          description={description} />
+
+        <div className='extra'>
+          <Icon type='eye-o' />
+          Preview
+        </div>
+      </List.Item>
+    ))}
+  </List>
 )
 
 LessonList.propTypes = {}
