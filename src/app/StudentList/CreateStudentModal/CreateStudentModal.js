@@ -19,6 +19,7 @@ const CreateStudentModal = props => {
   return (
     <Modal
       {...props}
+      destroyOnClose
       onCancel={props.close(props.onCancel)}
       onOk={props.handleSubmit(props.onSubmit)}
       confirmLoading={props.confirmLoading}
