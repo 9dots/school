@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
 import { Divider, Row, Col, Icon } from 'antd'
+import React, { Component } from 'react'
 import CourseCard from './CourseCard'
 import './Courses.less'
 
