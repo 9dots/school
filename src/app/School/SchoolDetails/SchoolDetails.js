@@ -24,7 +24,7 @@ const enhancer = compose(
 )
 
 const SchoolDetails = props => {
-  // if (!props.isLoaded) return <div />
+  if (!props.isLoaded) return <div />
   return <span>{props.schoolInfo.displayName}</span>
 }
 

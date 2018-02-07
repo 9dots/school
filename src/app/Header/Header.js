@@ -6,6 +6,8 @@ import './Header.less'
 import styles from 'theme/vars/vars.js'
 
 const Header = props => {
+  const active = props.location.pathname.split('/')[1]
+
   return (
     <Layout className='header'>
       <Layout.Sider width={styles['@sidebar-width']}>
@@ -31,9 +33,9 @@ const Header = props => {
           className='main-nav'
           mode='horizontal'
           theme='dark'
-          selectedKeys={['classes']}
+          selectedKeys={[active]}
           style={{ float: 'left' }}>
-          <Menu.Item key='classes'>
+          <Menu.Item key='school'>
             <Link to='/'>
               <Icon type='book' />
               Classes
@@ -43,7 +45,7 @@ const Header = props => {
             <Icon type='table' />
             Grades
           </Menu.Item>
-          <Menu.Item>
+          <Menu.Item key='courses'>
             <Link to='/courses'>
               <Icon type='appstore-o' />
               Courses
