@@ -1,1 +1,1 @@
-module.exports = {"@blue":"#6ab8e3","@red":"#ec5863","@yellow":"#f6b324","@green":"#54cb76","@pink":"#f294bb","@grey-medium":"#333333","@grey-dark":"#323132"}
+module.exports = {"@blue":"#6ab8e3","@red":"#ec5863","@yellow":"#f6b324","@green":"#54cb76","@pink":"#f294bb","@off-white":"#f0f2f5","@grey-medium":"#333333","@grey-dark":"#323132"}
