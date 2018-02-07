@@ -18,7 +18,7 @@ import './Router.less'
 
 const App = props => (
   <div>
-    <TeacherLayout>
+    <TeacherLayout {...props}>
       <Switch>
         <Route exact path='/school/:school/class/:classId' component={School} />
         <Route exact path='/school/:school' component={School} />

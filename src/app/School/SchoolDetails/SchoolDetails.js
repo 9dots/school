@@ -24,7 +24,7 @@ const enhancer = compose(
 
 const SchoolDetails = props => {
   if (!props.isLoaded) return <div />
-  return <div>{props.schoolInfo.displayName}</div>
+  return <span>{props.schoolInfo.displayName}</span>
 }
 
 SchoolDetails.propTypes = {

@@ -73,12 +73,6 @@ const ClassItem = modalContainer(
               size='small' />
           </Col>
         </Row>
-        <CreateStudentModal
-          onOk={hideModal('studentModal')}
-          class={cls}
-          school={school}
-          onCancel={hideModal('studentModal')}
-          visible={isVisible('studentModal')} />
       </Link>
     )
   }
