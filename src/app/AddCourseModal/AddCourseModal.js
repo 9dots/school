@@ -2,7 +2,7 @@ import { firestoreConnect } from 'react-redux-firebase'
 import waitFor from '../../components/waitFor/waitFor'
 import SchoolDetails from '../School/SchoolDetails'
 import { allClasses, uid } from '../../selectors'
-import { Modal, Form, Checkbox } from 'antd'
+import { Modal, Form, Checkbox, List, Icon, Button } from 'antd'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import PropTypes from 'prop-types'
@@ -23,30 +23,39 @@ const enhancer = compose(
     }
   ]),
   connect(state => ({
-    classes: allClasses(state),
-    schools: (allClasses(state) || []).map(cls => cls.school)
+    classes: allClasses(state)
   })),
-  waitFor(props => ['classes', ...props.schools])
+  waitFor(props => ['classes'])
 )
 
 const AddCourseModal = props => {
   const { classes = [], isLoaded, schools, ...rest } = props
   return (
-    <Modal className='add-course-modal' title='Add a Course' {...rest}>
+    <Modal className='add-course-modal' title='Add a Course' okText='Add' {...rest}>
       <Form>
-        <div className='scroller' style={{ height: 100 }}>
-          {isLoaded &&
-            classes.map(({ displayName, school }, key) => (
-              <div
-                key={key}
-                style={{ padding: 10, borderBottom: '1px solid #eee' }}>
-                <Checkbox>
-                  {displayName}
-                  <SchoolDetails school={school} />
-                </Checkbox>
-              </div>
-            ))}
+        <p>Select classes to assign to:</p>
+        <div
+          className='scroller'
+          style={{ minHeight: 150, maxHeight: 250, padding: '0 10px' }}>
+          <List>
+            {isLoaded &&
+              classes.map(({ displayName, school }, key) => (
+                <List.Item key={key}>
+                  <Checkbox className='large'>
+                    <div>
+                      <div>{displayName}</div>
+                      <i>
+                        <SchoolDetails school={school} />
+                      </i>
+                    </div>
+                  </Checkbox>
+                </List.Item>
+              ))}
+          </List>
         </div>
+        <Button className='new-school'>
+          <Icon type='plus' /> Create New Class
+        </Button>
       </Form>
     </Modal>
   )

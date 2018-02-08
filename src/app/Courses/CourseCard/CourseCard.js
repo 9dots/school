@@ -14,8 +14,11 @@ const CourseCard = ({ course, hideModal, showModal, isVisible }) => {
     image,
     difficulty,
     duration = {},
-    description
+    description,
+    id
   } = course
+
+  const modalId = 'addCourse-' + title
 
   return (
     <span>
@@ -32,7 +35,7 @@ const CourseCard = ({ course, hideModal, showModal, isVisible }) => {
             </span>
           }
           extra={
-            <Button onClick={stopEvent(showModal('addCourse'))}>
+            <Button onClick={stopEvent(showModal(modalId))}>
               <Icon type='plus' />Add to Class
             </Button>
           }>
@@ -40,22 +43,20 @@ const CourseCard = ({ course, hideModal, showModal, isVisible }) => {
           <Card.Meta
             description={
               <span>
-                <Icon type='tag-o' style={{ marginRight: '5px' }} />
-                {tags.join(', ')}
-                <Icon type='book' style={{ margin: '0 5px 0 10px' }} />
-                {difficulty}
-                <Icon
-                  type='clock-circle-o'
-                  style={{ margin: '0 5px 0 10px' }} />
+                <Icon type='clock-circle-o' />
                 {duration.time} {duration.unit}
+                <Icon type='book' />
+                {difficulty}
+                <Icon type='tag-o' />
+                {tags.join(', ')}
               </span>
             } />
         </Card>
       </Link>
       <AddCourseModal
-        onOk={hideModal('addCourse')}
-        onCancel={hideModal('addCourse')}
-        visible={isVisible('addCourse')} />
+        onOk={hideModal(modalId)}
+        onCancel={hideModal(modalId)}
+        visible={isVisible(modalId)} />
     </span>
   )
 }
