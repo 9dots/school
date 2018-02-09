@@ -18,7 +18,7 @@ const CourseCard = ({ course, hideModal, showModal, isVisible }) => {
     id
   } = course
 
-  const modalId = 'addCourse-' + title
+  const modalId = 'addCourse-' + title // XXX should use course id when real data
 
   return (
     <span>
@@ -54,6 +54,7 @@ const CourseCard = ({ course, hideModal, showModal, isVisible }) => {
         </Card>
       </Link>
       <AddCourseModal
+        id={modalId}
         onOk={hideModal(modalId)}
         onCancel={hideModal(modalId)}
         visible={isVisible(modalId)} />
