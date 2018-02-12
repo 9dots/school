@@ -17,14 +17,13 @@ const enhancer = compose(
     }
   ]),
   connect((state, props) => ({
-    log: console.log(state),
     schoolInfo: school(state, props.school)
-  }))
-  // waitFor(['schoolInfo'])
+  })),
+  waitFor(['schoolInfo'])
 )
 
 const SchoolDetails = props => {
-  if (!props.isLoaded) return <div />
+  if (!props.isLoaded) return <span />
   return <span>{props.schoolInfo.displayName}</span>
 }
 

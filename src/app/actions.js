@@ -13,7 +13,7 @@ const rpc = (method, data) => dispatch =>
         body: JSON.stringify(data)
       })
     )
-    .then(res => res.json())
+    .then(res => (res.status === 500 ? Promise.reject(res.error) : res.json()))
     .then(res => (res.ok ? res : Promise.reject(res)))
 
 function getIdToken (getFirebase) {
