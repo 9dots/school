@@ -32,7 +32,7 @@ const enhancer = compose(
 
 const AddCourseModal = props => {
   const { classes = [], isLoaded, schools, onOk, id, ...rest } = props
-  const modalId = 'success-' + id
+  const modalId = 'success-' + (id || 'modal')
   return (
     <span>
       <Modal
