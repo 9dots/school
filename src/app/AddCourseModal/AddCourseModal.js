@@ -23,29 +23,27 @@ const enhancer = compose(
     }
   ]),
   connect(state => ({
-    classes: allClasses(state),
-    schools: (allClasses(state) || []).map(cls => cls.school)
+    classes: allClasses(state)
   })),
-  waitFor(props => ['classes', ...props.schools])
+  waitFor(['classes'])
 )
 
 const AddCourseModal = props => {
-  const { classes = [], isLoaded, schools, ...rest } = props
+  const { classes = [], isLoaded, ...rest } = props
   return (
     <Modal className='add-course-modal' title='Add a Course' {...rest}>
       <Form>
         <div className='scroller' style={{ height: 100 }}>
-          {isLoaded &&
-            classes.map(({ displayName, school }, key) => (
-              <div
-                key={key}
-                style={{ padding: 10, borderBottom: '1px solid #eee' }}>
-                <Checkbox>
-                  {displayName}
-                  <SchoolDetails school={school} />
-                </Checkbox>
-              </div>
-            ))}
+          {classes.map(({ displayName, school }, key) => (
+            <div
+              key={key}
+              style={{ padding: 10, borderBottom: '1px solid #eee' }}>
+              <Checkbox>
+                {displayName}
+                <SchoolDetails school={school} />
+              </Checkbox>
+            </div>
+          ))}
         </div>
       </Form>
     </Modal>
