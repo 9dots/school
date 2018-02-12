@@ -1,10 +1,12 @@
 import { Card, Avatar, Button, Icon } from 'antd'
 import LessonList from './LessonList'
 import PropTypes from 'prop-types'
+import AddCourseModal from '../AddCourseModal'
+import modalContainer from '../../components/modalContainer'
 import React from 'react'
 import './Course.less'
 
-const Course = props => {
+const Course = ({ hideModal, isVisible, showModal }) => {
   const {
     description,
     difficulty,
@@ -12,7 +14,8 @@ const Course = props => {
     duration,
     lessons,
     title,
-    image
+    image,
+    ...rest
   } = course
   return (
     <Card
@@ -41,19 +44,26 @@ const Course = props => {
         </span>
       }
       extra={
-        <Button className='secondary' type='primary'>
+        <Button
+          className='secondary'
+          type='primary'
+          onClick={showModal('add-course-modal')}>
           <Icon type='plus' />Add to Class
         </Button>
       }>
       <p>{description}</p>
       <LessonList lessons={lessons} />
+      <AddCourseModal
+        onOk={hideModal('add-course-modal')}
+        onCancel={hideModal('add-course-modal')}
+        visible={isVisible('add-course-modal')} />
     </Card>
   )
 }
 
 Course.propTypes = {}
 
-export default Course
+export default modalContainer(Course)
 
 const course = {
   title: 'Intro to Computers',

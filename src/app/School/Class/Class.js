@@ -7,6 +7,7 @@ import Loading from '../../Loading'
 import enhancer from './enhancer'
 import lesson from 'app/Lesson'
 import React from 'react'
+import Course from '../../Course'
 import { Link } from 'react-router-dom'
 import './Class.less'
 
@@ -23,23 +24,35 @@ const Class = props => {
           minHeight: 'calc(100vh - 64px)',
           padding: 50
         }}>
-        {true ? (
+        {false ? (
           <NoCourses />
         ) : (
-          <span>
-            <Collapse
+          <div className='main-col'>
+            <div className='no-active-lesson'>
+              <h2>No Active Lesson</h2>
+              <p>
+                Click the button below to start the next course for your class.
+              </p>
+              <Button
+                type='primary'
+                className='secondary'
+                size='large'
+                style={{ padding: '0 35px' }}>
+                Start!
+              </Button>
+            </div>
+            {/* <Collapse
               defaultActiveKey={['active']}
               bordered={false}
               className='lessons-collapse active-lesson'>
               {lesson({ lesson: lessons[0], key: 'active' })}
-            </Collapse>
-            <Divider style={{ margin: '45px 0px 40px' }}>
-              Inactive Lessons
-            </Divider>
-            <Collapse bordered={false} className='lessons-collapse'>
+            </Collapse> */}
+            <Divider style={{ margin: '45px 0px 40px' }}>Courses</Divider>
+            <Course added={true} />
+            {/* <Collapse bordered={false} className='lessons-collapse'>
               {lessons.slice(1).map((val, key) => lesson({ lesson: val, key }))}
-            </Collapse>
-          </span>
+            </Collapse> */}
+          </div>
         )}
       </Layout.Content>
       <Layout.Sider width={styles['@sidebar-width']}>
