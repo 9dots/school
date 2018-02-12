@@ -41,10 +41,10 @@ const Header = props => {
               Classes
             </Link>
           </Menu.Item>
-          <Menu.Item>
+          {/* <Menu.Item>
             <Icon type='table' />
             Grades
-          </Menu.Item>
+          </Menu.Item> */}
           <Menu.Item key='courses'>
             <Link to='/courses'>
               <Icon type='appstore-o' />

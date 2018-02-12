@@ -1,15 +1,16 @@
 import { firestoreConnect } from 'react-redux-firebase'
 import waitFor from '../../components/waitFor/waitFor'
 import SchoolDetails from '../School/SchoolDetails'
+import modalContainer from 'components/modalContainer'
 import { allClasses, uid } from '../../selectors'
-import { Modal, Form, Checkbox } from 'antd'
+import { Modal, Form, Checkbox, List, Icon, Button } from 'antd'
+import AddSuccessModal from './AddSuccessModal'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import PropTypes from 'prop-types'
 import React from 'react'
 
 import './AddCourseModal.less'
-import School from '../School/School'
 
 const enhancer = compose(
   connect(state => ({
@@ -25,28 +26,56 @@ const enhancer = compose(
   connect(state => ({
     classes: allClasses(state)
   })),
+  modalContainer,
   waitFor(['classes'])
 )
 
 const AddCourseModal = props => {
-  const { classes = [], isLoaded, ...rest } = props
+  const { classes = [], isLoaded, schools, onOk, id, ...rest } = props
+  const modalId = 'success-' + (id || 'modal')
   return (
-    <Modal className='add-course-modal' title='Add a Course' {...rest}>
-      <Form>
-        <div className='scroller' style={{ height: 100 }}>
-          {classes.map(({ displayName, school }, key) => (
-            <div
-              key={key}
-              style={{ padding: 10, borderBottom: '1px solid #eee' }}>
-              <Checkbox>
-                {displayName}
-                <SchoolDetails school={school} />
-              </Checkbox>
-            </div>
-          ))}
-        </div>
-      </Form>
-    </Modal>
+    <span>
+      <Modal
+        className='add-course-modal'
+        title='Add a Course'
+        okText='Add'
+        onOk={e => {
+          onOk(e)
+          props.showModal(modalId, e)
+        }}
+        {...rest}>
+        <Form>
+          <p>Select classes to assign to:</p>
+          <div
+            className='scroller'
+            style={{ minHeight: 150, maxHeight: 250, padding: '0 10px' }}>
+            <List>
+              {isLoaded &&
+                classes.map(({ displayName, school }, key) => (
+                  <List.Item key={key}>
+                    <Checkbox className='large'>
+                      <div>
+                        <div>{displayName}</div>
+                        <i>
+                          <SchoolDetails school={school} />
+                        </i>
+                      </div>
+                    </Checkbox>
+                  </List.Item>
+                ))}
+            </List>
+          </div>
+          <Button className='new-school'>
+            <Icon type='plus' /> Create New Class
+          </Button>
+        </Form>
+      </Modal>
+      <AddSuccessModal
+        classes={classes}
+        onOk={props.hideModal(modalId)}
+        onCancel={props.hideModal(modalId)}
+        visible={props.isVisible(modalId)} />
+    </span>
   )
 }
 

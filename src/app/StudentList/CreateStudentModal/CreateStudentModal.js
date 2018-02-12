@@ -1,6 +1,6 @@
 import { TextField } from 'redux-form-antd'
 import { isEmail } from '../../../utils'
-import { Modal, Form } from 'antd'
+import { Modal, Form, Row, Col } from 'antd'
 import { Field } from 'redux-form'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
@@ -25,28 +25,36 @@ const CreateStudentModal = props => {
       confirmLoading={props.confirmLoading}
       title={'Add Student to ' + displayName}>
       <Form onSubmit={props.handleSubmit(props.onSubmit)}>
-        <Form.Item label='First'>
-          <Field
-            {...commonProps}
-            name='name.given'
-            placeholder='Michael'
-            component={TextField} />
-        </Form.Item>
-        <Form.Item label='Last'>
-          <Field
-            {...commonProps}
-            name='name.family'
-            placeholder='Scott'
-            component={TextField} />
-        </Form.Item>
-        <Form.Item label='Student ID'>
+        <Item label='Full Name'>
+          <Row gutter={8}>
+            <Col span={12}>
+              <Form.Item>
+                <Field
+                  {...commonProps}
+                  name='name.given'
+                  placeholder='First'
+                  component={TextField} />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item>
+                <Field
+                  {...commonProps}
+                  name='name.family'
+                  placeholder='Last'
+                  component={TextField} />
+              </Form.Item>
+            </Col>
+          </Row>
+        </Item>
+        <Item label='Student ID'>
           <Field
             {...commonProps}
             name='studentId'
             placeholder='abc123'
             component={TextField} />
-        </Form.Item>
-        <Form.Item label='Email (optional)'>
+        </Item>
+        <Item label='Email (optional)'>
           <Field
             // {...commonProps}
             // validate={v => (isEmail(v) ? 'Invalid Email' : undefined)}
@@ -55,10 +63,23 @@ const CreateStudentModal = props => {
             name='email'
             placeholder='student@email.com'
             component={TextField} />
-        </Form.Item>
+        </Item>
       </Form>
     </Modal>
   )
+}
+
+const Item = props => <Form.Item {...itemLayout} {...props} />
+
+const itemLayout = {
+  labelCol: {
+    xs: { span: 24 },
+    sm: { span: 7 }
+  },
+  wrapperCol: {
+    xs: { span: 24 },
+    sm: { span: 17 }
+  }
 }
 
 CreateStudentModal.propTypes = {}

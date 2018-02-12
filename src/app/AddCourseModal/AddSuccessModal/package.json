@@ -1,0 +1,6 @@
+
+{
+  "name": "AddSuccessModal",
+  "main": "AddSuccessModal.js",
+  "browser": "AddSuccessModal.js"
+}

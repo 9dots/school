@@ -1,4 +1,3 @@
-import CreateStudentModal from 'app/StudentList/CreateStudentModal'
 import modalContainer from 'components/modalContainer'
 import { Menu, Button, Icon, Row, Col } from 'antd'
 import SchoolDropdown from '../SchoolDropdown'
@@ -6,7 +5,7 @@ import { stopEvent } from '../../../utils'
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import ClassModal from '../ClassModal'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import './ClassList.less'
 
 class ClassList extends Component {
