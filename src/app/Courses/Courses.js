@@ -6,7 +6,7 @@ import './Courses.less'
 class Courses extends Component {
   render () {
     return (
-      <div className='main-col'>
+      <div className='main-col' style={{ padding: '30px 0' }}>
         <h2>COURSES</h2>
         <Divider />
         <div>
