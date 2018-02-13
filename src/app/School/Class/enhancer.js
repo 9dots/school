@@ -29,8 +29,8 @@ export default compose(
     componentWillMount () {
       const { school, classId } = this.props
       this.props.rpc('user.setNav', {
-        [`nav.class.${school}`]: classId,
-        [`nav.school`]: school
+        class: classId,
+        school
       })
     }
   }),

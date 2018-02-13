@@ -6,7 +6,7 @@ import modalContainer from '../../components/modalContainer'
 import React from 'react'
 import './Course.less'
 
-const Course = ({ hideModal, isVisible, showModal }) => {
+const Course = ({ hideModal, isVisible, added, showModal }) => {
   const {
     description,
     difficulty,
@@ -44,15 +44,17 @@ const Course = ({ hideModal, isVisible, showModal }) => {
         </span>
       }
       extra={
-        <Button
-          className='secondary'
-          type='primary'
-          onClick={showModal('add-course-modal')}>
-          <Icon type='plus' />Add to Class
-        </Button>
+        !added && (
+          <Button
+            className='secondary'
+            onClick={showModal('add-course-modal')}
+            type='primary'>
+            <Icon type='plus' />Add to Class
+          </Button>
+        )
       }>
       <p>{description}</p>
-      <LessonList lessons={lessons} />
+      <LessonList lessons={lessons} added={added} />
       <AddCourseModal
         onOk={hideModal('add-course-modal')}
         onCancel={hideModal('add-course-modal')}

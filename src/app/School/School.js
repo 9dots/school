@@ -16,15 +16,17 @@ const School = props => {
   if (shouldRedirect(props)) {
     return <Redirect to={getRedirect(props)} />
   }
+
   return (
     <Layout>
       <Layout.Sider width={styles['@sidebar-width']}>
         <ClassList
-          onCreateClass={props.onCreateClass}
-          schoolData={props.schoolData}
+          onCreateModal={props.onCreateModal}
+          // schoolData={props.schoolData}
+          // school={props.school}
+          profile={props.profile}
           currentClass={props.classId}
-          myClasses={props.myClasses}
-          school={props.school} />
+          classesBySchool={props.classesBySchool} />
       </Layout.Sider>
       <Switch>
         <Route

@@ -1,8 +1,9 @@
-import { classes, school, profile, uid } from '../../selectors'
+import { allClasses, profile, uid, classBySchools } from '../../selectors'
 import modalContainer from '../../components/modalContainer'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose, withHandlers } from 'recompose'
 import waitFor from '../../components/waitFor'
+import mapValues from '@f/map-values'
 import { connect } from 'react-redux'
 import { message } from 'antd'
 
@@ -10,35 +11,35 @@ export default compose(
   modalContainer,
   connect((state, { match }) => ({
     school: match.params.school,
+    profile: profile(state),
     uid: uid(state)
   })),
   firestoreConnect(props => [
     {
       collection: 'classes',
-      where: [
-        [`teachers.${props.uid}`, '==', true],
-        ['school', '==', props.school]
-      ],
-      storeAs: `classes-${props.school}`
+      where: [[`teachers.${props.uid}`, '==', true]],
+      storeAs: `allClasses`
     },
-    {
-      collection: 'schools',
-      storeAs: props.school,
-      doc: props.school
-    }
+    ...mapValues(
+      (val, school) => ({
+        collection: 'schools',
+        doc: school,
+        storeAs: school
+      }),
+      props.profile.schools
+    )
   ]),
-  connect((state, { match: { params } }) => ({
-    myClasses: classes(state, params.school),
-    schoolData: school(state, params.school),
-    profile: profile(state),
-    nav: profile(state).nav,
-    classId: params.classId
+  connect((state, { profile, match: { params } }) => ({
+    classesBySchool: classBySchools(state, Object.keys(profile.schools)),
+    myClasses: allClasses(state),
+    classId: params.classId,
+    nav: profile.nav
   })),
   withHandlers({
-    onCreateClass: props => msg => {
-      props.hideModal('classModal', null)
+    onCreateModal: props => (msg, modal) => {
+      props.hideModal(modal, null)
       message.success(msg)
     }
   }),
-  waitFor(['myClasses', 'profile', 'nav', 'schoolData'])
+  waitFor(['classesBySchool', 'myClasses', 'profile', 'nav'])
 )

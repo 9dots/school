@@ -12,8 +12,8 @@ import { Link } from 'react-router-dom'
 import './Class.less'
 
 const Class = props => {
-  const { classId } = props.match.params
   const { isLoaded, classData = {} } = props
+  const { classId } = props.match.params
 
   if (!isLoaded) return <Loading />
 
@@ -22,12 +22,13 @@ const Class = props => {
       <Layout.Content
         style={{
           minHeight: 'calc(100vh - 64px)',
-          padding: 50
+          padding: '30px 50px 50px'
         }}>
         {false ? (
           <NoCourses />
         ) : (
           <div className='main-col'>
+            <h2>{classData.displayName}</h2>
             <div className='no-active-lesson'>
               <h2>No Active Lesson</h2>
               <p>
@@ -48,7 +49,7 @@ const Class = props => {
               {lesson({ lesson: lessons[0], key: 'active' })}
             </Collapse> */}
             <Divider style={{ margin: '45px 0px 40px' }}>Courses</Divider>
-            <Course added={true} />
+            <Course added />
             {/* <Collapse bordered={false} className='lessons-collapse'>
               {lessons.slice(1).map((val, key) => lesson({ lesson: val, key }))}
             </Collapse> */}
