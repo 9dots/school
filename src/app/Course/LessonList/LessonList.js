@@ -4,12 +4,14 @@ import { Link } from 'react-router-dom'
 import React from 'react'
 import './LessonList.less'
 
-const LessonList = ({ lessons = [], ...rest }) => {
+const LessonList = ({ lessons = [], added, ...rest }) => {
   return (
     <Collapse accordion bordered={false} className='lesson-list' {...rest}>
       {lessons.map((lesson, key) => {
         return (
-          <Collapse.Panel key={key} header={<Header {...lesson} i={key} />}>
+          <Collapse.Panel
+            key={key}
+            header={<Header {...lesson} added={added} i={key} />}>
             <Tasks tasks={lessons} />
           </Collapse.Panel>
         )
@@ -18,7 +20,7 @@ const LessonList = ({ lessons = [], ...rest }) => {
   )
 }
 
-const Header = ({ displayName, description, i }) => (
+const Header = ({ displayName, description, added, i }) => (
   <div className='clearfix'>
     {/* <div className='lesson-number'>{i + 1}</div> */}
     <div className='lesson-header'>
@@ -26,7 +28,7 @@ const Header = ({ displayName, description, i }) => (
       <p className='ellipsis'>{description}</p>
     </div>
     <div className='extra'>
-      <Button style={{ marginRight: 10 }} onClick={e => e.stopPropagation()}>
+      <Button onClick={e => e.stopPropagation()}>
         <Icon type='file-ppt' />
         Slides
       </Button>
@@ -34,6 +36,12 @@ const Header = ({ displayName, description, i }) => (
         <Icon type='profile' />
         Lesson Plan
       </Button>
+      {!!added && (
+        <Button onClick={e => e.stopPropagation()}>
+          <Icon type='export' />
+          Assign
+        </Button>
+      )}
     </div>
   </div>
 )

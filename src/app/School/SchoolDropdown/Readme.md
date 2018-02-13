@@ -1,5 +1,0 @@
-# <School Dropdown/>
-
-
-
-## Usage

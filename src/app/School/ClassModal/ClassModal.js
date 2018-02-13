@@ -3,6 +3,7 @@ import { Modal, Form } from 'antd'
 import { Field } from 'redux-form'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
+import { stopEvent } from '../../../utils'
 import React from 'react'
 
 import './ClassModal.less'
@@ -29,29 +30,31 @@ const grades = [
 
 const ClassModal = props => {
   return (
-    <Modal
-      {...props}
-      onCancel={props.close(props.onCancel)}
-      onOk={props.handleSubmit(props.onSubmit)}
-      title='Create A Class'>
-      <Form>
-        <Form.Item label='Name'>
-          <Field
-            {...commonProps}
-            name='displayName'
-            placeholder='Coding 1'
-            component={TextField} />
-        </Form.Item>
-        <Form.Item label='Grade'>
-          <Field
-            {...commonProps}
-            options={grades.map(grade => ({ label: grade, value: grade }))}
-            name='grade'
-            placeholder='Select a Grade'
-            component={SelectField} />
-        </Form.Item>
-      </Form>
-    </Modal>
+    <span onClick={stopEvent(() => {})}>
+      <Modal
+        {...props}
+        onCancel={props.close(props.onCancel)}
+        onOk={props.handleSubmit(props.onSubmit)}
+        title='Create A Class'>
+        <Form>
+          <Form.Item label='Name'>
+            <Field
+              {...commonProps}
+              name='displayName'
+              placeholder='Coding 1'
+              component={TextField} />
+          </Form.Item>
+          <Form.Item label='Grade'>
+            <Field
+              {...commonProps}
+              options={grades.map(grade => ({ label: grade, value: grade }))}
+              name='grade'
+              placeholder='Select a Grade'
+              component={SelectField} />
+          </Form.Item>
+        </Form>
+      </Modal>
+    </span>
   )
 }
 

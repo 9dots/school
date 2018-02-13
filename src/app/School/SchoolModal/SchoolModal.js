@@ -48,7 +48,7 @@ const enhancer = compose(
             school: 'School code not found.'
           })
         }
-        message('Unknown error. Please try again.')
+        message.error('Unknown error. Please try again.')
       }
     }
   })
