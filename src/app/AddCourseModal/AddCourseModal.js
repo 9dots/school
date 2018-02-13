@@ -1,80 +1,68 @@
-import { firestoreConnect } from 'react-redux-firebase'
-import waitFor from '../../components/waitFor/waitFor'
+import { Modal, List, Icon, Button } from 'antd'
 import SchoolDetails from '../School/SchoolDetails'
-import modalContainer from 'components/modalContainer'
-import { allClasses, uid } from '../../selectors'
-import { Modal, Form, Checkbox, List, Icon, Button } from 'antd'
 import AddSuccessModal from './AddSuccessModal'
-import { connect } from 'react-redux'
-import { compose } from 'recompose'
+import { CheckboxField } from 'redux-form-antd'
+import { Field } from 'redux-form'
 import PropTypes from 'prop-types'
+import enhancer from './enhancer'
 import React from 'react'
 
 import './AddCourseModal.less'
 
-const enhancer = compose(
-  connect(state => ({
-    uid: uid(state)
-  })),
-  firestoreConnect(props => [
-    {
-      collection: 'classes',
-      where: [[`teachers.${props.uid}`, '==', true]],
-      storeAs: `allClasses`
-    }
-  ]),
-  connect(state => ({
-    classes: allClasses(state)
-  })),
-  modalContainer,
-  waitFor(props => ['classes'])
-)
-
 const AddCourseModal = props => {
-  const { classes = [], isLoaded, schools, onOk, id, ...rest } = props
-  const modalId = 'success-' + (id || 'modal')
+  const {
+    confirmLoading,
+    classes = [],
+    isLoaded,
+    modalId,
+    schools,
+    modal,
+    onOk,
+    id,
+    ...rest
+  } = props
   return (
     <span>
       <Modal
+        onOk={props.handleSubmit(props.onSubmit)}
+        confirmLoading={confirmLoading}
         className='add-course-modal'
         title='Add a Course'
         okText='Add'
-        onOk={e => {
-          onOk(e)
-          props.showModal(modalId, e)
-        }}
         {...rest}>
-        <Form>
+        <form onSubmit={props.handleSubmit(props.onSubmit)}>
           <p>Select classes to assign to:</p>
           <div
             className='scroller'
             style={{ minHeight: 150, maxHeight: 250, padding: '0 10px' }}>
             <List>
               {isLoaded &&
-                classes.map(({ displayName, school }, key) => (
-                  <List.Item key={key}>
-                    <Checkbox className='large'>
-                      <div>
-                        <div>{displayName}</div>
-                        <i>
-                          <SchoolDetails school={school} />
-                        </i>
-                      </div>
-                    </Checkbox>
-                  </List.Item>
+                classes.map(({ displayName, school, id }) => (
+                  <Field
+                    meta={{ valid: false }}
+                    component={CheckboxField}
+                    name={id}
+                    key={id}>
+                    <div>{displayName}</div>
+                    <i>
+                      <SchoolDetails school={school} />
+                    </i>
+                  </Field>
                 ))}
             </List>
           </div>
           <Button className='new-school'>
             <Icon type='plus' /> Create New Class
           </Button>
-        </Form>
+        </form>
       </Modal>
-      <AddSuccessModal
-        classes={classes}
-        onOk={props.hideModal(modalId)}
-        onCancel={props.hideModal(modalId)}
-        visible={props.isVisible(modalId)} />
+      {modal.isVisible(modalId) && (
+        <AddSuccessModal
+          {...modal.getProps(modalId)}
+          onCancel={modal.hideModal(modalId)}
+          onOk={modal.hideModal(modalId)}
+          visible />
+      )}
     </span>
   )
 }

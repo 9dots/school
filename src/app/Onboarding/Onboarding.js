@@ -18,7 +18,7 @@ const commonProps = {
 }
 
 const Onboarding = props => {
-  if (!props.isLoaded) return <Loading />
+  // if (!props.isLoaded) return <Loading />
   return (
     <Switch>
       <Route

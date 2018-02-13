@@ -5,7 +5,7 @@ import React from 'react'
 
 import './AddSuccessModal.less'
 
-const AddSuccessModal = ({ classes, onOk, ...rest }) => {
+const AddSuccessModal = ({ classes = [], onOk, ...rest }) => {
   return (
     <Modal
       className='add-success-modal'
@@ -14,7 +14,7 @@ const AddSuccessModal = ({ classes, onOk, ...rest }) => {
       style={{ textAlign: 'center' }}
       {...rest}
       footer={
-        <Button type='primary' onClick={e => onOk(e)}>
+        <Button type='primary' onClick={onOk}>
           Close
         </Button>
       }>
@@ -23,7 +23,7 @@ const AddSuccessModal = ({ classes, onOk, ...rest }) => {
       </h3>
       <h3>
         {classes.map(({ displayName, id }, key) => (
-          <Link to={'/class/' + id} key={key}>
+          <Link onClick={onOk} to={'/class/' + id} key={key}>
             {displayName}
           </Link>
         ))}

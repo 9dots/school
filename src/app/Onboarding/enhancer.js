@@ -23,7 +23,7 @@ const profileDetailEnhancer = compose(
             school: 'School code not found.'
           })
         }
-        message.error('Unknown error. Please try again.')
+        message.error('Oops, something went wrong. Please try again.')
       }
     }
   })
@@ -54,6 +54,6 @@ export default compose(
       uid
     }),
     { rpc, setUrl }
-  ),
-  waitFor(['school'])
+  )
+  // waitFor(['school'])
 )

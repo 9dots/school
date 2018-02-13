@@ -43,11 +43,13 @@ class Classes extends Component {
               <NoClasses lastClass={lastClass.id} {...this.props} />
             )} />
         </Switch>
-        <ClassModal
-          visible={this.props.isVisible('classModal')}
-          school={currentSchool.id}
-          onOk={this.props.hideModal('classModal')}
-          onCancel={this.props.hideModal('classModal')} />
+        {this.props.isVisible('classModal') && (
+          <ClassModal
+            visible
+            school={currentSchool.id}
+            onOk={this.props.hideModal('classModal')}
+            onCancel={this.props.hideModal('classModal')} />
+        )}
       </Layout>
     )
   }
