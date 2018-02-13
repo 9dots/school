@@ -8,14 +8,13 @@ import './Course.less'
 
 const Course = ({ hideModal, isVisible, added, showModal }) => {
   const {
+    displayName,
     description,
     difficulty,
-    tags = [],
+    tags = {},
     duration,
     lessons,
-    title,
-    image,
-    ...rest
+    imageUrl
   } = course
   return (
     <Card
@@ -26,19 +25,19 @@ const Course = ({ hideModal, isVisible, added, showModal }) => {
           <Avatar
             size='large'
             className='xlg'
-            src={image}
+            src={imageUrl}
             style={{ float: 'left' }}>
-            {title[0]}
+            {displayName[0]}
           </Avatar>
           <div>
-            <h2>{title}</h2>
+            <h2>{displayName}</h2>
             <span className='sub-title'>
               <Icon type='clock-circle-o' />
               {duration.time} {duration.unit}
               <Icon type='book' />
               {difficulty}
               <Icon type='tag-o' />
-              {tags.join(', ')}
+              {Object.keys(tags).join(', ')}
             </span>
           </div>
         </span>
@@ -55,10 +54,12 @@ const Course = ({ hideModal, isVisible, added, showModal }) => {
       }>
       <p>{description}</p>
       <LessonList lessons={lessons} added={added} />
-      <AddCourseModal
-        onOk={hideModal('add-course-modal')}
-        onCancel={hideModal('add-course-modal')}
-        visible={isVisible('add-course-modal')} />
+      {isVisible('add-course-modal') && (
+        <AddCourseModal
+          onOk={hideModal('add-course-modal')}
+          onCancel={hideModal('add-course-modal')}
+          visible />
+      )}
     </Card>
   )
 }
@@ -68,10 +69,11 @@ Course.propTypes = {}
 export default modalContainer(Course)
 
 const course = {
-  title: 'Intro to Computers',
-  image: 'https://cdn.dribbble.com/users/59100/screenshots/3358559/pcc_1x.jpg',
-  tags: ['Computers', 'Math', 'Javascript'],
-  difficulty: 'Level A',
+  displayName: 'Intro to Computers',
+  imageUrl:
+    'https://cdn.dribbble.com/users/59100/screenshots/3358559/pcc_1x.jpg',
+  tags: { Computers: true, Math: true, Javascript: true },
+  difficulty: 'A',
   duration: {
     unit: 'months',
     time: 2

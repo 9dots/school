@@ -28,10 +28,7 @@ export default compose(
   lifecycle({
     componentWillMount () {
       const { school, classId } = this.props
-      this.props.rpc('user.setNav', {
-        class: classId,
-        school
-      })
+      this.props.rpc('user.setNav', { class: classId, school })
     }
   }),
   withHandlers({

@@ -58,10 +58,12 @@ class ClassList extends Component {
             <Icon type='plus' />New School
           </Button>
         </div>
-        <SchoolModal
-          visible={isVisible('schoolModal')}
-          onOk={msg => onCreateModal(msg, 'schoolModal')}
-          onCancel={hideModal('schoolModal')} />
+        {isVisible('schoolModal') && (
+          <SchoolModal
+            visible
+            onOk={msg => onCreateModal(msg, 'schoolModal')}
+            onCancel={hideModal('schoolModal')} />
+        )}
       </div>
     )
   }
