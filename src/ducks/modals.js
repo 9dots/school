@@ -1,6 +1,9 @@
 import createAction from '@f/create-action'
 
-const showModal = createAction('<modals/>: SHOW_MODAL', name => ({ name }))
+const showModal = createAction('<modals/>: SHOW_MODAL', (name, props) => ({
+  name,
+  props
+}))
 const hideModal = createAction('<modals/>: HIDE_MODAL', name => ({ name }))
 
 export default function (state = {}, action) {
@@ -8,7 +11,7 @@ export default function (state = {}, action) {
     case showModal.type:
       return {
         ...state,
-        [action.payload.name]: true
+        [action.payload.name]: action.payload.props || true
       }
     case hideModal.type:
       return {

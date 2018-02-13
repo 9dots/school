@@ -44,13 +44,13 @@ class ClassList extends Component {
             <Icon type='plus' />New Class
           </Button>
         </div>
-        {
+        {isVisible('classModal') && (
           <ClassModal
-            visible={isVisible('classModal')}
+            visible
             school={school}
             onOk={onCreateClass}
             onCancel={hideModal('classModal')} />
-        }
+        )}
       </div>
     )
   }
