@@ -99,10 +99,12 @@ class SchoolDropdown extends Component {
             </Col>
           </Row>
         </Dropdown>
-        <SchoolModal
-          visible={isVisible('schoolModal')}
-          onOk={onOk}
-          onCancel={hideModal('schoolModal')} />
+        {isVisible('schoolModal') && (
+          <SchoolModal
+            visible
+            onOk={onOk}
+            onCancel={hideModal('schoolModal')} />
+        )}
       </span>
     )
   }

@@ -30,7 +30,7 @@ export default compose(
             school: 'School code not found.'
           })
         }
-        message.error('Unknown error. Please try again.')
+        message.error('Oops, something went wrong. Please try again.')
       }
     }
   })

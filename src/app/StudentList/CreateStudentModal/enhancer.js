@@ -37,7 +37,7 @@ export default compose(
             )
           )
         }
-        message.error('Unknown error. Please try again.')
+        message.error('Oops, something went wrong. Please try again.')
       }
     }
   })

@@ -1,24 +1,23 @@
 import modalContainer from 'components/modalContainer'
 import { Card, Icon, Button, Avatar } from 'antd'
 import AddCourseModal from 'app/AddCourseModal'
+import AddSuccessModal from 'app/AddCourseModal/AddSuccessModal'
 import { stopEvent } from '../../../utils'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import React from 'react'
 import './CourseCard.less'
 
-const CourseCard = ({ course, hideModal, showModal, isVisible }) => {
+const CourseCard = ({ course, modal }) => {
   const {
-    title,
-    tags = [],
-    image,
+    displayName,
+    tags = {},
+    imageUrl,
     difficulty,
     duration = {},
     description,
     id
   } = course
-
-  const modalId = 'addCourse-' + title // XXX should use course id when real data
 
   return (
     <span>
@@ -28,14 +27,14 @@ const CourseCard = ({ course, hideModal, showModal, isVisible }) => {
           bordered={false}
           title={
             <span>
-              <Avatar src={image} style={{ float: 'left' }}>
-                {title[0]}
+              <Avatar src={imageUrl} style={{ float: 'left' }}>
+                {displayName[0]}
               </Avatar>
-              <span>{title}</span>
+              <span>{displayName}</span>
             </span>
           }
           extra={
-            <Button onClick={stopEvent(showModal(modalId))}>
+            <Button onClick={stopEvent(modal.showModal(id))}>
               <Icon type='plus' />Add to Class
             </Button>
           }>
@@ -48,16 +47,26 @@ const CourseCard = ({ course, hideModal, showModal, isVisible }) => {
                 <Icon type='book' />
                 {difficulty}
                 <Icon type='tag-o' />
-                {tags.join(', ')}
+                {Object.keys(tags).join(', ')}
               </span>
             } />
         </Card>
       </Link>
-      <AddCourseModal
-        id={modalId}
-        onOk={hideModal(modalId)}
-        onCancel={hideModal(modalId)}
-        visible={isVisible(modalId)} />
+      {modal.isVisible(id) && (
+        <AddCourseModal
+          id={id}
+          courseId={id}
+          onOk={modal.hideModal(id)}
+          onCancel={modal.hideModal(id)}
+          visible />
+      )}
+      {modal.isVisible(getSuccessModal(id)) && (
+        <AddSuccessModal
+          {...modal.getProps(getSuccessModal(id))}
+          onCancel={modal.hideModal(getSuccessModal(id))}
+          onOk={modal.hideModal(getSuccessModal(id))}
+          visible />
+      )}
     </span>
   )
 }
@@ -65,3 +74,7 @@ const CourseCard = ({ course, hideModal, showModal, isVisible }) => {
 CourseCard.propTypes = {}
 
 export default modalContainer(CourseCard)
+
+function getSuccessModal (id) {
+  return 'success-' + (id || 'modal')
+}

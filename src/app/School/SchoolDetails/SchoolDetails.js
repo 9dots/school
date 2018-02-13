@@ -22,15 +22,9 @@ const enhancer = compose(
   waitFor(['schoolInfo'])
 )
 
-<<<<<<< HEAD
-const SchoolDetails = props => {
-  if (!props.isLoaded) return <span />
-  return <span>{props.schoolInfo.displayName}</span>
-=======
 const SchoolDetails = ({ isLoaded, schoolInfo, style }) => {
   if (!isLoaded) return <div />
   return <span style={style}>{schoolInfo.displayName || 'Loading…'}</span>
->>>>>>> 755a69bf35553d423a4b6263687c81858034d002
 }
 
 SchoolDetails.propTypes = {
