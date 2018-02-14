@@ -45,9 +45,11 @@ const CourseCard = ({ course, modal }) => {
                 <Icon type='clock-circle-o' />
                 {duration.time} {duration.unit}
                 <Icon type='book' />
-                {difficulty}
+                Level {difficulty}
                 <Icon type='tag-o' />
-                {Object.keys(tags).join(', ')}
+                <span className='capitalize'>
+                  {Object.keys(tags).join(', ')}
+                </span>
               </span>
             } />
         </Card>
