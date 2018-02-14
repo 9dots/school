@@ -1,6 +1,5 @@
-import { Modal, List, Icon, Button } from 'antd'
 import SchoolDetails from '../School/SchoolDetails'
-import AddSuccessModal from './AddSuccessModal'
+import { Modal, List, Icon, Button } from 'antd'
 import { CheckboxField } from 'redux-form-antd'
 import { Field } from 'redux-form'
 import PropTypes from 'prop-types'
@@ -56,13 +55,6 @@ const AddCourseModal = props => {
           </Button>
         </form>
       </Modal>
-      {modal.isVisible(modalId) && (
-        <AddSuccessModal
-          {...modal.getProps(modalId)}
-          onCancel={modal.hideModal(modalId)}
-          onOk={modal.hideModal(modalId)}
-          visible />
-      )}
     </span>
   )
 }
