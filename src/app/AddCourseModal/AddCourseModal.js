@@ -1,4 +1,4 @@
-import { Modal, List, Icon, Button } from 'antd'
+import { Modal, List, Icon, Button, Checkbox } from 'antd'
 import SchoolDetails from '../School/SchoolDetails'
 import AddSuccessModal from './AddSuccessModal'
 import { CheckboxField } from 'redux-form-antd'
@@ -38,16 +38,14 @@ const AddCourseModal = props => {
             <List>
               {isLoaded &&
                 classes.map(({ displayName, school, id }) => (
-                  <Field
-                    meta={{ valid: false }}
-                    component={CheckboxField}
-                    name={id}
-                    key={id}>
-                    <div>{displayName}</div>
-                    <i>
-                      <SchoolDetails school={school} />
-                    </i>
-                  </Field>
+                  <List.Item key={id}>
+                    <Field
+                      meta={{ valid: false }}
+                      component={checkField}
+                      displayName={displayName}
+                      school={school}
+                      name={id} />
+                  </List.Item>
                 ))}
             </List>
           </div>
@@ -66,6 +64,20 @@ const AddCourseModal = props => {
     </span>
   )
 }
+
+const checkField = ({ input, displayName, meta, school }) => (
+  <div className='input-row'>
+    <Checkbox {...input} className='large'>
+      <div>
+        <div>{displayName}</div>
+        <i>
+          <SchoolDetails school={school} />
+        </i>
+      </div>
+    </Checkbox>
+    {meta.touched && meta.error && <span className='error'>{meta.error}</span>}
+  </div>
+)
 
 AddCourseModal.propTypes = {}
 
