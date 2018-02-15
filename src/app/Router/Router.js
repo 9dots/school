@@ -33,8 +33,12 @@ const App = props => (
 const routes = (
   <Switch>
     <Route path='/login' component={userIsNotAuthenticatedRedir(Splash)} />
-    <Route path='/onboarding/class' component={Onboarding} />
-    <Route path='/onboarding' component={Onboarding} />
+    <Route
+      path='/onboarding/class'
+      component={userIsAuthenticatedRedir(Onboarding)} />
+    <Route
+      path='/onboarding'
+      component={userIsAuthenticatedRedir(Onboarding)} />
     <Route path='/' component={userIsAuthenticatedRedir(userHasSchool(App))} />
   </Switch>
 )

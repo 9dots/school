@@ -10,7 +10,7 @@ import React from 'react'
 import './Courses.less'
 
 const enhancer = compose(
-  firestoreConnect(props => [{ collection: 'modules', storeAs: 'courses' }]),
+  firestoreConnect(props => [{ collection: 'courses' }]),
   connect((state, props) => ({ courses: courses(state) })),
   waitFor(['courses'])
 )

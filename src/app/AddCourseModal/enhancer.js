@@ -59,7 +59,7 @@ function formatSubmit (props, values) {
   return mapValues(
     (cls, key) =>
       props.rpc('class.addCourse', {
-        module: props.courseId,
+        course: props.courseId,
         class: key
       }),
     values
