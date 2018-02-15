@@ -10,7 +10,7 @@ const enhancer = connect(({ modal }) => ({ modal }), { showModal, hideModal })
 
 const modalContainer = Component => {
   return enhancer(
-    class HOC extends React.Component {
+    class HOC extends React.PureComponent {
       showModal = curry((props, e) => {
         if (typeof props === 'string') {
           return this.props.showModal(props)

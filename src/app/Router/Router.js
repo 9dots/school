@@ -20,8 +20,8 @@ const App = props => (
   <div>
     <TeacherLayout {...props}>
       <Switch>
-        <Route exact path='/school/:school/class/:classId' component={School} />
-        <Route exact path='/school/:school' component={School} />
+        <Route exact path='/class/:classId' component={School} />
+        <Route exact path='/class' component={School} />
         <Route exact path='/courses' component={Courses} />
         <Route exact path='/courses/:courseId' component={CourseView} />
         <Route exact path='/' component={Home} />
@@ -46,3 +46,4 @@ const routes = (
 const Router = props => <BrowserRouter>{routes}</BrowserRouter>
 
 export default Router
+export { routes }

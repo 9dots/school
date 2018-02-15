@@ -8,16 +8,14 @@ import { connect } from 'react-redux'
 import { message } from 'antd'
 
 export default compose(
-  modalContainer,
   connect((state, { match }) => ({
-    school: match.params.school,
     profile: profile(state),
     uid: uid(state)
   })),
   firestoreConnect(props => [
     {
       collection: 'classes',
-      where: [[`teachers.${props.uid}`, '==', true]],
+      where: [`teachers.${props.uid}`, '==', true],
       storeAs: `allClasses`
     },
     ...mapValues(
@@ -41,5 +39,6 @@ export default compose(
       message.success(msg)
     }
   }),
-  waitFor(['classesBySchool', 'myClasses', 'profile', 'nav'])
+  waitFor(['classesBySchool', 'myClasses', 'profile']),
+  modalContainer
 )

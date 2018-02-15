@@ -1,3 +1,4 @@
+import waitFor from '../../../../components/waitFor/waitFor'
 import { firestoreConnect } from 'react-redux-firebase'
 import { moduleSelector } from '../../../../selectors'
 import { connect } from 'react-redux'
@@ -17,7 +18,8 @@ const enhancer = compose(
   ),
   connect((state, props) => ({
     mods: moduleSelector(state, props.modules)
-  }))
+  })),
+  waitFor(['mods'])
 )
 
 const Modules = props => {

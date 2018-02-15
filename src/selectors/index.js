@@ -14,7 +14,9 @@ const allClasses = state => state.firestore.ordered[`allClasses`]
 const course = (state, id) => state.firestore.data[id]
 const courses = state => state.firestore.ordered.courses
 const moduleSelector = (state, mods) =>
-  mods.map(m => ({ id: m, ...state.firestore.data[m] }))
+  mods.map(
+    m => state.firestore.data[m] && { id: m, ...state.firestore.data[m] }
+  )
 const school = (state, id) => state.firestore.data[id]
 const profile = state => state.firebase.profile
 const uid = state => state.firebase.auth.uid

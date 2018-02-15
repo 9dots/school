@@ -1,4 +1,4 @@
-import { Redirect, Route, Switch } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import backpack from 'assets/images/emptypack.png'
 import styles from 'theme/vars/vars.js'
 import EmptyState from '../EmptyState'
@@ -13,26 +13,19 @@ import './School.less'
 
 const School = props => {
   if (!props.isLoaded) return <Loading />
-  if (shouldRedirect(props)) {
-    return <Redirect to={getRedirect(props)} />
-  }
 
   return (
     <Layout>
       <Layout.Sider width={styles['@sidebar-width']}>
         <ClassList
           onCreateModal={props.onCreateModal}
-          // schoolData={props.schoolData}
-          // school={props.school}
           profile={props.profile}
           currentClass={props.classId}
           classesBySchool={props.classesBySchool} />
       </Layout.Sider>
       <Switch>
-        <Route
-          path='/school/:school/class/:classId'
-          render={() => <Class key={props.classId} match={props.match} />} />
-        <Route path='/school/:school' render={() => noClasses(props)} />
+        <Route path='/class/:classId' component={Class} />
+        <Route path='/class' render={() => noClasses(props)} />
       </Switch>
     </Layout>
   )
