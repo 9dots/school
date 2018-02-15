@@ -1,21 +1,23 @@
 import { Card, Avatar, Button, Icon } from 'antd'
 import LessonList from './LessonList'
 import PropTypes from 'prop-types'
-import AddCourseModal from '../AddCourseModal'
 import modalContainer from '../../components/modalContainer'
 import React from 'react'
+import AddCourseWrapper from 'app/AddCourseModal/AddCourseWrapper'
 import './Course.less'
 
-const Course = ({ hideModal, isVisible, added, showModal, course }) => {
+const Course = ({ modal, added, course }) => {
   const {
     displayName = '',
     description,
     difficulty,
     tags = {},
     duration = {},
-    imageUrl
+    imageUrl,
+    id
   } =
     course || courseData
+
   return (
     <Card
       className='course'
@@ -46,7 +48,7 @@ const Course = ({ hideModal, isVisible, added, showModal, course }) => {
         !added && (
           <Button
             className='secondary'
-            onClick={showModal('add-course-modal')}
+            onClick={modal.showModal(id)}
             type='primary'>
             <Icon type='plus' />Add to Class
           </Button>
@@ -54,12 +56,7 @@ const Course = ({ hideModal, isVisible, added, showModal, course }) => {
       }>
       <p>{description}</p>
       <LessonList lessons={courseData.lessons} added={added} />
-      {isVisible('add-course-modal') && (
-        <AddCourseModal
-          onOk={hideModal('add-course-modal')}
-          onCancel={hideModal('add-course-modal')}
-          visible />
-      )}
+      <AddCourseWrapper modal={modal} id={id} />
     </Card>
   )
 }

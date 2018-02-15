@@ -28,7 +28,9 @@ const CourseView = props => {
     <div
       className='course-view main-col'
       style={{ maxWidth: '980px', padding: '30px 50px 50px' }}>
-      {props.course && <Course course={props.course} />}
+      {props.course && (
+        <Course course={{ id: props.courseId, ...props.course }} />
+      )}
     </div>
   )
 }
