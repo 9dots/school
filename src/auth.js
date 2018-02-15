@@ -43,7 +43,7 @@ export const userHasNoSchool = connectedRouterRedirect({
 const userIsNotAuthenticatedDefaults = {
   // Want to redirect the user when they are done loading and authenticated
   authenticatedSelector: state =>
-    state.firebase.auth.isEmpty && state.firebase.auth.isLoaded,
+    state.firebase.profile.isEmpty && state.firebase.profile.isLoaded,
   wrapperDisplayName: 'UserIsNotAuthenticated'
 }
 

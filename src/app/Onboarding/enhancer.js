@@ -34,7 +34,8 @@ const classOnboardingEnhancer = compose(
     close: ({ history, setUrl }) => async msg => {
       setUrl(history, '/')
     }
-  })
+  }),
+  waitFor(['school'])
 )
 
 export { profileDetailEnhancer, classOnboardingEnhancer }
