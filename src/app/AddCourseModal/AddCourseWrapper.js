@@ -2,8 +2,8 @@ import AddCourseModal from 'app/AddCourseModal'
 import AddSuccessModal from 'app/AddCourseModal/AddSuccessModal'
 import React from 'react'
 
-const AddCourseWrapper = ({ modal, id }) => {
-  const successId = 'success-' + (id || 'modal')
+const AddCourseWrapper = ({ modal, id, name }) => {
+  const successId = 'success-' + name
 
   return (
     <span>
@@ -11,8 +11,8 @@ const AddCourseWrapper = ({ modal, id }) => {
         <AddCourseModal
           id={id}
           courseId={id}
-          onOk={modal.hideModal(id)}
-          onCancel={modal.hideModal(id)}
+          onOk={modal.hideModal(name)}
+          onCancel={modal.hideModal(name)}
           visible />
       )}
       {modal.isVisible(successId) && (

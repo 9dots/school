@@ -56,7 +56,7 @@ const Course = ({ modal, added, course }) => {
       }>
       <p>{description}</p>
       <LessonList lessons={courseData.lessons} added={added} />
-      <AddCourseWrapper modal={modal} id={id} />
+      <AddCourseWrapper modal={modal} id={id} name={id} />
     </Card>
   )
 }
