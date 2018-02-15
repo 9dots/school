@@ -1,7 +1,6 @@
 import modalContainer from 'components/modalContainer'
+import AddCourseWrapper from 'app/AddCourseModal/AddCourseWrapper'
 import { Card, Icon, Button, Avatar } from 'antd'
-import AddCourseModal from 'app/AddCourseModal'
-import AddSuccessModal from 'app/AddCourseModal/AddSuccessModal'
 import { stopEvent } from '../../../utils'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
@@ -54,21 +53,7 @@ const CourseCard = ({ course, modal }) => {
             } />
         </Card>
       </Link>
-      {modal.isVisible(id) && (
-        <AddCourseModal
-          id={id}
-          courseId={id}
-          onOk={modal.hideModal(id)}
-          onCancel={modal.hideModal(id)}
-          visible />
-      )}
-      {modal.isVisible(getSuccessModal(id)) && (
-        <AddSuccessModal
-          {...modal.getProps(getSuccessModal(id))}
-          onCancel={modal.hideModal(getSuccessModal(id))}
-          onOk={modal.hideModal(getSuccessModal(id))}
-          visible />
-      )}
+      <AddCourseWrapper modal={modal} id={id} />
     </span>
   )
 }
@@ -76,7 +61,3 @@ const CourseCard = ({ course, modal }) => {
 CourseCard.propTypes = {}
 
 export default modalContainer(CourseCard)
-
-function getSuccessModal (id) {
-  return 'success-' + (id || 'modal')
-}
