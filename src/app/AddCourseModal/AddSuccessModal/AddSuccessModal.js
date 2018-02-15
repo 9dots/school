@@ -23,7 +23,7 @@ const AddSuccessModal = ({ classes = [], school, onOk, ...rest }) => {
       </h3>
       <h3>
         {classes.map(({ displayName, id, school }, key) => (
-          <Link onClick={onOk} to={`school/${school}/class/${id}`} key={key}>
+          <Link onClick={onOk} to={`/class/${id}`} key={key}>
             {displayName}
           </Link>
         ))}
