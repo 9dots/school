@@ -6,16 +6,16 @@ import modalContainer from '../../components/modalContainer'
 import React from 'react'
 import './Course.less'
 
-const Course = ({ hideModal, isVisible, added, showModal }) => {
+const Course = ({ hideModal, isVisible, added, showModal, course }) => {
   const {
-    displayName,
+    displayName = '',
     description,
     difficulty,
     tags = {},
-    duration,
-    lessons,
+    duration = {},
     imageUrl
-  } = course
+  } =
+    course || courseData
   return (
     <Card
       className='course'
@@ -27,7 +27,7 @@ const Course = ({ hideModal, isVisible, added, showModal }) => {
             className='xlg'
             src={imageUrl}
             style={{ float: 'left' }}>
-            {displayName[0]}
+            {displayName ? displayName[0] : ''}
           </Avatar>
           <div>
             <h2>{displayName}</h2>
@@ -35,9 +35,9 @@ const Course = ({ hideModal, isVisible, added, showModal }) => {
               <Icon type='clock-circle-o' />
               {duration.time} {duration.unit}
               <Icon type='book' />
-              {difficulty}
+              Level {difficulty}
               <Icon type='tag-o' />
-              {Object.keys(tags).join(', ')}
+              <span className='capitalize'>{Object.keys(tags).join(', ')}</span>
             </span>
           </div>
         </span>
@@ -53,7 +53,7 @@ const Course = ({ hideModal, isVisible, added, showModal }) => {
         )
       }>
       <p>{description}</p>
-      <LessonList lessons={lessons} added={added} />
+      <LessonList lessons={courseData.lessons} added={added} />
       {isVisible('add-course-modal') && (
         <AddCourseModal
           onOk={hideModal('add-course-modal')}
@@ -68,11 +68,11 @@ Course.propTypes = {}
 
 export default modalContainer(Course)
 
-const course = {
+const courseData = {
   displayName: 'Intro to Computers',
   imageUrl:
     'https://cdn.dribbble.com/users/59100/screenshots/3358559/pcc_1x.jpg',
-  tags: { Computers: true, Math: true, Javascript: true },
+  tags: { computers: true, math: true, javascript: true },
   difficulty: 'A',
   duration: {
     unit: 'months',

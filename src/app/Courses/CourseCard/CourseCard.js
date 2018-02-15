@@ -21,7 +21,7 @@ const CourseCard = ({ course, modal }) => {
 
   return (
     <span>
-      <Link to='courses/coursId'>
+      <Link to={`courses/${id}`}>
         <Card
           className='course-card'
           bordered={false}
