@@ -5,7 +5,7 @@ import React from 'react'
 
 import './AddSuccessModal.less'
 
-const AddSuccessModal = ({ classes = [], onOk, ...rest }) => {
+const AddSuccessModal = ({ classes = [], school, onOk, ...rest }) => {
   return (
     <Modal
       className='add-success-modal'
@@ -22,8 +22,8 @@ const AddSuccessModal = ({ classes = [], onOk, ...rest }) => {
         You assigned <b>&quot;Intro to Computers&quot;</b> to:
       </h3>
       <h3>
-        {classes.map(({ displayName, id }, key) => (
-          <Link onClick={onOk} to={'/class/' + id} key={key}>
+        {classes.map(({ displayName, id, school }, key) => (
+          <Link onClick={onOk} to={`school/${school}/class/${id}`} key={key}>
             {displayName}
           </Link>
         ))}
