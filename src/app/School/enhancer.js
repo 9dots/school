@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import { message } from 'antd'
 
 export default compose(
+  modalContainer,
   connect((state, { match }) => ({
     profile: profile(state),
     uid: uid(state)
@@ -39,6 +40,5 @@ export default compose(
       message.success(msg)
     }
   }),
-  waitFor(['classesBySchool', 'myClasses', 'profile']),
-  modalContainer
+  waitFor(['classesBySchool', 'myClasses', 'profile'])
 )

@@ -40,7 +40,6 @@ const enhancer = compose(
       try {
         await rpc('user.addToSchool', { user: uid, role: 'teacher', ...values })
         ok('Success! Joined school.')
-        setUrl(history, `/school/${values.school}`)
       } catch (e) {
         setLoading(false)
         if (e === 'school_not_found') {

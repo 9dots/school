@@ -9,7 +9,7 @@ import mapValues from '@f/map-values'
 // import PropTypes from 'prop-types'
 import './ClassList.less'
 
-class ClassList extends Component {
+class ClassList extends React.PureComponent {
   state = { openKeys: Object.keys(this.props.profile.schools) }
   toggleSubMenu = openKeys => this.setState({ openKeys })
   render () {
@@ -111,11 +111,13 @@ const MenuTitle = ({
             onClick={stopEvent(showModal('classModal-' + id))} />
         </Col>
       </Row>
-      <ClassModal
-        visible={isVisible('classModal-' + id)}
-        school={id}
-        onOk={msg => onCreateModal(msg, 'classModal-' + id)}
-        onCancel={hideModal('classModal-' + id)} />
+      {isVisible('classModal-' + id) && (
+        <ClassModal
+          visible
+          school={id}
+          onOk={msg => onCreateModal(msg, 'classModal-' + id)}
+          onCancel={hideModal('classModal-' + id)} />
+      )}
     </div>
   )
 }

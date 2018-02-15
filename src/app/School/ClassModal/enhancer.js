@@ -1,11 +1,13 @@
 import formModal from '../../../components/formModal'
 import { compose, withHandlers } from 'recompose'
 import { SubmissionError } from 'redux-form'
+import { rpc, setUrl } from '../../actions'
 import { connect } from 'react-redux'
-import { rpc } from '../../actions'
 import { message } from 'antd'
+import { withRouter } from 'react-router-dom'
 
 export default compose(
+  withRouter,
   formModal({
     form: 'createClass'
   }),
@@ -14,15 +16,17 @@ export default compose(
       ok: props.close(props.onOk),
       cancel: props.close(props.onCancel)
     }),
-    { rpc }
+    { rpc, setUrl }
   ),
   withHandlers({
-    onSubmit: ({ school, ok, setLoading, rpc }) => async values => {
+    onSubmit: props => async values => {
+      const { setUrl, history, school, ok, setLoading, rpc } = props
       setLoading(true)
       try {
         const cls = await rpc('class.createClass', { ...values, school })
         ok(`Success! Created ${values.displayName}.`)
         await rpc('user.setNav', { class: cls.class })
+        await setUrl(history, `/class/${cls.class}`)
       } catch (e) {
         setLoading(false)
         if (e === 'school_not_found') {
