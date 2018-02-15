@@ -1,5 +1,5 @@
 import modalContainer from '../../../components/modalContainer'
-import { compose, lifecycle, withHandlers } from 'recompose'
+import { compose, lifecycle, withHandlers, onlyUpdateForKeys } from 'recompose'
 import { firestoreConnect } from 'react-redux-firebase'
 import waitFor from '../../../components/waitFor'
 import { connect } from 'react-redux'
@@ -27,8 +27,8 @@ export default compose(
   ),
   lifecycle({
     componentWillMount () {
-      const { school, classId } = this.props
-      this.props.rpc('user.setNav', { class: classId, school })
+      const { classId } = this.props
+      this.props.rpc('user.setNav', { class: classId })
     }
   }),
   withHandlers({

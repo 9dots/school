@@ -6,7 +6,7 @@ import { compose } from 'recompose'
 export default compose(
   connect((state, { match: { params } }) => ({
     profile: profile(state),
-    nav: profile(state).nav || {}
+    nav: profile(state).nav
   })),
   waitFor(['profile'])
 )

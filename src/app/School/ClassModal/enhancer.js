@@ -22,7 +22,7 @@ export default compose(
       try {
         const cls = await rpc('class.createClass', { ...values, school })
         ok(`Success! Created ${values.displayName}.`)
-        await rpc('user.setNav', { class: cls.class, school })
+        await rpc('user.setNav', { class: cls.class })
       } catch (e) {
         setLoading(false)
         if (e === 'school_not_found') {

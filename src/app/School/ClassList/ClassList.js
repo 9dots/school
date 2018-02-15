@@ -71,7 +71,7 @@ class ClassList extends Component {
 
 const ClassItem = ({ cls, showModal, school }) => {
   return (
-    <Link to={`/school/${school}/class/${cls.id}`}>
+    <Link to={`/class/${cls.id}`}>
       <Row type='flex' justify='space-between' align='middle'>
         <Col>{cls.displayName}</Col>
         <Col className='class-actions'>

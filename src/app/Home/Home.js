@@ -5,15 +5,14 @@ import React from 'react'
 import './Home.less'
 
 const Home = props =>
-  props.isLoaded ? <Redirect to={`/school/${getRedirect(props)}`} /> : <div />
+  props.isLoaded ? <Redirect to={`/class/${getRedirect(props)}`} /> : <div />
 
-function getRedirect ({ nav, profile: { schools } }) {
-  if (nav.school) return nav.school
-  return Object.keys(schools)[0]
+function getRedirect ({ nav }) {
+  return nav || ''
 }
 
 Home.propTypes = {
-  nav: PropTypes.object,
+  nav: PropTypes.string,
   profile: PropTypes.object
 }
 

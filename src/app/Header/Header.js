@@ -35,7 +35,7 @@ const Header = props => {
           theme='dark'
           selectedKeys={[active]}
           style={{ float: 'left' }}>
-          <Menu.Item key='school'>
+          <Menu.Item key='class'>
             <Link to='/'>
               <Icon type='book' />
               Classes
