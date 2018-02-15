@@ -3,7 +3,7 @@ import TeacherLayout from './TeacherLayout'
 import Onboarding from '../Onboarding'
 import PropTypes from 'prop-types'
 import Courses from 'app/Courses'
-import Course from 'app/Course'
+import CourseView from 'app/CourseView'
 import School from 'app/School'
 import Splash from '../Splash'
 import Home from 'app/Home'
@@ -23,7 +23,7 @@ const App = props => (
         <Route exact path='/school/:school/class/:classId' component={School} />
         <Route exact path='/school/:school' component={School} />
         <Route exact path='/courses' component={Courses} />
-        <Route exact path='/courses/:courseId' component={Course} />
+        <Route exact path='/courses/:courseId' component={CourseView} />
         <Route exact path='/' component={Home} />
       </Switch>
     </TeacherLayout>
