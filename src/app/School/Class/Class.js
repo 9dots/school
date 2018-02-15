@@ -1,19 +1,21 @@
 import { Collapse, Layout, Divider, Icon, Button } from 'antd'
 import backpack from 'assets/images/emptypack.png'
 import StudentList from 'app/StudentList'
+import Modules from './Modules'
 import EmptyState from 'app/EmptyState'
 import styles from 'theme/vars/vars.js'
 import Loading from '../../Loading'
 import enhancer from './enhancer'
 import lesson from 'app/Lesson'
 import React from 'react'
-import Course from '../../Course'
 import { Link } from 'react-router-dom'
 import './Class.less'
 
 const Class = props => {
   const { isLoaded, classData = {} } = props
   const { classId } = props.match.params
+
+  const modules = Object.keys(classData.modules || {})
 
   if (!isLoaded) return <Loading />
 
@@ -24,7 +26,7 @@ const Class = props => {
           minHeight: 'calc(100vh - 64px)',
           padding: '30px 50px 50px'
         }}>
-        {false ? (
+        {!modules.length ? (
           <NoCourses />
         ) : (
           <div className='main-col'>
@@ -49,10 +51,7 @@ const Class = props => {
               {lesson({ lesson: lessons[0], key: 'active' })}
             </Collapse> */}
             <Divider style={{ margin: '45px 0px 40px' }}>Courses</Divider>
-            <Course added />
-            {/* <Collapse bordered={false} className='lessons-collapse'>
-              {lessons.slice(1).map((val, key) => lesson({ lesson: val, key }))}
-            </Collapse> */}
+            <Modules modules={modules} />
           </div>
         )}
       </Layout.Content>
