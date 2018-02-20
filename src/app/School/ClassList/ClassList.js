@@ -105,6 +105,7 @@ const MenuTitle = ({
         <Col>
           <Button
             style={{ border: 'none' }}
+            className='add-class-button'
             shape='circle'
             icon='plus'
             size='small'
