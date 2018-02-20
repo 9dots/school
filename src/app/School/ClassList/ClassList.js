@@ -1,11 +1,11 @@
 import modalContainer from 'components/modalContainer'
 import { Menu, Button, Icon, Row, Col } from 'antd'
 import { stopEvent } from '../../../utils'
-import React, { Component } from 'react'
+import SchoolModal from '../SchoolModal'
 import { Link } from 'react-router-dom'
 import ClassModal from '../ClassModal'
-import SchoolModal from '../SchoolModal'
 import mapValues from '@f/map-values'
+import React from 'react'
 // import PropTypes from 'prop-types'
 import './ClassList.less'
 
