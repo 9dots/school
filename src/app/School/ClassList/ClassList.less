@@ -20,15 +20,28 @@
 
 .class-list .ant-menu-inline {
   .class-item {
-    padding-left: 24px !important;
+    padding-left: 30px !important;
   }
   .ant-menu-submenu-title {
     padding-right: 10px;
     margin: -1px 0 0;
     border: 1px solid #eee;
     border-width: 1px 0;
+    padding-left: 30px !important;
+    color: rgba(0, 0, 0, 0.65);
     .ant-menu-submenu-arrow {
-      display: none;
+      left: 12px;
+      &:before,
+      &:after {
+        background: rgba(0, 0, 0, 0.65);
+      }
     }
+    // .add-class-button {
+    //   opacity: 0;
+    // }
+
+    // &:hover .add-class-button {
+    //   opacity: 1;
+    // }
   }
 }

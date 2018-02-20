@@ -14,9 +14,9 @@ const Course = ({ modal, added, course }) => {
     tags = {},
     duration = {},
     imageUrl,
-    id
-  } =
-    course || courseData
+    id,
+    lessons = []
+  } = course
 
   return (
     <Card
@@ -55,7 +55,7 @@ const Course = ({ modal, added, course }) => {
         )
       }>
       <p>{description}</p>
-      <LessonList lessons={courseData.lessons} added={added} />
+      <LessonList lessons={lessons} added={added} />
       <AddCourseWrapper modal={modal} id={id} name={id} />
     </Card>
   )

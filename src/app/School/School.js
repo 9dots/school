@@ -24,7 +24,9 @@ const School = props => {
           classesBySchool={props.classesBySchool} />
       </Layout.Sider>
       <Switch>
-        <Route path='/class/:classId' component={Class} />
+        <Route
+          path='/class/:classId'
+          render={() => <Class key={props.classId} match={props.match} />} />
         <Route path='/class' render={() => noClasses(props)} />
       </Switch>
     </Layout>

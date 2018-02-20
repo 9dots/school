@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { Collapse, Button, Icon, List, Avatar } from 'antd'
+import { Collapse, Button, Icon, List, Avatar, Row, Col } from 'antd'
 import { Link } from 'react-router-dom'
 import React from 'react'
 import './LessonList.less'
@@ -12,7 +12,7 @@ const LessonList = ({ lessons = [], added, ...rest }) => {
           <Collapse.Panel
             key={key}
             header={<Header {...lesson} added={added} i={key} />}>
-            <Tasks tasks={lessons} />
+            <Tasks tasks={lesson.tasks} />
           </Collapse.Panel>
         )
       })}
@@ -21,29 +21,30 @@ const LessonList = ({ lessons = [], added, ...rest }) => {
 }
 
 const Header = ({ displayName, description, added, i }) => (
-  <div className='clearfix'>
-    {/* <div className='lesson-number'>{i + 1}</div> */}
-    <div className='lesson-header'>
+  <Row className='clearfix' type='flex' justify='space-between'>
+    <Col className='lesson-header' span={14}>
       <h3 className='ellipsis'>{displayName}</h3>
       <p className='ellipsis'>{description}</p>
-    </div>
-    <div className='extra'>
-      <Button onClick={e => e.stopPropagation()}>
-        <Icon type='file-ppt' />
-        Slides
-      </Button>
-      <Button onClick={e => e.stopPropagation()}>
-        <Icon type='profile' />
-        Lesson Plan
-      </Button>
-      {!!added && (
+    </Col>
+    <Col className='extra' span={10}>
+      <span style={{ float: 'right' }}>
         <Button onClick={e => e.stopPropagation()}>
-          <Icon type='export' />
-          Assign
+          <Icon type='file-ppt' />
+          Slides
         </Button>
-      )}
-    </div>
-  </div>
+        <Button onClick={e => e.stopPropagation()}>
+          <Icon type='profile' />
+          Lesson Plan
+        </Button>
+        {!!added && (
+          <Button onClick={e => e.stopPropagation()}>
+            <Icon type='export' />
+            Assign
+          </Button>
+        )}
+      </span>
+    </Col>
+  </Row>
 )
 
 const Tasks = ({ tasks }) => (
