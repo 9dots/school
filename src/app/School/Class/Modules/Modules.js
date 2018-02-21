@@ -26,7 +26,14 @@ const Modules = props => {
   return (
     <span>
       {props.mods.map(
-        module => module && <Course key={module.id} added course={module} />
+        module =>
+          module && (
+            <Course
+              classId={props.classId}
+              course={module}
+              key={module.id}
+              added />
+          )
       )}
     </span>
   )

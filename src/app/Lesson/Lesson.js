@@ -1,16 +1,16 @@
-import PropTypes from 'prop-types'
 import { Collapse, Button, Icon, Tooltip, Row, Col, List } from 'antd'
+import PropTypes from 'prop-types'
 import Task from './Task'
 import React from 'react'
 import './Lesson.less'
 
-function lesson ({ lesson, key }) {
+function lesson ({ lesson, id }) {
   const { displayName, assigned, description, tasks = [] } = lesson
 
   return (
     <Collapse.Panel
       className='lesson'
-      key={key}
+      key={id}
       showArrow={false}
       header={<Header assigned={assigned} title={displayName} />}>
       <p>{description}</p>
