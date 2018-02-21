@@ -1,19 +1,20 @@
 import { Collapse, Layout, Divider, Icon, Button } from 'antd'
 import backpack from 'assets/images/emptypack.png'
 import StudentList from 'app/StudentList'
-import Modules from './Modules'
+import { Link } from 'react-router-dom'
 import EmptyState from 'app/EmptyState'
 import styles from 'theme/vars/vars.js'
 import Loading from '../../Loading'
 import enhancer from './enhancer'
-import lesson from 'app/Lesson'
+import Modules from './Modules'
+import Lesson from 'app/Lesson'
 import React from 'react'
-import { Link } from 'react-router-dom'
 import './Class.less'
 
 const Class = props => {
   const { isLoaded, classData = {} } = props
   const { classId } = props.match.params
+  const { assignedLesson } = classData
 
   const modules = Object.keys(classData.modules || {})
 
@@ -31,27 +32,13 @@ const Class = props => {
         ) : (
           <div className='main-col'>
             <h2>{classData.displayName}</h2>
-            <div className='no-active-lesson'>
-              <h2>No Active Lesson</h2>
-              <p>
-                Click the button below to start the next course for your class.
-              </p>
-              <Button
-                type='primary'
-                className='secondary'
-                size='large'
-                style={{ padding: '0 35px' }}>
-                Start!
-              </Button>
-            </div>
-            {/* <Collapse
-              defaultActiveKey={['active']}
-              bordered={false}
-              className='lessons-collapse active-lesson'>
-              {lesson({ lesson: lessons[0], key: 'active' })}
-            </Collapse> */}
+            {!assignedLesson ? (
+              <NoActive />
+            ) : (
+              <Lesson lesson={assignedLesson} id='active' />
+            )}
             <Divider style={{ margin: '45px 0px 40px' }}>Courses</Divider>
-            <Modules modules={modules} />
+            <Modules classId={classId} modules={modules} />
           </div>
         )}
       </Layout.Content>
@@ -68,6 +55,20 @@ const Class = props => {
     </Layout>
   )
 }
+
+const NoActive = props => (
+  <div className='no-active-lesson'>
+    <h2>No Active Lesson</h2>
+    <p>Click the button below to start the next course for your class.</p>
+    <Button
+      type='primary'
+      className='secondary'
+      size='large'
+      style={{ padding: '0 35px' }}>
+      Start!
+    </Button>
+  </div>
+)
 
 Class.propTypes = {}
 

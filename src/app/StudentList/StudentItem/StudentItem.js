@@ -1,6 +1,7 @@
 import { Row, Col, Button, Modal, message } from 'antd'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose, withHandlers } from 'recompose'
+import { stopEvent } from '../../../utils'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { rpc } from '../../actions'
@@ -24,9 +25,7 @@ const enhancer = compose(
     { rpc }
   ),
   withHandlers({
-    deleteStudent: ({ rpc, class: { id, displayName }, uid, user }) => e => {
-      e.preventDefault()
-      e.stopPropagation()
+    deleteStudent: ({ rpc, class: { id, displayName }, uid, user }) => () => {
       confirm({
         title: 'Remove Student',
         content: `Are you sure want to remove ${
@@ -35,13 +34,16 @@ const enhancer = compose(
         okText: 'Yes',
         okType: 'danger',
         cancelText: 'No',
-        onOk () {
-          rpc('class.removeStudent', {
-            student: uid,
-            class: id
-          })
-            .then(() => message.success('Student removed'))
-            .catch(e => message.error(e))
+        async onOk () {
+          try {
+            await rpc('class.removeStudent', {
+              student: uid,
+              class: id
+            })
+            message.success('Student removed')
+          } catch (e) {
+            message.error(e)
+          }
         }
       })
     }
@@ -57,7 +59,7 @@ const StudentItem = props => {
         <Button
           type='primary'
           ghost
-          onClick={props.deleteStudent}
+          onClick={stopEvent(props.deleteStudent)}
           icon='user-delete'
           shape='circle'
           size='small' />
@@ -69,3 +71,5 @@ const StudentItem = props => {
 StudentItem.propTypes = {}
 
 export default enhancer(StudentItem)
+
+function getOk () {}
