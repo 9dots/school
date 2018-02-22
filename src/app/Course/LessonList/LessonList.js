@@ -24,7 +24,7 @@ const { confirm } = Modal
 const enhancer = compose(
   connect(() => ({}), { rpc }),
   withHandlers({
-    onAssign: props => lesson => async e => {
+    onAssign: props => lesson => e => {
       confirm({
         title: `Assign "${lesson.displayName}"`,
         content: `Are you sure want to assign "${
