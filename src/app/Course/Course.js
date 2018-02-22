@@ -7,7 +7,7 @@ import React from 'react'
 
 import './Course.less'
 
-const Course = ({ modal, added, course, classId }) => {
+const Course = ({ modal, added, course, classId, assignedId }) => {
   const {
     displayName = '',
     duration = {},
@@ -56,7 +56,11 @@ const Course = ({ modal, added, course, classId }) => {
         )
       }>
       <p>{description}</p>
-      <LessonList classId={classId} lessons={lessons} added={added} />
+      <LessonList
+        assignedId={assignedId}
+        classId={classId}
+        lessons={lessons}
+        added={added} />
       <AddCourseWrapper modal={modal} id={id} name={id} />
     </Card>
   )
