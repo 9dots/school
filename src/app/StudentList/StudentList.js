@@ -7,7 +7,15 @@ import React from 'react'
 import './StudentList.less'
 
 const StudentList = props => {
-  const { students, hideModal, showModal, isVisible, addStudentSuccess } = props
+  const {
+    students,
+    hideModal,
+    showModal,
+    isVisible,
+    addStudentSuccess,
+    progressByStudent,
+    tasks
+  } = props
   return (
     <div
       style={{
@@ -17,8 +25,14 @@ const StudentList = props => {
       }}>
       <Menu mode='vertical-right' fluid style={{ borderLeft: 'none' }}>
         {students.map(uid => (
-          <Menu.Item key={uid}>
-            <StudentItem class={props.class} uid={uid} />
+          <Menu.Item
+            key={uid}
+            style={{ borderTop: '1px solid #e8e8e8', margin: 0 }}>
+            <StudentItem
+              tasks={tasks}
+              progress={progressByStudent[uid]}
+              class={props.class}
+              uid={uid} />
           </Menu.Item>
         ))}
         {!!students.length && <Menu.Divider />}
