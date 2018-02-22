@@ -1,6 +1,7 @@
 import modalContainer from '../../../components/modalContainer'
-import { compose, lifecycle, withHandlers, onlyUpdateForKeys } from 'recompose'
+import { compose, lifecycle, withHandlers } from 'recompose'
 import { firestoreConnect } from 'react-redux-firebase'
+import { progressByStudent } from '../../../selectors'
 import waitFor from '../../../components/waitFor'
 import { connect } from 'react-redux'
 import { rpc } from '../../actions'
@@ -21,10 +22,28 @@ export default compose(
   ]),
   connect(
     ({ firestore: { data } }, props) => ({
-      classData: data[props.classId]
+      classData: data[props.classId] || {},
+      assignedLesson: (data[props.classId] || {}).assignedLesson || {},
+      students: (data[props.classId] || {}).students || {}
     }),
     { rpc }
   ),
+  firestoreConnect(
+    ({ assignedLesson, classData, students }) =>
+      assignedLesson
+        ? Object.keys(students).map(student => ({
+          collection: 'activities',
+          where: [
+            ['student', '==', student],
+            ['lesson', '==', assignedLesson.id]
+          ],
+          storeAs: `lessonProgress-${assignedLesson.id}-${student}`
+        }))
+        : []
+  ),
+  connect((state, { assignedLesson, students }) => ({
+    progressByStudent: progressByStudent(state, assignedLesson.id, students)
+  })),
   lifecycle({
     componentWillMount () {
       const { classId } = this.props
@@ -37,5 +56,5 @@ export default compose(
       message.success(msg)
     }
   }),
-  waitFor(['classData'])
+  waitFor(['classData', 'assignedLesson'])
 )

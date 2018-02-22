@@ -9,6 +9,14 @@ const classBySchools = (state, schools) => {
     getClasses(state, schools)
   )
 }
+const progressByStudent = (state, lesson, students) => {
+  const progress = stateToProgress(state, lesson)
+  return map(
+    (val, key) =>
+      (progress[key] || []).length > 0 ? progress[key] : undefined,
+    students
+  )
+}
 const classes = (state, id) => state.firestore.ordered[`classes-${id}`]
 const allClasses = state => state.firestore.ordered[`allClasses`]
 const course = (state, id) => state.firestore.data[id]
@@ -28,6 +36,7 @@ export {
   uid,
   allClasses,
   classBySchools,
+  progressByStudent,
   courses,
   course,
   moduleSelector
@@ -43,4 +52,20 @@ function getClasses (state, schools) {
     }),
     {}
   )
+}
+
+function stateToProgress (state, lesson) {
+  return Object.keys(state.firestore.ordered)
+    .filter(key => key.indexOf(`lessonProgress-${lesson}`) === 0)
+    .reduce(
+      (acc, key) => ({
+        ...acc,
+        [getStudentFromProgress(key, lesson)]: state.firestore.ordered[key]
+      }),
+      {}
+    )
+}
+
+function getStudentFromProgress (key, lesson) {
+  return key.slice(`lessonProgress-${lesson}`.length + 1)
 }
