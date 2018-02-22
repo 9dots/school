@@ -7,7 +7,7 @@ import styles from 'theme/vars/vars.js'
 import Loading from '../../Loading'
 import enhancer from './enhancer'
 import Modules from './Modules'
-import Lesson from 'app/Lesson'
+import ActiveLesson from './ActiveLesson'
 import React from 'react'
 import './Class.less'
 
@@ -35,10 +35,18 @@ const Class = props => {
             {!assignedLesson ? (
               <NoActive />
             ) : (
-              <Lesson lesson={assignedLesson} id='active' />
+              <span>
+                <Divider style={{ margin: '45px 0px 40px' }}>
+                  Active Lesson
+                </Divider>
+                <ActiveLesson lesson={assignedLesson} id='active' />
+              </span>
             )}
             <Divider style={{ margin: '45px 0px 40px' }}>Courses</Divider>
-            <Modules classId={classId} modules={modules} />
+            <Modules
+              classId={classId}
+              assignedLesson={assignedLesson}
+              modules={modules} />
           </div>
         )}
       </Layout.Content>
