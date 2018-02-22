@@ -1,4 +1,5 @@
 /* LessonList less */
+@import (reference) "../../../theme/mixins.less";
 
 .lesson-list {
   &.ant-collapse-borderless > .ant-collapse-item:last-child {
@@ -6,21 +7,16 @@
     border-bottom: none;
   }
 
-  &.ant-collapse > .ant-collapse-item > .ant-collapse-header {
-    padding-right: 40px;
-    // padding-left: 45px;
-    // .lesson-number {
-    //   position: absolute;
-    //   left: 16px;
-    //   line-height: 44px;
-    //   margin-right: 14px;
-    //   font-size: 20px;
-    //   font-weight: 200;
-    // }
+  &.ant-collapse > .ant-collapse-item:not(.ant-collapse-item-active) {
+    h3,
+    p {
+      .ellipsis();
+    }
+  }
 
+  &.ant-collapse > .ant-collapse-item > .ant-collapse-header {
+    padding-right: 20px;
     .arrow {
-      //   right: 16px;
-      //   left: auto;
       line-height: 67px;
     }
 
@@ -29,13 +25,12 @@
       font-weight: normal;
       margin-bottom: 0;
     }
-    .lesson-header {
-      float: left;
-    }
 
     .extra {
-      float: right;
       margin-top: 6px;
+      span > i {
+        margin: 0 10px;
+      }
       button {
         margin-left: 10px;
       }
@@ -45,7 +40,6 @@
     box-shadow: inset 0 4px 2px -3px rgba(0, 0, 0, 0.1),
       inset 0 -4px 2px -3px rgba(0, 0, 0, 0.1);
     border-top: 1px solid #d9d9d9 !important;
-    // padding: 0 45px;
     .ant-collapse-content-box {
       padding: 16px !important;
     }

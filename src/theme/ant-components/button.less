@@ -5,29 +5,36 @@
   border-color: @color;
 }
 
-.ant-btn {
-  &-primary.secondary {
-    .btn-color(@pink);
-    color: white;
-    &:hover,
-    &:focus {
-      .btn-color(lighten(@pink, 10));
-    }
-    &:active {
-      .btn-color(darken(@pink, 7));
-    }
-    &.ant-btn-background-ghost {
-      color: @pink;
+.new-primary-btn(@color, @class) {
+  .ant-btn {
+    &-primary.@{class} {
+      .btn-color(@color);
+      color: white;
       &:hover,
       &:focus {
-        color: lighten(@pink, 10);
+        .btn-color(lighten(@color, 10));
       }
       &:active {
-        color: darken(@pink, 7);
+        .btn-color(darken(@color, 7));
+      }
+      &.ant-btn-background-ghost {
+        color: @color;
+        &:hover,
+        &:focus {
+          color: lighten(@color, 10);
+        }
+        &:active {
+          color: darken(@color, 7);
+        }
       }
     }
-  }
-  &-clicked.secondary:after {
-    border-color: @pink;
+    &-clicked.@{class}:after {
+      border-color: @color;
+    }
   }
 }
+
+@class: secondary;
+@green-class: green;
+.new-primary-btn(@pink, @class);
+.new-primary-btn(@green, @green-class);

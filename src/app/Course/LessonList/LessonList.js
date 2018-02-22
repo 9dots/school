@@ -7,14 +7,15 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {
   Collapse,
+  Tooltip,
+  message,
   Button,
+  Avatar,
+  Modal,
   Icon,
   List,
-  Avatar,
   Row,
-  Col,
-  Modal,
-  message
+  Col
 } from 'antd'
 
 import './LessonList.less'
@@ -48,7 +49,7 @@ const enhancer = compose(
   })
 )
 
-const LessonList = ({ lessons = [], added, onAssign, ...rest }) => {
+const LessonList = ({ lessons = [], added, onAssign, assignedId, ...rest }) => {
   return (
     <Collapse accordion bordered={false} className='lesson-list' {...rest}>
       {lessons.map((lesson, key) => {
@@ -58,6 +59,7 @@ const LessonList = ({ lessons = [], added, onAssign, ...rest }) => {
             header={
               <Header
                 onAssign={onAssign}
+                assigned={assignedId === lesson.id}
                 {...lesson}
                 lesson={lesson}
                 added={added}
@@ -72,30 +74,54 @@ const LessonList = ({ lessons = [], added, onAssign, ...rest }) => {
 }
 
 const Header = props => {
-  const { onAssign, displayName, description, added, lesson } = props
+  const { onAssign, displayName, description, added, lesson, assigned } = props
   return (
     <Row className='clearfix' type='flex' justify='space-between'>
-      <Col className='lesson-header' span={14}>
-        <h3 className='ellipsis'>{displayName}</h3>
-        <p className='ellipsis'>{description}</p>
+      <Col className='lesson-header flex-grow' style={{ paddingRight: 10 }}>
+        <h3>{displayName}</h3>
+        <p>{description}</p>
       </Col>
-      <Col className='extra' span={10}>
-        <span style={{ float: 'right' }}>
-          <Button onClick={e => e.stopPropagation()}>
-            <Icon type='file-ppt' />
-            Slides
-          </Button>
-          <Button onClick={e => e.stopPropagation()}>
-            <Icon type='profile' />
-            Lesson Plan
-          </Button>
-          {!!added && (
-            <Button onClick={stopEvent(onAssign(lesson))}>
-              <Icon type='export' />
-              Assign
+      <Col className='extra'>
+        {!added ? (
+          <span>
+            <Button onClick={e => e.stopPropagation()}>
+              <Icon type='file-ppt' />
+              Slides
             </Button>
-          )}
-        </span>
+            <Button onClick={e => e.stopPropagation()}>
+              <Icon type='profile' />
+              Lesson Plan
+            </Button>
+          </span>
+        ) : (
+          <span>
+            <Tooltip
+              title='Lesson Plan'
+              mouseEnterDelay={0.4}
+              onClick={stopEvent(() => {})}>
+              <Icon type='bars' />
+            </Tooltip>
+            <Tooltip
+              title='Slides'
+              mouseEnterDelay={0.4}
+              onClick={stopEvent(() => {})}>
+              <Icon type='file-ppt' />
+            </Tooltip>
+            {assigned ? (
+              <Button
+                type='primary'
+                className='green no-pointer'
+                style={{ borderRadius: 20 }}>
+                Assigned
+              </Button>
+            ) : (
+              <Button onClick={stopEvent(onAssign(lesson))}>
+                <Icon type='export' />
+                Assign
+              </Button>
+            )}
+          </span>
+        )}
       </Col>
     </Row>
   )
