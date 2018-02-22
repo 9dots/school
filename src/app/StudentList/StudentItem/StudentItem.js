@@ -1,4 +1,4 @@
-import { Row, Col, Button, Modal, message } from 'antd'
+import { Popover, Row, Col, Progress, Button, Modal, message } from 'antd'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose, withHandlers } from 'recompose'
 import { stopEvent } from '../../../utils'
@@ -50,21 +50,63 @@ const enhancer = compose(
   })
 )
 
-const StudentItem = props => {
-  const { user = {} } = props
+const StudentItem = ({
+  user = {},
+  deleteStudent,
+  progress = [],
+  tasks = {}
+}) => {
+  const { displayName } = user
+  const width = {
+    width: 210,
+    maxWidth: 210
+  }
+
+  const title = (
+    <div style={{ textAlign: 'center', padding: 7, ...width }}>
+      <h3>{displayName}</h3>
+      <a>View Work</a>
+    </div>
+  )
+  const progressMap = progress.reduce(
+    (acc, p) => ({
+      ...acc,
+      [p.activity]: p.progress
+    }),
+    {}
+  )
+
+  const content = (
+    <div style={width}>
+      {tasks.map(({ displayName, id }) => (
+        <Row key={id} type='flex' align='center' style={{ padding: '10px 0' }}>
+          <Col className='ellipsis flex-grow' style={{ paddingRight: 20 }}>
+            {displayName}
+          </Col>
+          <Col>
+            <Progress type='circle' width={30} percent={progressMap[id]} />
+          </Col>
+        </Row>
+      ))}
+      <Button
+        type='primary'
+        ghost
+        onClick={stopEvent(deleteStudent)}
+        icon='user-delete'
+        shape='circle'
+        size='small' />
+    </div>
+  )
+
   return (
-    <Row type='flex' justify='space-between' align='middle'>
-      <Col>{user.displayName}</Col>
-      <Col className='class-actions'>
-        <Button
-          type='primary'
-          ghost
-          onClick={stopEvent(props.deleteStudent)}
-          icon='user-delete'
-          shape='circle'
-          size='small' />
-      </Col>
-    </Row>
+    <Popover
+      placement='leftTop'
+      title={title}
+      style={{ width: 200 }}
+      content={content}
+      trigger='click'>
+      <div>{user.displayName}</div>
+    </Popover>
   )
 }
 

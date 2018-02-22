@@ -6,7 +6,7 @@ import './ActiveLesson.less'
 
 const ActiveLesson = ({ lesson }) => {
   const { displayName, tasks } = lesson
-  console.log(lesson)
+
   return (
     <Card className='course' title={<h2>{displayName}</h2>} bordered={false}>
       <List className='task-list'>

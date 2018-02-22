@@ -12,9 +12,9 @@ import React from 'react'
 import './Class.less'
 
 const Class = props => {
-  const { isLoaded, classData = {} } = props
+  const { isLoaded, classData = {}, progressByStudent } = props
   const { classId } = props.match.params
-  const { assignedLesson } = classData
+  const { assignedLesson = {} } = classData
 
   const modules = Object.keys(classData.modules || {})
 
@@ -52,6 +52,8 @@ const Class = props => {
       </Layout.Content>
       <Layout.Sider width={styles['@sidebar-width']}>
         <StudentList
+          tasks={assignedLesson.tasks}
+          progressByStudent={progressByStudent}
           students={Object.keys(classData.students || {})}
           addStudentSuccess={props.addStudentSuccess}
           showModal={props.showModal}
