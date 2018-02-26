@@ -1,4 +1,5 @@
-import { Card, List, Avatar, Icon } from 'antd'
+import { Card, List, Avatar, Icon, Tooltip } from 'antd'
+import { stopEvent } from '../../../../utils'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -20,10 +21,18 @@ const ActiveLesson = ({ lesson }) => {
               }
               description={description} />
 
-            {/* <Link to={'/'} className='extra'>
-              <Icon type='eye-o' />
-              Preview
-            </Link> */}
+            <Tooltip
+              title='Preview'
+              mouseEnterDelay={0.4}
+              onClick={stopEvent(() => {})}>
+              <Icon type='eye-o' style={{ marginRight: 10 }} />
+            </Tooltip>
+            <Tooltip
+              title='Progress'
+              mouseEnterDelay={0.4}
+              onClick={stopEvent(() => {})}>
+              <Icon type='area-chart' />
+            </Tooltip>
           </List.Item>
         ))}
       </List>
