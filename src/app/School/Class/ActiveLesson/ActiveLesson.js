@@ -1,7 +1,8 @@
-import PropTypes from 'prop-types'
-import React from 'react'
 import { Card, List, Avatar, Icon } from 'antd'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import React from 'react'
+
 import './ActiveLesson.less'
 
 const ActiveLesson = ({ lesson }) => {
