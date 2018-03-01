@@ -5,7 +5,7 @@ import { progressByStudent } from '../../../selectors'
 import waitFor from '../../../components/waitFor'
 import { connect } from 'react-redux'
 import { rpc } from '../../actions'
-import { message } from 'antd'
+import { message, Modal } from 'antd'
 
 export default compose(
   modalContainer,
@@ -23,7 +23,7 @@ export default compose(
   connect(
     ({ firestore: { data } }, props) => ({
       classData: data[props.classId] || {},
-      assignedLesson: (data[props.classId] || {}).assignedLesson || {},
+      assignedLesson: (data[props.classId] || {}).assignedLesson || false,
       students: (data[props.classId] || {}).students || {}
     }),
     { rpc }
@@ -42,7 +42,9 @@ export default compose(
         : []
   ),
   connect((state, { assignedLesson, students }) => ({
-    progressByStudent: progressByStudent(state, assignedLesson.id, students)
+    progressByStudent: assignedLesson
+      ? progressByStudent(state, assignedLesson.id, students)
+      : []
   })),
   lifecycle({
     componentWillMount () {
@@ -54,6 +56,27 @@ export default compose(
     addStudentSuccess: props => msg => {
       props.hideModal('createStudent', null)
       message.success(msg)
+    },
+    onAssign: props => lesson => e => {
+      Modal.confirm({
+        title: `Assign "${lesson.displayName}"`,
+        content: `Are you sure want to assign "${
+          lesson.displayName
+        }" to your class?`,
+        okText: 'Yes',
+        cancelText: 'No',
+        async onOk () {
+          try {
+            await props.rpc('class.assignLesson', {
+              class: props.classId,
+              lesson
+            })
+            message.success('Lesson assigned')
+          } catch (e) {
+            message.error(e.message)
+          }
+        }
+      })
     }
   }),
   waitFor(['classData', 'assignedLesson'])

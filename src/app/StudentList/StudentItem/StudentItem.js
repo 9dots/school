@@ -54,7 +54,7 @@ const StudentItem = ({
   user = {},
   deleteStudent,
   progress = [],
-  tasks = {}
+  tasks = []
 }) => {
   const { displayName } = user
   const width = {
@@ -65,7 +65,10 @@ const StudentItem = ({
   const title = (
     <div style={{ textAlign: 'center', padding: 7, ...width }}>
       <h3>{displayName}</h3>
-      <a>View Work</a>
+      <span style={{ fontSize: 11 }}>
+        <a>View Work</a>&ensp;&middot;&ensp;
+        <a onClick={stopEvent(deleteStudent)}>Remove Student</a>
+      </span>
     </div>
   )
   const progressMap = progress.reduce(
@@ -88,13 +91,6 @@ const StudentItem = ({
           </Col>
         </Row>
       ))}
-      <Button
-        type='primary'
-        ghost
-        onClick={stopEvent(deleteStudent)}
-        icon='user-delete'
-        shape='circle'
-        size='small' />
     </div>
   )
 
@@ -113,5 +109,3 @@ const StudentItem = ({
 StudentItem.propTypes = {}
 
 export default enhancer(StudentItem)
-
-function getOk () {}

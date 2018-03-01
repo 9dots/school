@@ -1,4 +1,4 @@
-import { Modal, List, Icon, Button, Checkbox } from 'antd'
+import { Modal, List, Checkbox } from 'antd'
 import SchoolDetails from '../School/SchoolDetails'
 import { Field } from 'redux-form'
 import PropTypes from 'prop-types'
