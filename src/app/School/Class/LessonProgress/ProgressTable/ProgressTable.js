@@ -22,12 +22,14 @@ const columns = [
   {
     title: 'First',
     key: 'first',
-    dataIndex: 'student'
+    dataIndex: 'student',
+    sorter: (a, b) => alphaSort(a.student, b.student)
   },
   {
     title: 'Last',
     key: 'last',
-    dataIndex: 'student'
+    dataIndex: 'student',
+    sorter: (a, b) => alphaSort(a.student, b.student)
   },
   {
     title: 'Work',
@@ -41,6 +43,7 @@ const columns = [
   {
     title: 'Progress',
     key: 'progress',
+    sorter: (a, b) => a.progress - b.progress,
     render: ({ progress }) => (
       <span>
         <Progress style={{ minWidth: 180 }} percent={progress} />
@@ -48,3 +51,11 @@ const columns = [
     )
   }
 ]
+
+function alphaSort (a, b) {
+  let nameA = a.toLowerCase()
+  let nameB = b.toLowerCase()
+  if (nameA < nameB) return -1
+  if (nameA > nameB) return 1
+  return 0
+}
