@@ -23,7 +23,6 @@ const modalContainer = Component => {
         }
         throw new Error('First argument must be a string or an object')
       })
-
       hideModal = curry((name, e) => this.props.hideModal(name))
       getModalProps = name => this.props.modal[name] || {}
       isVisible = name => !!this.props.modal[name]

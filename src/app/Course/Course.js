@@ -7,7 +7,7 @@ import React from 'react'
 
 import './Course.less'
 
-const Course = ({ modal, added, course, classId, assignedId }) => {
+const Course = ({ modal, added, course, classId, assignedId, onAssign }) => {
   const {
     displayName = '',
     duration = {},
@@ -59,6 +59,7 @@ const Course = ({ modal, added, course, classId, assignedId }) => {
       <LessonList
         assignedId={assignedId}
         classId={classId}
+        onAssign={onAssign}
         lessons={lessons}
         added={added} />
       <AddCourseWrapper modal={modal} id={id} name={id} />

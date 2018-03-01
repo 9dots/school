@@ -1,0 +1,6 @@
+
+{
+  "name": "ProgressRow",
+  "main": "ProgressRow.js",
+  "browser": "ProgressRow.js"
+}
