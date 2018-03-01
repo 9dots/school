@@ -22,12 +22,12 @@ const columns = [
   {
     title: 'First',
     key: 'first',
-    dataIndex: 'student'
+    dataIndex: 'studentData.name.given'
   },
   {
     title: 'Last',
     key: 'last',
-    dataIndex: 'student'
+    dataIndex: 'studentData.name.family'
   },
   {
     title: 'Work',

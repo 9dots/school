@@ -13,7 +13,9 @@ const progressByStudent = (state, lesson, students) => {
   const progress = stateToProgress(state, lesson)
   return map(
     (val, key) =>
-      (progress[key] || []).length > 0 ? progress[key] : undefined,
+      (progress[key] || []).length > 0
+        ? { student: state.firestore.data[key], progress: progress[key] }
+        : undefined,
     students
   )
 }
