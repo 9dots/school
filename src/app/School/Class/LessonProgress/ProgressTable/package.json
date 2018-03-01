@@ -1,0 +1,6 @@
+
+{
+  "name": "ProgressTable",
+  "main": "ProgressTable.js",
+  "browser": "ProgressTable.js"
+}

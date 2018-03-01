@@ -23,7 +23,7 @@ const enhancer = compose(
 )
 
 const Modules = props => {
-  const { mods, classId, assignedLesson = {} } = props
+  const { mods, classId, assignedLesson = {}, onAssign } = props
   return (
     <span>
       {mods.map(
@@ -33,6 +33,7 @@ const Modules = props => {
               classId={classId}
               course={module}
               key={module.id}
+              onAssign={onAssign}
               assignedId={assignedLesson.id}
               added />
           )
