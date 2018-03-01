@@ -1,0 +1,33 @@
+/* LessonProgress less */
+
+@import "../../../../theme/vars/palette.less";
+
+.lesson-progress-modal {
+  .ant-layout {
+    max-width: 1300px;
+    padding: 0 30px;
+    margin: 0 auto;
+  }
+  .ant-modal-body {
+    padding: 0;
+  }
+  .ant-menu {
+    height: 100vh;
+    padding-top: 50px;
+  }
+  .ant-layout-sider {
+    .ant-menu-item {
+      border-bottom: 1px solid #e8e8e8;
+      margin: 0;
+      &.ant-menu-item-selected {
+        background-color: fade(@blue, 10);
+      }
+    }
+  }
+  .ant-layout-content {
+    padding: 50px 30px 0;
+    .course {
+      margin-top: 20px;
+    }
+  }
+}

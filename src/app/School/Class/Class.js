@@ -1,10 +1,11 @@
-import { Collapse, Layout, Divider, Icon, Button } from 'antd'
+import { Layout, Divider, Icon, Button } from 'antd'
 import backpack from 'assets/images/emptypack.png'
 import StudentList from 'app/StudentList'
 import { Link } from 'react-router-dom'
 import EmptyState from 'app/EmptyState'
 import styles from 'theme/vars/vars.js'
 import Loading from '../../Loading'
+import NoActiveLesson from './NoActiveLesson'
 import enhancer from './enhancer'
 import Modules from './Modules'
 import ActiveLesson from './ActiveLesson'
@@ -12,11 +13,12 @@ import React from 'react'
 import './Class.less'
 
 const Class = props => {
-  const { isLoaded, classData = {}, progressByStudent } = props
+  const { isLoaded, classData = {}, progressByStudent, onAssign } = props
   const { classId } = props.match.params
-  const { assignedLesson = {} } = classData
+  const { assignedLesson } = classData
 
   const modules = Object.keys(classData.modules || {})
+  const students = Object.keys(classData.students || {})
 
   if (!isLoaded) return <Loading />
 
@@ -28,22 +30,26 @@ const Class = props => {
           padding: '30px 50px 50px'
         }}>
         {!modules.length ? (
-          <NoCourses />
+          <NoCourses onAssign={onAssign} />
         ) : (
-          <div className='main-col'>
+          <div className='main-col' style={{ padding: 0 }}>
             <h2>{classData.displayName}</h2>
             {!assignedLesson ? (
-              <NoActive />
+              <NoActiveLesson modules={modules} onAssign={onAssign} />
             ) : (
               <span>
-                <Divider style={{ margin: '45px 0px 40px' }}>
+                <Divider style={{ margin: '35px 0px 20px' }}>
                   Active Lesson
                 </Divider>
-                <ActiveLesson lesson={assignedLesson} id='active' />
+                <ActiveLesson
+                  lesson={assignedLesson}
+                  studentProgress={progressByStudent}
+                  id='active' />
               </span>
             )}
             <Divider style={{ margin: '45px 0px 40px' }}>Courses</Divider>
             <Modules
+              onAssign={onAssign}
               classId={classId}
               assignedLesson={assignedLesson}
               modules={modules} />
@@ -52,9 +58,9 @@ const Class = props => {
       </Layout.Content>
       <Layout.Sider width={styles['@sidebar-width']}>
         <StudentList
-          tasks={assignedLesson.tasks}
+          tasks={(assignedLesson || {}).tasks}
           progressByStudent={progressByStudent}
-          students={Object.keys(classData.students || {})}
+          students={students}
           addStudentSuccess={props.addStudentSuccess}
           showModal={props.showModal}
           hideModal={props.hideModal}
@@ -65,20 +71,6 @@ const Class = props => {
     </Layout>
   )
 }
-
-const NoActive = props => (
-  <div className='no-active-lesson'>
-    <h2>No Active Lesson</h2>
-    <p>Click the button below to start the next course for your class.</p>
-    <Button
-      type='primary'
-      className='secondary'
-      size='large'
-      style={{ padding: '0 35px' }}>
-      Start!
-    </Button>
-  </div>
-)
 
 Class.propTypes = {}
 

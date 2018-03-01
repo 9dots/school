@@ -1,53 +1,10 @@
-import { compose, withHandlers } from 'recompose'
 import { stopEvent } from '../../../utils'
 import { Link } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { rpc } from '../../actions'
 import PropTypes from 'prop-types'
 import React from 'react'
-import {
-  Collapse,
-  Tooltip,
-  message,
-  Button,
-  Avatar,
-  Modal,
-  Icon,
-  List,
-  Row,
-  Col
-} from 'antd'
+import { Collapse, Tooltip, Button, Avatar, Icon, List, Row, Col } from 'antd'
 
 import './LessonList.less'
-
-const { confirm } = Modal
-
-const enhancer = compose(
-  connect(() => ({}), { rpc }),
-  withHandlers({
-    onAssign: props => lesson => e => {
-      confirm({
-        title: `Assign "${lesson.displayName}"`,
-        content: `Are you sure want to assign "${
-          lesson.displayName
-        }" to your class?`,
-        okText: 'Yes',
-        cancelText: 'No',
-        async onOk () {
-          try {
-            await props.rpc('class.assignLesson', {
-              class: props.classId,
-              lesson
-            })
-            message.success('Lesson assigned')
-          } catch (e) {
-            message.error(e.message)
-          }
-        }
-      })
-    }
-  })
-)
 
 const LessonList = ({ lessons = [], added, onAssign, assignedId, ...rest }) => {
   return (
@@ -111,11 +68,13 @@ const Header = props => {
               <Button
                 type='primary'
                 className='green no-pointer'
-                style={{ borderRadius: 20 }}>
+                style={{ borderRadius: 20, width: 95 }}>
                 Assigned
               </Button>
             ) : (
-              <Button onClick={stopEvent(onAssign(lesson))}>
+              <Button
+                onClick={stopEvent(onAssign(lesson))}
+                style={{ width: 95 }}>
                 <Icon type='export' />
                 Assign
               </Button>
@@ -147,4 +106,4 @@ const Tasks = ({ tasks }) => (
 
 LessonList.propTypes = {}
 
-export default enhancer(LessonList)
+export default LessonList
