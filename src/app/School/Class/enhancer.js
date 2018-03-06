@@ -28,18 +28,24 @@ export default compose(
     }),
     { rpc }
   ),
-  firestoreConnect(
-    ({ assignedLesson, classData, students }) =>
-      assignedLesson
-        ? Object.keys(students).map(student => ({
-          collection: 'activities',
-          where: [
-            ['student', '==', student],
-            ['lesson', '==', assignedLesson.id]
-          ],
-          storeAs: `lessonProgress-${assignedLesson.id}-${student}`
-        }))
-        : []
+  firestoreConnect(({ assignedLesson, classData, students }) =>
+    (assignedLesson
+      ? Object.keys(students).map(student => ({
+        collection: 'activities',
+        where: [
+          ['student', '==', student],
+          ['lesson', '==', assignedLesson.id]
+        ],
+        storeAs: `lessonProgress-${assignedLesson.id}-${student}`
+      }))
+      : []
+    ).concat(
+      Object.keys(students).map(student => ({
+        collection: 'users',
+        doc: student,
+        storeAs: student
+      }))
+    )
   ),
   connect((state, { assignedLesson, students }) => ({
     progressByStudent: assignedLesson
@@ -79,5 +85,5 @@ export default compose(
       })
     }
   }),
-  waitFor(['classData', 'assignedLesson'])
+  waitFor(props => ['classData', 'assignedLesson'])
 )

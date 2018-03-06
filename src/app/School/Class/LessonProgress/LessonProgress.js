@@ -1,11 +1,10 @@
-import { Modal, Layout, Menu, List, Card, Table } from 'antd'
+import { Modal, Layout, Menu, Card } from 'antd'
 import mapValues from '@f/map-values'
-import map from '@f/map'
-import ProgressRow from './ProgressRow'
 import ProgressTable from './ProgressTable'
 import PropTypes from 'prop-types'
-import React from 'react'
 import enhancer from './enhancer'
+import React from 'react'
+
 import './LessonProgress.less'
 
 const LessonProgress = ({
@@ -19,10 +18,11 @@ const LessonProgress = ({
 
   const task = tasks.find(({ id }) => id === active)
 
-  const data = mapValues((progress, key) => {
+  const data = mapValues((student, key) => {
+    const { student: studentData, progress } = student || {}
     const prog = progress ? progress.find(p => p.activity === active) : {}
     return {
-      student: key,
+      studentData,
       ...prog
     }
   }, studentProgress)

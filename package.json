@@ -53,6 +53,7 @@
   },
   "scripts": {
     "start": "node src/theme/vars/lessToJs.js; react-app-rewired start",
+    "deploy": "node src/theme/vars/lessToJs.js; yarn build; firebase deploy --only hosting",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom"
   },

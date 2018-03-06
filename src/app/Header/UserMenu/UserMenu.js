@@ -1,31 +1,9 @@
-import { firebaseConnect } from 'react-redux-firebase'
-import { Avatar, Dropdown, Menu, Icon } from 'antd'
-import { compose, withHandlers } from 'recompose'
-import { connect } from 'react-redux'
+import { Dropdown, Menu, Icon, Button } from 'antd'
 import PropTypes from 'prop-types'
 import React from 'react'
 import './UserMenu.less'
 
-const enhancer = compose(
-  firebaseConnect(),
-  connect(({ firebase: { profile } }) => ({
-    profile
-  })),
-  withHandlers({
-    logout: props => event => {
-      switch (event.key) {
-        case 'logout':
-          return props.firebase
-            .logout()
-            .then(() => (window.location = window.location.origin))
-        default:
-          break
-      }
-    }
-  })
-)
-
-const UserMenu = enhancer(({ logout, profile }) => {
+const UserMenu = ({ logout, profile, button }) => {
   const overlay = (
     <Menu onClick={logout} style={{ minWidth: 150 }}>
       <Menu.Item>
@@ -45,14 +23,11 @@ const UserMenu = enhancer(({ logout, profile }) => {
   return (
     <span className='user-menu'>
       <Dropdown overlay={overlay} trigger={['click']}>
-        <div>
-          <Avatar icon='user' />
-          {profile.displayName}
-        </div>
+        {button || <Button icon='user' ghost shape='circle' />}
       </Dropdown>
     </span>
   )
-})
+}
 
 UserMenu.propTypes = {}
 
