@@ -1,0 +1,6 @@
+
+{
+  "name": "StudentHeader",
+  "main": "StudentHeader.js",
+  "browser": "StudentHeader.js"
+}
