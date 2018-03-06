@@ -1,9 +1,10 @@
-import PropTypes from 'prop-types'
-import React from 'react'
 import { Card, List, Avatar, Icon, Tooltip, Button } from 'antd'
 import modalContainer from 'components/modalContainer'
-import './ActiveLesson.less'
 import LessonProgress from '../LessonProgress'
+import PropTypes from 'prop-types'
+import React from 'react'
+
+import './ActiveLesson.less'
 
 const ActiveLesson = ({ lesson, modal, studentProgress }) => {
   const { displayName, tasks = [] } = lesson
@@ -15,11 +16,11 @@ const ActiveLesson = ({ lesson, modal, studentProgress }) => {
       bordered={false}
       extra={
         <span>
-          <Button style={{ marginRight: 10 }}>
+          <Button type='primary' style={{ marginRight: 10 }}>
             <Icon type='bars' />
             Lesson Plan
           </Button>
-          <Button>
+          <Button type='primary'>
             <Icon type='file-ppt' />
             Slides
           </Button>

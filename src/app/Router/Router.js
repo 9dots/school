@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import TeacherLayout from './TeacherLayout'
+import AppLayout from '../AppLayout'
 import Onboarding from '../Onboarding'
 import PropTypes from 'prop-types'
 import Courses from 'app/Courses'
@@ -18,7 +18,7 @@ import './Router.less'
 
 const App = props => (
   <div>
-    <TeacherLayout {...props}>
+    <AppLayout {...props}>
       <Switch>
         <Route exact path='/class/:classId' component={School} />
         <Route exact path='/class' component={School} />
@@ -26,7 +26,7 @@ const App = props => (
         <Route exact path='/courses/:courseId' component={CourseView} />
         <Route exact path='/' component={Home} />
       </Switch>
-    </TeacherLayout>
+    </AppLayout>
   </div>
 )
 
