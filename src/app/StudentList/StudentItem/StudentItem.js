@@ -1,10 +1,20 @@
-import { Popover, Row, Col, Progress, Modal, message } from 'antd'
 import { compose, withHandlers, withProps } from 'recompose'
 import { stopEvent } from '../../../utils'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { rpc } from '../../actions'
 import React from 'react'
+import {
+  Progress,
+  Dropdown,
+  Popover,
+  message,
+  Button,
+  Modal,
+  Menu,
+  Row,
+  Col
+} from 'antd'
 import './StudentItem.less'
 
 const confirm = Modal.confirm
@@ -64,13 +74,11 @@ const StudentItem = ({
   const title = (
     <div style={{ textAlign: 'center', padding: 7, ...width }}>
       <h3>{displayName}</h3>
-      <span style={{ fontSize: 11 }}>
-        <a>View Work</a>&ensp;&middot;&ensp;
-        <a onClick={stopEvent(deleteStudent)}>Remove Student</a>
-      </span>
+      <a>View Work</a>
     </div>
   )
-  const content = (
+
+  const content = tasks.length ? (
     <div style={width}>
       {tasks.map(({ displayName, id }) => (
         <Row key={id} type='flex' align='center' style={{ padding: '10px 0' }}>
@@ -83,6 +91,8 @@ const StudentItem = ({
         </Row>
       ))}
     </div>
+  ) : (
+    <div style={{ textAlign: 'center' }}>No Lesson Assigned</div>
   )
 
   return (
@@ -92,7 +102,31 @@ const StudentItem = ({
       style={{ width: 200 }}
       content={content}
       trigger='click'>
-      <div>{displayName}</div>
+      <Row type='flex' align='middle' justify='space-between'>
+        <Col>{displayName}</Col>
+        <Col>
+          <span onClick={stopEvent(() => {})}>
+            <Dropdown
+              trigger={['click']}
+              overlay={
+                <Menu onClick={deleteStudent}>
+                  <Menu.Item>Remove Student</Menu.Item>
+                </Menu>
+              }>
+              <Button
+                icon='ellipsis'
+                shape='circle'
+                style={{
+                  transform: 'rotate(90deg)',
+                  background: 'transparent',
+                  border: 'none',
+                  float: 'right',
+                  marginRight: -8
+                }} />
+            </Dropdown>
+          </span>
+        </Col>
+      </Row>
     </Popover>
   )
 }
