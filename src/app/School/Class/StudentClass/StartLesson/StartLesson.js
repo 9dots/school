@@ -8,7 +8,7 @@ import './StartLesson.less'
 const StartLesson = ({ assignedLesson, classId, isLoaded }) => {
   if (!isLoaded) return <span />
 
-  const { tasks, displayName, id, current = 0 } = assignedLesson
+  const { tasks = [], displayName, id, current = 0 } = assignedLesson
   return (
     <Card className='course start-lesson'>
       <h1>{displayName}</h1>
@@ -23,8 +23,8 @@ const StartLesson = ({ assignedLesson, classId, isLoaded }) => {
         {tasks.map((val, i) => (
           <div
             className='dot'
-            style={{ opacity: i < current ? 1 : 0.5 }}
-            key={tasks.id} />
+            style={{ opacity: i <= current ? 1 : 0.5 }}
+            key={val.id} />
         ))}
       </div>
     </Card>

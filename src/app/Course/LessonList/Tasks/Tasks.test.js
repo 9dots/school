@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Lesson from '.'
+import Tasks from '.'
 
 it('renders without crashing', () => {
   const div = document.createElement('div')
-  ReactDOM.render(<Lesson />, div)
+  ReactDOM.render(<Tasks />, div)
 })
