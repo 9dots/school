@@ -9,27 +9,30 @@ import './StudentHeader.less'
 
 const StudentHeader = ({ profile = {}, logout, isLoaded }) => {
   return (
-    <Layout className='header'>
+    <Layout className='header student-header'>
       <Layout.Sider width={styles['@sidebar-width']}>
         <Link to='/' className='logo'>
           <Icon type='rocket' size='large' />
           DOCKET
         </Link>
       </Layout.Sider>
-      {isLoaded && [
+      {isLoaded && (
         <Layout.Content key='content' style={{ textAlign: 'center' }}>
           <h2>
             <Avatar size='large' icon='user' />
             {profile.displayName}
           </h2>
-        </Layout.Content>,
-        <Layout.Sider
-          key='sider'
-          width={styles['@sidebar-width']}
-          style={{ marginRight: 20 }}>
+
           <UserMenu logout={logout} />
-        </Layout.Sider>
-      ]}
+        </Layout.Content>
+      )
+      // <Layout.Sider
+      //   key='sider'
+      //   width={styles['@sidebar-width']}
+      //   style={{ marginRight: 20 }}>
+      // </Layout.Sider>
+      // ]
+      }
     </Layout>
   )
 }
