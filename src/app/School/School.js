@@ -19,6 +19,7 @@ const School = props => {
       <Layout.Sider width={styles['@sidebar-width']}>
         <ClassList
           onCreateModal={props.onCreateModal}
+          uid={props.uid}
           profile={props.profile}
           currentClass={props.classId}
           classesBySchool={props.classesBySchool} />
@@ -45,21 +46,6 @@ const noClasses = props => (
     }
     action={props.showModal('classModal')} />
 )
-
-function getRedirect (props) {
-  return `${props.match.url}/class/${getLastClass(props)}`
-}
-
-function shouldRedirect (props) {
-  return props.myClasses.length && !props.classId
-}
-
-function getLastClass (props) {
-  if (props.nav && props.nav.class) {
-    return props.nav.class[props.school]
-  }
-  return props.myClasses[0].id
-}
 
 School.propTypes = {}
 

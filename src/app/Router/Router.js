@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import LessonStudentView from '../LessonStudentView'
 import AppLayout from '../AppLayout'
 import Onboarding from '../Onboarding'
 import PropTypes from 'prop-types'
@@ -20,10 +21,19 @@ const App = props => (
   <div>
     <AppLayout {...props}>
       <Switch>
+        <Route
+          exact
+          path='/class/:classId/lesson/:lessonId/:taskNum'
+          component={LessonStudentView} />
+        <Route
+          exact
+          path='/class/:classId/lesson/:lessonId/'
+          component={LessonStudentView} />
         <Route exact path='/class/:classId' component={School} />
         <Route exact path='/class' component={School} />
         <Route exact path='/courses' component={Courses} />
         <Route exact path='/courses/:courseId' component={CourseView} />
+
         <Route exact path='/' component={Home} />
       </Switch>
     </AppLayout>

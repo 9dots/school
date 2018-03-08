@@ -11,6 +11,7 @@ const AddCourseModal = props => {
   const {
     confirmLoading,
     classes = [],
+    displayName,
     isLoaded,
     modalId,
     schools,
@@ -29,7 +30,9 @@ const AddCourseModal = props => {
         okText='Add'
         {...rest}>
         <form onSubmit={props.handleSubmit(props.onSubmit)}>
-          <p>Select classes to assign to:</p>
+          <p>
+            Select classes to assign <b>&quot;{displayName}&quot;</b> to:
+          </p>
           <div
             className='scroller'
             style={{ minHeight: 150, maxHeight: 250, padding: '0 10px' }}>

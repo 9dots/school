@@ -1,0 +1,31 @@
+/* LessonControls less */
+
+.lesson-controls {
+  a {
+    color: white;
+  }
+  .ant-btn {
+    box-shadow: 0 1px 1px fade(black, 10);
+    font-size: 15px;
+    letter-spacing: 1px;
+  }
+}
+
+@size: 10px;
+
+.dots {
+  text-align: center;
+  padding: 0 15px;
+  .dot {
+    background: white;
+    margin: 0 5px;
+    height: @size;
+    width: @size;
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5;
+    &.active {
+      opacity: 1;
+    }
+  }
+}

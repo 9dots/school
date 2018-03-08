@@ -23,7 +23,9 @@ const UserMenu = ({ logout, profile, button }) => {
   return (
     <span className='user-menu'>
       <Dropdown overlay={overlay} trigger={['click']}>
-        {button || <Button icon='user' ghost shape='circle' />}
+        {button || (
+          <Button icon='ellipsis' ghost className='rot90' shape='circle' />
+        )}
       </Dropdown>
     </span>
   )

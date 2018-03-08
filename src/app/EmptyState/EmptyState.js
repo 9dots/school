@@ -14,15 +14,16 @@ const EmptyState = ({ btnText, header, text, image, icon, action, btn }) => {
         )}
         <h2>{header}</h2>
         <h3>{text}</h3>
-        {btn || (
-          <Button
-            onClick={action}
-            size='large'
-            className='secondary'
-            type='primary'>
-            {btnText}
-          </Button>
-        )}
+        {btn ||
+          (btnText && (
+            <Button
+              onClick={action}
+              size='large'
+              className='secondary'
+              type='primary'>
+              {btnText}
+            </Button>
+          ))}
       </div>
     </Layout>
   )

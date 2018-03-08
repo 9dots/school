@@ -19,7 +19,8 @@ class ClassList extends React.PureComponent {
       currentClass,
       isVisible,
       showModal,
-      hideModal
+      hideModal,
+      uid
     } = this.props
     const { openKeys } = this.state
 
@@ -45,7 +46,11 @@ class ClassList extends React.PureComponent {
                 key={key}>
                 {school.classes.map(cls => (
                   <Menu.Item key={cls.id} className='class-item'>
-                    <ClassItem showModal={showModal} school={key} cls={cls} />
+                    <ClassItem
+                      isTeacher={cls.teachers[uid]}
+                      showModal={showModal}
+                      school={key}
+                      cls={cls} />
                   </Menu.Item>
                 ))}
               </Menu.SubMenu>
@@ -69,19 +74,21 @@ class ClassList extends React.PureComponent {
   }
 }
 
-const ClassItem = ({ cls, showModal, school }) => {
+const ClassItem = ({ cls, showModal, school, isTeacher }) => {
   return (
     <Link to={`/class/${cls.id}`}>
       <Row type='flex' justify='space-between' align='middle'>
         <Col>{cls.displayName}</Col>
         <Col className='class-actions'>
-          <Button
-            type='primary'
-            ghost
-            onClick={stopEvent(showModal('createStudent'))}
-            icon='user-add'
-            shape='circle'
-            size='small' />
+          {isTeacher && (
+            <Button
+              type='primary'
+              ghost
+              onClick={stopEvent(showModal('createStudent'))}
+              icon='user-add'
+              shape='circle'
+              size='small' />
+          )}
         </Col>
       </Row>
     </Link>

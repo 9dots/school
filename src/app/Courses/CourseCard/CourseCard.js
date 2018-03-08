@@ -53,7 +53,11 @@ const CourseCard = ({ course, modal }) => {
             } />
         </Card>
       </Link>
-      <AddCourseWrapper modal={modal} id={id} name={id} />
+      <AddCourseWrapper
+        modal={modal}
+        displayName={displayName}
+        id={id}
+        name={id} />
     </span>
   )
 }
