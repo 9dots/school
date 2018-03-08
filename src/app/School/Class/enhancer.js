@@ -1,11 +1,14 @@
 import modalContainer from '../../../components/modalContainer'
 import { compose, lifecycle, withHandlers } from 'recompose'
 import { firestoreConnect } from 'react-redux-firebase'
-import { progressByStudent } from '../../../selectors'
 import waitFor from '../../../components/waitFor'
 import { connect } from 'react-redux'
-import { rpc } from '../../actions'
 import { message, Modal } from 'antd'
+import { rpc } from '../../actions'
+import {
+  progressByStudent,
+  students as studentsSelector
+} from '../../../selectors'
 
 export default compose(
   modalContainer,
@@ -22,7 +25,7 @@ export default compose(
   ]),
   connect(
     ({ firestore: { data } }, props) => ({
-      classData: data[props.classId] || {},
+      classData: data[props.classId],
       assignedLesson: (data[props.classId] || {}).assignedLesson || false,
       students: (data[props.classId] || {}).students || {}
     }),
@@ -50,7 +53,8 @@ export default compose(
   connect((state, { assignedLesson, students }) => ({
     progressByStudent: assignedLesson
       ? progressByStudent(state, assignedLesson.id, students)
-      : []
+      : [],
+    studentData: studentsSelector(state, students)
   })),
   lifecycle({
     componentWillMount () {
@@ -85,5 +89,10 @@ export default compose(
       })
     }
   }),
-  waitFor(props => ['classData', 'assignedLesson'])
+  waitFor(props => [
+    'classData',
+    'assignedLesson',
+    'studentData',
+    'progressByStudent'
+  ])
 )

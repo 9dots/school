@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom'
 import { SubmissionError } from 'redux-form'
 import { rpc, setUrl } from '../actions'
 import { connect } from 'react-redux'
+import setProp from '@f/set-prop'
 import { message } from 'antd'
 
 const profileDetailEnhancer = compose(
@@ -22,6 +23,13 @@ const profileDetailEnhancer = compose(
           throw new SubmissionError({
             school: 'School code not found.'
           })
+        } else if (e.errorDetails) {
+          throw new SubmissionError(
+            e.errorDetails.reduce(
+              (acc, { field, message }) => setProp(field, acc, message),
+              {}
+            )
+          )
         }
         message.error('Oops, something went wrong. Please try again.')
       }
