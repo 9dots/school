@@ -16,9 +16,7 @@ class AppLayout extends Component {
           <Route
             exact
             path='/class/:classId/lesson/:lessonId/:taskNum'
-            render={({ match: { params } }) => (
-              <LessonHeader {...rest} {...params} />
-            )} />
+            render={({ match: { params } }) => <span />} />
           <Route
             exact
             path='/class/:classId'
