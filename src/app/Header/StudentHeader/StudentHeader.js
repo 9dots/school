@@ -1,4 +1,4 @@
-import { Avatar, Icon, Layout, Button } from 'antd'
+import { Avatar, Icon, Layout } from 'antd'
 import { Link } from 'react-router-dom'
 import styles from 'theme/vars/vars.js'
 import PropTypes from 'prop-types'
@@ -7,7 +7,7 @@ import React from 'react'
 
 import './StudentHeader.less'
 
-const StudentHeader = ({ profile = {}, logout }) => {
+const StudentHeader = ({ profile = {}, logout, isLoaded }) => {
   return (
     <Layout className='header'>
       <Layout.Sider width={styles['@sidebar-width']}>
@@ -16,10 +16,20 @@ const StudentHeader = ({ profile = {}, logout }) => {
           DOCKET
         </Link>
       </Layout.Sider>
-      <Layout.Content>
-        <div>{profile.displayName}</div>
-        <UserMenu logout={logout} />
-      </Layout.Content>
+      {isLoaded && [
+        <Layout.Content key='content' style={{ textAlign: 'center' }}>
+          <h2>
+            <Avatar size='large' icon='user' />
+            {profile.displayName}
+          </h2>
+        </Layout.Content>,
+        <Layout.Sider
+          key='sider'
+          width={styles['@sidebar-width']}
+          style={{ marginRight: 20 }}>
+          <UserMenu logout={logout} />
+        </Layout.Sider>
+      ]}
     </Layout>
   )
 }

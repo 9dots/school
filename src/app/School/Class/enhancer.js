@@ -21,10 +21,11 @@ export default compose(
     }
   ]),
   connect(
-    ({ firestore: { data } }, props) => ({
+    ({ firestore: { data }, firebase: { auth } }, props) => ({
       classData: data[props.classId] || {},
       assignedLesson: (data[props.classId] || {}).assignedLesson || false,
-      students: (data[props.classId] || {}).students || {}
+      students: (data[props.classId] || {}).students || {},
+      auth
     }),
     { rpc }
   ),
@@ -65,10 +66,9 @@ export default compose(
     },
     onAssign: props => lesson => e => {
       Modal.confirm({
-        title: `Assign "${lesson.displayName}"`,
-        content: `Are you sure want to assign "${
-          lesson.displayName
-        }" to your class?`,
+        title: `Assign "${lesson.displayName}"?`,
+        content:
+          'The lesson will immediately be assigned to your class. Any currently assigned lesson will be unassigned',
         okText: 'Yes',
         cancelText: 'No',
         async onOk () {

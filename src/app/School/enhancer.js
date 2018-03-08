@@ -16,7 +16,7 @@ export default compose(
   firestoreConnect(props => [
     {
       collection: 'classes',
-      where: [`teachers.${props.uid}`, '==', true],
+      where: [`members.${props.uid}`, '==', true],
       storeAs: `allClasses`
     },
     ...mapValues(
@@ -30,7 +30,6 @@ export default compose(
   ]),
   connect((state, { profile, match: { params } }) => ({
     classesBySchool: classBySchools(state, Object.keys(profile.schools)),
-    myClasses: allClasses(state),
     classId: params.classId,
     nav: profile.nav
   })),
@@ -40,5 +39,5 @@ export default compose(
       message.success(msg)
     }
   }),
-  waitFor(['classesBySchool', 'myClasses', 'profile'])
+  waitFor(['classesBySchool', 'profile'])
 )

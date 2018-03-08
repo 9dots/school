@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 export default compose(
   firebaseConnect(),
-  connect(({ firebase: { profile } }) => ({
+  connect(({ firebase: { profile } }, { location: { pathname } }) => ({
     profile
   })),
   withHandlers({

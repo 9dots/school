@@ -11,12 +11,11 @@
   background: @blue;
 
   .logo {
-    background: @blue;
     text-align: center;
     border-right: 1px solid fade(white, 20);
-    color: white;
     font-size: 20px;
     font-weight: 200;
+    color: white;
     display: block;
     letter-spacing: 5px;
     .anticon {
@@ -28,6 +27,23 @@
 
   .ant-layout-content {
     padding: 0 20px;
+    h2 {
+      .ant-avatar {
+        margin: -3px 10px 0 0;
+        vertical-align: middle;
+      }
+      margin-bottom: 0;
+      color: white;
+    }
+  }
+
+  .ant-layout-sider {
+    @width: unit(@sidebar-width, px) !important;
+    width: @width;
+    min-width: @width;
+    max-width: @width;
+    background: @blue;
+    color: white;
   }
 
   .main-nav {
