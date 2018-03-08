@@ -1,3 +1,4 @@
+import mapValues from '@f/map-values'
 import React from 'react'
 import './waitFor.less'
 

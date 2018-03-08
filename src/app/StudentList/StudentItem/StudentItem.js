@@ -1,6 +1,5 @@
-import { Popover, Row, Col, Progress, Button, Modal, message } from 'antd'
-import { firestoreConnect } from 'react-redux-firebase'
-import { compose, withHandlers } from 'recompose'
+import { Popover, Row, Col, Progress, Modal, message } from 'antd'
+import { compose, withHandlers, withProps } from 'recompose'
 import { stopEvent } from '../../../utils'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -11,19 +10,18 @@ import './StudentItem.less'
 const confirm = Modal.confirm
 
 const enhancer = compose(
-  firestoreConnect(props => [
-    {
-      collection: 'users',
-      doc: props.uid,
-      storeAs: props.uid
-    }
-  ]),
-  connect(
-    ({ firestore: { data } }, props) => ({
-      user: data[props.uid]
-    }),
-    { rpc }
-  ),
+  connect(({ firestore: { data } }, props) => ({ student: data[props.uid] }), {
+    rpc
+  }),
+  withProps(props => ({
+    progress: (props.studentProgress.progress || []).reduce(
+      (acc, p) => ({
+        ...acc,
+        [p.activity]: p.progress
+      }),
+      {}
+    )
+  })),
   withHandlers({
     deleteStudent: ({ rpc, class: { id, displayName }, uid, user }) => () => {
       confirm({
@@ -51,17 +49,18 @@ const enhancer = compose(
 )
 
 const StudentItem = ({
-  user = {},
+  studentProgress = {},
   deleteStudent,
-  progress = [],
-  tasks = []
+  student = {},
+  tasks = [],
+  user = {},
+  progress
 }) => {
-  const { displayName } = user
+  const { displayName } = student
   const width = {
     width: 210,
     maxWidth: 210
   }
-
   const title = (
     <div style={{ textAlign: 'center', padding: 7, ...width }}>
       <h3>{displayName}</h3>
@@ -71,14 +70,6 @@ const StudentItem = ({
       </span>
     </div>
   )
-  const progressMap = progress.reduce(
-    (acc, p) => ({
-      ...acc,
-      [p.activity]: p.progress
-    }),
-    {}
-  )
-
   const content = (
     <div style={width}>
       {tasks.map(({ displayName, id }) => (
@@ -87,7 +78,7 @@ const StudentItem = ({
             {displayName}
           </Col>
           <Col>
-            <Progress type='circle' width={30} percent={progressMap[id]} />
+            <Progress type='circle' width={30} percent={progress[id]} />
           </Col>
         </Row>
       ))}
@@ -101,7 +92,7 @@ const StudentItem = ({
       style={{ width: 200 }}
       content={content}
       trigger='click'>
-      <div>{user.displayName}</div>
+      <div>{displayName}</div>
     </Popover>
   )
 }

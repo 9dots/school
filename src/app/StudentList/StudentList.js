@@ -30,7 +30,7 @@ const StudentList = props => {
             style={{ borderTop: '1px solid #e8e8e8', margin: 0 }}>
             <StudentItem
               tasks={tasks}
-              progress={(progressByStudent[uid] || {}).progress}
+              studentProgress={progressByStudent[uid] || {}}
               class={props.class}
               uid={uid} />
           </Menu.Item>

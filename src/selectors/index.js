@@ -2,11 +2,14 @@ import map from '@f/map'
 
 const progressByStudent = (state, lesson, students) => {
   const progress = stateToProgress(state, lesson)
+
   return map(
     (val, key) =>
       (progress[key] || []).length > 0
         ? { student: state.firestore.data[key], progress: progress[key] }
-        : undefined,
+        : state.firestore.data[key]
+          ? { student: state.firestore.data[key] }
+          : null,
     students
   )
 }
@@ -23,6 +26,8 @@ const moduleSelector = (state, mods) =>
   mods.map(
     m => state.firestore.data[m] && { id: m, ...state.firestore.data[m] }
   )
+const students = (state, students) =>
+  Object.keys(students).map(student => state.firestore.data[student])
 const classes = (state, id) => state.firestore.ordered[`classes-${id}`]
 const allClasses = state => state.firestore.ordered[`allClasses`]
 const courses = state => state.firestore.ordered.courses
@@ -36,6 +41,7 @@ export {
   classBySchools,
   moduleSelector,
   allClasses,
+  students,
   courses,
   classes,
   profile,
