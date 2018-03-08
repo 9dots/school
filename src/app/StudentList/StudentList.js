@@ -1,10 +1,15 @@
+import waitFor from '../../components/waitFor/waitFor'
 import CreateStudentModal from './CreateStudentModal'
 import { Button, Menu, Icon } from 'antd'
 import StudentItem from './StudentItem'
+import { compose } from 'recompose'
 import PropTypes from 'prop-types'
+import Loading from '../Loading'
 import React from 'react'
 
 import './StudentList.less'
+
+const enhancer = compose(waitFor(['studentData']))
 
 const StudentList = props => {
   const {
@@ -13,9 +18,11 @@ const StudentList = props => {
     showModal,
     isVisible,
     addStudentSuccess,
+    isLoaded,
     progressByStudent,
     tasks
   } = props
+  if (!isLoaded) return <Loading />
   return (
     <div
       style={{
@@ -56,4 +63,4 @@ const StudentList = props => {
 
 StudentList.propTypes = {}
 
-export default StudentList
+export default enhancer(StudentList)
