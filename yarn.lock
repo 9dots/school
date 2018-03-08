@@ -7106,6 +7106,13 @@ redux-effects@^0.4.3:
   dependencies:
     is-promise "^2.1.0"
 
+redux-firestore@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/redux-firestore/-/redux-firestore-0.3.2.tgz#00342b958b757be77548f346d770a8bb3d912e4c"
+  dependencies:
+    lodash "^4.17.4"
+    prop-types "^15.6.0"
+
 "redux-form-antd@https://github.com/danleavitt0/redux-form-antd.git":
   version "0.0.15"
   resolved "https://github.com/danleavitt0/redux-form-antd.git#54421ddb4d3d8c16c316db1d3d5b2ef286eee375"
