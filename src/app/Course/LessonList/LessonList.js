@@ -2,6 +2,7 @@ import { stopEvent } from '../../../utils'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import React from 'react'
+import enhancer from './enhancer'
 import { Collapse, Tooltip, Button, Avatar, Icon, List, Row, Col } from 'antd'
 
 import './LessonList.less'
@@ -12,6 +13,9 @@ const LessonList = ({
   onAssign,
   assignedId,
   student,
+  classId,
+  studentLessons,
+  progress,
   ...rest
 }) => {
   return (
@@ -27,10 +31,12 @@ const LessonList = ({
                 {...lesson}
                 lesson={lesson}
                 added={added}
+                classId={classId}
+                progress={progress[lesson.id]}
                 student={student}
                 i={lesson.id} />
             }>
-            <Tasks tasks={lesson.tasks} student={student} />
+            <Tasks lesson={lesson} classId={classId} student={student} />
           </Collapse.Panel>
         )
       })}
@@ -40,14 +46,17 @@ const LessonList = ({
 
 const Header = props => {
   const {
-    onAssign,
     displayName,
     description,
-    added,
-    lesson,
     assigned,
-    student
+    onAssign,
+    student,
+    progress = {},
+    classId,
+    lesson,
+    added
   } = props
+
   return (
     <Row className='clearfix' type='flex' justify='space-between'>
       <Col className='lesson-header flex-grow' style={{ paddingRight: 10 }}>
@@ -56,7 +65,11 @@ const Header = props => {
       </Col>
       <Col className='extra'>
         {student ? (
-          <StudentExtra student={student} assigned={assigned} />
+          <StudentExtra
+            path={`/class/${classId}/lesson/${lesson.id}/${progress.current ||
+              0}`}
+            started={typeof progress.current !== 'undefined'}
+            assigned={assigned} />
         ) : (
           <TeacherExtra
             lesson={lesson}
@@ -69,37 +82,45 @@ const Header = props => {
   )
 }
 
-const Tasks = ({ tasks }) => (
+const Tasks = ({ lesson: { tasks, id }, classId, student }) => (
   <List className='task-list'>
     {tasks.map(({ displayName, description }, i) => (
-      <List.Item key={i}>
+      <List.Item key={id + '-' + i}>
         <List.Item.Meta
           avatar={<Avatar size='small'>{i + 1}</Avatar>}
           title={displayName}
           description={description} />
-
-        <Link to={'/'} className='extra'>
-          <Icon type='eye-o' />
-          Preview
-        </Link>
+        {student ? (
+          <Link to={`/class/${classId}/lesson/${id}/${i}`} className='extra'>
+            <Icon type='caret-right' />
+            Play
+          </Link>
+        ) : (
+          <Link to={'/'} className='extra'>
+            <Icon type='eye-o' />
+            Preview
+          </Link>
+        )}
       </List.Item>
     ))}
   </List>
 )
 
-const StudentExtra = ({ assigned, student }) => {
+const StudentExtra = ({ assigned, path, started }) => {
   return (
     <div style={{ paddingLeft: 20 }}>
-      {assigned ? (
+      {assigned && (
         <Button
           type='primary'
           className='green no-pointer'
-          style={{ borderRadius: 20, width: 95 }}>
+          style={{ borderRadius: 20, width: 95, marginRight: 10 }}>
           Assigned
         </Button>
-      ) : (
-        'Student'
       )}
+      <Link to={path}>
+        {started ? 'Continue' : 'Start'}
+        <Icon type='caret-right' style={{ marginLeft: 5 }} />
+      </Link>
     </div>
   )
 }
@@ -153,4 +174,4 @@ const TeacherExtra = ({ added, assigned, onAssign, lesson }) => {
 
 LessonList.propTypes = {}
 
-export default LessonList
+export default enhancer(LessonList)

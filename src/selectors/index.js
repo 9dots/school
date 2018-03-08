@@ -32,11 +32,7 @@ const students = (state, students) =>
 const classes = (state, id) => state.firestore.ordered[`classes-${id}`]
 const allClasses = state => state.firestore.ordered[`allClasses`]
 const studentAssignment = (state, id, lesson) =>
-  getProp(
-    `users.${id}.assignments.${lesson}`,
-    state.firestore.data,
-    console.log(id, lesson, state.firestore.data)
-  )
+  getProp(`users.${id}.assignments.${lesson}`, state.firestore.data)
 const courses = state => state.firestore.ordered.courses
 const course = (state, id) => state.firestore.data[id]
 const school = (state, id) => state.firestore.data[id]
