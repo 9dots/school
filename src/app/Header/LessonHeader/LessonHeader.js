@@ -7,14 +7,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import './LessonHeader.less'
 
-const LessonHeader = ({
-  isLoaded,
-  profile,
-  logout,
-  classId,
-  lessonId,
-  taskNum
-}) => {
+const LessonHeader = ({ profile, classId, lessonId, taskNum, lesson }) => {
   return (
     <Layout className='header'>
       <Layout.Sider width={styles['@sidebar-width']}>
@@ -30,13 +23,14 @@ const LessonHeader = ({
         <LessonControls
           lessonId={lessonId}
           classId={classId}
-          current={taskNum} />
+          current={taskNum}
+          lesson={lesson} />
       </Layout.Content>
       <Layout.Sider
         width={styles['@sidebar-width']}
         style={{ marginRight: 20 }}>
         <UserMenu
-          logout={logout}
+          // logout={logout}
           button={
             <h2 style={{ color: 'white', marginBottom: 0 }}>
               <Avatar icon='user' size='large' />

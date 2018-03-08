@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom'
 import React from 'react'
 import './LessonControls.less'
 
-const LessonControls = ({ current, classId, lessonId }) => {
-  const tasks = [1, 2, 3, 4, 5]
+const LessonControls = ({ current, classId, lessonId, lesson }) => {
   const path = `/class/${classId}/lesson/${lessonId}/`
   const cur = parseInt(current, 10)
+  const { tasks } = lesson
 
   return (
     <div className='lesson-controls'>

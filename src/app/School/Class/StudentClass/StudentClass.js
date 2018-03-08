@@ -33,7 +33,10 @@ const StudentClass = props => {
                 <h2 style={{ lineHeight: '30vh' }}>No Assigned Lessons</h2>
               </div>
             ) : (
-              <StartLesson classId={classId} lesson={assignedLesson} />
+              <StartLesson
+                uid={auth.uid}
+                classId={classId}
+                lesson={assignedLesson} />
             )}
             <Divider style={{ margin: '45px 0px 40px' }}>Courses</Divider>
             <Modules

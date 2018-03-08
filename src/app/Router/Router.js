@@ -24,7 +24,13 @@ const App = props => (
         <Route
           exact
           path='/class/:classId/lesson/:lessonId/:taskNum'
-          component={LessonStudentView} />
+          render={matchProp => (
+            <LessonStudentView
+              {...matchProp}
+              key={
+                matchProp.match.params.lessonId + matchProp.match.params.taskNum
+              } />
+          )} />
         <Route
           exact
           path='/class/:classId/lesson/:lessonId/'
