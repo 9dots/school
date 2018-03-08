@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import getProp from '@f/get-prop'
 import { Table, Progress } from 'antd'
 import './ProgressTable.less'
 
@@ -22,12 +23,14 @@ const columns = [
   {
     title: 'First',
     key: 'first',
-    dataIndex: 'studentData.name.given'
+    dataIndex: 'studentData.name.given',
+    sorter: (a, b) => alphaSort(a, b, 'studentData.name.given')
   },
   {
     title: 'Last',
     key: 'last',
-    dataIndex: 'studentData.name.family'
+    dataIndex: 'studentData.name.family',
+    sorter: (a, b) => alphaSort(a, b, 'studentData.name.family')
   },
   {
     title: 'Work',
@@ -41,6 +44,7 @@ const columns = [
   {
     title: 'Progress',
     key: 'progress',
+    sorter: (a, b) => a.progress - b.progress,
     render: ({ progress }) => (
       <span>
         <Progress style={{ minWidth: 180 }} percent={progress} />
@@ -48,3 +52,11 @@ const columns = [
     )
   }
 ]
+
+function alphaSort (a, b, selector) {
+  let nameA = getProp(selector, a).toLowerCase()
+  let nameB = getProp(selector, b).toLowerCase()
+  if (nameA < nameB) return -1
+  if (nameA > nameB) return 1
+  return 0
+}

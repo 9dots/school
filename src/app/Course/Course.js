@@ -1,13 +1,21 @@
 import AddCourseWrapper from 'app/AddCourseModal/AddCourseWrapper'
 import modalContainer from '../../components/modalContainer'
-import { Card, Avatar, Button, Icon } from 'antd'
+import { Card, Avatar, Button, Icon, Col, Row } from 'antd'
 import LessonList from './LessonList'
 import PropTypes from 'prop-types'
 import React from 'react'
 
 import './Course.less'
 
-const Course = ({ modal, added, course, classId, assignedId, onAssign }) => {
+const Course = ({
+  modal,
+  added,
+  course,
+  classId,
+  assignedId,
+  onAssign,
+  student
+}) => {
   const {
     displayName = '',
     duration = {},
@@ -18,32 +26,37 @@ const Course = ({ modal, added, course, classId, assignedId, onAssign }) => {
     imageUrl,
     id
   } = course
-
   return (
     <Card
       className='course'
       bordered={false}
       title={
-        <span>
-          <Avatar
-            size='large'
-            className='xlg'
-            src={imageUrl}
-            style={{ float: 'left' }}>
-            {displayName ? displayName[0] : ''}
-          </Avatar>
-          <div>
+        <Row type='flex' justify='middle'>
+          <Col>
+            <Avatar
+              size='large'
+              className='xlg'
+              src={imageUrl}
+              style={{ float: 'left' }}>
+              {displayName ? displayName[0] : ''}
+            </Avatar>
+          </Col>
+          <Col className='flex-grow'>
             <h2>{displayName}</h2>
-            <span className='sub-title'>
-              <Icon type='clock-circle-o' />
-              {duration.time} {duration.unit}
-              <Icon type='book' />
-              Level {difficulty}
-              <Icon type='tag-o' />
-              <span className='capitalize'>{Object.keys(tags).join(', ')}</span>
-            </span>
-          </div>
-        </span>
+            {!student && (
+              <span className='sub-title'>
+                <Icon type='clock-circle-o' />
+                {duration.time} {duration.unit}
+                <Icon type='book' />
+                Level {difficulty}
+                <Icon type='tag-o' />
+                <span className='capitalize'>
+                  {Object.keys(tags).join(', ')}
+                </span>
+              </span>
+            )}
+          </Col>
+        </Row>
       }
       extra={
         !added && (
@@ -55,14 +68,19 @@ const Course = ({ modal, added, course, classId, assignedId, onAssign }) => {
           </Button>
         )
       }>
-      <p>{description}</p>
+      {!student && <p>{description}</p>}
       <LessonList
+        student={student}
         assignedId={assignedId}
         classId={classId}
         onAssign={onAssign}
         lessons={lessons}
         added={added} />
-      <AddCourseWrapper modal={modal} id={id} name={id} />
+      <AddCourseWrapper
+        modal={modal}
+        displayName={displayName}
+        id={id}
+        name={id} />
     </Card>
   )
 }

@@ -16,11 +16,11 @@ const ActiveLesson = ({ lesson, modal, studentProgress }) => {
       bordered={false}
       extra={
         <span>
-          <Button style={{ marginRight: 10 }}>
+          <Button type='primary' style={{ marginRight: 10 }}>
             <Icon type='bars' />
             Lesson Plan
           </Button>
-          <Button>
+          <Button type='primary'>
             <Icon type='file-ppt' />
             Slides
           </Button>

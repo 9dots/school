@@ -1,5 +1,15 @@
 @import "../vars/palette.less";
 
+.ant-btn-primary:hover,
+.ant-btn-primary:focus {
+  background: lighten(@blue, 9);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.ant-btn.rounded {
+  border-radius: 99px;
+}
+
 .btn-color(@color) {
   background-color: @color;
   border-color: @color;
@@ -12,7 +22,7 @@
       color: white;
       &:hover,
       &:focus {
-        .btn-color(lighten(@color, 10));
+        .btn-color(lighten(@color, 5));
       }
       &:active {
         .btn-color(darken(@color, 7));
@@ -21,7 +31,7 @@
         color: @color;
         &:hover,
         &:focus {
-          color: lighten(@color, 10);
+          color: lighten(@color, 5);
         }
         &:active {
           color: darken(@color, 7);
