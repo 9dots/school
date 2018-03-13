@@ -1,3 +1,4 @@
+import waitFor from '../../../components/waitFor/waitFor'
 import { firestoreConnect } from 'react-redux-firebase'
 import { studentAssignment } from '../../../selectors'
 import { compose } from 'recompose'
@@ -8,21 +9,20 @@ export default compose(
     ({ lessons, student }) =>
       student
         ? lessons.map(lesson => ({
-          collection: 'users',
-          doc: student,
-          subcollections: [{ collection: 'assignments', doc: lesson.id }]
+          collection: 'activities',
+          where: [['student', '==', student], ['lesson', '==', lesson.id]],
+          storeAs: `lessonProgress-${lesson.id}-${student}`
         }))
         : []
   ),
   connect((state, { lessons, student }) => ({
-    progress: {
-      ...lessons.reduce(
-        (acc, lesson) => ({
-          ...acc,
-          [lesson.id]: studentAssignment(state, student, lesson.id)
-        }),
-        {}
-      )
-    }
-  }))
+    progress: lessons.reduce(
+      (acc, lesson) => ({
+        ...acc,
+        [lesson.id]: studentAssignment(state, student, lesson.id)
+      }),
+      {}
+    )
+  })),
+  waitFor(['progress'])
 )

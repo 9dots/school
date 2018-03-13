@@ -5,9 +5,8 @@ import enhancer from './enhancer'
 import React from 'react'
 import './StartLesson.less'
 
-const StartLesson = ({ assignedLesson, classId, isLoaded }) => {
+const StartLesson = ({ assignedLesson = {}, progress, classId, isLoaded }) => {
   if (!isLoaded) return <span />
-
   const { tasks = [], displayName, id, current = 0 } = assignedLesson
   return (
     <Card className='course start-lesson'>
