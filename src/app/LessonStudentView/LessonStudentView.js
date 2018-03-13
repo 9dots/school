@@ -8,11 +8,13 @@ import './LessonStudentView.less'
 
 const LessonStudentView = ({
   assignedLesson = {},
+  progress = {},
   profile,
   taskNum,
   isLoaded
 }) => {
   if (!isLoaded) return <Loading />
+  console.log(progress)
   return (
     <div className='lesson-view'>
       <Route
@@ -21,8 +23,7 @@ const LessonStudentView = ({
         render={({ match: { params } }) => (
           <LessonHeader profile={profile} lesson={assignedLesson} {...params} />
         )} />
-      {/* <iframe src={assignedLesson.tasks[taskNum].instance} /> */}
-      <iframe src='https://www.google.com' />
+      <iframe src={progress[taskNum].url} />
     </div>
   )
 }

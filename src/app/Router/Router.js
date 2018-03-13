@@ -21,25 +21,10 @@ const App = props => (
   <div>
     <AppLayout {...props}>
       <Switch>
-        <Route
-          exact
-          path='/class/:classId/lesson/:lessonId/:taskNum'
-          render={matchProp => (
-            <LessonStudentView
-              {...matchProp}
-              key={
-                matchProp.match.params.lessonId + matchProp.match.params.taskNum
-              } />
-          )} />
-        <Route
-          exact
-          path='/class/:classId/lesson/:lessonId/'
-          component={LessonStudentView} />
-        <Route exact path='/class/:classId' component={School} />
+        <Route path='/class/:classId' component={School} />
         <Route exact path='/class' component={School} />
         <Route exact path='/courses' component={Courses} />
         <Route exact path='/courses/:courseId' component={CourseView} />
-
         <Route exact path='/' component={Home} />
       </Switch>
     </AppLayout>

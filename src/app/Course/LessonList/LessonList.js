@@ -8,17 +8,16 @@ import React from 'react'
 import './LessonList.less'
 
 const LessonList = ({
+  studentLessons,
   lessons = [],
-  added,
-  onAssign,
   assignedId,
+  onAssign,
+  progress,
   student,
   classId,
-  studentLessons,
-  progress,
+  added,
   ...rest
 }) => {
-  console.log(progress)
   return (
     <Collapse accordion bordered={false} className='lesson-list' {...rest}>
       {lessons.map((lesson, key) => {
@@ -33,7 +32,7 @@ const LessonList = ({
                 lesson={lesson}
                 added={added}
                 classId={classId}
-                progress={progress[lesson.id]}
+                progress={progress[lesson.id] || {}}
                 student={student}
                 i={lesson.id} />
             }>

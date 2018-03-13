@@ -111,6 +111,10 @@
     "@f/is-array" "^1.0.0"
     "@f/is-object" "^1.0.0"
 
+"@f/find@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@f/find/-/find-1.0.0.tgz#fab95214aa3917bb918e49d7d3c9aa31d888acef"
+
 "@f/foreach-array@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@f/foreach-array/-/foreach-array-1.0.0.tgz#163b0ae67cd1fc18d94c451da9006c3ce1ce6da8"

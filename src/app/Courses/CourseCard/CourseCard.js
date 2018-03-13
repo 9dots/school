@@ -1,6 +1,7 @@
+import AddSuccessModal from 'app/AddCourseModal/AddSuccessModal'
 import modalContainer from 'components/modalContainer'
-import AddCourseWrapper from 'app/AddCourseModal/AddCourseWrapper'
 import { Card, Icon, Button, Avatar } from 'antd'
+import AddCourseModal from 'app/AddCourseModal'
 import { stopEvent } from '../../../utils'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
@@ -20,7 +21,7 @@ const CourseCard = ({ course, modal }) => {
 
   return (
     <span>
-      <Link to={`courses/${id}`}>
+      <Link to='courses/coursId'>
         <Card
           className='course-card'
           bordered={false}
@@ -44,20 +45,28 @@ const CourseCard = ({ course, modal }) => {
                 <Icon type='clock-circle-o' />
                 {duration.time} {duration.unit}
                 <Icon type='book' />
-                Level {difficulty}
+                {difficulty}
                 <Icon type='tag-o' />
-                <span className='capitalize'>
-                  {Object.keys(tags).join(', ')}
-                </span>
+                {Object.keys(tags).join(', ')}
               </span>
             } />
         </Card>
       </Link>
-      <AddCourseWrapper
-        modal={modal}
-        displayName={displayName}
-        id={id}
-        name={id} />
+      {modal.isVisible(id) && (
+        <AddCourseModal
+          id={id}
+          courseId={id}
+          onOk={modal.hideModal(id)}
+          onCancel={modal.hideModal(id)}
+          visible />
+      )}
+      {modal.isVisible(getSuccessModal(id)) && (
+        <AddSuccessModal
+          {...modal.getProps(getSuccessModal(id))}
+          onCancel={modal.hideModal(getSuccessModal(id))}
+          onOk={modal.hideModal(getSuccessModal(id))}
+          visible />
+      )}
     </span>
   )
 }
@@ -65,3 +74,7 @@ const CourseCard = ({ course, modal }) => {
 CourseCard.propTypes = {}
 
 export default modalContainer(CourseCard)
+
+function getSuccessModal (id) {
+  return 'success-' + (id || 'modal')
+}

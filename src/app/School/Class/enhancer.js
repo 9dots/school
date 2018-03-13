@@ -53,7 +53,7 @@ export default compose(
   ),
   connect((state, { assignedLesson, students }) => ({
     progressByStudent: assignedLesson
-      ? progressByStudent(state, assignedLesson.id, students)
+      ? progressByStudent(state, assignedLesson, students)
       : [],
     studentData: studentsSelector(state, students)
   })),
@@ -89,5 +89,5 @@ export default compose(
       })
     }
   }),
-  waitFor(props => ['classData', 'assignedLesson', 'progressByStudent'])
+  waitFor(['classData', 'assignedLesson', 'progressByStudent'])
 )

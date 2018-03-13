@@ -1,6 +1,6 @@
 import waitFor from '../../components/waitFor/waitFor'
 import CreateStudentModal from './CreateStudentModal'
-import { Button, Menu, Icon } from 'antd'
+import { Button, Menu, Icon, Divider } from 'antd'
 import StudentItem from './StudentItem'
 import { compose } from 'recompose'
 import PropTypes from 'prop-types'
@@ -42,8 +42,8 @@ const StudentList = props => {
               uid={uid} />
           </Menu.Item>
         ))}
-        {!!students.length && <Menu.Divider />}
       </Menu>
+      {!!students.length && <Divider style={{ margin: 0 }} />}
       <div style={{ padding: '12px 24px' }}>
         <Button style={{ width: '100%' }} onClick={showModal('createStudent')}>
           <Icon type='plus' />Add Student

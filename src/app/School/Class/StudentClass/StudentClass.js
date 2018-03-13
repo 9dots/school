@@ -1,13 +1,14 @@
-import { Layout, Divider } from 'antd'
+import LessonStudentView from '../../../LessonStudentView'
 import backpack from 'assets/images/emptypack.png'
-// import { Link } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
+import { Layout, Divider } from 'antd'
 import EmptyState from 'app/EmptyState'
-// import NoActiveLesson from '../NoActiveLesson'
 import StartLesson from './StartLesson'
 import Modules from '../Modules'
 import PropTypes from 'prop-types'
 import React from 'react'
 import './StudentClass.less'
+import Loading from '../../../Loading/Loading'
 
 const StudentClass = props => {
   const { classData = {}, progressByStudent, onAssign, auth } = props
@@ -16,7 +17,7 @@ const StudentClass = props => {
 
   const modules = Object.keys(classData.modules || {})
 
-  return (
+  const classView = (
     <Layout className='class'>
       <Layout.Content
         style={{
@@ -36,7 +37,7 @@ const StudentClass = props => {
               <StartLesson
                 uid={auth.uid}
                 classId={classId}
-                lesson={assignedLesson} />
+                assignedLesson={assignedLesson} />
             )}
             <Divider style={{ margin: '45px 0px 40px' }}>Courses</Divider>
             <Modules
@@ -49,6 +50,29 @@ const StudentClass = props => {
         )}
       </Layout.Content>
     </Layout>
+  )
+
+  return (
+    <Switch>
+      <Route
+        exact
+        path='/class/:classId/lesson/:lessonId/:taskNum'
+        render={matchProp =>
+          progressByStudent[auth.uid] &&
+          progressByStudent[auth.uid].progress ? (
+              <LessonStudentView
+                {...matchProp}
+                assignedLesson={assignedLesson}
+                progress={progressByStudent[auth.uid].progress}
+                key={
+                  matchProp.match.params.lessonId + matchProp.match.params.taskNum
+                } />
+            ) : (
+              <Loading />
+            )
+        } />
+      <Route exact path='/class/:classId' render={() => classView} />
+    </Switch>
   )
 }
 
