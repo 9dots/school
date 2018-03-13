@@ -9,7 +9,7 @@ const ProgressTable = ({ data }) => {
     <Table
       className='progress-table'
       pagination={false}
-      rowKey={({ student }) => student}
+      rowKey={(data, i) => i}
       columns={columns}
       dataSource={data} />
   )

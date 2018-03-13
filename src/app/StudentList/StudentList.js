@@ -1,5 +1,5 @@
 import CreateStudentModal from './CreateStudentModal'
-import { Button, Menu, Icon } from 'antd'
+import { Button, Menu, Icon, Divider } from 'antd'
 import StudentItem from './StudentItem'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -35,8 +35,8 @@ const StudentList = props => {
               uid={uid} />
           </Menu.Item>
         ))}
-        {!!students.length && <Menu.Divider />}
       </Menu>
+      {!!students.length && <Divider style={{ margin: 0 }} />}
       <div style={{ padding: '12px 24px' }}>
         <Button style={{ width: '100%' }} onClick={showModal('createStudent')}>
           <Icon type='plus' />Add Student

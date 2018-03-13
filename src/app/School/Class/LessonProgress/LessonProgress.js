@@ -1,4 +1,4 @@
-import { Modal, Layout, Menu, Card } from 'antd'
+import { Modal, Layout, Menu, Card, Icon } from 'antd'
 import ProgressTable from './ProgressTable'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
@@ -13,6 +13,7 @@ const LessonProgress = ({
   lesson,
   active,
   task,
+  onOk,
   data,
   ...rest
 }) => {
@@ -25,7 +26,9 @@ const LessonProgress = ({
       className='lesson-progress-modal'
       wrapClassName='full-page-modal'
       footer={''}
+      closable={false}
       {...rest}>
+      <Icon type='left-circle-o' className='full-page-back' onClick={onOk} />
       <Layout style={{ background: 'transparent' }}>
         <Layout.Sider width={250} style={{ background: 'transparent' }}>
           <Menu
@@ -34,15 +37,14 @@ const LessonProgress = ({
             onClick={setTask}
             style={{
               background: 'transparent',
-              height: '100vh',
-              paddingTop: 50
+              height: '100vh'
             }}>
-            <Menu.Item className='no-pointer'>
-              <b>Tasks</b>
+            <Menu.Item key='all'>
+              <Icon type='line-chart' />&nbsp;All Tasks
             </Menu.Item>
             {tasks.map((task, i) => (
               <Menu.Item key={task.id}>
-                {i + 1}.&ensp;{task.displayName}
+                {i + 1}.&emsp;{task.displayName}
               </Menu.Item>
             ))}
           </Menu>
@@ -51,7 +53,7 @@ const LessonProgress = ({
           <h1>{displayName}</h1>
           <p>{description}</p>
           <Card className='course' bordered={false}>
-            <h2>{task.displayName}</h2>
+            <h2>{task ? task.displayName : 'Average score for all Tasks'}</h2>
             <ProgressTable data={data} />
           </Card>
         </Layout.Content>
