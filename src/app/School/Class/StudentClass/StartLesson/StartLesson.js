@@ -1,4 +1,4 @@
-import { Card, Button, Icon, Steps, Row, Col } from 'antd'
+import { Card, Button, Icon } from 'antd'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
@@ -15,7 +15,7 @@ const StartLesson = ({ assignedLesson, classId, isLoaded }) => {
       <p>Click the button below to begin!</p>
       <Link to={`/class/${classId}/lesson/${id}/${current}`}>
         <Button size='large' type='primary' className='secondary rounded'>
-          START
+          {parseInt(current, 10) ? 'CONTINUE' : 'START'}
           <Icon type='caret-right' />
         </Button>
       </Link>

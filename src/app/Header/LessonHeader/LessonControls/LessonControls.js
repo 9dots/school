@@ -6,12 +6,13 @@ import './LessonControls.less'
 
 const LessonControls = ({ current, classId, lessonId, lesson }) => {
   const path = `/class/${classId}/lesson/${lessonId}/`
-  const cur = parseInt(current, 10)
   const { tasks } = lesson
+  const cur = parseInt(current, 10)
+  const isLast = tasks.length <= cur + 1
 
   return (
     <div className='lesson-controls'>
-      <Link to={path + Math.max(0, cur - 1)}>
+      <Link to={path + prev()} disabled={!cur}>
         <Icon type='left' size='large' />
       </Link>
       <span className='dots'>
@@ -19,17 +20,24 @@ const LessonControls = ({ current, classId, lessonId, lesson }) => {
           <Link
             key={key}
             to={path + key}
-            className={`dot ${parseInt(current, 10) >= key ? 'active' : ''}`} />
+            className={`dot ${cur >= key ? 'active' : ''}`} />
         ))}
       </span>
-      <Link to={path + Math.min(tasks.length - 1, cur + 1)}>
+      <Link to={path + next()}>
         <Button type='primary' className='secondary'>
-          NEXT
+          {isLast ? 'DONE' : 'NEXT'}
           <Icon type='right' />
         </Button>
       </Link>
     </div>
   )
+
+  function prev () {
+    return Math.max(0, cur - 1)
+  }
+  function next () {
+    return Math.min(tasks.length, cur + 1)
+  }
 }
 
 LessonControls.propTypes = {}
