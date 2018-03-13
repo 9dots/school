@@ -1,18 +1,20 @@
 import getProp from '@f/get-prop'
-import find from 'lodash/find'
+import findKey from 'lodash/findKey'
 import map from '@f/map'
+import { constants } from 'redux-firestore'
 
 const progressByStudent = (state, lesson, students) => {
   const progress = stateToProgress(state, lesson.id)
 
   return map(
     (val, key) =>
-      (progress[key] || []).length > 0
+      (Object.keys(progress[key] || {}) || []).length > 0
         ? {
           student: state.firestore.data[key],
-          progress: lesson.tasks.map(
-            (t, i) => find(progress[key], p => p.task === t.id) || null
-          )
+          progress: lesson.tasks.map((t, i) => {
+            const k = findKey(progress[key], p => p.task === t.id)
+            return k ? { ...progress[key][k], id: k } : null
+          })
         }
         : state.firestore.data[key]
           ? { student: state.firestore.data[key] }
@@ -73,12 +75,12 @@ function getClasses (state, schools) {
 }
 
 function stateToProgress (state, lesson) {
-  return Object.keys(state.firestore.ordered)
+  return Object.keys(state.firestore.data)
     .filter(key => key.indexOf(`lessonProgress-${lesson}`) === 0)
     .reduce(
       (acc, key) => ({
         ...acc,
-        [getStudentFromProgress(key, lesson)]: state.firestore.ordered[key]
+        [getStudentFromProgress(key, lesson)]: state.firestore.data[key]
       }),
       {}
     )

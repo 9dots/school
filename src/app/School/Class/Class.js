@@ -7,7 +7,6 @@ import './Class.less'
 
 const Class = props => {
   const { classData = {}, isLoaded, auth } = props
-
   if (!isLoaded) return <Loading />
 
   const isTeacher = (classData.teachers || {})[auth.uid]

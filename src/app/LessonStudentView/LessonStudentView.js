@@ -14,7 +14,6 @@ const LessonStudentView = ({
   isLoaded
 }) => {
   if (!isLoaded) return <Loading />
-  console.log(progress)
   return (
     <div className='lesson-view'>
       <Route
