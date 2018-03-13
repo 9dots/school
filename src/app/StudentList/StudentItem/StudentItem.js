@@ -33,11 +33,11 @@ const enhancer = compose(
     )
   })),
   withHandlers({
-    deleteStudent: ({ rpc, class: { id, displayName }, uid, user }) => () => {
+    deleteStudent: ({ rpc, class: { id, displayName }, uid, student }) => () => {
       confirm({
         title: 'Remove Student',
         content: `Are you sure want to remove ${
-          user.displayName
+          student.displayName
         } from ${displayName}?`,
         okText: 'Yes',
         okType: 'danger',

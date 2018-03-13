@@ -89,10 +89,5 @@ export default compose(
       })
     }
   }),
-  waitFor(props => [
-    'classData',
-    'assignedLesson',
-    'studentData',
-    'progressByStudent'
-  ])
+  waitFor(props => ['classData', 'assignedLesson', 'progressByStudent'])
 )
