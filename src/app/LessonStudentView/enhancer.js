@@ -15,23 +15,11 @@ export default compose(
     }),
     { rpc }
   ),
-  firestoreConnect(props => [
-    {
-      collection: 'activities',
-      where: [['student', '==', 'uid'], ['lesson', '==', props.lessonId]],
-      storeAs: `progress-${props.uid}-${props.lessonId}`
-    }
-  ]),
-  connect((state, { lessonId, uid }) => ({
-    progress: studentAssignment(state, uid, lessonId),
-    log: studentAssignment(state, uid, lessonId)
-  })),
   lifecycle({
     componentWillMount () {
-      const { taskNum, uid, lessonId } = this.props
-      this.props.rpc('user.setAssignedLessonIndex', {
-        current: Number(taskNum),
-        user: uid,
+      const { lessonId, progress, taskNum } = this.props
+      this.props.rpc('activity.setActive', {
+        activity: progress[taskNum].id,
         lesson: lessonId
       })
     }

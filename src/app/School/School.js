@@ -16,14 +16,19 @@ const School = props => {
 
   return (
     <Layout>
-      <Layout.Sider width={styles['@sidebar-width']}>
-        <ClassList
-          onCreateModal={props.onCreateModal}
-          uid={props.uid}
-          profile={props.profile}
-          currentClass={props.classId}
-          classesBySchool={props.classesBySchool} />
-      </Layout.Sider>
+      <Route
+        exact
+        path='/class/:classId'
+        render={() => (
+          <Layout.Sider width={styles['@sidebar-width']}>
+            <ClassList
+              onCreateModal={props.onCreateModal}
+              uid={props.uid}
+              profile={props.profile}
+              currentClass={props.classId}
+              classesBySchool={props.classesBySchool} />
+          </Layout.Sider>
+        )} />
       <Switch>
         <Route
           path='/class/:classId'

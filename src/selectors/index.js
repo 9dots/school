@@ -1,13 +1,19 @@
 import getProp from '@f/get-prop'
+import find from 'lodash/find'
 import map from '@f/map'
 
 const progressByStudent = (state, lesson, students) => {
-  const progress = stateToProgress(state, lesson)
+  const progress = stateToProgress(state, lesson.id)
 
   return map(
     (val, key) =>
       (progress[key] || []).length > 0
-        ? { student: state.firestore.data[key], progress: progress[key] }
+        ? {
+          student: state.firestore.data[key],
+          progress: lesson.tasks.map(
+            (t, i) => find(progress[key], p => p.task === t.id) || null
+          )
+        }
         : state.firestore.data[key]
           ? { student: state.firestore.data[key] }
           : null,

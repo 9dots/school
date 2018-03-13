@@ -6,9 +6,11 @@ export default compose(
   withProps(props => ({
     task: (props.lesson.tasks || []).find(({ id }) => id === props.active),
     data: mapValues(({ progress, student }, key) => {
-      const prog = progress
-        ? progress.find(p => p.activity === props.active)
-        : {}
+      const prog =
+        props.active === 'all'
+          ? allProgress(progress)
+          : (progress || []).find(p => p.activity === props.active)
+
       return {
         studentData: student,
         ...prog
@@ -21,3 +23,13 @@ export default compose(
     }
   })
 )
+
+function allProgress (progress = []) {
+  return {
+    ...progress[0],
+    progress:
+      Math.round(
+        progress.reduce((acc, p) => acc + p.progress, 0) / progress.length
+      ) || 0
+  }
+}

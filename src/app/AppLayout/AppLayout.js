@@ -1,6 +1,5 @@
 import { Route, Switch } from 'react-router-dom'
 import ClassHeader from '../Header/ClassHeader'
-import LessonHeader from '../Header/LessonHeader'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
