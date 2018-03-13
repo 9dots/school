@@ -1,9 +1,9 @@
+import { Collapse, Tooltip, Button, Avatar, Icon, List, Row, Col } from 'antd'
 import { stopEvent } from '../../../utils'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import React from 'react'
 import enhancer from './enhancer'
-import { Collapse, Tooltip, Button, Avatar, Icon, List, Row, Col } from 'antd'
+import React from 'react'
 
 import './LessonList.less'
 
@@ -18,6 +18,7 @@ const LessonList = ({
   progress,
   ...rest
 }) => {
+  console.log(progress)
   return (
     <Collapse accordion bordered={false} className='lesson-list' {...rest}>
       {lessons.map((lesson, key) => {

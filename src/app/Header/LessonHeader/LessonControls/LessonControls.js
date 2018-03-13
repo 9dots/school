@@ -7,7 +7,7 @@ import './LessonControls.less'
 const LessonControls = ({ current, classId, lessonId, lesson }) => {
   const path = `/class/${classId}/lesson/${lessonId}/`
   const cur = parseInt(current, 10)
-  const { tasks } = lesson
+  const { tasks = [] } = lesson
 
   return (
     <div className='lesson-controls'>

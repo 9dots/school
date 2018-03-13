@@ -17,13 +17,14 @@ export default compose(
   ),
   firestoreConnect(props => [
     {
-      collection: 'users',
-      doc: props.uid,
-      subcollections: [{ collection: 'assignments', doc: props.lessonId }]
+      collection: 'activities',
+      where: [['student', '==', 'uid'], ['lesson', '==', props.lessonId]],
+      storeAs: `progress-${props.uid}-${props.lessonId}`
     }
   ]),
   connect((state, { lessonId, uid }) => ({
-    assignedLesson: studentAssignment(state, uid, lessonId)
+    progress: studentAssignment(state, uid, lessonId),
+    log: studentAssignment(state, uid, lessonId)
   })),
   lifecycle({
     componentWillMount () {
@@ -35,5 +36,5 @@ export default compose(
       })
     }
   }),
-  waitFor(['assignedLesson', 'uid', 'profile'])
+  waitFor(['progress', 'uid', 'profile'])
 )

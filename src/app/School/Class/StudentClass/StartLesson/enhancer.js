@@ -7,13 +7,13 @@ import { connect } from 'react-redux'
 export default compose(
   firestoreConnect(props => [
     {
-      collection: 'users',
-      doc: props.uid,
-      subcollections: [{ collection: 'assignments', doc: props.lesson.id }]
+      collection: 'activities',
+      where: [['student', '==', 'uid'], ['lesson', '==', 'props.lessonId']],
+      storeAs: `lessonProgress-${props.lesson.id}-${props.uid}`
     }
   ]),
   connect((state, { lesson, uid }) => ({
-    assignedLesson: studentAssignment(state, uid, lesson.id)
+    progress: studentAssignment(state, uid, lesson.id)
   })),
-  waitFor(['assignedLesson'])
+  waitFor(['progress'])
 )
