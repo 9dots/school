@@ -16,6 +16,7 @@ const LessonStudentView = ({ assignedLesson, profile, taskNum, isLoaded }) => {
         render={({ match: { params } }) => (
           <LessonHeader profile={profile} lesson={assignedLesson} {...params} />
         )} />
+      {/* <iframe src={assignedLesson.tasks[taskNum].instance} /> */}
       <iframe src={assignedLesson.tasks[taskNum].instance} />
     </div>
   )
