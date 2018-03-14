@@ -4,6 +4,8 @@ import { firestoreConnect } from 'react-redux-firebase'
 import waitFor from '../../../components/waitFor'
 import { connect } from 'react-redux'
 import { message, Modal } from 'antd'
+import mapValues from '@f/map-values'
+import getProp from '@f/get-prop'
 import { rpc } from '../../actions'
 import {
   progressByStudent,
@@ -52,9 +54,8 @@ export default compose(
     )
   ),
   connect((state, { assignedLesson, students }) => ({
-    progressByStudent: assignedLesson
-      ? progressByStudent(state, assignedLesson, students)
-      : [],
+    progressByStudent: getProgress(assignedLesson, state, students),
+    activeByTask: getActive(assignedLesson, state, students),
     studentData: studentsSelector(state, students)
   })),
   lifecycle({
@@ -92,3 +93,27 @@ export default compose(
   }),
   waitFor(['classData', 'assignedLesson', 'progressByStudent'])
 )
+
+function getActive (assignedLesson, state, students) {
+  const studentProgress = getProgress(assignedLesson, state, students)
+  if (assignedLesson) {
+    return assignedLesson.tasks.map(({ id }) =>
+      mapValues(
+        (val, key) => isActive(val, id) && val.student,
+        studentProgress || {}
+      ).filter(student => student)
+    )
+  }
+}
+
+function getProgress (assignedLesson, state, students) {
+  return assignedLesson
+    ? progressByStudent(state, assignedLesson, students)
+    : []
+}
+
+function isActive (prog, lessonId) {
+  return (getProp('progress', prog) || []).some(
+    p => p.active && p.task === lessonId
+  )
+}
