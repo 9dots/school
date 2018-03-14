@@ -12,7 +12,13 @@ import React from 'react'
 import './TeacherClass.less'
 
 const TeacherClass = props => {
-  const { progressByStudent, classData = {}, studentData, onAssign } = props
+  const {
+    progressByStudent,
+    activeByTask,
+    classData = {},
+    studentData,
+    onAssign
+  } = props
   const { classId } = props.match.params
   const { assignedLesson } = classData
 
@@ -39,6 +45,7 @@ const TeacherClass = props => {
                   Active Lesson
                 </Divider>
                 <ActiveLesson
+                  activeByTask={activeByTask}
                   lesson={assignedLesson}
                   studentProgress={progressByStudent}
                   id='active' />
