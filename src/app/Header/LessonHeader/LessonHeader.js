@@ -5,6 +5,7 @@ import UserMenu from '../UserMenu'
 import LessonControls from './LessonControls'
 import PropTypes from 'prop-types'
 import React from 'react'
+
 import './LessonHeader.less'
 
 const LessonHeader = ({ profile, classId, lessonId, taskNum, lesson }) => {
@@ -20,11 +21,7 @@ const LessonHeader = ({ profile, classId, lessonId, taskNum, lesson }) => {
         </Link>
       </Layout.Sider>
       <Layout.Content style={{ textAlign: 'center' }}>
-        <LessonControls
-          lessonId={lessonId}
-          classId={classId}
-          current={taskNum}
-          lesson={lesson} />
+        <LessonControls lesson={lesson} />
       </Layout.Content>
       <Layout.Sider
         width={styles['@sidebar-width']}

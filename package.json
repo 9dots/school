@@ -16,6 +16,7 @@
     "fs": "^0.0.1-security",
     "isomorphic-fetch": "^2.2.1",
     "less-vars-to-js": "^1.2.1",
+    "path-to-regexp": "^2.2.0",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -36,6 +37,7 @@
     "redux-saga": "^0.16.0",
     "redux-thunk": "^2.2.0",
     "school-schema": "^0.1.1",
+    "url-join": "^4.0.0",
     "why-did-you-update": "^0.1.0"
   },
   "devDependencies": {

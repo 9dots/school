@@ -1,7 +1,6 @@
 import getProp from '@f/get-prop'
 import findKey from 'lodash/findKey'
 import map from '@f/map'
-import { constants } from 'redux-firestore'
 
 const progressByStudent = (state, lesson, students) => {
   const progress = stateToProgress(state, lesson.id)

@@ -23,7 +23,13 @@ const enhancer = compose(
 )
 
 const Modules = props => {
-  const { mods, classId, assignedLesson = {}, onAssign, student } = props
+  const {
+    mods,
+    classId,
+    assignedLesson = {},
+    onAssign = () => {},
+    student
+  } = props
 
   return (
     <span>

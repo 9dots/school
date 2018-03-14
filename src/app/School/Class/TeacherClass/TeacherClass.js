@@ -1,13 +1,15 @@
+import LessonStudentView from '../../../LessonStudentView'
+import { Link, Switch, Route } from 'react-router-dom'
 import { Layout, Divider, Icon, Button } from 'antd'
 import backpack from 'assets/images/emptypack.png'
+import NoActiveLesson from '../NoActiveLesson'
+import ActiveLesson from '../ActiveLesson'
 import StudentList from 'app/StudentList'
-import { Link } from 'react-router-dom'
 import EmptyState from 'app/EmptyState'
 import styles from 'theme/vars/vars.js'
-import NoActiveLesson from '../NoActiveLesson'
-import Modules from '../Modules'
-import ActiveLesson from '../ActiveLesson'
+import Loading from '../../../Loading'
 import PropTypes from 'prop-types'
+import Modules from '../Modules'
 import React from 'react'
 import './TeacherClass.less'
 
@@ -19,7 +21,7 @@ const TeacherClass = props => {
   const modules = Object.keys(classData.modules || {})
   const students = Object.keys(classData.students || {})
 
-  return (
+  const classView = (
     <Layout className='class'>
       <Layout.Content
         style={{
@@ -68,6 +70,31 @@ const TeacherClass = props => {
           school={classData.school} />
       </Layout.Sider>
     </Layout>
+  )
+  return (
+    <Switch>
+      <Route
+        exact
+        path='/class/:classId/lesson/:lessonId/:taskNum/:uid'
+        render={routeProps =>
+          progressByStudent[routeProps.match.params.uid] &&
+          progressByStudent[routeProps.match.params.uid].progress ? (
+              <LessonStudentView
+                {...routeProps}
+                teacherView
+                progress={progressByStudent[routeProps.match.params.uid].progress}
+                assignedLesson={assignedLesson}
+                profile={progressByStudent[routeProps.match.params.uid].student}
+                key={
+                  routeProps.match.params.lessonId +
+                routeProps.match.params.taskNum
+                } />
+            ) : (
+              <Loading />
+            )
+        } />
+      <Route exact path='/class/:classId' render={() => classView} />
+    </Switch>
   )
 }
 
