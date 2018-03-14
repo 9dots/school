@@ -1,17 +1,19 @@
 import LessonStudentView from '../../../LessonStudentView'
 import backpack from 'assets/images/emptypack.png'
 import { Switch, Route } from 'react-router-dom'
-import { Layout, Divider } from 'antd'
 import EmptyState from 'app/EmptyState'
 import StartLesson from './StartLesson'
-import Modules from '../Modules'
+import { Layout, Divider } from 'antd'
+import Loading from '../../../Loading'
 import PropTypes from 'prop-types'
+import Modules from '../Modules'
 import React from 'react'
 import './StudentClass.less'
-import Loading from '../../../Loading/Loading'
+
+// TODO: make this less terrible
 
 const StudentClass = props => {
-  const { classData = {}, progressByStudent, onAssign, auth } = props
+  const { classData = {}, progressByStudent, auth } = props
   const { classId } = props.match.params
   const { assignedLesson } = classData
 
@@ -25,7 +27,7 @@ const StudentClass = props => {
           padding: '30px 50px 50px'
         }}>
         {!modules.length ? (
-          <NoCourses onAssign={onAssign} />
+          <NoCourses />
         ) : (
           <div className='main-col' style={{ padding: 0 }}>
             <h2>{classData.displayName}</h2>
@@ -42,7 +44,6 @@ const StudentClass = props => {
             <Divider style={{ margin: '45px 0px 40px' }}>Courses</Divider>
             <Modules
               student={auth.uid}
-              onAssign={onAssign}
               classId={classId}
               assignedLesson={assignedLesson}
               modules={modules} />
@@ -51,7 +52,6 @@ const StudentClass = props => {
       </Layout.Content>
     </Layout>
   )
-
   return (
     <Switch>
       <Route
@@ -62,8 +62,8 @@ const StudentClass = props => {
           progressByStudent[auth.uid].progress ? (
               <LessonStudentView
                 {...matchProp}
-                assignedLesson={assignedLesson}
                 progress={progressByStudent[auth.uid].progress}
+                assignedLesson={assignedLesson}
                 key={
                   matchProp.match.params.lessonId + matchProp.match.params.taskNum
                 } />

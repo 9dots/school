@@ -13,6 +13,7 @@ const LessonList = ({
   assignedId,
   onAssign,
   progress,
+  moduleId,
   student,
   classId,
   added,
@@ -28,6 +29,7 @@ const LessonList = ({
               <Header
                 onAssign={onAssign}
                 assigned={assignedId === lesson.id}
+                moduleId={moduleId}
                 {...lesson}
                 lesson={lesson}
                 added={added}
@@ -50,6 +52,7 @@ const Header = props => {
     description,
     assigned,
     onAssign,
+    moduleId,
     student,
     progress = {},
     classId,
@@ -74,6 +77,7 @@ const Header = props => {
           <TeacherExtra
             lesson={lesson}
             onAssign={onAssign}
+            moduleId={moduleId}
             added={added}
             assigned={assigned} />
         )}
@@ -125,7 +129,7 @@ const StudentExtra = ({ assigned, path, started }) => {
   )
 }
 
-const TeacherExtra = ({ added, assigned, onAssign, lesson }) => {
+const TeacherExtra = ({ added, moduleId, assigned, onAssign, lesson }) => {
   return (
     <span>
       {!added ? (
@@ -161,7 +165,9 @@ const TeacherExtra = ({ added, assigned, onAssign, lesson }) => {
               Assigned
             </Button>
           ) : (
-            <Button onClick={stopEvent(onAssign(lesson))} style={{ width: 95 }}>
+            <Button
+              onClick={stopEvent(onAssign(lesson, moduleId))}
+              style={{ width: 95 }}>
               <Icon type='export' />
               Assign
             </Button>

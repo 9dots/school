@@ -24,6 +24,7 @@ const enhancer = compose(
 )
 
 const NoActiveLesson = ({ mods = [], onAssign }) => {
+  const module = mods[0]
   const lesson = getProp('0.lessons.0', mods, {})
   return (
     <div className='no-active-lesson'>
@@ -33,7 +34,7 @@ const NoActiveLesson = ({ mods = [], onAssign }) => {
         type='primary'
         className='secondary'
         size='large'
-        onClick={onAssign(lesson)}
+        onClick={onAssign(lesson, module.id)}
         style={{ padding: '0 35px' }}>
         Start!
       </Button>

@@ -72,6 +72,7 @@ const Course = ({
       <LessonList
         student={student}
         assignedId={assignedId}
+        moduleId={id}
         classId={classId}
         onAssign={onAssign}
         lessons={lessons}

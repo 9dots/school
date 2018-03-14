@@ -13,7 +13,6 @@ class AppLayout extends Component {
       <div>
         <Switch>
           <Route
-            exact
             path='/class/:classId/lesson/:lessonId/:taskNum'
             render={({ match: { params } }) => <span />} />
           <Route

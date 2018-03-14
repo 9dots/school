@@ -68,7 +68,7 @@ export default compose(
       props.hideModal('createStudent', null)
       message.success(msg)
     },
-    onAssign: props => lesson => e => {
+    onAssign: props => (lesson, module) => e => {
       Modal.confirm({
         title: `Assign "${lesson.displayName}"?`,
         content:
@@ -79,6 +79,7 @@ export default compose(
           try {
             await props.rpc('class.assignLesson', {
               class: props.classId,
+              module,
               lesson
             })
             message.success('Lesson assigned')
