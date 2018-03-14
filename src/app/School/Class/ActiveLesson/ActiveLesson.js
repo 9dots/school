@@ -6,7 +6,7 @@ import React from 'react'
 
 import './ActiveLesson.less'
 
-const ActiveLesson = ({ lesson, modal, studentProgress }) => {
+const ActiveLesson = ({ lesson, modal, studentProgress, activeByTask }) => {
   const { displayName, tasks = [] } = lesson
 
   return (
@@ -27,16 +27,30 @@ const ActiveLesson = ({ lesson, modal, studentProgress }) => {
         </span>
       }>
       <List className='task-list'>
-        {tasks.map(({ displayName, description, id }, i) => (
+        {tasks.map(({ displayName, description, id, url }, i) => (
           <List.Item key={i}>
             <List.Item.Meta
               avatar={<Avatar size='small'>{i + 1}</Avatar>}
               title={
                 <span style={{ fontWeight: 'normal' }}>{displayName}</span>
               } />
-
+            {!!activeByTask[i].length && (
+              <Tooltip
+                overlayStyle={{
+                  whiteSpace: 'pre',
+                  fontSize: 11
+                }}
+                title={activeByTask[i].map(s => s.displayName).join('\n')}>
+                <div style={{ lineHeight: '30px', marginRight: 10 }}>
+                  {activeByTask[i].length} student{activeByTask[i].length > 1 &&
+                    's'}
+                </div>
+              </Tooltip>
+            )}
             <Tooltip title='Preview' mouseEnterDelay={0.4}>
               <Button
+                href={url}
+                target='_blank'
                 shape='circle'
                 icon='eye-o'
                 style={{ marginRight: 7, border: 'none' }} />

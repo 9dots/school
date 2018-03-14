@@ -21,14 +21,14 @@ const StartLesson = ({ assignedLesson = {}, progress, classId, isLoaded }) => {
         </Button>
       </Link>
       <div>
-        {progress.filter(p => !!p).map((task, i) => (
+        {progress.map((task = {}, i) => (
           <div
             className='dot'
             style={{
               opacity: i <= current ? 1 : 0.5,
-              border: task.completed ? 'red' : 'none'
+              border: task.completed ? '1px solid red' : 'none'
             }}
-            key={task.task} />
+            key={task.task || i} />
         ))}
       </div>
     </Card>
@@ -36,7 +36,7 @@ const StartLesson = ({ assignedLesson = {}, progress, classId, isLoaded }) => {
 }
 
 function getIndex (progress) {
-  const idx = progress.findIndex(p => !!p.active) || 0
+  const idx = progress.findIndex(p => p && !!p.active) || 0
   return idx > -1 ? idx : 0
 }
 
