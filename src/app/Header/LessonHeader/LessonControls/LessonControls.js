@@ -12,18 +12,15 @@ const LessonControls = ({ current, classId, lessonId, lesson }) => {
 
   return (
     <div className='lesson-controls'>
-      <Link to={path + prev()} disabled={!cur}>
+      <Link to={prev()} disabled={!cur}>
         <Icon type='left' size='large' />
       </Link>
       <span className='dots'>
         {tasks.map((val, key) => (
-          <Link
-            key={key}
-            to={path + key}
-            className={`dot ${cur >= key ? 'active' : ''}`} />
+          <Link key={key} to={path + key} className={getDotClasses(key)} />
         ))}
       </span>
-      <Link to={path + next()}>
+      <Link to={next()}>
         <Button type='primary' className='secondary'>
           {isLast ? 'DONE' : 'NEXT'}
           <Icon type='right' />
@@ -33,10 +30,20 @@ const LessonControls = ({ current, classId, lessonId, lesson }) => {
   )
 
   function prev () {
-    return Math.max(0, cur - 1)
+    return path + Math.max(0, cur - 1)
   }
   function next () {
-    return Math.min(tasks.length, cur + 1)
+    return isLast
+      ? `/class/${classId}/`
+      : path + Math.min(tasks.length - 1, cur + 1)
+  }
+
+  function getDotClasses (i) {
+    let classes = 'dot '
+    if (cur === i) classes += 'current '
+    if (cur >= i) classes += 'active '
+
+    return classes
   }
 }
 

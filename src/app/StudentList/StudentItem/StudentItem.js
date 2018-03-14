@@ -3,9 +3,11 @@ import { stopEvent } from '../../../utils'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { rpc } from '../../actions'
+import { Link } from 'react-router-dom'
 import React from 'react'
 import {
   Progress,
+  Avatar,
   Dropdown,
   Popover,
   message,
@@ -33,7 +35,12 @@ const enhancer = compose(
     )
   })),
   withHandlers({
-    deleteStudent: ({ rpc, class: { id, displayName }, uid, student }) => () => {
+    deleteStudent: ({
+      rpc,
+      class: { id, displayName },
+      uid,
+      student
+    }) => () => {
       confirm({
         title: 'Remove Student',
         content: `Are you sure want to remove ${
@@ -61,20 +68,29 @@ const enhancer = compose(
 const StudentItem = ({
   studentProgress = {},
   deleteStudent,
-  student = {},
   tasks = [],
-  user = {},
-  progress
+  uid
 }) => {
+  const { student, progress = [] } = studentProgress
   const { displayName } = student
+
   const width = {
     width: 210,
     maxWidth: 210
   }
+
+  const idx = progress.findIndex((p, i) => p.active)
+  const active = idx > -1 ? progress[idx] : false
+  const path = active
+    ? `/class/${active.class}/lesson/${active.lesson}/${idx}/${uid}`
+    : ''
+
   const title = (
     <div style={{ textAlign: 'center', padding: 7, ...width }}>
       <h3>{displayName}</h3>
-      <a>View Work</a>
+      <a disabled={!active} href={path} target='_blank'>
+        View Work
+      </a>
     </div>
   )
 
@@ -103,7 +119,12 @@ const StudentItem = ({
       content={content}
       trigger='click'>
       <Row type='flex' align='middle' justify='space-between'>
-        <Col>{displayName}</Col>
+        <Col>
+          <Avatar size='small' style={{ margin: '0px 5px -6px 0' }}>
+            {idx + 1}
+          </Avatar>
+          {displayName}
+        </Col>
         <Col>
           <span onClick={stopEvent(() => {})}>
             <Dropdown
