@@ -4,7 +4,6 @@ import map from '@f/map'
 
 const progressByStudent = (state, lesson, students) => {
   const progress = stateToProgress(state, lesson.id)
-
   return map(
     (val, key) =>
       (Object.keys(progress[key] || {}) || []).length > 0
@@ -16,7 +15,9 @@ const progressByStudent = (state, lesson, students) => {
           })
         }
         : state.firestore.data[key]
-          ? { student: state.firestore.data[key] }
+          ? {
+            student: state.firestore.data[key]
+          }
           : null,
     students
   )

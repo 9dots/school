@@ -107,9 +107,7 @@ function getActive (assignedLesson, state, students) {
 }
 
 function getProgress (assignedLesson, state, students) {
-  return assignedLesson
-    ? progressByStudent(state, assignedLesson, students)
-    : []
+  return progressByStudent(state, assignedLesson, students)
 }
 
 function isActive (prog, lessonId) {
