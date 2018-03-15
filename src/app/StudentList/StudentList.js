@@ -13,13 +13,13 @@ const enhancer = compose(waitFor(['studentData']))
 
 const StudentList = props => {
   const {
-    students,
+    addStudentSuccess,
+    progressByStudent,
     hideModal,
     showModal,
     isVisible,
-    addStudentSuccess,
+    students,
     isLoaded,
-    progressByStudent,
     tasks
   } = props
   if (!isLoaded) return <Loading />

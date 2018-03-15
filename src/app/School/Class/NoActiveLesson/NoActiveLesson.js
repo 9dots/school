@@ -23,7 +23,10 @@ const enhancer = compose(
   waitFor(['mods'])
 )
 
-const NoActiveLesson = ({ mods = [], onAssign }) => {
+const NoActiveLesson = ({ mods = [], onAssign, isLoaded }) => {
+  if (!isLoaded) {
+    return <span />
+  }
   const module = mods[0]
   const lesson = getProp('0.lessons.0', mods, {})
   return (
