@@ -5,7 +5,7 @@ import React from 'react'
 import './Header.less'
 import styles from 'theme/vars/vars.js'
 
-const Header = ({ location, profile = {}, logout, isLoaded }) => {
+const Header = ({ location, profile = {}, logout }) => {
   const active = location.pathname.split('/')[1]
 
   return (
@@ -16,37 +16,35 @@ const Header = ({ location, profile = {}, logout, isLoaded }) => {
           DOCKET
         </Link>
       </Layout.Sider>
-      {isLoaded && (
-        <Layout.Content>
-          <Menu
-            className='main-nav'
-            mode='horizontal'
-            theme='dark'
-            selectedKeys={[active]}
-            style={{ float: 'left' }}>
-            <Menu.Item key='class'>
-              <Link to='/'>
-                <Icon type='book' />
-                Classes
-              </Link>
-            </Menu.Item>
-            <Menu.Item key='courses'>
-              <Link to='/courses'>
-                <Icon type='appstore-o' />
-                Courses
-              </Link>
-            </Menu.Item>
-          </Menu>
-          <UserMenu
-            logout={logout}
-            button={
-              <div>
-                <Avatar icon='user' />
-                {profile.displayName}
-              </div>
-            } />
-        </Layout.Content>
-      )}
+      <Layout.Content>
+        <Menu
+          className='main-nav'
+          mode='horizontal'
+          theme='dark'
+          selectedKeys={[active]}
+          style={{ float: 'left' }}>
+          <Menu.Item key='class'>
+            <Link to='/'>
+              <Icon type='book' />
+              Classes
+            </Link>
+          </Menu.Item>
+          <Menu.Item key='courses'>
+            <Link to='/courses'>
+              <Icon type='appstore-o' />
+              Courses
+            </Link>
+          </Menu.Item>
+        </Menu>
+        <UserMenu
+          logout={logout}
+          button={
+            <div>
+              <Avatar icon='user' />
+              {profile.displayName}
+            </div>
+          } />
+      </Layout.Content>
     </Layout>
   )
 }

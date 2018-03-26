@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import getProp from '@f/get-prop'
 import { Table, Progress } from 'antd'
+import { Link } from 'react-router-dom'
 import './ProgressTable.less'
 
 const ProgressTable = ({ data }) => {
@@ -35,9 +36,11 @@ const columns = [
   {
     title: 'Work',
     key: 'link',
-    render: ({ url }) => (
+    render: ({ class: cls, student, lesson, index }) => (
       <div style={{ minWidth: 70 }}>
-        <a href={url}>View Work</a>
+        <Link to={`/class/${cls}/lesson/${lesson}/${index}/${student}`}>
+          View Work
+        </Link>
       </div>
     )
   },

@@ -40,7 +40,7 @@ const ActiveLesson = ({ lesson, modal, studentProgress, activeByTask }) => {
                   whiteSpace: 'pre',
                   fontSize: 11
                 }}
-                title={activeByTask[i].map(s => s.displayName).join('\n')}>
+                title={taskStudents(activeByTask[i])}>
                 <div style={{ lineHeight: '30px', marginRight: 10 }}>
                   {activeByTask[i].length} student{activeByTask[i].length > 1 &&
                     's'}
@@ -81,3 +81,14 @@ const ActiveLesson = ({ lesson, modal, studentProgress, activeByTask }) => {
 ActiveLesson.propTypes = {}
 
 export default modalContainer(ActiveLesson)
+
+function taskStudents (active) {
+  const max = 10
+  const extra = active.length - max
+
+  return active
+    .slice(0, max)
+    .map(s => s.displayName)
+    .concat(extra > 0 ? `+ ${extra} students` : '')
+    .join('\n')
+}
