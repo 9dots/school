@@ -1,13 +1,17 @@
 import { Route, Switch } from 'react-router-dom'
-import ClassHeader from '../Header/ClassHeader'
+import StudentHeader from '../Header/StudentHeader'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
+import mapValues from '@f/map-values'
 import Header from '../Header'
 
 class AppLayout extends Component {
   render () {
     const { children, ...rest } = this.props
+
+    const roles = mapValues(role => role, this.props.profile.schools)
+    const isTeacher = roles.indexOf('teacher') > -1
 
     return (
       <div>
@@ -18,9 +22,13 @@ class AppLayout extends Component {
           <Route
             exact
             path='/class/:classId'
-            render={({ match: { params } }) => (
-              <ClassHeader {...rest} {...params} />
-            )} />
+            render={({ match: { params } }) =>
+              isTeacher ? (
+                <Header {...rest} {...params} />
+              ) : (
+                <StudentHeader {...rest} {...params} />
+              )
+            } />
           <Route path='*' render={() => <Header isLoaded {...rest} />} />
         </Switch>
         {children}

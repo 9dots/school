@@ -1,7 +1,6 @@
-import AddSuccessModal from 'app/AddCourseModal/AddSuccessModal'
+import AddCourseWrapper from 'app/AddCourseModal/AddCourseWrapper'
 import modalContainer from 'components/modalContainer'
 import { Card, Icon, Button, Avatar } from 'antd'
-import AddCourseModal from 'app/AddCourseModal'
 import { stopEvent } from '../../../utils'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
@@ -21,7 +20,7 @@ const CourseCard = ({ course, modal }) => {
 
   return (
     <span>
-      <Link to='courses/coursId'>
+      <Link to={`courses/${id}`}>
         <Card
           className='course-card'
           bordered={false}
@@ -52,7 +51,12 @@ const CourseCard = ({ course, modal }) => {
             } />
         </Card>
       </Link>
-      {modal.isVisible(id) && (
+      <AddCourseWrapper
+        modal={modal}
+        displayName={displayName}
+        id={id}
+        name={id} />
+      {/* {modal.isVisible(id) && (
         <AddCourseModal
           id={id}
           courseId={id}
@@ -66,7 +70,7 @@ const CourseCard = ({ course, modal }) => {
           onCancel={modal.hideModal(getSuccessModal(id))}
           onOk={modal.hideModal(getSuccessModal(id))}
           visible />
-      )}
+      )} */}
     </span>
   )
 }

@@ -88,9 +88,9 @@ const StudentItem = ({
   const title = (
     <div style={{ textAlign: 'center', padding: 7, ...width }}>
       <h3>{displayName}</h3>
-      <a disabled={!active} href={path} target='_blank'>
+      <Link disabled={!active} to={path}>
         View Work
-      </a>
+      </Link>
     </div>
   )
 
@@ -118,12 +118,19 @@ const StudentItem = ({
       style={{ width: 200 }}
       content={content}
       trigger='click'>
-      <Row type='flex' align='middle' justify='space-between'>
+      <Row
+        type='flex'
+        align='middle'
+        style={{ height: 40 }}
+        justify='space-between'
+        className='student-item'>
         <Col>
-          <Avatar size='small' style={{ margin: '0px 5px -6px 0' }}>
-            {idx + 1}
-          </Avatar>
-          {displayName}
+          <div>{displayName}</div>
+          {active && (
+            <div className='meta'>
+              {idx + 1}.&ensp;{active.displayName}
+            </div>
+          )}
         </Col>
         <Col>
           <span onClick={stopEvent(() => {})}>

@@ -7,7 +7,7 @@ import React from 'react'
 
 import './StudentHeader.less'
 
-const StudentHeader = ({ profile = {}, logout, isLoaded }) => {
+const StudentHeader = ({ profile = {}, logout }) => {
   return (
     <Layout className='header student-header'>
       <Layout.Sider width={styles['@sidebar-width']}>
@@ -16,22 +16,21 @@ const StudentHeader = ({ profile = {}, logout, isLoaded }) => {
           DOCKET
         </Link>
       </Layout.Sider>
-      {isLoaded && (
-        <Layout.Content key='content' style={{ textAlign: 'center' }}>
-          <h2>
-            <Avatar size='large' icon='user' />
-            {profile.displayName}
-          </h2>
+      <Layout.Content key='content' style={{ textAlign: 'center' }}>
+        <h2>
+          <Avatar size='large' icon='user' />
+          {profile.displayName}
+        </h2>
 
-          <UserMenu logout={logout} />
-        </Layout.Content>
-      )
-      // <Layout.Sider
-      //   key='sider'
-      //   width={styles['@sidebar-width']}
-      //   style={{ marginRight: 20 }}>
-      // </Layout.Sider>
-      // ]
+        <UserMenu logout={logout} />
+      </Layout.Content>
+      {
+        // <Layout.Sider
+        //   key='sider'
+        //   width={styles['@sidebar-width']}
+        //   style={{ marginRight: 20 }}>
+        // </Layout.Sider>
+        // ]
       }
     </Layout>
   )

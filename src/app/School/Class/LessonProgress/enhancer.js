@@ -9,7 +9,7 @@ export default compose(
       const prog =
         props.active === 'all'
           ? allProgress(progress)
-          : (progress || []).find(p => p.activity === props.active)
+          : (progress || []).find(p => p.task === props.active)
 
       return {
         studentData: student,
