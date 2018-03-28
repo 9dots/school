@@ -1,21 +1,41 @@
-import { Route, Switch } from 'react-router-dom'
-import StudentHeader from '../Header/StudentHeader'
+// import { Route, Switch } from 'react-router-dom'
+// import StudentHeader from '../Header/StudentHeader'
+import Sidebar from '../Sidebar'
 import React, { Component } from 'react'
+import styles from 'theme/vars/vars.js'
+import { Layout } from 'antd'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
 import mapValues from '@f/map-values'
-import Header from '../Header'
+// import Header from '../Header'
 
 class AppLayout extends Component {
   render () {
-    const { children, ...rest } = this.props
+    const {
+      children,
+      onCreateModal,
+      uid,
+      profile,
+      nav,
+      classesBySchool
+    } = this.props
 
-    const roles = mapValues(role => role, this.props.profile.schools)
+    console.log(this.props)
+
+    const roles = mapValues(role => role, profile.schools)
     const isTeacher = roles.indexOf('teacher') > -1
-
     return (
-      <div>
-        <Switch>
+      <Layout>
+        <Layout.Sider width={styles['@sidebar-width']}>
+          <Sidebar
+            onCreateModal={onCreateModal}
+            uid={uid}
+            profile={profile}
+            currentClass={nav}
+            classesBySchool={classesBySchool} />
+        </Layout.Sider>
+        <Layout.Content>
+          {/* <Switch>
           <Route
             path='/class/:classId/lesson/:lessonId/:taskNum'
             render={({ match: { params } }) => <span />} />
@@ -30,9 +50,10 @@ class AppLayout extends Component {
               )
             } />
           <Route path='*' render={() => <Header isLoaded {...rest} />} />
-        </Switch>
-        {children}
-      </div>
+        </Switch> */}
+          {children}
+        </Layout.Content>
+      </Layout>
     )
   }
 }
