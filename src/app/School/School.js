@@ -16,7 +16,7 @@ const School = props => {
 
   return (
     <Layout>
-      <Route
+      {/* <Route
         exact
         path='/class/:classId'
         render={() => (
@@ -28,7 +28,7 @@ const School = props => {
               currentClass={props.classId}
               classesBySchool={props.classesBySchool} />
           </Layout.Sider>
-        )} />
+        )} /> */}
       <Switch>
         <Route
           path='/class/:classId'

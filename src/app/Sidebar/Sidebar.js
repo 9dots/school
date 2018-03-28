@@ -1,22 +1,21 @@
 import modalContainer from 'components/modalContainer'
 import { Menu, Button, Icon, Row, Col } from 'antd'
-import { stopEvent } from '../../../utils'
-import SchoolModal from '../SchoolModal'
+import { stopEvent } from '../../utils'
+import SchoolModal from '../School/SchoolModal'
 import { Link } from 'react-router-dom'
-import ClassModal from '../ClassModal'
+import ClassModal from '../School/ClassModal'
 import mapValues from '@f/map-values'
 import React from 'react'
 // import PropTypes from 'prop-types'
-import './ClassList.less'
+import './Sidebar.less'
 
-class ClassList extends React.PureComponent {
+class Sidebar extends React.PureComponent {
   state = { openKeys: Object.keys(this.props.profile.schools) }
   toggleSubMenu = openKeys => this.setState({ openKeys })
   render () {
     const {
       classesBySchool = [],
       onCreateModal,
-      currentClass,
       isVisible,
       showModal,
       hideModal,
@@ -27,16 +26,25 @@ class ClassList extends React.PureComponent {
     return (
       <div
         style={{
-          minHeight: 'calc(100vh - 62px)',
-          borderRight: '1px solid #e8e8e8'
+          minHeight: '100vh'
         }}
-        className='class-list'>
+        className='main-sidebar'>
         <Menu
           mode='inline'
           openKeys={openKeys}
           onOpenChange={this.toggleSubMenu}
-          selectedKeys={[currentClass]}
+          selectedKeys={[window.location.pathname]}
           style={{ borderRight: 0 }}>
+          <Menu.Item key={'/courses'}>
+            <Link to='/courses'>
+              <Icon type='appstore-o' />Courses
+            </Link>
+          </Menu.Item>
+          <Menu.Item key='/analytics'>
+            <Link to='/courses'>
+              <Icon type='dot-chart' />Analyticos
+            </Link>
+          </Menu.Item>
           {mapValues(
             (school, key) => (
               <Menu.SubMenu
@@ -45,7 +53,7 @@ class ClassList extends React.PureComponent {
                 }
                 key={key}>
                 {school.classes.map(cls => (
-                  <Menu.Item key={cls.id} className='class-item'>
+                  <Menu.Item key={'/class/' + cls.id} className='class-item'>
                     <ClassItem
                       isTeacher={cls.teachers[uid]}
                       showModal={showModal}
@@ -130,6 +138,6 @@ const MenuTitle = ({
   )
 }
 
-ClassList.propTypes = {}
+Sidebar.propTypes = {}
 
-export default modalContainer(ClassList)
+export default modalContainer(Sidebar)

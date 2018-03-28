@@ -1,0 +1,6 @@
+
+{
+  "name": "Sidebar",
+  "main": "Sidebar.js",
+  "browser": "Sidebar.js"
+}
