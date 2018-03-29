@@ -22,7 +22,8 @@ class AppLayout extends Component {
           className='main-sidebar'
           width={styles['@sidebar-width']}
           style={{
-            height: '100vh'
+            boxShadow: '1px 0 1px rgba(0,0,0,.5)',
+            minHeight: '100vh'
           }}>
           <Sidebar
             onCreateModal={onCreateModal}
