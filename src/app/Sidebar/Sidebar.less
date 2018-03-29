@@ -1,11 +1,14 @@
 /* Sidebar less */
 
+@import "../../theme/vars/palette.less";
+
 .school-menu {
   margin: -10px 20px 0;
   width: 100%;
 }
 
 .class-item {
+  margin: 0;
   .class-actions {
     opacity: 0;
     transition: opacity 0.15s;
@@ -18,30 +21,39 @@
   }
 }
 
-.main-sidebar .ant-menu-inline {
-  .class-item {
-    padding-left: 30px !important;
+.main-sidebar {
+  background: @blue;
+  color: white;
+  .ant-menu-dark .ant-menu-inline.ant-menu-sub {
+    box-shadow: 0 0;
   }
-  .ant-menu-submenu-title {
-    padding-right: 10px;
-    margin: -1px 0 0;
-    border: 1px solid #eee;
-    border-width: 1px 0;
-    padding-left: 30px !important;
-    color: rgba(0, 0, 0, 0.65);
-    .ant-menu-submenu-arrow {
-      left: 12px;
-      &:before,
-      &:after {
-        background: rgba(0, 0, 0, 0.65);
+  .ant-menu-inline {
+    .anticon {
+      font-weight: bold;
+    }
+    .ant-menu-item {
+      margin: 0;
+    }
+    .class-item {
+      padding-left: 40px !important;
+    }
+    .ant-menu-item-selected {
+      background: @pink;
+    }
+    .ant-menu-submenu-title {
+      padding-right: 10px;
+      margin: -1px 0 0;
+      border: 1px solid fade(#eee, 10);
+      border-width: 1px 0 0;
+      padding-left: 24px !important;
+      cursor: default;
+
+      .add-class-button {
+        cursor: pointer;
+      }
+      .ant-menu-submenu-arrow {
+        display: none;
       }
     }
-    // .add-class-button {
-    //   opacity: 0;
-    // }
-
-    // &:hover .add-class-button {
-    //   opacity: 1;
-    // }
   }
 }

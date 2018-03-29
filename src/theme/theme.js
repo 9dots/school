@@ -9,6 +9,8 @@ module.exports = {
   'primary-color': palette['@blue'],
   'layout-header-background': palette['@blue'],
   'layout-sider-background': 'white',
+  'menu-dark-bg': palette['@blue'],
+  'menu-dark-submenu-bg': palette['@blue'],
   'body-background': palette['@off-white'],
   'layout-body-background': palette['@off-white'],
   'card-padding-base': '24px',

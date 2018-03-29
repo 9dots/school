@@ -1,13 +1,9 @@
-// import { Route, Switch } from 'react-router-dom'
-// import StudentHeader from '../Header/StudentHeader'
 import Sidebar from '../Sidebar'
 import React, { Component } from 'react'
 import styles from 'theme/vars/vars.js'
 import { Layout } from 'antd'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
-import mapValues from '@f/map-values'
-// import Header from '../Header'
 
 class AppLayout extends Component {
   render () {
@@ -16,22 +12,23 @@ class AppLayout extends Component {
       onCreateModal,
       uid,
       profile,
-      nav,
+      logout,
       classesBySchool
     } = this.props
 
-    console.log(this.props)
-
-    const roles = mapValues(role => role, profile.schools)
-    const isTeacher = roles.indexOf('teacher') > -1
     return (
       <Layout>
-        <Layout.Sider width={styles['@sidebar-width']}>
+        <Layout.Sider
+          className='main-sidebar'
+          width={styles['@sidebar-width']}
+          style={{
+            height: '100vh'
+          }}>
           <Sidebar
             onCreateModal={onCreateModal}
             uid={uid}
             profile={profile}
-            currentClass={nav}
+            logout={logout}
             classesBySchool={classesBySchool} />
         </Layout.Sider>
         <Layout.Content>

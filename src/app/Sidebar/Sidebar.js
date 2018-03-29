@@ -1,17 +1,18 @@
 import modalContainer from 'components/modalContainer'
-import { Menu, Button, Icon, Row, Col } from 'antd'
-import { stopEvent } from '../../utils'
+import { Menu, Button, Icon, Avatar, Row, Col } from 'antd'
 import SchoolModal from '../School/SchoolModal'
 import { Link } from 'react-router-dom'
-import ClassModal from '../School/ClassModal'
 import mapValues from '@f/map-values'
+import MenuTitle from './MenuTitle'
+import ClassItem from './ClassItem'
+import UserMenu from '../UserMenu'
+import PropTypes from 'prop-types'
 import React from 'react'
-// import PropTypes from 'prop-types'
 import './Sidebar.less'
 
 class Sidebar extends React.PureComponent {
-  state = { openKeys: Object.keys(this.props.profile.schools) }
-  toggleSubMenu = openKeys => this.setState({ openKeys })
+  // state = { openKeys: Object.keys(this.props.profile.schools) }
+  // toggleSubMenu = openKeys => this.setState({ openKeys })
   render () {
     const {
       classesBySchool = [],
@@ -19,20 +20,37 @@ class Sidebar extends React.PureComponent {
       isVisible,
       showModal,
       hideModal,
-      uid
+      uid,
+      logout,
+      profile
     } = this.props
-    const { openKeys } = this.state
+    // const { openKeys } = this.state
+    const roles = mapValues(role => role, profile.schools)
+    const isTeacher = roles.indexOf('teacher') > -1
 
     return (
-      <div
-        style={{
-          minHeight: '100vh'
-        }}
-        className='main-sidebar'>
+      <div className='main-sidebar'>
+        {!!isTeacher && (
+          <UserMenu
+            logout={logout}
+            overlayStyle={{ margin: '0 10px' }}
+            button={
+              <Row type='flex' align='middle' style={{ padding: '10px 20px' }}>
+                <Col>
+                  <Avatar icon='user' />
+                </Col>
+                <Col className='flex-grow'>{profile.displayName}</Col>
+                <Col>
+                  <Icon type='caret-down' style={{ fontSize: 9 }} />
+                </Col>
+              </Row>
+            } />
+        )}
         <Menu
+          theme='dark'
           mode='inline'
-          openKeys={openKeys}
-          onOpenChange={this.toggleSubMenu}
+          openKeys={Object.keys(classesBySchool)}
+          // onOpenChange={this.toggleSubMenu}
           selectedKeys={[window.location.pathname]}
           style={{ borderRight: 0 }}>
           <Menu.Item key={'/courses'}>
@@ -41,8 +59,8 @@ class Sidebar extends React.PureComponent {
             </Link>
           </Menu.Item>
           <Menu.Item key='/analytics'>
-            <Link to='/courses'>
-              <Icon type='dot-chart' />Analyticos
+            <Link to='/analytics'>
+              <Icon type='dot-chart' />Analytics
             </Link>
           </Menu.Item>
           {mapValues(
@@ -80,62 +98,6 @@ class Sidebar extends React.PureComponent {
       </div>
     )
   }
-}
-
-const ClassItem = ({ cls, showModal, school, isTeacher }) => {
-  return (
-    <Link to={`/class/${cls.id}`}>
-      <Row type='flex' justify='space-between' align='middle'>
-        <Col>{cls.displayName}</Col>
-        <Col className='class-actions'>
-          {isTeacher && (
-            <Button
-              type='primary'
-              ghost
-              onClick={stopEvent(showModal('createStudent'))}
-              icon='user-add'
-              shape='circle'
-              size='small' />
-          )}
-        </Col>
-      </Row>
-    </Link>
-  )
-}
-
-const MenuTitle = ({
-  hideModal,
-  isVisible,
-  showModal,
-  onCreateModal,
-  school
-}) => {
-  const { id, displayName } = school
-  return (
-    <div>
-      <Row type='flex' justify='space-between' align='middle'>
-        <Col>
-          <b>{displayName}</b>
-        </Col>
-        <Col>
-          <Button
-            style={{ border: 'none' }}
-            className='add-class-button'
-            shape='circle'
-            icon='plus'
-            size='small'
-            onClick={stopEvent(showModal('classModal-' + id))} />
-        </Col>
-      </Row>
-      {isVisible('classModal-' + id) && (
-        <ClassModal
-          visible
-          school={id}
-          onOk={msg => onCreateModal(msg, 'classModal-' + id)}
-          onCancel={hideModal('classModal-' + id)} />
-      )}
-    </div>
-  )
 }
 
 Sidebar.propTypes = {}
