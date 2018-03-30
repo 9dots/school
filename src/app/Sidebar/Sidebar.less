@@ -24,6 +24,8 @@
 .main-sidebar {
   background: @blue;
   color: white;
+  min-height: 100vh;
+  // box-shadow: 1px 0 1px rgba(0, 0, 0, 0.1);
   .ant-menu-dark .ant-menu-inline.ant-menu-sub {
     box-shadow: 0 0;
   }
@@ -32,7 +34,7 @@
       font-weight: bold;
     }
     .ant-menu-item {
-      margin: 0;
+      // margin: 0;
       &:not(.ant-menu-item-selected):hover {
         background: fade(black, 15);
       }
@@ -43,11 +45,16 @@
     .ant-menu-item-selected {
       background: @pink;
     }
+    .ant-menu-item-divider {
+      background-color: fade(#eee, 10);
+    }
+
     .ant-menu-submenu-title {
       padding-right: 10px;
       margin: -1px 0 0;
       border: 1px solid fade(#eee, 10);
       border-width: 1px 0 0;
+      color: fade(white, 80);
       padding-left: 24px !important;
       cursor: default;
 

@@ -30,7 +30,11 @@ const StudentList = props => {
         borderLeft: '1px solid #e8e8e8',
         paddingTop: 20
       }}>
-      <Menu mode='vertical-right' fluid style={{ borderLeft: 'none' }}>
+      <Menu
+        mode='vertical-right'
+        selectedKeys={[]}
+        fluid
+        style={{ borderLeft: 'none' }}>
         {students.map(uid => (
           <Menu.Item
             key={uid}

@@ -1,1 +1,1 @@
-module.exports = {"@sidebar-width":"250","@header-height":"62","@font-family":"\"Lato\", \"Helvetica Neue\", \"Helvetica\", \"Arial\"","@heading-color":"rgba(0,0,0,0.65)"}
+module.exports = {"@sidebar-width":"240","@header-height":"62","@font-family":"\"Lato\", \"Helvetica Neue\", \"Helvetica\", \"Arial\"","@heading-color":"rgba(0,0,0,0.65)"}
