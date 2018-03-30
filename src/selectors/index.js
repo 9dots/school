@@ -9,10 +9,12 @@ const progressByStudent = (state, lesson, students) => {
       (Object.keys(progress[key] || {}) || []).length > 0
         ? {
           student: state.firestore.data[key],
-          progress: lesson.tasks.map((t, i) => {
-            const k = findKey(progress[key], p => p.task === t.id)
-            return k ? { ...progress[key][k], id: k } : null
-          })
+          progress: lesson.tasks
+            .map((t, i) => {
+              const k = findKey(progress[key], p => p.task === t.id)
+              return k ? { ...progress[key][k], id: k } : null
+            })
+            .filter(p => !!p)
         }
         : state.firestore.data[key]
           ? {
