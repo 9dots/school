@@ -6864,9 +6864,9 @@ react-lazy-load@^3.0.12:
     lodash.throttle "^4.0.0"
     prop-types "^15.5.8"
 
-react-redux-firebase@^2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/react-redux-firebase/-/react-redux-firebase-2.0.3.tgz#6f3e09519d46a6d994a40b2cc47ee645b5d95bb3"
+react-redux-firebase@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/react-redux-firebase/-/react-redux-firebase-2.0.6.tgz#7080e12df358f992c3ad9fdc8f0c9336c1b5bc0d"
   dependencies:
     hoist-non-react-statics "^2.3.1"
     lodash "^4.17.4"
