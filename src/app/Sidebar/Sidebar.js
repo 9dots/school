@@ -83,6 +83,7 @@ class Sidebar extends React.PureComponent {
             ),
             classesBySchool
           )}
+          <Menu.Divider />
         </Menu>
         <div style={{ padding: '12px 24px' }}>
           <Button style={{ width: '100%' }} onClick={showModal('schoolModal')}>

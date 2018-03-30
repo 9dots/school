@@ -1,0 +1,6 @@
+
+{
+  "name": "CreateCourseModal",
+  "main": "CreateCourseModal.js",
+  "browser": "CreateCourseModal.js"
+}

@@ -1,0 +1,6 @@
+
+{
+  "name": "Library",
+  "main": "Library.js",
+  "browser": "Library.js"
+}

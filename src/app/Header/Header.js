@@ -18,11 +18,11 @@ const Header = ({ location, profile = {}, logout }) => {
       </Layout.Sider>
       <Layout.Content>
         <Menu
+          style={{ float: 'left' }}
+          selectedKeys={[active]}
           className='main-nav'
           mode='horizontal'
-          theme='dark'
-          selectedKeys={[active]}
-          style={{ float: 'left' }}>
+          theme='dark'>
           <Menu.Item key='class'>
             <Link to='/'>
               <Icon type='book' />

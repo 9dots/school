@@ -18,13 +18,7 @@ class AppLayout extends Component {
 
     return (
       <Layout>
-        <Layout.Sider
-          className='main-sidebar'
-          width={styles['@sidebar-width']}
-          style={{
-            boxShadow: '1px 0 1px rgba(0,0,0,.5)',
-            minHeight: '100vh'
-          }}>
+        <Layout.Sider className='main-sidebar' width={styles['@sidebar-width']}>
           <Sidebar
             onCreateModal={onCreateModal}
             uid={uid}
