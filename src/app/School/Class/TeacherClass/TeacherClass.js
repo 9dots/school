@@ -29,53 +29,57 @@ const TeacherClass = props => {
 
   const classView = (
     <Layout className='class'>
-      <Layout.Content
-        style={{
-          minHeight: 'calc(100vh - 64px)',
-          padding: '30px 50px 50px'
-        }}>
-        {!modules.length ? (
-          <NoCourses onAssign={onAssign} />
-        ) : (
-          <div className='main-col' style={{ padding: 0 }}>
-            <h2>{classData.displayName}</h2>
-            {!assignedLesson ? (
-              <NoActiveLesson modules={modules} onAssign={onAssign} />
-            ) : (
-              <span>
-                <Divider style={{ margin: '35px 0px 20px' }}>
-                  Active Lesson
-                </Divider>
-                <ActiveLesson
-                  activeByTask={activeByTask}
-                  lesson={assignedLesson}
-                  studentProgress={progressByStudent}
-                  id='active' />
-              </span>
-            )}
-            <Divider style={{ margin: '45px 0px 40px' }}>Courses</Divider>
-            <Modules
-              onAssign={onAssign}
-              classId={classId}
-              assignedLesson={assignedLesson}
-              modules={modules} />
-          </div>
-        )}
-      </Layout.Content>
+      <Layout.Header>
+        <h2>{classData.displayName}</h2>
+      </Layout.Header>
+      <Layout>
+        <Layout.Content
+          style={{
+            minHeight: 'calc(100vh - 64px)',
+            padding: '30px 50px 50px'
+          }}>
+          {!modules.length ? (
+            <NoCourses onAssign={onAssign} />
+          ) : (
+            <div className='main-col' style={{ padding: 0 }}>
+              {!assignedLesson ? (
+                <NoActiveLesson modules={modules} onAssign={onAssign} />
+              ) : (
+                <span>
+                  <Divider style={{ margin: '35px 0px 20px' }}>
+                    Active Lesson
+                  </Divider>
+                  <ActiveLesson
+                    activeByTask={activeByTask}
+                    lesson={assignedLesson}
+                    studentProgress={progressByStudent}
+                    id='active' />
+                </span>
+              )}
+              <Divider style={{ margin: '45px 0px 40px' }}>Courses</Divider>
+              <Modules
+                onAssign={onAssign}
+                classId={classId}
+                assignedLesson={assignedLesson}
+                modules={modules} />
+            </div>
+          )}
+        </Layout.Content>
 
-      <Layout.Sider width={styles['@sidebar-width']}>
-        <StudentList
-          studentData={studentData}
-          tasks={(assignedLesson || {}).tasks}
-          progressByStudent={progressByStudent}
-          students={students}
-          addStudentSuccess={props.addStudentSuccess}
-          showModal={props.showModal}
-          hideModal={props.hideModal}
-          isVisible={props.isVisible}
-          class={{ ...classData, id: classId }}
-          school={classData.school} />
-      </Layout.Sider>
+        <Layout.Sider width={styles['@sidebar-width']}>
+          <StudentList
+            studentData={studentData}
+            tasks={(assignedLesson || {}).tasks}
+            progressByStudent={progressByStudent}
+            students={students}
+            addStudentSuccess={props.addStudentSuccess}
+            showModal={props.showModal}
+            hideModal={props.hideModal}
+            isVisible={props.isVisible}
+            class={{ ...classData, id: classId }}
+            school={classData.school} />
+        </Layout.Sider>
+      </Layout>
     </Layout>
   )
   return (
