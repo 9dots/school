@@ -1,0 +1,6 @@
+
+{
+  "name": "CourseEditor",
+  "main": "CourseEditor.js",
+  "browser": "CourseEditor.js"
+}
