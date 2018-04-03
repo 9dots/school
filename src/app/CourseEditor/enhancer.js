@@ -1,5 +1,5 @@
 import { firestoreConnect } from 'react-redux-firebase'
-import { compose } from 'recompose'
+import { compose, withState, withHandlers } from 'recompose'
 import { connect } from 'react-redux'
 import { course } from '../../selectors'
 import waitFor from '../../components/waitFor'
@@ -8,6 +8,10 @@ export default compose(
   connect((state, { match: { params: { courseId } } }) => ({
     courseId
   })),
+  withState('editKey', 'setKey', null),
+  withHandlers({
+    setEditKey: ({ setKey }) => setKey
+  }),
   firestoreConnect(props => [
     {
       collection: 'courses',

@@ -6,17 +6,23 @@ import { Icon } from 'antd'
 import React from 'react'
 import './CourseEditor.less'
 
-const CourseEditor = ({ course = {} }) => {
+const CourseEditor = ({ course = {}, setEditKey, editKey }) => {
   const { lessons = [] } = course
-  console.log(lessons)
+
   return (
-    <span>
+    <div style={{ padding: '0 50px' }}>
       <Header course={course} />
-      {lessons.map(lesson => <LessonEditor key={lesson.id} lesson={lesson} />)}
+      {lessons.map(lesson => (
+        <LessonEditor
+          setEditKey={setEditKey}
+          editKey={editKey}
+          key={lesson.id}
+          lesson={lesson} />
+      ))}
       <div>
-        <Icon type='add-circle' />
+        <Icon type='plus-circle' />
       </div>
-    </span>
+    </div>
   )
 }
 

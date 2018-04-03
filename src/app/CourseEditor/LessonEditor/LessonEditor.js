@@ -1,37 +1,34 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { Card, Button, List } from 'antd'
+import { Card, List } from 'antd'
+import LessonDetails from './LessonDetails'
+import TaskDetails from './TaskDetails'
+import enhancer from './enhancer'
 import './LessonEditor.less'
 
-const LessonEditor = ({ lesson }) => {
-  const { displayName, description, tasks = [] } = lesson
+const LessonEditor = ({ lesson, toggleMode, editKey, setEditKey }) => {
+  const { tasks = [] } = lesson
   return (
-    <Card
-      className='course'
-      bordered={false}
-      style={{ borderRadius: 0 }}
-      title={
-        <div>
-          <h3 style={{ marginBottom: 0 }}>{displayName}</h3>
-          <small>{description}</small>
-        </div>
-      }
-      extra={
-        <span>
-          <Button>Lesson Plan</Button>
-          <Button style={{ margin: '0 8px' }}>Slides</Button>
-          <Button type='primary' icon='edit' />
-        </span>
-      }>
+    <Card className='course' bordered={false} style={{ borderRadius: 0 }}>
+      <LessonDetails
+        editKey={editKey}
+        setEditKey={setEditKey}
+        lesson={lesson} />
+      <br />
       <List
         dataSource={tasks}
-        renderItem={({ displayName }) => <List.Item>{displayName}</List.Item>} />
+        renderItem={task => (
+          <List.Item className='task-details'>
+            <TaskDetails
+              task={task}
+              editKey={editKey}
+              setEditKey={setEditKey} />
+          </List.Item>
+        )} />
     </Card>
   )
 }
 
 LessonEditor.propTypes = {}
 
-export default LessonEditor
-
-const Header = () => <div />
+export default enhancer(LessonEditor)

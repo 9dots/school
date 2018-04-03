@@ -1,0 +1,21 @@
+/* TaskDetails less */
+
+.task-details {
+  .task-details-inner {
+    width: 100%;
+  }
+  &:hover {
+    .actions {
+      opacity: 1;
+    }
+  }
+  .actions {
+    opacity: 0;
+    transition: opacity 0.15s;
+    .anticon {
+      cursor: pointer;
+      font-size: 18px;
+      margin: 0 15px;
+    }
+  }
+}
