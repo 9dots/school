@@ -10,22 +10,19 @@ import './LessonHeader.less'
 
 const LessonHeader = ({ profile, classId, lessonId, taskNum, lesson }) => {
   return (
-    <Layout className='header'>
+    <Layout className='lesson-header'>
       <Layout.Sider width={styles['@sidebar-width']}>
-        <Link
-          to={`/class/${classId}`}
-          className='logo'
-          style={{ letterSpacing: 'normal' }}>
-          <Icon type='left' size='large' />
-          Back To Class
-        </Link>
+        <h2>
+          <Link to={`/class/${classId}`}>
+            <Icon type='left' size='large' style={{ marginRight: 10 }} />
+            Back To Class
+          </Link>
+        </h2>
       </Layout.Sider>
       <Layout.Content style={{ textAlign: 'center' }}>
         <LessonControls lesson={lesson} />
       </Layout.Content>
-      <Layout.Sider
-        width={styles['@sidebar-width']}
-        style={{ marginRight: 20 }}>
+      <Layout.Sider width={styles['@sidebar-width']}>
         <UserMenu
           // logout={logout}
           button={
