@@ -1,1 +1,18 @@
 /* LessonHeader less */
+
+@import "../../../theme/vars/palette.less";
+
+.lesson-view .ant-layout-header {
+  background: @blue;
+  .lesson-header {
+    background: @blue;
+    > * {
+      background: transparent;
+    }
+    h2,
+    a {
+      color: white;
+      margin-bottom: 0;
+    }
+  }
+}
