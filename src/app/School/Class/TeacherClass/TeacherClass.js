@@ -46,7 +46,7 @@ const TeacherClass = props => {
                 <NoActiveLesson modules={modules} onAssign={onAssign} />
               ) : (
                 <span>
-                  <Divider style={{ margin: '35px 0px 20px' }}>
+                  <Divider style={{ margin: '20px 0px 20px' }}>
                     Active Lesson
                   </Divider>
                   <ActiveLesson

@@ -21,6 +21,9 @@ const StudentClass = props => {
 
   const classView = (
     <Layout className='class'>
+      <Layout.Header>
+        <h2>{classData.displayName}</h2>
+      </Layout.Header>
       <Layout.Content
         style={{
           minHeight: 'calc(100vh - 64px)',
@@ -30,7 +33,6 @@ const StudentClass = props => {
           <NoCourses />
         ) : (
           <div className='main-col' style={{ padding: 0 }}>
-            <h2>{classData.displayName}</h2>
             {!assignedLesson ? (
               <div className='no-active-lesson'>
                 <h2 style={{ lineHeight: '30vh' }}>No Assigned Lessons</h2>
