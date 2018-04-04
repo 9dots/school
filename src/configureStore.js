@@ -26,12 +26,12 @@ firebase.firestore()
 const rrfbConfig = {
   userProfile: 'users',
   useFirestoreForProfile: true,
-  updateProfileOnLogin: false
-  // onAuthStateChanged: () =>
-  //   firebase
-  //     .auth()
-  //     .currentUser.getToken()
-  //     .then(console.log)
+  updateProfileOnLogin: false,
+  onAuthStateChanged: () =>
+    firebase
+      .auth()
+      .currentUser.getToken()
+      .then(console.log)
 }
 
 const createStoreWithFirebase = compose(

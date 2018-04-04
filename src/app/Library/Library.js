@@ -5,7 +5,7 @@ import CreateCourseModal from '../CreateCourseModal'
 import React from 'react'
 import './Library.less'
 
-const Library = ({ modal }) => {
+const Library = ({ modal, onCreateCourse }) => {
   return (
     <Layout>
       <Layout.Header>
@@ -23,7 +23,7 @@ const Library = ({ modal }) => {
       {modal.isVisible('createCourse') && (
         <CreateCourseModal
           visible
-          onOk={modal.hideModal('createCourse')}
+          onOk={onCreateCourse}
           onCancel={modal.hideModal('createCourse')} />
       )}
     </Layout>

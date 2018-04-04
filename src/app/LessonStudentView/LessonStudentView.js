@@ -22,7 +22,7 @@ const LessonStudentView = ({
         render={({ match: { params } }) => (
           <LessonHeader profile={profile} lesson={assignedLesson} {...params} />
         )} />
-      <iframe src={progress[taskNum].url} />
+      <iframe src={progress[taskNum].instance} />
     </div>
   )
 }
