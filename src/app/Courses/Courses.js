@@ -10,7 +10,9 @@ import React from 'react'
 import './Courses.less'
 
 const enhancer = compose(
-  firestoreConnect(props => [{ collection: 'courses' }]),
+  firestoreConnect(props => [
+    { collection: 'courses', where: ['featured', '==', true] }
+  ]),
   connect((state, props) => ({ courses: courses(state) })),
   waitFor(['courses'])
 )
@@ -41,59 +43,3 @@ const Courses = props => {
 }
 
 export default enhancer(Courses)
-
-// const courses = [
-//   {
-//     title: 'Intro to Computers',
-//     id: 'abc123',
-//     image:
-//       'https://cdn.dribbble.com/users/59100/screenshots/3358559/pcc_1x.jpg',
-//     tags: ['Computers', 'Math', 'Javascript'],
-//     difficulty: 'Level A',
-//     duration: {
-//       unit: 'months',
-//       time: 2
-//     },
-//     description:
-//       'But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness.'
-//   },
-//   {
-//     title: 'Waffles',
-//     id: 'bbaf234',
-//     image:
-//       'https://cdn.dribbble.com/users/14268/screenshots/824210/waffle_1x.png',
-//     tags: ['Computers', 'Math', 'Javascript'],
-//     difficulty: 'Level A',
-//     duration: {
-//       unit: 'months',
-//       time: 2
-//     },
-//     description:
-//       'But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness.'
-//   },
-//   {
-//     title: 'Earth Sciences',
-//     image: 'E',
-//     id: 'asdgasg',
-//     tags: ['Computers', 'Math', 'Javascript'],
-//     difficulty: 'Level A',
-//     duration: {
-//       unit: 'months',
-//       time: 2
-//     },
-//     description:
-//       'But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness.'
-//   },
-//   {
-//     title: 'Learn More',
-//     id: 'asligjasi34',
-//     tags: ['Computers', 'Math', 'Javascript'],
-//     difficulty: 'Level A',
-//     duration: {
-//       unit: 'months',
-//       time: 2
-//     },
-//     description:
-//       'But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness.'
-//   }
-// ]

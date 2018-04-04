@@ -6,7 +6,7 @@ import { Icon } from 'antd'
 import React from 'react'
 import './CourseEditor.less'
 
-const CourseEditor = ({ course = {}, setEditKey, editKey }) => {
+const CourseEditor = ({ course = {}, courseId, setEditKey, editKey }) => {
   const { lessons = [] } = course
 
   return (
@@ -15,6 +15,7 @@ const CourseEditor = ({ course = {}, setEditKey, editKey }) => {
       {lessons.map(lesson => (
         <LessonEditor
           setEditKey={setEditKey}
+          course={courseId}
           editKey={editKey}
           key={lesson.id}
           lesson={lesson} />

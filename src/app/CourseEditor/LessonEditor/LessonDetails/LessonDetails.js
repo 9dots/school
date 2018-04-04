@@ -1,12 +1,11 @@
+import { Button, Row, Col } from 'antd'
+import LessonForm from './LessonForm'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { Button, Row, Col, Form } from 'antd'
-import { Field } from 'redux-form'
-import { TextField, SelectField } from 'redux-form-antd'
 
 import './LessonDetails.less'
 
-const LessonDetails = ({ lesson, editKey, setEditKey }) => {
+const LessonDetails = ({ lesson, course, editKey, setEditKey }) => {
   const { displayName, description, id } = lesson
 
   return editKey !== id ? (
@@ -22,12 +21,11 @@ const LessonDetails = ({ lesson, editKey, setEditKey }) => {
       </Col>
     </Row>
   ) : (
-    <i>
-      Form Goes Here
-      <Button type='primary' onClick={() => setEditKey(null)}>
-        Save
-      </Button>
-    </i>
+    <LessonForm
+      lesson={lesson.id}
+      course={course}
+      initialValues={lesson}
+      setEditKey={setEditKey} />
   )
 }
 

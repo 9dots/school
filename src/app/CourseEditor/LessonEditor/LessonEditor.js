@@ -6,13 +6,14 @@ import TaskDetails from './TaskDetails'
 import enhancer from './enhancer'
 import './LessonEditor.less'
 
-const LessonEditor = ({ lesson, toggleMode, editKey, setEditKey }) => {
+const LessonEditor = ({ lesson, course, toggleMode, editKey, setEditKey }) => {
   const { tasks = [] } = lesson
   return (
     <Card className='course' bordered={false} style={{ borderRadius: 0 }}>
       <LessonDetails
-        editKey={editKey}
         setEditKey={setEditKey}
+        editKey={editKey}
+        course={course}
         lesson={lesson} />
       <br />
       <List

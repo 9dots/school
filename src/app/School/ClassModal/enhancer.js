@@ -1,10 +1,10 @@
 import formModal from '../../../components/formModal'
 import { compose, withHandlers } from 'recompose'
+import { withRouter } from 'react-router-dom'
 import { SubmissionError } from 'redux-form'
 import { rpc, setUrl } from '../../actions'
 import { connect } from 'react-redux'
 import { message } from 'antd'
-import { withRouter } from 'react-router-dom'
 
 export default compose(
   withRouter,
