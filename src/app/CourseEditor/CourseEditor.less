@@ -1,1 +1,22 @@
 /* CourseEditor less */
+
+@import "../../theme/vars/palette.less";
+
+.add-section {
+  background: fade(black, 5);
+  border: 1px solid fade(black, 10);
+  padding: 20px;
+  margin: 0px auto 40px;
+  max-width: 1000px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.25s;
+  &:hover {
+    border-color: @blue;
+    color: @blue;
+    background-color: fade(@blue, 8);
+    &:active {
+      background-color: fade(@blue, 10);
+    }
+  }
+}

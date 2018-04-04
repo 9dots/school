@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { Layout, Button, Icon, Menu, Tag } from 'antd'
+import { Layout, Button, Icon, Menu } from 'antd'
 import './Header.less'
 
-const Header = ({ course }) => {
+const Header = ({ course, setMode, mode }) => {
   const {
     displayName,
     difficulty,
@@ -42,7 +42,8 @@ const Header = ({ course }) => {
         </div>
       </Layout.Content>
       <Menu
-        defaultSelectedKeys={['edit']}
+        defaultSelectedKeys={[mode]}
+        onClick={({ key }) => setMode(key)}
         mode='horizontal'
         className='center-items'>
         <Menu.Item key='edit'>

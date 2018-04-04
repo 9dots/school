@@ -14,7 +14,8 @@ const Course = ({
   classId,
   assignedId,
   onAssign,
-  student
+  student,
+  preview
 }) => {
   const {
     displayName = '',
@@ -59,7 +60,8 @@ const Course = ({
         </Row>
       }
       extra={
-        !added && (
+        !added &&
+        !preview && (
           <Button
             className='secondary'
             onClick={modal.showModal(id)}

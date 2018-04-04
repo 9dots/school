@@ -25,9 +25,7 @@ const enhancer = compose(
 
 const CourseView = props => {
   return (
-    <div
-      className='course-view main-col'
-      style={{ maxWidth: '980px', padding: '30px 50px 50px' }}>
+    <div className='course-view main-col' style={{ padding: '30px 50px 50px' }}>
       {props.course && (
         <Course course={{ id: props.courseId, ...props.course }} />
       )}
