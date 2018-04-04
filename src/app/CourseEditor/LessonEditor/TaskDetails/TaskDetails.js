@@ -5,7 +5,6 @@ import './TaskDetails.less'
 
 const TaskDetails = ({ task, editKey, setEditKey }) => {
   const { displayName, id } = task
-  console.log(task)
 
   return (
     <div className='task-details-inner'>
@@ -20,11 +19,7 @@ const TaskDetails = ({ task, editKey, setEditKey }) => {
           <Col className='actions'>
             <Icon type='edit' onClick={() => setEditKey(id)} />
             <Icon type='swap' style={{ transform: 'rotate(90deg)' }} />
-            <Icon
-              ghost
-              shape='circle'
-              type='delete'
-              onClick={() => setEditKey(id)} />
+            <Icon shape='circle' type='delete' onClick={() => setEditKey(id)} />
           </Col>
         </Row>
       ) : (
