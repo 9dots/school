@@ -1,0 +1,6 @@
+
+{
+  "name": "LessonEditor",
+  "main": "LessonEditor.js",
+  "browser": "LessonEditor.js"
+}

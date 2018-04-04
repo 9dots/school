@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import LessonStudentView from '../LessonStudentView'
+import CourseEditor from 'app/CourseEditor'
 import CourseView from 'app/CourseView'
 import Onboarding from '../Onboarding'
 import AppLayout from '../AppLayout'
@@ -20,16 +21,19 @@ import './Router.less'
 
 const App = props => (
   <div>
-    <AppLayout {...props}>
-      <Switch>
-        <Route path='/class/:classId' component={School} />
-        <Route exact path='/class' component={School} />
-        <Route exact path='/library' component={Library} />
-        <Route exact path='/courses' component={Courses} />
-        <Route exact path='/courses/:courseId' component={CourseView} />
-        <Route exact path='/' component={Home} />
-      </Switch>
-    </AppLayout>
+    <Switch>
+      <Route exact path='/courses/:courseId/edit' component={CourseEditor} />
+      <AppLayout {...props}>
+        <Switch>
+          <Route path='/class/:classId' component={School} />
+          <Route exact path='/class' component={School} />
+          <Route exact path='/library' component={Library} />
+          <Route exact path='/courses' component={Courses} />
+          <Route exact path='/courses/:courseId' component={CourseView} />
+          <Route exact path='/' component={Home} />
+        </Switch>
+      </AppLayout>
+    </Switch>
   </div>
 )
 
