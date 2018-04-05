@@ -1,7 +1,7 @@
 import LessonDetails from './LessonDetails'
 import TaskDetails from './TaskDetails'
 import PropTypes from 'prop-types'
-import { Card, List } from 'antd'
+import { Card, List, Icon } from 'antd'
 import enhancer from './enhancer'
 import AddTask from './AddTask'
 import React from 'react'
@@ -9,12 +9,10 @@ import './LessonEditor.less'
 
 const LessonEditor = ({ lesson, course, toggleMode, editKey, setEditKey }) => {
   const { tasks = [] } = lesson
+  const editing = editKey === lesson.id + 'addTask'
   return (
     <span>
-      <Card
-        className='course'
-        bordered={false}
-        style={{ borderRadius: 0, marginBottom: 0 }}>
+      <Card className='course lesson-editor' bordered={false}>
         <LessonDetails
           editKey={editKey}
           setEditKey={setEditKey}
@@ -33,15 +31,27 @@ const LessonEditor = ({ lesson, course, toggleMode, editKey, setEditKey }) => {
                 setEditKey={setEditKey} />
             </List.Item>
           )} />
+        {editing && (
+          <AddTask
+            editing={editKey === lesson.id + 'addTask'}
+            setEditKey={setEditKey}
+            course={course}
+            lesson={lesson.id} />
+        )}
       </Card>
-      <AddTask
-        editing={editKey === lesson.id + 'addTask'}
-        setEditKey={setEditKey}
-        course={course}
-        lesson={lesson.id} />
+      {!editing && <AddTaskButton lesson={lesson.id} setEditKey={setEditKey} />}
     </span>
   )
 }
+
+const AddTaskButton = ({ editing, lesson, setEditKey }) => (
+  <div
+    onClick={() => setEditKey(lesson + 'addTask')}
+    className='add-section'
+    style={{ borderTopColor: 'transparent' }}>
+    <Icon type='plus-circle' style={{ marginRight: 10 }} />Add a Task
+  </div>
+)
 
 LessonEditor.propTypes = {}
 
