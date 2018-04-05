@@ -15,7 +15,7 @@ export default compose(
     onSubmit: props => async values => {
       try {
         props.setLoading(true)
-        await props.rpc('course.updateLesson', {
+        await props.rpc(`course.${props.mode}`, {
           ...omit('tasks', values),
           lesson: props.lesson,
           course: props.course
