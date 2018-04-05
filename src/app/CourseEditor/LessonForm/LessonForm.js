@@ -9,7 +9,10 @@ import './LessonForm.less'
 const LessonForm = props => {
   const { mode, setEditKey, handleSubmit, onSubmit, confirmLoading } = props
   return (
-    <Form style={{ borderBottom: '1px solid #e8e8e8' }}>
+    <Form
+      style={{
+        borderBottom: mode === 'updateLesson' ? '1px solid #e8e8e8' : ''
+      }}>
       <Row type='flex' gutter={16}>
         <Col span={12}>
           <Form.Item label='Title'>

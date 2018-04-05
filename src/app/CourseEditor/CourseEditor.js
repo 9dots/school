@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import enhancer from './enhancer'
 import Course from '../Course'
 import Header from './Header'
-import { Icon } from 'antd'
+import { Icon, Card } from 'antd'
 import React from 'react'
 import './CourseEditor.less'
 
@@ -21,33 +21,35 @@ const CourseEditor = ({
   return (
     <div>
       <Header course={course} setMode={setMode} mode={mode} />
-      {mode === 'edit' ? (
-        <span>
-          {lessons.map(lesson => (
-            <LessonEditor
-              setEditKey={setEditKey}
+      <div className='main-col'>
+        {mode === 'edit' ? (
+          <span>
+            {lessons.map(lesson => (
+              <LessonEditor
+                setEditKey={setEditKey}
+                course={courseId}
+                editKey={editKey}
+                key={lesson.id}
+                lesson={lesson} />
+            ))}
+            <AddLesson
               course={courseId}
-              editKey={editKey}
-              key={lesson.id}
-              lesson={lesson} />
-          ))}
-          <AddLesson
-            course={courseId}
-            setEditKey={setEditKey}
-            editing={editKey === 'addLesson'} />
-        </span>
-      ) : (
-        <Course course={course} preview />
-      )}
+              setEditKey={setEditKey}
+              editing={editKey === 'addLesson'} />
+          </span>
+        ) : (
+          <Course course={course} preview />
+        )}
+      </div>
     </div>
   )
 }
 
 const AddLesson = ({ editing, setEditKey, course }) => {
   return editing ? (
-    <div className='add-section'>
+    <Card className='course lesson-editor' style={{ marginBottom: 40 }}>
       <LessonForm mode='addLesson' course={course} setEditKey={setEditKey} />
-    </div>
+    </Card>
   ) : (
     <div
       onClick={() => setEditKey('addLesson')}
