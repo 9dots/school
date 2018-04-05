@@ -6,11 +6,13 @@ import enhancer from './enhancer'
 import React from 'react'
 import './LessonForm.less'
 
-const LessonForm = ({ setEditKey, handleSubmit, onSubmit, confirmLoading }) => {
+const LessonForm = props => {
+  const { mode, setEditKey, handleSubmit, onSubmit, confirmLoading } = props
   return (
     <Form
-      confirmLoading={confirmLoading}
-      style={{ borderBottom: '1px solid #e8e8e8' }}>
+      style={{
+        borderBottom: mode === 'updateLesson' ? '1px solid #e8e8e8' : ''
+      }}>
       <Row type='flex' gutter={16}>
         <Col span={12}>
           <Form.Item label='Title'>
@@ -56,13 +58,15 @@ const LessonForm = ({ setEditKey, handleSubmit, onSubmit, confirmLoading }) => {
           type='primary'
           loading={confirmLoading}
           onClick={handleSubmit(onSubmit)}>
-          Save
+          {mode === 'addLesson' ? 'Create' : 'Save'}
         </Button>
       </Form.Item>
     </Form>
   )
 }
 
-LessonForm.propTypes = {}
+LessonForm.propTypes = {
+  mode: PropTypes.string.isRequired
+}
 
 export default enhancer(LessonForm)
