@@ -44,7 +44,6 @@ const CourseEditor = ({
 }
 
 const AddLesson = ({ editing, setEditKey, course }) => {
-  console.log(course)
   return editing ? (
     <div className='add-section'>
       <LessonForm mode='addLesson' course={course} setEditKey={setEditKey} />
