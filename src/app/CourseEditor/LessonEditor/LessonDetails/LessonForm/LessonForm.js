@@ -8,21 +8,19 @@ import './LessonForm.less'
 
 const LessonForm = ({ setEditKey, handleSubmit, onSubmit, confirmLoading }) => {
   return (
-    <Form confirmLoading={confirmLoading}>
-      <Form.Item>
-        <Field
-          name='displayName'
-          placeholder='Lesson Title...'
-          component={TextField} />
-      </Form.Item>
-      <Form.Item>
-        <Field
-          name='description'
-          placeholder='Description...'
-          component={TextField} />
-      </Form.Item>
-      <Row type='flex'>
-        <Col width={12}>
+    <Form
+      confirmLoading={confirmLoading}
+      style={{ borderBottom: '1px solid #e8e8e8' }}>
+      <Row type='flex' gutter={16}>
+        <Col span={12}>
+          <Form.Item label='Title'>
+            <Field
+              name='displayName'
+              placeholder='Lesson Title...'
+              component={TextField} />
+          </Form.Item>
+        </Col>
+        <Col span={6}>
           <Form.Item label='Slides'>
             <Field
               name='slides'
@@ -30,8 +28,8 @@ const LessonForm = ({ setEditKey, handleSubmit, onSubmit, confirmLoading }) => {
               component={TextField} />
           </Form.Item>
         </Col>
-        <Col width={12}>
-          <Form.Item>
+        <Col span={6}>
+          <Form.Item label='Lesson Plan'>
             <Field
               name='lessonPlan'
               placeholder='Link to Lesson Plan...'
@@ -39,15 +37,26 @@ const LessonForm = ({ setEditKey, handleSubmit, onSubmit, confirmLoading }) => {
           </Form.Item>
         </Col>
       </Row>
-      <Form.Item>
+
+      <Form.Item label='Description'>
+        <Field
+          name='description'
+          placeholder='Description...'
+          component={TextField} />
+      </Form.Item>
+
+      <Form.Item style={{ textAlign: 'right', marginTop: 38 }}>
+        <Button
+          style={{ marginRight: 10 }}
+          disabled={confirmLoading}
+          onClick={() => setEditKey(null)}>
+          Cancel
+        </Button>
         <Button
           type='primary'
           loading={confirmLoading}
           onClick={handleSubmit(onSubmit)}>
           Save
-        </Button>
-        <Button disabled={confirmLoading} onClick={() => setEditKey(null)}>
-          Cancel
         </Button>
       </Form.Item>
     </Form>
