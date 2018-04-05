@@ -48,23 +48,26 @@ const TaskDetails = props => {
 
 const TaskForm = reduxForm({ form: 'taskEditForm' })(
   ({ setEditKey, handleSubmit, editTask, confirmLoading }) => (
-    <Form>
-      <Row>
-        <Col>
-          <Form.Item label='Title:'>
+    <Form style={{ margin: '8px 0 10px' }}>
+      <Row type='flex' gutter={16} style={{ margin: 0 }}>
+        <Col className='flex-grow'>
+          <Form.Item style={{ marginBottom: 0 }}>
             <Field required name='displayName' component={TextField} />
           </Form.Item>
         </Col>
         <Col>
-          <Form.Item>
+          <Form.Item style={{ marginBottom: 0 }}>
+            <Button
+              style={{ marginRight: 10 }}
+              disabled={confirmLoading}
+              onClick={() => setEditKey(null)}>
+              Cancel
+            </Button>
             <Button
               loading={confirmLoading}
               type='primary'
               onClick={handleSubmit(editTask)}>
               Save
-            </Button>
-            <Button disabled={confirmLoading} onClick={() => setEditKey(null)}>
-              Cancel
             </Button>
           </Form.Item>
         </Col>
