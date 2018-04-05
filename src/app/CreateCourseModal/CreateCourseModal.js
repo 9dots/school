@@ -9,8 +9,11 @@ import './CreateCourseModal.less'
 
 const durationFields = fields => (
   <div>
-    <SelectField placeholder='hours' options={[]} {...fields.unit} />
-    <SelectField placeholder='3' options={[]} {...fields.time} />
+    <TextField placeholder='3' {...fields.time} />
+    <SelectField
+      placeholder='Hours'
+      options={timeUnits.map(unit => ({ label: unit, value: unit }))}
+      {...fields.unit} />
   </div>
 )
 
@@ -36,13 +39,17 @@ const CreateCourseModal = props => {
             component={TextAreaField} />
         </Form.Item>
         <Form.Item label='Tags'>
-          <Field name='tags' options={[]} component={SelectField} />
+          <Field
+            name='tags'
+            mode='multiple'
+            options={tags.map(tag => ({ label: tag, value: tag }))}
+            component={SelectField} />
         </Form.Item>
         <Form.Item label='Grade'>
           <Field
             name='grade'
             placeholder='Select a Grade'
-            options={[]}
+            options={grades.map(grade => ({ label: grade, value: grade }))}
             component={SelectField} />
         </Form.Item>
         <Form.Item label='Duration'>
@@ -56,3 +63,7 @@ const CreateCourseModal = props => {
 CreateCourseModal.propTypes = {}
 
 export default enhancer(CreateCourseModal)
+
+const tags = ['Science', 'Math', 'Taco', 'Salad', 'Rice']
+const grades = ['K', 1, 2, 3, 4, 5]
+const timeUnits = ['Minutes', 'Hours', 'Days', 'Weeks', 'Months']

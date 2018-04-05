@@ -1,4 +1,4 @@
-import { Button, Row, Col } from 'antd'
+import { Button, Row, Col, Tooltip } from 'antd'
 import LessonForm from './LessonForm'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -15,9 +15,15 @@ const LessonDetails = ({ lesson, course, editKey, setEditKey }) => {
         <span>{description}</span>
       </Col>
       <Col>
-        <Button>Lesson Plan</Button>
-        <Button style={{ margin: '0 8px' }}>Slides</Button>
-        <Button type='primary' icon='edit' onClick={() => setEditKey(id)} />
+        <Tooltip title='Sildes'>
+          <Button icon='file-ppt' />
+        </Tooltip>
+        <Tooltip title='Lesson Plan'>
+          <Button style={{ margin: '0 8px' }} icon='profile' />
+        </Tooltip>
+        <Tooltip title='Edit'>
+          <Button type='primary' icon='edit' onClick={() => setEditKey(id)} />
+        </Tooltip>
       </Col>
     </Row>
   ) : (
