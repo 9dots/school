@@ -22,15 +22,15 @@ const LessonForm = ({ setEditKey, handleSubmit, onSubmit, confirmLoading }) => {
           component={TextField} />
       </Form.Item>
       <Row type='flex'>
-        <Col>
-          <Form.Item>
+        <Col width={12}>
+          <Form.Item label='Slides'>
             <Field
               name='slides'
               placeholder='Link to Slides...'
               component={TextField} />
           </Form.Item>
         </Col>
-        <Col>
+        <Col width={12}>
           <Form.Item>
             <Field
               name='lessonPlan'

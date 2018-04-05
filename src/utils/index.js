@@ -9,3 +9,14 @@ export function stopEvent (action) {
     action(e)
   }
 }
+
+export function typeToIcon (type) {
+  return {
+    link: 'link',
+    listen: 'sound',
+    write: 'edit',
+    video: 'video-camera',
+    assignment: 'file-text',
+    test: 'profile'
+  }[type]
+}

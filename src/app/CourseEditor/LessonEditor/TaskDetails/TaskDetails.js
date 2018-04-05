@@ -3,6 +3,7 @@ import Field from '../../../../components/Field'
 import { TextField } from 'redux-form-antd'
 import { reduxForm } from 'redux-form'
 import PropTypes from 'prop-types'
+import { typeToIcon } from 'utils'
 import enhancer from './enhancer'
 import React from 'react'
 import './TaskDetails.less'
@@ -16,7 +17,7 @@ const TaskDetails = props => {
     editKey,
     task
   } = props
-  const { displayName, id } = task
+  const { displayName, id, type } = task
 
   return (
     <div className='task-details-inner'>
@@ -24,7 +25,7 @@ const TaskDetails = props => {
         <Row type='flex'>
           <Col className='flex-grow ellipsis'>
             <h3 style={{ marginBottom: 0 }}>
-              <Icon type='link' />&ensp;
+              <Icon type={typeToIcon(type)} />&ensp;
               {displayName}
             </h3>
           </Col>
