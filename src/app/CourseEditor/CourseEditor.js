@@ -20,24 +20,26 @@ const CourseEditor = ({
   return (
     <div>
       <Header course={course} setMode={setMode} mode={mode} />
-      {mode === 'edit' ? (
-        <span>
-          {lessons.map(lesson => (
-            <LessonEditor
-              setEditKey={setEditKey}
-              course={courseId}
-              editKey={editKey}
-              key={lesson.id}
-              lesson={lesson} />
-          ))}
-          <div className='add-section' style={{ padding: 40, fontSize: 16 }}>
-            <Icon type='plus-circle' style={{ marginRight: 10 }} />
-            Add a Lesson
-          </div>
-        </span>
-      ) : (
-        <Course course={course} preview />
-      )}
+      <div className='main-col'>
+        {mode === 'edit' ? (
+          <span>
+            {lessons.map(lesson => (
+              <LessonEditor
+                setEditKey={setEditKey}
+                course={courseId}
+                editKey={editKey}
+                key={lesson.id}
+                lesson={lesson} />
+            ))}
+            <div className='add-section' style={{ padding: 40, fontSize: 16 }}>
+              <Icon type='plus-circle' style={{ marginRight: 10 }} />
+              Add a Lesson
+            </div>
+          </span>
+        ) : (
+          <Course course={course} preview />
+        )}
+      </div>
     </div>
   )
 }
