@@ -28,6 +28,7 @@ const LessonDetails = ({ lesson, course, editKey, setEditKey }) => {
     </Row>
   ) : (
     <LessonForm
+      mode='updateLesson'
       lesson={lesson.id}
       course={course}
       initialValues={lesson}
