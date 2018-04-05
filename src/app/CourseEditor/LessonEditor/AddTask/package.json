@@ -1,0 +1,6 @@
+
+{
+  "name": "AddTask",
+  "main": "AddTask.js",
+  "browser": "AddTask.js"
+}

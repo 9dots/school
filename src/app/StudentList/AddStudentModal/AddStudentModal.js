@@ -7,7 +7,7 @@ import React from 'react'
 import './AddStudentModal.less'
 
 const commonProps = {
-  validate: v => (v ? '' : 'Required')
+  validate: v => (v.trim() ? '' : 'Required')
 }
 
 const AddStudentModal = props => {

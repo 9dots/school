@@ -1,9 +1,10 @@
-import PropTypes from 'prop-types'
-import React from 'react'
-import { Card, List, Icon } from 'antd'
 import LessonDetails from './LessonDetails'
 import TaskDetails from './TaskDetails'
+import PropTypes from 'prop-types'
+import { Card, List } from 'antd'
 import enhancer from './enhancer'
+import AddTask from './AddTask'
+import React from 'react'
 import './LessonEditor.less'
 
 const LessonEditor = ({ lesson, course, toggleMode, editKey, setEditKey }) => {
@@ -27,13 +28,17 @@ const LessonEditor = ({ lesson, course, toggleMode, editKey, setEditKey }) => {
               <TaskDetails
                 task={task}
                 editKey={editKey}
+                course={course}
+                lesson={lesson.id}
                 setEditKey={setEditKey} />
             </List.Item>
           )} />
       </Card>
-      <div className='add-section' style={{ borderTopColor: 'transparent' }}>
-        <Icon type='plus-circle' style={{ marginRight: 10 }} />Add a Task
-      </div>
+      <AddTask
+        editing={editKey === lesson.id + 'addTask'}
+        setEditKey={setEditKey}
+        course={course}
+        lesson={lesson.id} />
     </span>
   )
 }

@@ -46,10 +46,7 @@ const LessonForm = ({ setEditKey, handleSubmit, onSubmit, confirmLoading }) => {
           onClick={handleSubmit(onSubmit)}>
           Save
         </Button>
-        <Button
-          type='secondary'
-          disabled={confirmLoading}
-          onClick={() => setEditKey(null)}>
+        <Button disabled={confirmLoading} onClick={() => setEditKey(null)}>
           Cancel
         </Button>
       </Form.Item>

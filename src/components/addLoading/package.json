@@ -1,0 +1,6 @@
+
+{
+  "name": "addLoading",
+  "main": "addLoading.js",
+  "browser": "addLoading.js"
+}
