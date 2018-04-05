@@ -1,11 +1,11 @@
+import addLoading from 'components/addLoading/addLoading'
 import { reduxForm, SubmissionError } from 'redux-form'
 import { compose, withHandlers } from 'recompose'
-import { rpc } from '../../../../actions'
 import { connect } from 'react-redux'
+import { rpc } from 'app/actions'
 import setProp from '@f/set-prop'
 import { message } from 'antd'
 import omit from '@f/omit'
-import addLoading from '../../../../../components/addLoading/addLoading'
 
 export default compose(
   addLoading,

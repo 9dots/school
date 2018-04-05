@@ -1,5 +1,5 @@
 import { Button, Row, Col, Tooltip } from 'antd'
-import LessonForm from './LessonForm'
+import LessonForm from '../../LessonForm'
 import PropTypes from 'prop-types'
 import React from 'react'
 
