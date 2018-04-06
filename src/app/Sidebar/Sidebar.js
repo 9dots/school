@@ -17,9 +17,7 @@ class Sidebar extends React.PureComponent {
     const {
       classesBySchool = [],
       onCreateModal,
-      isVisible,
-      showModal,
-      hideModal,
+      modal,
       uid,
       logout,
       profile
@@ -74,7 +72,7 @@ class Sidebar extends React.PureComponent {
                   <Menu.Item key={'/class/' + cls.id} className='class-item'>
                     <ClassItem
                       isTeacher={cls.teachers[uid]}
-                      showModal={showModal}
+                      showModal={modal.showModal}
                       school={key}
                       cls={cls} />
                   </Menu.Item>
@@ -86,15 +84,17 @@ class Sidebar extends React.PureComponent {
           <Menu.Divider />
         </Menu>
         <div style={{ padding: '12px 24px' }}>
-          <Button style={{ width: '100%' }} onClick={showModal('schoolModal')}>
+          <Button
+            style={{ width: '100%' }}
+            onClick={modal.showModal('schoolModal')}>
             <Icon type='plus' />New School
           </Button>
         </div>
-        {isVisible('schoolModal') && (
+        {modal.isVisible('schoolModal') && (
           <SchoolModal
             visible
             onOk={msg => onCreateModal(msg, 'schoolModal')}
-            onCancel={hideModal('schoolModal')} />
+            onCancel={modal.hideModal('schoolModal')} />
         )}
       </div>
     )

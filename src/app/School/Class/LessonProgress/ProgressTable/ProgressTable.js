@@ -57,6 +57,7 @@ const columns = [
 ]
 
 function alphaSort (a, b, selector) {
+  console.log(a, b)
   let nameA = getProp(selector, a).toLowerCase()
   let nameB = getProp(selector, b).toLowerCase()
   if (nameA < nameB) return -1
