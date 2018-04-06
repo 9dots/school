@@ -10,11 +10,15 @@ const Library = ({ modal, onCreateCourse }) => {
     <Layout>
       <Layout.Header>
         <Row type='flex'>
-          <Col>
+          <Col className='flex-grow'>
             <h2>My Library</h2>
           </Col>
           <Col>
-            <Button icon='plus' onClick={modal.showModal('createCourse')}>
+            <Button
+              icon='plus'
+              type='primary'
+              className='secondary'
+              onClick={modal.showModal('createCourse')}>
               Create Course
             </Button>
           </Col>
