@@ -7,7 +7,7 @@ import React from 'react'
 import './ActiveLesson.less'
 
 const ActiveLesson = ({ lesson, modal, studentProgress, activeByTask }) => {
-  const { displayName, tasks = [] } = lesson
+  const { displayName, tasks = [], slides, lessonPlan } = lesson
 
   return (
     <Card
@@ -16,11 +16,15 @@ const ActiveLesson = ({ lesson, modal, studentProgress, activeByTask }) => {
       bordered={false}
       extra={
         <span>
-          <Button type='primary' style={{ marginRight: 10 }}>
+          <Button
+            href={lessonPlan}
+            target='_blank'
+            type='primary'
+            style={{ marginRight: 10 }}>
             <Icon type='bars' />
             Lesson Plan
           </Button>
-          <Button type='primary'>
+          <Button href={slides} target='_blank' type='primary'>
             <Icon type='file-ppt' />
             Slides
           </Button>

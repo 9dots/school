@@ -29,6 +29,7 @@ const App = props => (
           <Route exact path='/class' component={School} />
           <Route exact path='/library' component={Library} />
           <Route exact path='/courses' component={Courses} />
+          <Route exact path='/analytics' component={Courses} />
           <Route exact path='/courses/:courseId' component={CourseView} />
           <Route exact path='/' component={Home} />
         </Switch>

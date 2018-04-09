@@ -1,26 +1,35 @@
 import { TextField, TextAreaField, SelectField } from 'redux-form-antd'
 import { Field, Fields } from 'redux-form'
+import { Modal, Form, Row, Col } from 'antd'
 import PropTypes from 'prop-types'
-import { Modal, Form } from 'antd'
 import enhancer from './enhancer'
 import React from 'react'
 
 import './CreateCourseModal.less'
 
 const durationFields = fields => (
-  <div>
-    <TextField placeholder='3' {...fields.time} />
-    <SelectField
-      placeholder='Hours'
-      options={timeUnits.map(unit => ({ label: unit, value: unit }))}
-      {...fields.unit} />
-  </div>
+  <Row gutter={8}>
+    <Col span={8}>
+      <TextField type='number' placeholder='30' {...fields.time} />
+    </Col>
+    <Col span={16}>
+      <SelectField
+        fluid
+        placeholder='Minutes'
+        options={timeUnits.map(unit => ({ label: unit, value: unit }))}
+        {...fields.unit} />
+    </Col>
+  </Row>
 )
 
 const CreateCourseModal = props => {
   const { close, onCancel, onSubmit, handleSubmit, ...rest } = props
+
+  const maxLength = 150
+
   return (
     <Modal
+      className='create-course-modal'
       {...rest}
       onCancel={close(onCancel)}
       onOk={handleSubmit(onSubmit)}
@@ -34,7 +43,10 @@ const CreateCourseModal = props => {
         </Form.Item>
         <Form.Item label='Description'>
           <Field
+            id='course-description'
             name='description'
+            rows={3}
+            maxLength={maxLength}
             placeholder='A little bit about this course...'
             component={TextAreaField} />
         </Form.Item>
@@ -42,19 +54,26 @@ const CreateCourseModal = props => {
           <Field
             name='tags'
             mode='multiple'
-            options={tags.map(tag => ({ label: tag, value: tag }))}
+            style={{ width: 'auto' }}
+            options={tags.sort().map(tag => ({ label: tag, value: tag }))}
             component={SelectField} />
         </Form.Item>
-        <Form.Item label='Grade'>
-          <Field
-            name='grade'
-            placeholder='Select a Grade'
-            options={grades.map(grade => ({ label: grade, value: grade }))}
-            component={SelectField} />
-        </Form.Item>
-        <Form.Item label='Duration'>
-          <Fields names={['unit', 'time']} component={durationFields} />
-        </Form.Item>
+        <Row gutter={24}>
+          <Col span={9}>
+            <Form.Item label='Grade'>
+              <Field
+                name='grade'
+                placeholder='Select a Grade'
+                options={grades.map(grade => ({ label: grade, value: grade }))}
+                component={SelectField} />
+            </Form.Item>
+          </Col>
+          <Col span={15}>
+            <Form.Item label='Duration'>
+              <Fields names={['unit', 'time']} component={durationFields} />
+            </Form.Item>
+          </Col>
+        </Row>
       </Form>
     </Modal>
   )
@@ -64,6 +83,17 @@ CreateCourseModal.propTypes = {}
 
 export default enhancer(CreateCourseModal)
 
-const tags = ['Science', 'Math', 'Taco', 'Salad', 'Rice']
 const grades = ['K', 1, 2, 3, 4, 5]
 const timeUnits = ['Minutes', 'Hours', 'Days', 'Weeks', 'Months']
+const tags = [
+  'Computer Science',
+  'Javascript',
+  'World Languages',
+  'Social Studies',
+  'Science',
+  'Mathematics',
+  'Language Arts',
+  'Health & PE',
+  'Creative Arts',
+  'Professional Development'
+]
