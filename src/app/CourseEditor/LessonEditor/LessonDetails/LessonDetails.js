@@ -6,7 +6,7 @@ import React from 'react'
 import './LessonDetails.less'
 
 const LessonDetails = ({ lesson, course, editKey, setEditKey }) => {
-  const { displayName, description, id } = lesson
+  const { displayName, slides, lessonPlan, description, id } = lesson
 
   return editKey !== id ? (
     <Row type='flex'>
@@ -16,10 +16,14 @@ const LessonDetails = ({ lesson, course, editKey, setEditKey }) => {
       </Col>
       <Col>
         <Tooltip title='Sildes'>
-          <Button icon='file-ppt' />
+          <Button target='_blank' href={slides} icon='file-ppt' />
         </Tooltip>
         <Tooltip title='Lesson Plan'>
-          <Button style={{ margin: '0 8px' }} icon='profile' />
+          <Button
+            target='_blank'
+            href={lessonPlan}
+            style={{ margin: '0 8px' }}
+            icon='profile' />
         </Tooltip>
         <Tooltip title='Edit'>
           <Button type='primary' icon='edit' onClick={() => setEditKey(id)} />

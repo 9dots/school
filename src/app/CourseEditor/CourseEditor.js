@@ -46,7 +46,6 @@ const CourseEditor = ({
 }
 
 const AddLesson = ({ editing, setEditKey, course }) => {
-  console.log(course)
   return editing ? (
     <Card className='course lesson-editor' style={{ marginBottom: 40 }}>
       <LessonForm mode='addLesson' course={course} setEditKey={setEditKey} />

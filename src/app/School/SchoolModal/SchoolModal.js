@@ -1,10 +1,11 @@
 import { firestoreConnect } from 'react-redux-firebase'
-import formModal from '../../../components/formModal'
 import { Field, SubmissionError } from 'redux-form'
 import { compose, withHandlers } from 'recompose'
+import waitFor from 'components/waitFor/waitFor'
 import { SelectField } from 'redux-form-antd'
 import { withRouter } from 'react-router-dom'
-import { rpc, setUrl } from '../../actions'
+import formModal from 'components/formModal'
+import { rpc, setUrl } from 'app/actions'
 import { Modal, Form, message } from 'antd'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -35,7 +36,7 @@ const enhancer = compose(
   ),
   withHandlers({
     onSubmit: props => async values => {
-      const { uid, history, rpc, setLoading, setUrl, ok } = props
+      const { uid, rpc, setLoading, ok } = props
       setLoading(true)
       try {
         await rpc('user.addToSchool', { user: uid, role: 'teacher', ...values })
@@ -50,17 +51,19 @@ const enhancer = compose(
         message.error('Unknown error. Please try again.')
       }
     }
-  })
+  }),
+  waitFor(['schools'])
 )
-
 const commonProps = {
   validate: v => (v ? '' : 'Required')
 }
 
 const SchoolModal = props => {
+  console.log(props.isLoaded)
+  if (!props.isLoaded) return <span />
   return (
     <Modal
-      {...props}
+      visible
       title='Join A School'
       onCancel={props.close(props.onCancel)}
       confirmLoading={props.confirmLoading}
@@ -68,7 +71,6 @@ const SchoolModal = props => {
       <Form>
         <Form.Item>
           <Field
-            {...commonProps}
             name='school'
             placeholder='Select a School'
             options={props.schools}
