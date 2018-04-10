@@ -5,21 +5,32 @@ import { Card, List, Icon } from 'antd'
 import enhancer from './enhancer'
 import AddTask from './AddTask'
 import React from 'react'
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+
 import './LessonEditor.less'
 
-const LessonEditor = ({ lesson, course, toggleMode, editKey, setEditKey }) => {
+const LessonEditor = ({
+  lesson,
+  course,
+  toggleMode,
+  editKey,
+  setEditKey,
+  handleProps
+}) => {
   const { tasks = [] } = lesson
   const editing = editKey === lesson.id + 'addTask'
   return (
     <span>
       <Card className='course lesson-editor' bordered={false}>
         <LessonDetails
+          handleProps={handleProps}
           editKey={editKey}
           setEditKey={setEditKey}
           course={course}
           lesson={lesson} />
         <br />
-        <List
+
+        {/* <List
           dataSource={tasks}
           renderItem={task => (
             <List.Item className='task-details'>
@@ -30,7 +41,41 @@ const LessonEditor = ({ lesson, course, toggleMode, editKey, setEditKey }) => {
                 lesson={lesson.id}
                 setEditKey={setEditKey} />
             </List.Item>
-          )} />
+          )} /> */}
+
+        <Droppable droppableId={lesson.id} type='task'>
+          {(provided, snapshot) => (
+            <div ref={provided.innerRef}>
+              {tasks.map((task, i) => (
+                <Draggable
+                  type='task'
+                  key={task.id}
+                  draggableId={task.id}
+                  index={i}>
+                  {(provided, snapshot) => (
+                    <div>
+                      <div
+                        className={getClasses(snapshot, i)}
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}>
+                        <TaskDetails
+                          handleProps={{ ...provided.dragHandleProps }}
+                          task={task}
+                          editKey={editKey}
+                          course={course}
+                          lesson={lesson.id}
+                          setEditKey={setEditKey} />
+                      </div>
+                      {provided.placeholder}
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+
         {editing && (
           <AddTask
             editing={editKey === lesson.id + 'addTask'}
@@ -52,6 +97,14 @@ const AddTaskButton = ({ editing, lesson, setEditKey }) => (
     <Icon type='plus-circle' style={{ marginRight: 10 }} />Add a Task
   </div>
 )
+
+const getClasses = function (snapshot, i) {
+  let classes = 'task-details'
+  if (!i) classes += ' first'
+  if (snapshot.isDragging) classes += ' dragging'
+
+  return classes
+}
 
 LessonEditor.propTypes = {}
 

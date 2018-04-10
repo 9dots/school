@@ -2,10 +2,11 @@ import { Layout, Button, Row, Col } from 'antd'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
 import CreateCourseModal from '../CreateCourseModal'
+import CourseCard from '../Courses/CourseCard'
 import React from 'react'
 import './Library.less'
 
-const Library = ({ modal, onCreateCourse }) => {
+const Library = ({ modal, onCreateCourse, courses = [], uid }) => {
   return (
     <Layout>
       <Layout.Header>
@@ -30,6 +31,16 @@ const Library = ({ modal, onCreateCourse }) => {
           onOk={onCreateCourse}
           onCancel={modal.hideModal('createCourse')} />
       )}
+
+      <Layout.Content style={{ padding: '30px 50px' }}>
+        <Row gutter={24} align='middle'>
+          {courses.map((course, key) => (
+            <Col span={12} key={key}>
+              <CourseCard course={course} editable />
+            </Col>
+          ))}
+        </Row>
+      </Layout.Content>
     </Layout>
   )
 }

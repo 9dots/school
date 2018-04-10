@@ -11,6 +11,7 @@ import './TaskDetails.less'
 const TaskDetails = props => {
   const {
     confirmLoading,
+    handleProps,
     setEditKey,
     removeTask,
     editTask,
@@ -31,7 +32,10 @@ const TaskDetails = props => {
           </Col>
           <Col className='actions'>
             <Icon type='edit' onClick={() => setEditKey(id)} />
-            <Icon type='swap' style={{ transform: 'rotate(90deg)' }} />
+            <Icon
+              type='swap'
+              style={{ transform: 'rotate(90deg)' }}
+              {...handleProps} />
             <Icon type='delete' onClick={removeTask} />
           </Col>
         </Row>
