@@ -1,7 +1,7 @@
+import CreateCourseModal from '../CreateCourseModal'
 import { Layout, Button, Row, Col } from 'antd'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
-import CreateCourseModal from '../CreateCourseModal'
 import React from 'react'
 import './Library.less'
 

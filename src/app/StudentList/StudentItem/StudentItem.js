@@ -1,13 +1,12 @@
-import { compose, withHandlers, withProps } from 'recompose'
+import { compose, withHandlers } from 'recompose'
 import { stopEvent } from '../../../utils'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { rpc } from '../../actions'
-import { Link } from 'react-router-dom'
 import React from 'react'
 import {
   Progress,
-  Avatar,
   Dropdown,
   Popover,
   message,
@@ -25,15 +24,6 @@ const enhancer = compose(
   connect(({ firestore: { data } }, props) => ({ student: data[props.uid] }), {
     rpc
   }),
-  withProps(props => ({
-    progress: (props.studentProgress.progress || []).reduce(
-      (acc, p) => ({
-        ...acc,
-        [p.activity]: p.progress
-      }),
-      {}
-    )
-  })),
   withHandlers({
     deleteStudent: ({
       rpc,
@@ -96,13 +86,13 @@ const StudentItem = ({
 
   const content = tasks.length ? (
     <div style={width}>
-      {tasks.map(({ displayName, id }) => (
+      {progress.map(({ displayName, id, progress: percent }) => (
         <Row key={id} type='flex' align='center' style={{ padding: '10px 0' }}>
           <Col className='ellipsis flex-grow' style={{ paddingRight: 20 }}>
             {displayName}
           </Col>
           <Col>
-            <Progress type='circle' width={30} percent={progress[id]} />
+            <Progress type='circle' width={30} percent={percent} />
           </Col>
         </Row>
       ))}

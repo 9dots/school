@@ -14,6 +14,45 @@ import React from 'react'
 import './TeacherClass.less'
 
 const TeacherClass = props => {
+  const { progressByStudent, classData = {} } = props
+
+  const { assignedLesson } = classData
+
+  return (
+    <Switch>
+      <Route
+        exact
+        path='/class/:classId/lesson/:lessonId/:taskNum/:uid'
+        render={routeProps =>
+          progressByStudent[routeProps.match.params.uid] &&
+          progressByStudent[routeProps.match.params.uid].progress ? (
+              <LessonStudentView
+                {...routeProps}
+                teacherView
+                progress={progressByStudent[routeProps.match.params.uid].progress}
+                assignedLesson={assignedLesson}
+                profile={progressByStudent[routeProps.match.params.uid].student}
+                key={
+                  routeProps.match.params.lessonId +
+                routeProps.match.params.taskNum
+                } />
+            ) : (
+              <Loading />
+            )
+        } />
+      <Route
+        exact
+        path='/class/:classId'
+        render={() => <ClassView {...props} />} />
+    </Switch>
+  )
+}
+
+TeacherClass.propTypes = {}
+
+export default TeacherClass
+
+const ClassView = props => {
   const {
     progressByStudent,
     activeByTask,
@@ -26,8 +65,7 @@ const TeacherClass = props => {
 
   const modules = Object.keys(classData.modules || {})
   const students = Object.keys(classData.students || {})
-
-  const classView = (
+  return (
     <Layout className='class'>
       <Layout.Header>
         <h2>{classData.displayName}</h2>
@@ -82,36 +120,7 @@ const TeacherClass = props => {
       </Layout>
     </Layout>
   )
-  return (
-    <Switch>
-      <Route
-        exact
-        path='/class/:classId/lesson/:lessonId/:taskNum/:uid'
-        render={routeProps =>
-          progressByStudent[routeProps.match.params.uid] &&
-          progressByStudent[routeProps.match.params.uid].progress ? (
-              <LessonStudentView
-                {...routeProps}
-                teacherView
-                progress={progressByStudent[routeProps.match.params.uid].progress}
-                assignedLesson={assignedLesson}
-                profile={progressByStudent[routeProps.match.params.uid].student}
-                key={
-                  routeProps.match.params.lessonId +
-                routeProps.match.params.taskNum
-                } />
-            ) : (
-              <Loading />
-            )
-        } />
-      <Route exact path='/class/:classId' render={() => classView} />
-    </Switch>
-  )
 }
-
-TeacherClass.propTypes = {}
-
-export default TeacherClass
 
 const NoCourses = props => {
   return (
