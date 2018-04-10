@@ -14,8 +14,8 @@ const AddTask = enhancer(
           borderTop: '1px solid #e3e3e3',
           paddingTop: 15
         }}>
-        <Row>
-          <Col span={20}>
+        <Row type='flex' gutter={16}>
+          <Col className='flex-grow'>
             <Form.Item>
               <Field
                 placeholder='Link to resource...'
@@ -23,7 +23,7 @@ const AddTask = enhancer(
                 component={TextField} />
             </Form.Item>
           </Col>
-          <Col span={4}>
+          <Col>
             <Form.Item style={{ textAlign: 'right' }}>
               <Button
                 style={{ marginRight: 10 }}
@@ -41,7 +41,6 @@ const AddTask = enhancer(
           </Col>
         </Row>
       </Form>
-      // </div>
     )
   }
 )
