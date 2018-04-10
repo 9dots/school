@@ -28,22 +28,20 @@ class Sidebar extends React.PureComponent {
 
     return (
       <div className='main-sidebar'>
-        {!!isTeacher && (
-          <UserMenu
-            logout={logout}
-            overlayStyle={{ margin: '0 10px' }}
-            button={
-              <Row type='flex' align='middle' style={{ padding: '10px 20px' }}>
-                <Col>
-                  <Avatar icon='user' />
-                </Col>
-                <Col className='flex-grow'>{profile.displayName}</Col>
-                <Col>
-                  <Icon type='caret-down' style={{ fontSize: 9 }} />
-                </Col>
-              </Row>
-            } />
-        )}
+        <UserMenu
+          logout={logout}
+          overlayStyle={{ margin: '0 10px' }}
+          button={
+            <Row type='flex' align='middle' style={{ padding: '10px 20px' }}>
+              <Col>
+                <Avatar icon='user' />
+              </Col>
+              <Col className='flex-grow'>{profile.displayName}</Col>
+              <Col>
+                <Icon type='caret-down' style={{ fontSize: 9 }} />
+              </Col>
+            </Row>
+          } />
         <Menu
           theme='dark'
           mode='inline'
@@ -51,16 +49,20 @@ class Sidebar extends React.PureComponent {
           // onOpenChange={this.toggleSubMenu}
           selectedKeys={[window.location.pathname]}
           style={{ borderRight: 0 }}>
-          <Menu.Item key={'/courses'}>
-            <Link to='/courses'>
-              <Icon type='appstore-o' />Courses
-            </Link>
-          </Menu.Item>
-          <Menu.Item key='/analytics'>
-            <Link to='/analytics'>
-              <Icon type='dot-chart' />Analytics
-            </Link>
-          </Menu.Item>
+          {isTeacher && (
+            <Menu.Item key={'/courses'}>
+              <Link to='/courses'>
+                <Icon type='appstore-o' />Courses
+              </Link>
+            </Menu.Item>
+          )}
+          {isTeacher && (
+            <Menu.Item key='/analytics'>
+              <Link to='/analytics'>
+                <Icon type='dot-chart' />Analytics
+              </Link>
+            </Menu.Item>
+          )}
           {mapValues(
             (school, key) => (
               <Menu.SubMenu

@@ -1,13 +1,13 @@
 import AddCourseWrapper from 'app/AddCourseModal/AddCourseWrapper'
-import modalContainer from 'components/modalContainer'
 import { Card, Icon, Button, Avatar } from 'antd'
 import { stopEvent } from '../../../utils'
+import enhancer from './enhancer'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import React from 'react'
 import './CourseCard.less'
 
-const CourseCard = ({ course, modal }) => {
+const CourseCard = ({ course, modal, editable, editCourse }) => {
   const {
     displayName,
     tags = {},
@@ -33,9 +33,17 @@ const CourseCard = ({ course, modal }) => {
             </span>
           }
           extra={
-            <Button onClick={stopEvent(modal.showModal(id))}>
-              <Icon type='plus' />Add to Class
-            </Button>
+            <span>
+              <Button onClick={stopEvent(modal.showModal(id))}>
+                <Icon type='plus' />Add to Class
+              </Button>
+              {editable && (
+                <Button
+                  style={{ marginLeft: 8 }}
+                  onClick={stopEvent(() => editCourse())}
+                  icon='edit' />
+              )}
+            </span>
           }>
           <div className='course-description'>{description}</div>
           <Card.Meta
@@ -77,7 +85,7 @@ const CourseCard = ({ course, modal }) => {
 
 CourseCard.propTypes = {}
 
-export default modalContainer(CourseCard)
+export default enhancer(CourseCard)
 
 function getSuccessModal (id) {
   return 'success-' + (id || 'modal')
