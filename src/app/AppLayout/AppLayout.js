@@ -32,7 +32,7 @@ class AppLayout extends Component {
       <Layout>
         <Switch>
           <Route path='/class/:classId/lesson/' />
-          <Route path='/library' />
+          {/* <Route path='/library' /> */}
           <Route path='**' render={Sider} />
         </Switch>
         <Layout.Content>{children}</Layout.Content>

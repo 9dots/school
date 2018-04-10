@@ -1,6 +1,6 @@
 import { firestoreConnect } from 'react-redux-firebase'
 import waitFor from '../../components/waitFor/waitFor'
-import { Layout, Divider, Row, Col, Icon } from 'antd'
+import { Layout, Row, Col, Icon } from 'antd'
 import { courses } from '../../selectors'
 import CourseCard from './CourseCard'
 import { connect } from 'react-redux'

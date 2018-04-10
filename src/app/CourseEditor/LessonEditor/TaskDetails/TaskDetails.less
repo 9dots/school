@@ -1,6 +1,20 @@
+@import "../../../../theme/vars/vars.less";
+
 /* TaskDetails less */
 
 .task-details {
+  padding: 12px 24px;
+  background: white;
+  margin: 0 -24px;
+
+  &:not(.first) {
+    border-top: 1px solid #e3e3e3;
+  }
+  &.dragging {
+    border-top: none;
+    padding: 12px;
+    box-shadow: @z-shadow-1;
+  }
   .task-details-inner {
     width: 100%;
   }
@@ -15,7 +29,7 @@
     .anticon {
       cursor: pointer;
       font-size: 18px;
-      margin: 0 15px;
+      margin-left: 20px;
     }
   }
 }
