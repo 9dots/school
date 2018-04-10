@@ -59,7 +59,6 @@ const commonProps = {
 }
 
 const SchoolModal = props => {
-  console.log(props.isLoaded)
   if (!props.isLoaded) return <span />
   return (
     <Modal
