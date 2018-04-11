@@ -1,6 +1,6 @@
 import { TextField, TextAreaField, SelectField } from 'redux-form-antd'
-import { Field, Fields } from 'redux-form'
 import { Modal, Form, Row, Col } from 'antd'
+import { Field, Fields } from 'redux-form'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
 import React from 'react'
@@ -10,14 +10,18 @@ import './CreateCourseModal.less'
 const durationFields = fields => (
   <Row gutter={8}>
     <Col span={8}>
-      <TextField type='number' placeholder='30' {...fields.time} />
+      <TextField
+        log={console.log(fields)}
+        type='number'
+        placeholder='30'
+        {...fields.duration.time} />
     </Col>
     <Col span={16}>
       <SelectField
         fluid
         placeholder='Minutes'
         options={timeUnits.map(unit => ({ label: unit, value: unit }))}
-        {...fields.unit} />
+        {...fields.duration.unit} />
     </Col>
   </Row>
 )
@@ -70,7 +74,9 @@ const CreateCourseModal = props => {
           </Col>
           <Col span={15}>
             <Form.Item label='Duration'>
-              <Fields names={['unit', 'time']} component={durationFields} />
+              <Fields
+                names={['duration.unit', 'duration.time']}
+                component={durationFields} />
             </Form.Item>
           </Col>
         </Row>

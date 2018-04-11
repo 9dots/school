@@ -3,23 +3,26 @@ import React from 'react'
 import { Layout, Button, Icon, Menu } from 'antd'
 import './Header.less'
 
-const Header = ({ course, setMode, mode }) => {
+const Header = ({ course, setMode, mode, setUrl }) => {
   const {
-    displayName,
-    difficulty,
     duration = {},
+    displayName,
     description,
+    difficulty,
     tags = {}
-    // imageUrl,
-    // id,
   } = course
 
   return (
     <Layout className='course-editor-header'>
       <Layout.Header>
-        <a style={{ float: 'left' }} href='/library'>
+        <a style={{ float: 'left' }}>
           <h3>
-            <Button icon='left' shape='circle' type='primary' ghost />&ensp;BACK
+            <Button
+              onClick={() => setUrl('/library')}
+              icon='left'
+              shape='circle'
+              type='primary'
+              ghost />&ensp;BACK
           </h3>
         </a>
         <div className='actions'>

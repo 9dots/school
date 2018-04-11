@@ -22,7 +22,8 @@ function getIdToken (getFirebase) {
     .currentUser.getIdToken()
 }
 
-const setUrl = (history, url, opts = {}) => dispatch => {
+const setUrl = (url, opts = {}) => (dispatch, getState, history) => {
+  console.log(history)
   return history.push(url, opts)
 }
 

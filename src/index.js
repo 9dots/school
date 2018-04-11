@@ -1,6 +1,6 @@
-import BrowserRouter from 'react-router-dom/BrowserRouter'
+import Router from 'react-router-dom/Router'
 import registerServiceWorker from './registerServiceWorker'
-import createStore from 'configureStore'
+import createStore, { history } from 'configureStore'
 import { Provider } from 'react-redux'
 import { routes } from 'app/Router'
 import ReactDOM from 'react-dom'
@@ -16,7 +16,7 @@ const store = createStore()
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>{routes}</BrowserRouter>
+    <Router history={history}>{routes}</Router>
   </Provider>,
   document.getElementById('root')
 )

@@ -1,9 +1,9 @@
+import createBrowserHistory from 'history/createBrowserHistory'
 import { createStore, applyMiddleware, compose } from 'redux'
 import fetch, { fetchEncodeJSON } from 'redux-effects-fetch'
 import { reactReduxFirebase } from 'react-redux-firebase'
 import { reduxFirestore } from 'redux-firestore'
 import createSagaMiddleware from 'redux-saga'
-import location from 'redux-effects-location'
 import { createLogger } from 'redux-logger'
 import rootReducer from './app/reducers'
 import effects from 'redux-effects'
@@ -11,9 +11,8 @@ import firebase from 'firebase'
 import thunk from 'redux-thunk'
 import 'firebase/firestore'
 
-// const loggerMiddleware = createLogger()
-
-var config = {
+const history = createBrowserHistory()
+const config = {
   apiKey: 'AIzaSyBu6M3-jHVZqDxh6QSsD5ydDEWzB23Ng34',
   authDomain: 'school-5927d.firebaseapp.com',
   databaseURL: 'https://school-5927d.firebaseio.com',
@@ -39,16 +38,16 @@ const createStoreWithFirebase = compose(
   reduxFirestore(firebase)
 )(createStore)
 
-export default (initialState = {}, history) => {
+export { history }
+export default (initialState = {}) => {
   const sagaMiddleware = createSagaMiddleware()
   const middleware = [
+    thunk.withExtraArgument(history),
     fetchEncodeJSON,
     sagaMiddleware,
     // createLogger(),
-    location(),
     effects,
-    fetch,
-    thunk
+    fetch
   ]
   const store = createStoreWithFirebase(
     rootReducer,

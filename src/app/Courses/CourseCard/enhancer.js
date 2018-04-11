@@ -10,8 +10,8 @@ export default compose(
   connect(null, { setUrl }),
   withHandlers({
     editCourse: props => async values => {
-      const { setUrl, history, course } = props
-      await setUrl(history, `/courses/${course.id}/edit`)
+      const { setUrl, course } = props
+      await setUrl(`/courses/${course.id}/edit`)
     }
   })
 )

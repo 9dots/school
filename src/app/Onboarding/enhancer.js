@@ -12,11 +12,11 @@ import { message } from 'antd'
 const profileDetailEnhancer = compose(
   formModal({ form: 'onboarding' }),
   withHandlers({
-    onSubmit: ({ history, uid, rpc, setLoading, setUrl }) => async values => {
+    onSubmit: ({ uid, rpc, setLoading, setUrl }) => async values => {
       setLoading(true)
       try {
         await rpc('user.teacherSignUp', { teacher: uid, ...values })
-        setUrl(history, '/onboarding/class')
+        setUrl('/onboarding/class')
       } catch (e) {
         setLoading(false)
         if (e === 'school_not_found') {
@@ -39,8 +39,8 @@ const profileDetailEnhancer = compose(
 
 const classOnboardingEnhancer = compose(
   withHandlers({
-    close: ({ history, setUrl }) => async msg => {
-      setUrl(history, '/')
+    close: ({ setUrl }) => async msg => {
+      setUrl('/')
     }
   }),
   waitFor(['school'])
