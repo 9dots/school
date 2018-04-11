@@ -51,7 +51,9 @@ const routes = (
   </Switch>
 )
 
-const Router = props => <BrowserRouter>{routes}</BrowserRouter>
+const Router = props => (
+  <BrowserRouter history={props.history}>{routes}</BrowserRouter>
+)
 
 export default Router
 export { routes }

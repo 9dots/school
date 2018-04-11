@@ -11,17 +11,18 @@ import './CourseEditor.less'
 
 const CourseEditor = ({
   course = {},
-  courseId,
   setEditKey,
+  courseId,
   editKey,
   setMode,
+  setUrl,
   mode
 }) => {
   const { lessons = [] } = course
 
   return (
     <div>
-      <Header course={course} setMode={setMode} mode={mode} />
+      <Header setUrl={setUrl} course={course} setMode={setMode} mode={mode} />
       <div className='main-col'>
         {mode === 'edit' ? (
           <span>

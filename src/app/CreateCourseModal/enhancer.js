@@ -21,12 +21,12 @@ export default compose(
   ),
   withHandlers({
     onSubmit: props => async values => {
-      const { setUrl, history, ok, setLoading, rpc } = props
+      const { setUrl, ok, setLoading, rpc } = props
       setLoading(true)
       try {
-        const { course } = await rpc('course.create', values)
+        const { course } = await rpc('course.create', formatSubmit(values))
         ok(`Success! Created ${values.displayName}.`)
-        await setUrl(history, `/courses/${course}/edit`)
+        await setUrl(`/courses/${course}/edit`)
       } catch (e) {
         setLoading(false)
         if (e.errorDetails) {
@@ -42,3 +42,15 @@ export default compose(
     }
   })
 )
+
+function formatSubmit (values) {
+  const { tags = [], duration = {} } = values
+  return {
+    ...values,
+    duration: {
+      time: Number(duration.time || 0),
+      unit: (duration.unit || '').toLowerCase()
+    },
+    tags: tags.reduce((acc, val, key) => ({ ...acc, [val]: true }), {})
+  }
+}

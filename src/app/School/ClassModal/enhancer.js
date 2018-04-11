@@ -20,13 +20,13 @@ export default compose(
   ),
   withHandlers({
     onSubmit: props => async values => {
-      const { setUrl, history, school, ok, setLoading, rpc } = props
+      const { setUrl, school, ok, setLoading, rpc } = props
       setLoading(true)
       try {
         const cls = await rpc('class.createClass', { ...values, school })
         ok(`Success! Created ${values.displayName}.`)
         await rpc('user.setNav', { class: cls.class })
-        await setUrl(history, `/class/${cls.class}`)
+        await setUrl(`/class/${cls.class}`)
       } catch (e) {
         setLoading(false)
         if (e === 'school_not_found') {
