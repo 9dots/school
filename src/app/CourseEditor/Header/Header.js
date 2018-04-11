@@ -1,6 +1,7 @@
+import { Layout, Button, Icon, Menu } from 'antd'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { Layout, Button, Icon, Menu } from 'antd'
 import './Header.less'
 
 const Header = ({ course, setMode, mode }) => {
@@ -17,11 +18,11 @@ const Header = ({ course, setMode, mode }) => {
   return (
     <Layout className='course-editor-header'>
       <Layout.Header>
-        <a style={{ float: 'left' }} href='/library'>
+        <Link style={{ float: 'left' }} to='/library'>
           <h3>
             <Button icon='left' shape='circle' type='primary' ghost />&ensp;BACK
           </h3>
-        </a>
+        </Link>
         <div className='actions'>
           <Button style={{ marginRight: 10 }}>Saving…</Button>
           <Button type='primary'>Publish</Button>

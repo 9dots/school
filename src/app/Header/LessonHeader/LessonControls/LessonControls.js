@@ -10,7 +10,7 @@ import './LessonControls.less'
 const path1Re = toRegexp('/class/:classId/lesson/:lessonId/:taskNum')
 const path2Re = toRegexp('/class/:classId/lesson/:lessonId/:taskNum/:uid')
 
-const LessonControls = ({ lesson }) => {
+const LessonControls = ({ lesson, progress }) => {
   const { pathname } = window.location
   const [, classId, lessonId, current, uid = ''] = path2Re.test(pathname)
     ? path2Re.exec(pathname)
@@ -18,8 +18,7 @@ const LessonControls = ({ lesson }) => {
   const path = urlJoin('/class', classId, 'lesson', lessonId)
 
   const cur = parseInt(current, 10)
-  const { tasks = [] } = lesson
-  const isLast = tasks.length <= cur + 1
+  const isLast = progress.length <= cur + 1
 
   return (
     <div className='lesson-controls'>
@@ -27,11 +26,12 @@ const LessonControls = ({ lesson }) => {
         <Icon type='left' size='large' />
       </Link>
       <span className='dots'>
-        {tasks.map((val, key) => (
+        {progress.map((val, key) => (
           <Link
             key={key}
             to={urlJoin(path, '' + key, uid)}
-            className={getDotClasses(key)} />
+            className={getClasses(val)}
+            log={console.log(val)} />
         ))}
       </span>
       <Link to={next()}>
@@ -49,15 +49,16 @@ const LessonControls = ({ lesson }) => {
   function next () {
     return isLast
       ? `/class/${classId}/`
-      : urlJoin(path, '' + Math.min(tasks.length - 1, cur + 1), uid)
+      : urlJoin(path, '' + Math.min(progress.length - 1, cur + 1), uid)
   }
 
-  function getDotClasses (i) {
-    let classes = 'dot '
-    if (cur === i) classes += 'current '
-    if (cur >= i) classes += 'active '
-
-    return classes
+  function getClasses ({ completed, active, started }) {
+    console.log()
+    let name = 'dot'
+    if (completed) name += ' completed'
+    if (started) name += ' started'
+    if (active) name += ' active'
+    return name
   }
 }
 

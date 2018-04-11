@@ -17,10 +17,10 @@ export default compose(
   connect((state, props) => ({
     uid: uid(state)
   })),
-  firestoreConnect(props => [
+  firestoreConnect(({ uid }) => [
     {
       collection: 'courses',
-      where: ['owner', '==', 'GcJyzb0oWSP493THvNUqnMrHlTw2' /* props.uid */]
+      where: ['owner', '==', uid]
     }
   ]),
   connect((state, props) => ({

@@ -19,7 +19,7 @@ export default compose(
     {
       collection: 'classes',
       where: [`teachers.${props.uid}`, '==', true],
-      storeAs: `allClasses`
+      storeAs: `teacherClasses`
     }
   ]),
   connect(
