@@ -8,7 +8,14 @@ import React from 'react'
 
 import './LessonHeader.less'
 
-const LessonHeader = ({ profile, classId, lessonId, taskNum, lesson }) => {
+const LessonHeader = ({
+  profile,
+  classId,
+  lessonId,
+  taskNum,
+  lesson,
+  progress
+}) => {
   return (
     <Layout className='lesson-header'>
       <Layout.Sider width={styles['@sidebar-width']}>
@@ -20,7 +27,7 @@ const LessonHeader = ({ profile, classId, lessonId, taskNum, lesson }) => {
         </h2>
       </Layout.Sider>
       <Layout.Content style={{ textAlign: 'center' }}>
-        <LessonControls lesson={lesson} />
+        <LessonControls lesson={lesson} progress={progress} />
       </Layout.Content>
       <Layout.Sider width={styles['@sidebar-width']}>
         <UserMenu

@@ -23,6 +23,7 @@ const LessonStudentView = ({
         render={({ match: { params } }) => (
           <Layout.Header>
             <LessonHeader
+              progress={progress}
               profile={profile}
               lesson={assignedLesson}
               {...params} />

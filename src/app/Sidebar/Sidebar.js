@@ -30,6 +30,7 @@ class Sidebar extends React.PureComponent {
       <div className='main-sidebar'>
         <UserMenu
           logout={logout}
+          isTeacher={isTeacher}
           overlayStyle={{ margin: '0 10px' }}
           button={
             <Row type='flex' align='middle' style={{ padding: '10px 20px' }}>
@@ -56,13 +57,13 @@ class Sidebar extends React.PureComponent {
               </Link>
             </Menu.Item>
           )}
-          {isTeacher && (
+          {/* {isTeacher && (
             <Menu.Item key='/analytics'>
               <Link to='/analytics'>
                 <Icon type='dot-chart' />Analytics
               </Link>
             </Menu.Item>
-          )}
+          )} */}
           {mapValues(
             (school, key) => (
               <Menu.SubMenu
