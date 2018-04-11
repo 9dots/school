@@ -1,9 +1,11 @@
+import CreateCourseModal from 'app/CreateCourseModal'
+import { Layout, Button, Icon, Menu } from 'antd'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { Layout, Button, Icon, Menu } from 'antd'
 import './Header.less'
 
-const Header = ({ course, setMode, mode, setUrl }) => {
+const Header = ({ modal, course, setMode, mode, setUrl }) => {
   const {
     duration = {},
     displayName,
@@ -15,24 +17,21 @@ const Header = ({ course, setMode, mode, setUrl }) => {
   return (
     <Layout className='course-editor-header'>
       <Layout.Header>
-        <a style={{ float: 'left' }}>
+        <Link style={{ float: 'left' }} to='/library'>
           <h3>
-            <Button
-              onClick={() => setUrl('/library')}
-              icon='left'
-              shape='circle'
-              type='primary'
-              ghost />&ensp;BACK
+            <Button icon='left' shape='circle' type='primary' ghost />&ensp;BACK
           </h3>
-        </a>
+        </Link>
         <div className='actions'>
-          <Button style={{ marginRight: 10 }}>Saving…</Button>
           <Button type='primary'>Publish</Button>
         </div>
       </Layout.Header>
       <Layout.Content>
         <h1>
-          {displayName}&ensp;<Icon type='edit' style={{ fontSize: 19 }} />
+          {displayName}&ensp;<Icon
+            onClick={modal.showModal('editCourse')}
+            type='edit'
+            style={{ cursor: 'pointer', fontSize: 19 }} />
         </h1>
         <p>{description}</p>
         <div className='meta'>
@@ -56,6 +55,14 @@ const Header = ({ course, setMode, mode, setUrl }) => {
           <Icon type='eye-o' />Preview
         </Menu.Item>
       </Menu>
+      {modal.isVisible('editCourse') && (
+        <CreateCourseModal
+          visible
+          edit
+          initialValues={course}
+          onOk={modal.hideModal('editCourse')}
+          onCancel={modal.hideModal('editCourse')} />
+      )}
     </Layout>
   )
 }

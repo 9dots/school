@@ -4,23 +4,26 @@ import waitFor from '../../components/waitFor/waitFor'
 import { compose, withHandlers } from 'recompose'
 import { courses, uid } from '../../selectors'
 import { connect } from 'react-redux'
-import { message } from 'antd'
+import { setUrl } from 'app/actions'
 
 export default compose(
   modalContainer,
+  connect(
+    (state, props) => ({
+      uid: uid(state)
+    }),
+    { setUrl }
+  ),
   withHandlers({
-    onCreateCourse: props => msg => {
+    onCreateCourse: props => course => {
       props.hideModal('createCourse')
-      message.success(msg)
+      props.setUrl(`/courses/${course}/edit`)
     }
   }),
-  connect((state, props) => ({
-    uid: uid(state)
-  })),
-  firestoreConnect(props => [
+  firestoreConnect(({ uid }) => [
     {
       collection: 'courses',
-      where: ['owner', '==', props.uid]
+      where: ['owner', '==', uid]
     }
   ]),
   connect((state, props) => ({
