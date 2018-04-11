@@ -1,28 +1,29 @@
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import LessonEditor from './LessonEditor'
 import LessonForm from './LessonForm'
 import PropTypes from 'prop-types'
+import { Icon, Card } from 'antd'
 import enhancer from './enhancer'
 import Course from '../Course'
 import Header from './Header'
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
-import { Icon, Card } from 'antd'
 import React from 'react'
 import './CourseEditor.less'
 
-const CourseEditor = ({
-  course = {},
-  setEditKey,
-  courseId,
-  editKey,
-  setMode,
-  setUrl,
-  mode
-}) => {
+const CourseEditor = props => {
+  const {
+    course = {},
+    setEditKey,
+    courseId,
+    editKey,
+    setMode,
+    modal,
+    mode
+  } = props
   const { lessons = [] } = course
 
   return (
     <div>
-      <Header setUrl={setUrl} course={course} setMode={setMode} mode={mode} />
+      <Header modal={modal} course={course} setMode={setMode} mode={mode} />
       <div className='main-col'>
         {mode === 'edit' ? (
           <span>
@@ -39,7 +40,6 @@ const CourseEditor = ({
                         {(provided, snapshot) => (
                           <div>
                             <div
-                              // className={getClasses(snapshot, i)}
                               ref={provided.innerRef}
                               {...provided.draggableProps}>
                               <LessonEditor

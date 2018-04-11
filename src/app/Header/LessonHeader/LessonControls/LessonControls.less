@@ -1,3 +1,5 @@
+@import "../../../../theme/vars/palette.less";
+
 /* LessonControls less */
 
 .lesson-controls {
@@ -29,14 +31,14 @@
     width: @size;
     border-radius: 50%;
     display: inline-block;
-    opacity: 0.5;
-    transition: all 0.15s;
-    transform: scale(1);
+    background: fade(white, 50);
     &.active {
-      opacity: 1;
-    }
-    &.current {
       transform: scale(1.3);
+      border: 1px solid white;
+    }
+    &.completed {
+      background: @green;
+      border: none;
     }
   }
 }

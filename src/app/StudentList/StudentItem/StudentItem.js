@@ -64,10 +64,6 @@ const StudentItem = ({
   const { student, progress = [] } = studentProgress
   const { displayName } = student
 
-  const width = {
-    width: 210,
-    maxWidth: 210
-  }
 
   const idx = progress.findIndex((p, i) => p.active)
   const active = idx > -1 ? progress[idx] : false
@@ -76,7 +72,7 @@ const StudentItem = ({
     : ''
 
   const title = (
-    <div style={{ textAlign: 'center', padding: 7, ...width }}>
+    <div style={{ textAlign: 'center', padding: 7 }}>
       <h3>{displayName}</h3>
       <Link disabled={!active} to={path}>
         View Work
@@ -85,7 +81,7 @@ const StudentItem = ({
   )
 
   const content = tasks.length ? (
-    <div style={width}>
+    <div>
       {progress.map(({ displayName, id, progress: percent }) => (
         <Row key={id} type='flex' align='center' style={{ padding: '10px 0' }}>
           <Col className='ellipsis flex-grow' style={{ paddingRight: 20 }}>
@@ -105,7 +101,7 @@ const StudentItem = ({
     <Popover
       placement='leftTop'
       title={title}
-      style={{ width: 200 }}
+      overlayClassName='student-popover'
       content={content}
       trigger='click'>
       <Row

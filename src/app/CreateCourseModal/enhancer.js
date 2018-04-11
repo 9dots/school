@@ -21,12 +21,13 @@ export default compose(
   ),
   withHandlers({
     onSubmit: props => async values => {
-      const { setUrl, ok, setLoading, rpc } = props
+      const { ok, setLoading, rpc, edit } = props
+      const fn = edit ? 'course.update' : 'course.create'
       setLoading(true)
       try {
-        const { course } = await rpc('course.create', formatSubmit(values))
-        ok(`Success! Created ${values.displayName}.`)
-        await setUrl(`/courses/${course}/edit`)
+        const { course } = await rpc(fn, formatSubmit(values))
+        message.success(`Success! Created ${values.displayName}.`)
+        ok(course)
       } catch (e) {
         setLoading(false)
         if (e.errorDetails) {
