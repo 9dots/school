@@ -71,7 +71,10 @@ export default compose(
       if (!this.props.isLoaded && nextProps.isLoaded) {
         this.props.setOrderedLessons(nextProps.course.lessons)
       }
-      if (!deepEqual(this.props.course, nextProps.course)) {
+      if (
+        this.props.isLoaded &&
+        !deepEqual(this.props.course, nextProps.course)
+      ) {
         this.props.setOrderedLessons(nextProps.course.lessons)
       }
     }
