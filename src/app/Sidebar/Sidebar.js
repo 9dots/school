@@ -11,8 +11,6 @@ import React from 'react'
 import './Sidebar.less'
 
 class Sidebar extends React.PureComponent {
-  // state = { openKeys: Object.keys(this.props.profile.schools) }
-  // toggleSubMenu = openKeys => this.setState({ openKeys })
   render () {
     const {
       classesBySchool = [],
@@ -22,7 +20,6 @@ class Sidebar extends React.PureComponent {
       logout,
       profile
     } = this.props
-    // const { openKeys } = this.state
     const roles = mapValues(role => role, profile.schools)
     const isTeacher = roles.indexOf('teacher') > -1
 
@@ -47,7 +44,6 @@ class Sidebar extends React.PureComponent {
           theme='dark'
           mode='inline'
           openKeys={Object.keys(classesBySchool)}
-          // onOpenChange={this.toggleSubMenu}
           selectedKeys={[window.location.pathname]}
           style={{ borderRight: 0 }}>
           {isTeacher && (
@@ -57,13 +53,6 @@ class Sidebar extends React.PureComponent {
               </Link>
             </Menu.Item>
           )}
-          {/* {isTeacher && (
-            <Menu.Item key='/analytics'>
-              <Link to='/analytics'>
-                <Icon type='dot-chart' />Analytics
-              </Link>
-            </Menu.Item>
-          )} */}
           {mapValues(
             (school, key) => (
               <Menu.SubMenu

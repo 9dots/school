@@ -27,9 +27,16 @@ const StudentList = props => {
     <div
       style={{
         minHeight: 'calc(100vh - 62px)',
-        borderLeft: '1px solid #e8e8e8',
-        paddingTop: 20
+        borderLeft: '1px solid #e8e8e8'
       }}>
+      <div
+        style={{
+          padding: '10px 16px',
+          textTransform: 'uppercase',
+          letterSpacing: 1
+        }}>
+        Students
+      </div>
       <Menu
         mode='vertical-right'
         selectedKeys={[]}

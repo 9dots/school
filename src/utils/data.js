@@ -76,4 +76,19 @@ const difficulty = [
   }
 ]
 
-export { grades, difficulty }
+const timeUnits = ['Minutes', 'Hours', 'Days', 'Weeks', 'Months']
+
+const tags = [
+  'Computer Science',
+  'Javascript',
+  'World Languages',
+  'Social Studies',
+  'Science',
+  'Mathematics',
+  'Language Arts',
+  'Health & PE',
+  'Creative Arts',
+  'Professional Development'
+]
+
+export { grades, difficulty, tags, timeUnits }
