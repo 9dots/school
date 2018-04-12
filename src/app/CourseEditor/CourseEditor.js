@@ -11,15 +11,19 @@ import './CourseEditor.less'
 
 const CourseEditor = props => {
   const {
+    orderedLessons: lessons = [],
     course = {},
     setEditKey,
+    isLoaded,
     courseId,
     editKey,
     setMode,
+    onDrop,
     modal,
     mode
   } = props
-  const { lessons = [] } = course
+
+  if (!isLoaded) return <span />
 
   return (
     <div>
@@ -27,7 +31,7 @@ const CourseEditor = props => {
       <div className='main-col'>
         {mode === 'edit' ? (
           <span>
-            <DragDropContext onDragEnd={console.log}>
+            <DragDropContext onDragEnd={onDrop}>
               <Droppable droppableId='lessons' type='lesson'>
                 {(provided, snapshot) => (
                   <div ref={provided.innerRef}>
