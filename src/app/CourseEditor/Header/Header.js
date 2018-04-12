@@ -1,11 +1,12 @@
 import CreateCourseModal from 'app/CreateCourseModal'
 import { Layout, Button, Icon, Menu } from 'antd'
+import { idsToText } from 'utils/data'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import React from 'react'
 import './Header.less'
 
-const Header = ({ modal, course, setMode, mode, setUrl }) => {
+const Header = ({ courseId, modal, course, setMode, mode, setUrl }) => {
   const {
     duration = {},
     displayName,
@@ -38,9 +39,9 @@ const Header = ({ modal, course, setMode, mode, setUrl }) => {
           <Icon type='clock-circle-o' />
           {duration.time} {duration.unit}
           <Icon type='book' />
-          Level {difficulty}
+          {idsToText('difficulty', difficulty)}
           <Icon type='tags-o' />
-          {Object.keys(tags).join(', ')}
+          {idsToText('tags', Object.keys(tags)).join(', ')}
         </div>
       </Layout.Content>
       <Menu
@@ -59,7 +60,8 @@ const Header = ({ modal, course, setMode, mode, setUrl }) => {
         <CreateCourseModal
           visible
           edit
-          initialValues={course}
+          courseId={courseId}
+          initialValues={{ ...course, tags: Object.keys(course.tags) }}
           onOk={modal.hideModal('editCourse')}
           onCancel={modal.hideModal('editCourse')} />
       )}
