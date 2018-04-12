@@ -8,11 +8,10 @@ const ClassItem = ({ cls, showModal, school, isTeacher }) => {
   return (
     <Link to={`/class/${cls.id}`}>
       <Row type='flex' justify='space-between' align='middle'>
-        <Col>{cls.displayName}</Col>
-        <Col className='class-actions'>
+        <Col className='ellipsis flex-grow'>{cls.displayName}</Col>
+        <Col className='class-actions' style={{ paddingLeft: 10 }}>
           {isTeacher && (
             <Button
-              // type='primary'
               ghost
               onClick={stopEvent(showModal('createStudent'))}
               icon='user-add'
