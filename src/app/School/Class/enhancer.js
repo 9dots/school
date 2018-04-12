@@ -49,7 +49,7 @@ export default compose(
       Object.keys(students).map(student => ({
         collection: 'users',
         doc: student,
-        storeAs: student,
+        storeAs: student
       }))
     )
   ),
