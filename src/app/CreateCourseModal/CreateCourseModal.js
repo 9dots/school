@@ -1,7 +1,7 @@
 import { TextField, TextAreaField, SelectField } from 'redux-form-antd'
+import { difficulty, grades, tags, timeUnits } from 'utils/data'
 import { Modal, Form, Row, Col } from 'antd'
 import { Field, Fields } from 'redux-form'
-import { difficulty, grades } from 'utils/data'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
 import React from 'react'
@@ -11,11 +11,7 @@ import './CreateCourseModal.less'
 const durationFields = fields => (
   <Row gutter={8}>
     <Col span={8}>
-      <TextField
-        log={console.log(fields)}
-        type='number'
-        placeholder='30'
-        {...fields.duration.time} />
+      <TextField type='number' placeholder='30' {...fields.duration.time} />
     </Col>
     <Col span={16}>
       <SelectField
@@ -78,6 +74,13 @@ const CreateCourseModal = props => {
           </Col>
         </Row>
         <Row gutter={24}>
+          <Col span={16}>
+            <Form.Item label='Duration'>
+              <Fields
+                names={['duration.unit', 'duration.time']}
+                component={durationFields} />
+            </Form.Item>
+          </Col>
           <Col span={8}>
             <Form.Item label='Difficulty'>
               <Field
@@ -85,13 +88,6 @@ const CreateCourseModal = props => {
                 placeholder='Select difficulty'
                 options={difficulty.map(diff => diff)}
                 component={SelectField} />
-            </Form.Item>
-          </Col>
-          <Col span={16}>
-            <Form.Item label='Duration'>
-              <Fields
-                names={['duration.unit', 'duration.time']}
-                component={durationFields} />
             </Form.Item>
           </Col>
         </Row>
@@ -103,17 +99,3 @@ const CreateCourseModal = props => {
 CreateCourseModal.propTypes = {}
 
 export default enhancer(CreateCourseModal)
-
-const timeUnits = ['Minutes', 'Hours', 'Days', 'Weeks', 'Months']
-const tags = [
-  'Computer Science',
-  'Javascript',
-  'World Languages',
-  'Social Studies',
-  'Science',
-  'Mathematics',
-  'Language Arts',
-  'Health & PE',
-  'Creative Arts',
-  'Professional Development'
-]
