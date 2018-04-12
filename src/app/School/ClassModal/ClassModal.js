@@ -1,9 +1,10 @@
 import { TextField, SelectField } from 'redux-form-antd'
-import { stopEvent } from '../../../utils'
+import { grades } from 'utils/data'
 import { Modal, Form } from 'antd'
 import { Field } from 'redux-form'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
+import { stopEvent } from 'utils'
 import React from 'react'
 
 import './ClassModal.less'
@@ -11,22 +12,6 @@ import './ClassModal.less'
 const commonProps = {
   validate: v => (v ? '' : 'Required')
 }
-
-const grades = [
-  'k',
-  '1',
-  '2',
-  '3',
-  '4',
-  '5',
-  '6',
-  '7',
-  '8',
-  '9',
-  '10',
-  '11',
-  '12'
-]
 
 const ClassModal = props => (
   <span onClick={stopEvent(() => {})}>
@@ -46,7 +31,7 @@ const ClassModal = props => (
         <Form.Item label='Grade'>
           <Field
             {...commonProps}
-            options={grades.map(grade => ({ label: grade, value: grade }))}
+            options={grades}
             name='grade'
             placeholder='Select a Grade'
             component={SelectField} />

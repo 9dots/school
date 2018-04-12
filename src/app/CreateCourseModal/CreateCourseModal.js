@@ -1,7 +1,7 @@
 import { TextField, TextAreaField, SelectField } from 'redux-form-antd'
+import { difficulty, grades, tags } from 'utils/data'
 import { Modal, Form, Row, Col } from 'antd'
 import { Field, Fields } from 'redux-form'
-import { difficulty, grades } from 'utils/data'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
 import React from 'react'
@@ -11,11 +11,7 @@ import './CreateCourseModal.less'
 const durationFields = fields => (
   <Row gutter={8}>
     <Col span={8}>
-      <TextField
-        log={console.log(fields)}
-        type='number'
-        placeholder='30'
-        {...fields.duration.time} />
+      <TextField type='number' placeholder='30' {...fields.duration.time} />
     </Col>
     <Col span={16}>
       <SelectField
@@ -72,7 +68,9 @@ const CreateCourseModal = props => {
                 name='tags'
                 mode='multiple'
                 style={{ width: 'auto' }}
-                options={tags.sort().map(tag => ({ label: tag, value: tag }))}
+                multiple
+                placeholder='Javascript'
+                options={tags.map(tag => ({ ...tag, value: tag.id }))}
                 component={SelectField} />
             </Form.Item>
           </Col>
@@ -105,15 +103,3 @@ CreateCourseModal.propTypes = {}
 export default enhancer(CreateCourseModal)
 
 const timeUnits = ['Minutes', 'Hours', 'Days', 'Weeks', 'Months']
-const tags = [
-  'Computer Science',
-  'Javascript',
-  'World Languages',
-  'Social Studies',
-  'Science',
-  'Mathematics',
-  'Language Arts',
-  'Health & PE',
-  'Creative Arts',
-  'Professional Development'
-]

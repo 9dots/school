@@ -257,6 +257,10 @@
     "@f/is-function" "^1.1.1"
     "@f/is-object" "^1.1.4"
 
+"@f/pick@^1.1.4":
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/@f/pick/-/pick-1.1.4.tgz#2a7cbe55616f8dfb2f864aad7583aaa662f0cd2a"
+
 "@f/reduce-array@^0.2.1":
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/@f/reduce-array/-/reduce-array-0.2.1.tgz#de8e7b7f837ef1319ea8a35b4ba70169ea7e999f"
@@ -6790,10 +6794,6 @@ redux-firestore@^0.3.2:
   dependencies:
     lodash "^4.17.4"
     prop-types "^15.6.0"
-
-redux-form-antd@^1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/redux-form-antd/-/redux-form-antd-1.0.5.tgz#bd17b78bdebc3b69a4ae148be9134ced2eb53c9d"
 
 redux-form@6.8:
   version "6.8.0"
