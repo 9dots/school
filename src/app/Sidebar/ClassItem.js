@@ -14,7 +14,9 @@ const ClassItem = ({ cls, showModal, school, isTeacher }) => {
             <Button
               // type='primary'
               ghost
-              onClick={stopEvent(showModal('createStudent'))}
+              onClick={stopEvent(
+                showModal({ name: 'createStudent', class: cls })
+              )}
               icon='user-add'
               shape='circle'
               size='small' />

@@ -8,16 +8,19 @@ import React from 'react'
 
 import './Course.less'
 
-const Course = ({
-  modal,
-  added,
-  course,
-  classId,
-  assignedId,
-  onAssign,
-  student,
-  preview
-}) => {
+const Course = props => {
+  const {
+    assignToStudent,
+    assignedId,
+    progress,
+    onAssign,
+    classId,
+    student,
+    preview,
+    course,
+    modal,
+    added
+  } = props
   const {
     displayName = '',
     duration = {},
@@ -75,6 +78,8 @@ const Course = ({
       <LessonList
         student={student}
         assignedId={assignedId}
+        assignToStudent={assignToStudent}
+        progress={progress}
         moduleId={id}
         classId={classId}
         onAssign={onAssign}

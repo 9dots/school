@@ -13,7 +13,7 @@ import './StudentClass.less'
 // TODO: make this less terrible
 
 const StudentClass = props => {
-  const { classData = {}, progressByStudent, auth } = props
+  const { classData = {}, progressByStudent, assignToStudent, auth } = props
   const { classId } = props.match.params
   const { assignedLesson } = classData
 
@@ -46,7 +46,9 @@ const StudentClass = props => {
             <Divider style={{ margin: '45px 0px 40px' }}>Courses</Divider>
             <Modules
               student={auth.uid}
+              assignToStudent={assignToStudent}
               classId={classId}
+              progress={progressByStudent}
               assignedLesson={assignedLesson}
               modules={modules} />
           </div>

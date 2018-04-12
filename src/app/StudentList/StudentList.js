@@ -15,11 +15,9 @@ const StudentList = props => {
   const {
     addStudentSuccess,
     progressByStudent,
-    hideModal,
-    showModal,
-    isVisible,
     students,
     isLoaded,
+    modal,
     tasks
   } = props
   if (!isLoaded) return <Loading />
@@ -56,17 +54,20 @@ const StudentList = props => {
       </Menu>
       {!!students.length && <Divider style={{ margin: 0 }} />}
       <div style={{ padding: '12px 24px' }}>
-        <Button style={{ width: '100%' }} onClick={showModal('createStudent')}>
+        <Button
+          style={{ width: '100%' }}
+          onClick={modal.showModal('createStudent')}>
           <Icon type='plus' />Add Student
         </Button>
       </div>
-      {isVisible('createStudent') && (
+      {modal.isVisible('createStudent') && (
         <CreateStudentModal
-          onCancel={hideModal('createStudent')}
+          onCancel={modal.hideModal('createStudent')}
           onOk={addStudentSuccess}
           school={props.school}
           class={props.class}
-          visible />
+          visible
+          {...modal.getProps('createStudent')} />
       )}
     </div>
   )
