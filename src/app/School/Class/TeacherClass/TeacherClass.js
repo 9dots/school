@@ -111,9 +111,7 @@ const ClassView = props => {
             progressByStudent={progressByStudent}
             students={students}
             addStudentSuccess={props.addStudentSuccess}
-            showModal={props.showModal}
-            hideModal={props.hideModal}
-            isVisible={props.isVisible}
+            modal={props.modal}
             class={{ ...classData, id: classId }}
             school={classData.school} />
         </Layout.Sider>
