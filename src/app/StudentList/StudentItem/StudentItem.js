@@ -64,7 +64,6 @@ const StudentItem = ({
   const { student, progress = [] } = studentProgress
   const { displayName } = student
 
-
   const idx = progress.findIndex((p, i) => p.active)
   const active = idx > -1 ? progress[idx] : false
   const path = active
@@ -94,7 +93,7 @@ const StudentItem = ({
       ))}
     </div>
   ) : (
-    <div style={{ textAlign: 'center' }}>No Lesson Assigned</div>
+    <div style={{ textAlign: 'center', padding: 10 }}>No Lesson Assigned</div>
   )
 
   return (
