@@ -1,6 +1,7 @@
 import { TextField, TextAreaField, SelectField } from 'redux-form-antd'
 import { Modal, Form, Row, Col } from 'antd'
 import { Field, Fields } from 'redux-form'
+import { difficulty, grades } from 'utils/data'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
 import React from 'react'
@@ -54,25 +55,39 @@ const CreateCourseModal = props => {
             placeholder='A little bit about this course...'
             component={TextAreaField} />
         </Form.Item>
-        <Form.Item label='Tags'>
-          <Field
-            name='tags'
-            mode='multiple'
-            style={{ width: 'auto' }}
-            options={tags.sort().map(tag => ({ label: tag, value: tag }))}
-            component={SelectField} />
-        </Form.Item>
+
         <Row gutter={24}>
-          <Col span={9}>
+          <Col span={8}>
             <Form.Item label='Grade'>
               <Field
                 name='grade'
                 placeholder='Select a Grade'
-                options={grades.map(grade => ({ label: grade, value: grade }))}
+                options={grades.map(grade => grade)}
                 component={SelectField} />
             </Form.Item>
           </Col>
-          <Col span={15}>
+          <Col span={16}>
+            <Form.Item label='Tags'>
+              <Field
+                name='tags'
+                mode='multiple'
+                style={{ width: 'auto' }}
+                options={tags.sort().map(tag => ({ label: tag, value: tag }))}
+                component={SelectField} />
+            </Form.Item>
+          </Col>
+        </Row>
+        <Row gutter={24}>
+          <Col span={8}>
+            <Form.Item label='Difficulty'>
+              <Field
+                name='difficulty'
+                placeholder='Select difficulty'
+                options={difficulty.map(diff => diff)}
+                component={SelectField} />
+            </Form.Item>
+          </Col>
+          <Col span={16}>
             <Form.Item label='Duration'>
               <Fields
                 names={['duration.unit', 'duration.time']}
@@ -89,7 +104,6 @@ CreateCourseModal.propTypes = {}
 
 export default enhancer(CreateCourseModal)
 
-const grades = ['K', 1, 2, 3, 4, 5]
 const timeUnits = ['Minutes', 'Hours', 'Days', 'Weeks', 'Months']
 const tags = [
   'Computer Science',

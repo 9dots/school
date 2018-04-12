@@ -30,8 +30,7 @@ const LessonControls = ({ lesson, progress }) => {
           <Link
             key={key}
             to={urlJoin(path, '' + key, uid)}
-            className={getClasses(val)}
-            log={console.log(val)} />
+            className={getClasses(val)} />
         ))}
       </span>
       <Link to={next()}>
@@ -53,7 +52,6 @@ const LessonControls = ({ lesson, progress }) => {
   }
 
   function getClasses ({ completed, active, started }) {
-    console.log()
     let name = 'dot'
     if (completed) name += ' completed'
     if (started) name += ' started'
