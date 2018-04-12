@@ -12,7 +12,6 @@ const modalContainer = Component => {
   return enhancer(
     class HOC extends React.PureComponent {
       showModal = curry((props, e) => {
-        console.log(props, e)
         if (typeof props === 'string') {
           return this.props.showModal(props)
         } else if (typeof props === 'object') {

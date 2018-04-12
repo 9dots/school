@@ -23,7 +23,6 @@ function getIdToken (getFirebase) {
 }
 
 const setUrl = (url, opts = {}) => (dispatch, getState, history) => {
-  console.log(history)
   return history.push(url, opts)
 }
 

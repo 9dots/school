@@ -68,7 +68,9 @@ const CreateCourseModal = props => {
                 name='tags'
                 mode='multiple'
                 style={{ width: 'auto' }}
-                options={tags.sort().map(tag => ({ label: tag, value: tag }))}
+                multiple
+                placeholder='Javascript'
+                options={tags.map(tag => ({ ...tag, value: tag.id }))}
                 component={SelectField} />
             </Form.Item>
           </Col>
