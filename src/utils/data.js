@@ -57,6 +57,54 @@ const grades = [
   }
 ]
 
+const tags = [
+  {
+    label: 'Computer Science',
+    id: 'f399cd50-3e7c-11e8-949b-c5a74b9c23b2',
+    slug: 'computer-science'
+  },
+  {
+    label: 'Javascript',
+    id: 'f399f460-3e7c-11e8-949b-c5a74b9c23b2',
+    slug: 'javascript'
+  },
+  {
+    label: 'World Languages',
+    id: 'f399f461-3e7c-11e8-949b-c5a74b9c23b2',
+    slug: 'world-languages'
+  },
+  {
+    label: 'Social Studies',
+    id: 'f399f462-3e7c-11e8-949b-c5a74b9c23b2',
+    slug: 'social-studies'
+  },
+  {
+    label: 'Science',
+    id: 'f399f463-3e7c-11e8-949b-c5a74b9c23b2',
+    slug: 'science'
+  },
+  {
+    label: 'Mathematics',
+    id: 'f399f464-3e7c-11e8-949b-c5a74b9c23b2',
+    slug: 'mathematics'
+  },
+  {
+    label: 'Language Arts',
+    id: 'f399f465-3e7c-11e8-949b-c5a74b9c23b2',
+    slug: 'language-arts'
+  },
+  {
+    label: 'Creative Arts',
+    id: 'f399f466-3e7c-11e8-949b-c5a74b9c23b2',
+    slug: 'creative-arts'
+  },
+  {
+    label: 'Professional Development',
+    id: 'f399f467-3e7c-11e8-949b-c5a74b9c23b2',
+    slug: 'professional-development'
+  }
+]
+
 const difficulty = [
   {
     label: 'Level A',
@@ -76,4 +124,4 @@ const difficulty = [
   }
 ]
 
-export { grades, difficulty }
+export { tags, grades, difficulty }

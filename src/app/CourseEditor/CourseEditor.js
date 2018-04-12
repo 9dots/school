@@ -27,7 +27,12 @@ const CourseEditor = props => {
 
   return (
     <div>
-      <Header modal={modal} course={course} setMode={setMode} mode={mode} />
+      <Header
+        modal={modal}
+        courseId={courseId}
+        course={course}
+        setMode={setMode}
+        mode={mode} />
       <div className='main-col'>
         {mode === 'edit' ? (
           <span>

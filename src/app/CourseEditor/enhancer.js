@@ -29,8 +29,7 @@ export default compose(
           ...data
         })
       } catch (e) {
-        console.log(e)
-        message.error(e)
+        message.error(e.message || e)
       }
     }
   }),

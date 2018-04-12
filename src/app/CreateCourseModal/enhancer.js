@@ -6,6 +6,17 @@ import { rpc, setUrl } from '../actions'
 import { connect } from 'react-redux'
 import setProp from '@f/set-prop'
 import { message } from 'antd'
+import pick from '@f/pick'
+
+const submitKeys = [
+  'course',
+  'displayName',
+  'difficulty',
+  'description',
+  'duration',
+  'grade',
+  'tags'
+]
 
 export default compose(
   withRouter,
@@ -25,7 +36,10 @@ export default compose(
       const fn = edit ? 'course.update' : 'course.create'
       setLoading(true)
       try {
-        const { course } = await rpc(fn, formatSubmit(values))
+        const { course } = await rpc(fn, {
+          ...formatSubmit(values),
+          course: props.courseId
+        })
         message.success(`Success! Created ${values.displayName}.`)
         ok(course)
       } catch (e) {
@@ -47,10 +61,10 @@ export default compose(
 function formatSubmit (values) {
   const { tags = [], duration = {} } = values
   return {
-    ...values,
+    ...pick(submitKeys, values),
     duration: {
-      time: Number(duration.time || 0),
-      unit: (duration.unit || '').toLowerCase()
+      time: Number(duration.time || 0) || undefined,
+      unit: (duration.unit || '').toLowerCase() || undefined
     },
     tags: tags.reduce((acc, val, key) => ({ ...acc, [val]: true }), {})
   }

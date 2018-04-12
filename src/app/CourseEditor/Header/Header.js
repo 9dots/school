@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import './Header.less'
 
-const Header = ({ modal, course, setMode, mode, setUrl }) => {
+const Header = ({ courseId, modal, course, setMode, mode, setUrl }) => {
   const {
     duration = {},
     displayName,
@@ -59,7 +59,8 @@ const Header = ({ modal, course, setMode, mode, setUrl }) => {
         <CreateCourseModal
           visible
           edit
-          initialValues={course}
+          courseId={courseId}
+          initialValues={{ ...course, tags: Object.keys(course.tags) }}
           onOk={modal.hideModal('editCourse')}
           onCancel={modal.hideModal('editCourse')} />
       )}
