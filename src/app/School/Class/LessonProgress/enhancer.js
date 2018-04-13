@@ -26,10 +26,10 @@ export default compose(
 
 function allProgress (progress = []) {
   return {
-    ...progress[0],
     progress:
       Math.round(
-        progress.reduce((acc, p) => acc + p.progress, 0) / progress.length
+        progress.reduce((acc, p) => acc + (p.progress || 0), 0) /
+          progress.length
       ) || 0
   }
 }

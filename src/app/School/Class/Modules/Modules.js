@@ -1,10 +1,10 @@
-import waitFor from '../../../../components/waitFor/waitFor'
 import { firestoreConnect } from 'react-redux-firebase'
-import { moduleSelector } from '../../../../selectors'
+import { moduleSelector } from 'selectors'
+import waitFor from 'components/waitFor'
 import { connect } from 'react-redux'
-import Course from '../../../Course'
 import { compose } from 'recompose'
 import PropTypes from 'prop-types'
+import Course from 'app/Course'
 import React from 'react'
 import './Modules.less'
 
@@ -24,11 +24,13 @@ const enhancer = compose(
 
 const Modules = props => {
   const {
-    mods,
-    classId,
     assignedLesson = {},
     onAssign = () => {},
-    student
+    progress,
+    assignToStudent,
+    classId,
+    student,
+    mods
   } = props
 
   return (
@@ -42,6 +44,8 @@ const Modules = props => {
               course={module}
               key={module.id}
               onAssign={onAssign}
+              progress={progress}
+              assignToStudent={assignToStudent}
               assignedId={assignedLesson.id}
               added />
           )

@@ -69,6 +69,18 @@ export default compose(
       props.hideModal('createStudent', null)
       message.success(msg)
     },
+    assignToStudent: props => (lesson, module) => async e => {
+      try {
+        await props.rpc('user.assignLesson', {
+          class: props.classId,
+          module,
+          lesson
+        })
+        message.success('Lesson assigned')
+      } catch (e) {
+        message.error(e.message)
+      }
+    },
     onAssign: props => (lesson, module) => e => {
       Modal.confirm({
         title: `Assign "${lesson.displayName}"?`,
