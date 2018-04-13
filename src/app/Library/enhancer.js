@@ -2,7 +2,7 @@ import modalContainer from '../../components/modalContainer'
 import { firestoreConnect } from 'react-redux-firebase'
 import waitFor from '../../components/waitFor/waitFor'
 import { compose, withHandlers } from 'recompose'
-import { courses, uid } from '../../selectors'
+import { myCourses, uid } from '../../selectors'
 import { connect } from 'react-redux'
 import { setUrl } from 'app/actions'
 
@@ -23,11 +23,12 @@ export default compose(
   firestoreConnect(({ uid }) => [
     {
       collection: 'courses',
-      where: ['owner', '==', uid]
+      where: ['owner', '==', uid],
+      storeAs: 'myCourses'
     }
   ]),
   connect((state, props) => ({
-    courses: courses(state)
+    courses: myCourses(state)
   })),
-  waitFor(['courses'])
+  waitFor(['myCourses'])
 )

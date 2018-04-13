@@ -1,6 +1,6 @@
 import { Collapse, Tooltip, Button, Avatar, Icon, List, Row, Col } from 'antd'
-import { stopEvent } from '../../../utils'
 import { Link } from 'react-router-dom'
+import { stopEvent } from 'utils'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
 import React from 'react'
@@ -8,17 +8,20 @@ import React from 'react'
 import './LessonList.less'
 
 const LessonList = ({
+  assignToStudent,
   studentLessons,
   lessons = [],
   assignedId,
   onAssign,
   progress,
   moduleId,
+  isLoaded,
   student,
   classId,
   added,
   ...rest
 }) => {
+  if (!isLoaded) return <span />
   return (
     <Collapse accordion bordered={false} className='lesson-list' {...rest}>
       {lessons.map((lesson, key) => {
@@ -27,6 +30,7 @@ const LessonList = ({
             key={key}
             header={
               <Header
+                assignToStudent={assignToStudent}
                 onAssign={onAssign}
                 assigned={assignedId === lesson.id}
                 moduleId={moduleId}
@@ -48,6 +52,7 @@ const LessonList = ({
 
 const Header = props => {
   const {
+    assignToStudent,
     displayName,
     description,
     assigned,
@@ -71,6 +76,9 @@ const Header = props => {
           <StudentExtra
             path={`/class/${classId}/lesson/${lesson.id}/${progress.current ||
               0}`}
+            module={moduleId}
+            lesson={lesson.id}
+            assignToStudent={assignToStudent}
             started={typeof progress.current !== 'undefined'}
             assigned={assigned} />
         ) : (
@@ -86,7 +94,7 @@ const Header = props => {
   )
 }
 
-const Tasks = ({ lesson: { tasks, id }, classId, student }) => (
+const Tasks = ({ lesson: { tasks = [], id }, classId, student }) => (
   <List className='task-list'>
     {tasks.map(({ displayName, description }, i) => (
       <List.Item key={id + '-' + i}>
@@ -110,7 +118,14 @@ const Tasks = ({ lesson: { tasks, id }, classId, student }) => (
   </List>
 )
 
-const StudentExtra = ({ assigned, path, started }) => {
+const StudentExtra = ({
+  lesson,
+  module,
+  assigned,
+  path,
+  started,
+  assignToStudent
+}) => {
   return (
     <div style={{ paddingLeft: 20 }}>
       {assigned && (
@@ -121,7 +136,7 @@ const StudentExtra = ({ assigned, path, started }) => {
           Assigned
         </Button>
       )}
-      <Link to={path}>
+      <Link onClick={assignToStudent(lesson, module)} to={path}>
         {started ? 'Continue' : 'Start'}
         <Icon type='caret-right' style={{ marginLeft: 5 }} />
       </Link>
@@ -172,7 +187,7 @@ const TeacherExtra = ({ added, moduleId, assigned, onAssign, lesson }) => {
             </Button>
           ) : (
             <Button
-              onClick={stopEvent(onAssign(lesson, moduleId))}
+              onClick={stopEvent(onAssign(lesson.id, moduleId))}
               style={{ width: 95 }}>
               <Icon type='export' />
               Assign
