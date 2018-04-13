@@ -3,7 +3,9 @@
 /* Card less */
 
 .ant-card {
-  box-shadow: @z-shadow-1;
+  &:not(.ant-card-bordered) {
+    box-shadow: @z-shadow-1;
+  }
   overflow: hidden;
   .ant-card-head {
     border-bottom: 0;
