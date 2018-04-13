@@ -8,7 +8,6 @@ import './ActiveLesson.less'
 
 const ActiveLesson = ({ lesson, modal, studentProgress, activeByTask }) => {
   const { displayName, tasks = [], slides, lessonPlan } = lesson
-
   return (
     <Card
       className='course'
