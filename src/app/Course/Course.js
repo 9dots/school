@@ -16,7 +16,8 @@ const Course = ({
   assignedId,
   onAssign,
   student,
-  preview
+  preview,
+  bordered
 }) => {
   const {
     displayName = '',
@@ -31,7 +32,7 @@ const Course = ({
   return (
     <Card
       className='course'
-      bordered={false}
+      bordered={bordered}
       title={
         <Row type='flex' justify='middle'>
           <Col>

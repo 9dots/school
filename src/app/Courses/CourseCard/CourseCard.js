@@ -15,6 +15,7 @@ const CourseCard = ({ course, modal, editable, setUrl }) => {
     description,
     difficulty,
     tags = {},
+    bordered,
     imageUrl,
     id
   } = course
@@ -24,7 +25,7 @@ const CourseCard = ({ course, modal, editable, setUrl }) => {
       <Link to={`courses/${id}`}>
         <Card
           className='course-card'
-          bordered={false}
+          bordered={bordered}
           title={
             <span>
               <Avatar src={imageUrl} style={{ float: 'left' }}>
