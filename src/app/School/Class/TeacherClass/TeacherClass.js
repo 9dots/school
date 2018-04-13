@@ -29,6 +29,7 @@ const TeacherClass = props => {
               <LessonStudentView
                 {...routeProps}
                 teacherView
+                uid={routeProps.match.params.uid}
                 progress={progressByStudent[routeProps.match.params.uid].progress}
                 assignedLesson={assignedLesson}
                 profile={progressByStudent[routeProps.match.params.uid].student}
@@ -98,6 +99,7 @@ const ClassView = props => {
               <Modules
                 onAssign={onAssign}
                 classId={classId}
+                progress={progressByStudent}
                 assignedLesson={assignedLesson}
                 modules={modules} />
             </div>

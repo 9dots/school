@@ -1,8 +1,8 @@
+import LessonControls from './LessonControls'
 import { Avatar, Icon, Layout } from 'antd'
 import { Link } from 'react-router-dom'
 import styles from 'theme/vars/vars.js'
 import UserMenu from '../../UserMenu'
-import LessonControls from './LessonControls'
 import PropTypes from 'prop-types'
 import React from 'react'
 

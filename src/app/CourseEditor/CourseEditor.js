@@ -74,7 +74,7 @@ const CourseEditor = props => {
               editing={editKey === 'addLesson'} />
           </span>
         ) : (
-          <Course course={course} preview />
+          <Course progress={{}} course={course} preview />
         )}
       </div>
     </div>
