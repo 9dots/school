@@ -30,7 +30,13 @@ class Sidebar extends React.PureComponent {
           isTeacher={isTeacher}
           overlayStyle={{ margin: '0 10px' }}
           button={
-            <Row type='flex' align='middle' style={{ padding: '10px 20px' }}>
+            <Row
+              type='flex'
+              align='middle'
+              style={{
+                padding: '15px 20px',
+                borderBottom: '1px solid rgba(238, 238, 238, 0.1)'
+              }}>
               <Col>
                 <Avatar icon='user' />
               </Col>
