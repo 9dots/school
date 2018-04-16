@@ -1,7 +1,7 @@
 import Sidebar from '../Sidebar'
 import React, { Component } from 'react'
 import styles from 'theme/vars/vars.js'
-import { Layout } from 'antd'
+import { Layout, Affix } from 'antd'
 import { Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
@@ -18,7 +18,7 @@ class AppLayout extends Component {
     } = this.props
 
     const Sider = () => (
-      <Layout.Sider className='main-sidebar' width={styles['@sidebar-width']}>
+      <Layout.Sider className='main-sider' width={styles['@sidebar-width']}>
         <Sidebar
           onCreateModal={onCreateModal}
           uid={uid}
