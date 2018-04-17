@@ -1,6 +1,5 @@
-import waitFor from '../../components/waitFor/waitFor'
-import CreateStudentModal from './CreateStudentModal'
 import { Button, Menu, Icon, Divider } from 'antd'
+import waitFor from 'components/waitFor'
 import StudentItem from './StudentItem'
 import { compose } from 'recompose'
 import PropTypes from 'prop-types'
@@ -12,14 +11,7 @@ import './StudentList.less'
 const enhancer = compose(waitFor(['studentData']))
 
 const StudentList = props => {
-  const {
-    addStudentSuccess,
-    progressByStudent,
-    students,
-    isLoaded,
-    modal,
-    tasks
-  } = props
+  const { progressByStudent, students, isLoaded, modal, tasks } = props
   if (!isLoaded) return <Loading />
   return (
     <div
@@ -56,19 +48,16 @@ const StudentList = props => {
       <div style={{ padding: '12px 24px' }}>
         <Button
           style={{ width: '100%' }}
-          onClick={modal.showModal('createStudent')}>
+          onClick={modal.showModal({
+            name: 'createStudent',
+            school: props.school,
+            class: props.class,
+            onOk: modal.hideModal('createStudent'),
+            onCancel: modal.hideModal('createStudent')
+          })}>
           <Icon type='plus' />Add Student
         </Button>
       </div>
-      {modal.isVisible('createStudent') && (
-        <CreateStudentModal
-          onCancel={modal.hideModal('createStudent')}
-          onOk={addStudentSuccess}
-          school={props.school}
-          class={props.class}
-          visible
-          {...modal.getProps('createStudent')} />
-      )}
     </div>
   )
 }

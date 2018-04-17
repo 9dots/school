@@ -54,6 +54,12 @@ export default compose(
         })
       }
     },
+    componentWillUnmount () {
+      const { progress, taskNum } = this.props
+      this.props.rpc('activity.maybeSetCompleted', {
+        activity: progress[taskNum].id
+      })
+    },
     componentWillUpdate (nextProps) {
       if (!this.props.isLoaded && nextProps.isLoaded) {
         const { lessonId, progress, taskNum, teacherView } = nextProps
