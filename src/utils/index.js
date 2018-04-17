@@ -25,14 +25,3 @@ export function getValidationErrors (e) {
   }
   return []
 }
-
-export function typeToIcon (type) {
-  return {
-    link: 'link',
-    listen: 'sound',
-    write: 'edit',
-    video: 'video-camera',
-    assignment: 'file-text',
-    test: 'profile'
-  }[type]
-}
