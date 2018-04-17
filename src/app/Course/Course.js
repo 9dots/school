@@ -12,6 +12,7 @@ const Course = props => {
   const {
     assignToStudent,
     assignedId,
+    bordered,
     progress,
     onAssign,
     classId,
@@ -34,7 +35,7 @@ const Course = props => {
   return (
     <Card
       className='course'
-      bordered={false}
+      bordered={bordered}
       title={
         <Row type='flex' justify='middle'>
           <Col>

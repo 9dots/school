@@ -130,7 +130,50 @@ const difficulty = [
 
 const timeUnits = ['Minutes', 'Hours', 'Days', 'Weeks', 'Months']
 
-const typeMap = { difficulty, grades, tags }
+const taskTypes = [
+  {
+    label: 'Link',
+    icon: 'link',
+    value: 'link',
+    id: 'link'
+  },
+  {
+    label: 'Listen',
+    icon: 'sound',
+    value: 'listen',
+    id: 'listen'
+  },
+  {
+    label: 'Writing',
+    icon: 'edit',
+    value: 'write',
+    id: 'write'
+  },
+  {
+    label: 'Video',
+    icon: 'video-camera',
+    value: 'video',
+    id: 'video'
+  },
+  {
+    label: 'Assignment',
+    icon: 'file-text',
+    value: 'assignment',
+    id: 'assignment'
+  },
+  {
+    label: 'Test',
+    icon: 'profile',
+    value: 'test',
+    id: 'test'
+  }
+]
+
+const typeMap = { difficulty, grades, tags, taskTypes }
+
+const getTaskIcon = function (val) {
+  return (taskTypes.find(type => type.value === val) || {}).icon
+}
 
 const idsToText = function (dataType, ids) {
   return [].concat(ids).map(id => {
@@ -138,4 +181,12 @@ const idsToText = function (dataType, ids) {
   })
 }
 
-export { grades, difficulty, tags, timeUnits, idsToText }
+export {
+  grades,
+  difficulty,
+  tags,
+  taskTypes,
+  timeUnits,
+  idsToText,
+  getTaskIcon
+}
