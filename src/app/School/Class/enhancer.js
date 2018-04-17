@@ -92,8 +92,8 @@ export default compose(
           try {
             await props.rpc('class.assignLesson', {
               class: props.classId,
-              module,
-              lesson
+              lesson: lesson.id,
+              module
             })
             message.success('Lesson assigned')
           } catch (e) {

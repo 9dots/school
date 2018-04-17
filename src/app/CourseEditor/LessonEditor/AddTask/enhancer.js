@@ -1,9 +1,9 @@
-import addLoading from '../../../../components/addLoading/addLoading'
 import { reduxForm, SubmissionError } from 'redux-form'
 import { compose, withHandlers } from 'recompose'
-import { rpc } from '../../../actions'
+import addLoading from 'components/addLoading'
+import { getValidationErrors } from 'utils'
 import { connect } from 'react-redux'
-import setProp from '@f/set-prop'
+import { rpc } from 'app/actions'
 import { message } from 'antd'
 
 export default compose(
@@ -24,12 +24,7 @@ export default compose(
       } catch (e) {
         props.setLoading(false)
         if (e.errorDetails) {
-          throw new SubmissionError(
-            e.errorDetails.reduce(
-              (acc, { field, message }) => setProp(field, acc, message),
-              {}
-            )
-          )
+          throw new SubmissionError(getValidationErrors(e))
         }
         message.error(e.error)
       }

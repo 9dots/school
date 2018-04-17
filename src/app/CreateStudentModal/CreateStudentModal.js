@@ -1,9 +1,9 @@
 import { TextField } from 'redux-form-antd'
-import { isEmail } from '../../../utils'
 import { Modal, Form, Row, Col } from 'antd'
 import { Field } from 'redux-form'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
+import { isEmail } from 'utils'
 import React from 'react'
 
 import './CreateStudentModal.less'

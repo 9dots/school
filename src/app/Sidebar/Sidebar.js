@@ -64,7 +64,7 @@ class Sidebar extends React.PureComponent {
                   <Menu.Item key={'/class/' + cls.id} className='class-item'>
                     <ClassItem
                       isTeacher={cls.teachers[uid]}
-                      showModal={modal.showModal}
+                      modal={modal}
                       school={key}
                       cls={cls} />
                   </Menu.Item>
