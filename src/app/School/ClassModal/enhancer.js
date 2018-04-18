@@ -3,6 +3,7 @@ import { compose, withHandlers } from 'recompose'
 import { withRouter } from 'react-router-dom'
 import { SubmissionError } from 'redux-form'
 import { rpc, setUrl } from '../../actions'
+import { getValidationErrors } from 'utils'
 import { connect } from 'react-redux'
 import { message } from 'antd'
 
@@ -33,6 +34,8 @@ export default compose(
           throw new SubmissionError({
             school: 'School code not found.'
           })
+        } else if (e.errorDetails) {
+          throw new SubmissionError(getValidationErrors(e))
         }
         message.error('Oops, something went wrong. Please try again.')
       }

@@ -24,7 +24,7 @@ const LessonList = ({
   if (!isLoaded) return <span />
   return (
     <Collapse accordion bordered={false} className='lesson-list' {...rest}>
-      {lessons.map((lesson, key) => {
+      {(lessons || []).map((lesson, key) => {
         return (
           <Collapse.Panel
             key={key}
@@ -96,7 +96,7 @@ const Header = props => {
 
 const Tasks = ({ lesson: { tasks = [], id }, classId, student }) => (
   <List className='task-list'>
-    {tasks.map(({ displayName, description }, i) => (
+    {(tasks || []).map(({ displayName, description }, i) => (
       <List.Item key={id + '-' + i}>
         <List.Item.Meta
           avatar={<Avatar size='small'>{i + 1}</Avatar>}
@@ -187,7 +187,7 @@ const TeacherExtra = ({ added, moduleId, assigned, onAssign, lesson }) => {
             </Button>
           ) : (
             <Button
-              onClick={stopEvent(onAssign(lesson.id, moduleId))}
+              onClick={stopEvent(onAssign(lesson, moduleId))}
               style={{ width: 95 }}>
               <Icon type='export' />
               Assign

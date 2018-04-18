@@ -37,7 +37,7 @@ const NoActiveLesson = ({ mods = [], onAssign, isLoaded }) => {
         type='primary'
         className='secondary'
         size='large'
-        onClick={onAssign(lesson.id, module.id)}
+        onClick={onAssign(lesson, module.id)}
         style={{ padding: '0 35px' }}>
         Start!
       </Button>

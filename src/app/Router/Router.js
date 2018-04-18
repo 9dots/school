@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import LessonStudentView from '../LessonStudentView'
 import CourseEditor from 'app/CourseEditor'
 import CourseView from 'app/CourseView'
+import Modals from 'components/Modals'
 import Onboarding from '../Onboarding'
 import AppLayout from '../AppLayout'
 import PropTypes from 'prop-types'
@@ -35,6 +36,7 @@ const App = props => (
         </Switch>
       </AppLayout>
     </Switch>
+    <Modals />
   </div>
 )
 
