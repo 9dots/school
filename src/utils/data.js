@@ -186,7 +186,8 @@ const getTaskIcon = function (val) {
 
 const idsToText = function (dataType, ids) {
   return [].concat(ids).map(id => {
-    return typeMap[dataType].find(val => val.id === id).label
+    const item = typeMap[dataType].find(val => val.id === id) || {}
+    return item.label || id
   })
 }
 

@@ -13,7 +13,14 @@ import { message } from 'antd'
 export default compose(
   modalContainer,
   connect(
-    (state, { match: { params: { courseId } } }) => ({
+    (
+      state,
+      {
+        match: {
+          params: { courseId }
+        }
+      }
+    ) => ({
       courseId
     }),
     { setUrl, rpc }
@@ -30,6 +37,15 @@ export default compose(
         })
       } catch (e) {
         message.error(e.message || e)
+      }
+    },
+    publish: props => async data => {
+      try {
+        await props.rpc('course.publish', {
+          course: props.courseId
+        })
+      } catch (e) {
+        message.error(e.error)
       }
     }
   }),

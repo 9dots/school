@@ -28,6 +28,7 @@ const Course = props => {
     lessons = [],
     description,
     difficulty,
+    published,
     tags = {},
     imageUrl,
     id
@@ -65,6 +66,7 @@ const Course = props => {
         </Row>
       }
       extra={
+        published &&
         !added &&
         !preview && (
           <Button

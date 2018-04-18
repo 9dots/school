@@ -42,12 +42,12 @@ export default compose(
         teacherView,
         firestore
       } = this.props
+      firestore.setListener({
+        collection: 'activities',
+        where: [['student', '==', uid], ['lesson', '==', lessonId]],
+        storeAs: getProgressString(lessonId, uid)
+      })
       if (progress && !teacherView) {
-        firestore.setListener({
-          collection: 'activities',
-          where: [['student', '==', uid], ['lesson', '==', lessonId]],
-          storeAs: getProgressString(lessonId, uid)
-        })
         this.props.rpc('activity.setActive', {
           activity: progress[taskNum].id,
           lesson: lessonId
