@@ -27,6 +27,7 @@ const Courses = props => {
 
       <Layout.Content>
         <div style={{ padding: '30px 50px' }}>
+          {/*
           <div>
             <h4 style={{ float: 'left', marginRight: 10 }}>Get Started</h4>
             <span>
@@ -35,6 +36,7 @@ const Courses = props => {
             </span>
           </div>
           <br />
+          */}
           <Row gutter={24} align='middle'>
             {props.courses.map((course, key) => (
               <Col span={12} key={key}>
