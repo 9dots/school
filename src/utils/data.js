@@ -54,6 +54,10 @@ const grades = [
   {
     label: 'Higher Education',
     value: 13
+  },
+  {
+    label: 'Professional Development',
+    value: 14
   }
 ]
 
@@ -108,23 +112,28 @@ const tags = [
 const difficulty = [
   {
     label: 'Level A',
-    value: 'a',
-    id: 'a'
+    value: 0,
+    id: 0
   },
   {
     label: 'Level B',
-    value: 'b',
-    id: 'b'
+    value: 1,
+    id: 1
   },
   {
     label: 'Level C',
-    value: 'c',
-    id: 'c'
+    value: 2,
+    id: 2
   },
   {
     label: 'Level D',
-    value: 'd',
-    id: 'd'
+    value: 3,
+    id: 3
+  },
+  {
+    label: 'Level E',
+    value: 4,
+    id: 4
   }
 ]
 
