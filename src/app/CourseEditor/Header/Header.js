@@ -44,7 +44,7 @@ const Header = props => {
           <Icon type='book' />
           {idsToText('difficulty', difficulty)}
           <Icon type='tags-o' />
-          {idsToText('tags', Object.keys(tags)).join(', ')}
+          {idsToText('tags', Object.keys(tags))}
         </div>
       </Layout.Content>
       <Menu
@@ -64,7 +64,11 @@ const Header = props => {
           visible
           edit
           courseId={courseId}
-          initialValues={{ ...course, tags: Object.keys(course.tags) }}
+          initialValues={{
+            ...course,
+            grade: Object.keys(course.grade).join(','),
+            tags: Object.keys(course.tags)
+          }}
           onOk={modal.hideModal('editCourse')}
           onCancel={modal.hideModal('editCourse')} />
       )}
