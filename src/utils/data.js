@@ -198,8 +198,8 @@ const typeMap = { difficulty, grades, tags, taskTypes }
 // Takes an array of grade values and returns a grade range e.g. "K - 2nd"
 const gradesToText = function (grades) {
   const arr = [].concat(grades)
-  const max = idsToText('grades', Math.max(...arr)).join()
-  const min = idsToText('grades', Math.min(...arr)).join()
+  const max = idsToText('grades', Math.max(...arr))
+  const min = idsToText('grades', Math.min(...arr))
 
   if (max === min) return max
   else return `${min === 'Kindergarten' ? 'K' : min} - ${max}`
@@ -210,9 +210,12 @@ const getTaskIcon = function (val) {
 }
 
 const idsToText = function (dataType, ids) {
-  return [].concat(ids).map(id => {
-    return typeMap[dataType].find(val => val.id === id).label
-  })
+  return []
+    .concat(ids)
+    .map(id => {
+      return typeMap[dataType].find(val => val.id === id).label
+    })
+    .join(', ')
 }
 
 export {
