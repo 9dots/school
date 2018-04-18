@@ -59,9 +59,10 @@ export default compose(
 )
 
 function formatSubmit (values) {
-  const { tags = [], duration = {} } = values
+  const { grade, tags = [], duration = {} } = values
   return {
     ...pick(submitKeys, values),
+    grade: grade.split(',').reduce((acc, g) => ({ ...acc, [g]: true }), {}),
     duration: {
       time: Number(duration.time || 0) || undefined,
       unit: (duration.unit || '').toLowerCase() || undefined
