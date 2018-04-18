@@ -6,7 +6,8 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import './Header.less'
 
-const Header = ({ courseId, modal, course, setMode, mode, setUrl }) => {
+const Header = props => {
+  const { publish, courseId, modal, course, setMode, mode } = props
   const {
     duration = {},
     displayName,
@@ -24,7 +25,9 @@ const Header = ({ courseId, modal, course, setMode, mode, setUrl }) => {
           </h3>
         </Link>
         <div className='actions'>
-          <Button type='primary'>Publish</Button>
+          <Button onClick={() => publish(courseId)} type='primary'>
+            Publish
+          </Button>
         </div>
       </Layout.Header>
       <Layout.Content>

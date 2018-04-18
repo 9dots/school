@@ -18,6 +18,7 @@ const CourseEditor = props => {
     isLoaded,
     courseId,
     editKey,
+    publish,
     setMode,
     onDrop,
     modal,
@@ -32,6 +33,7 @@ const CourseEditor = props => {
         modal={modal}
         courseId={courseId}
         course={course}
+        publish={publish}
         setMode={setMode}
         mode={mode} />
       <div className='main-col'>

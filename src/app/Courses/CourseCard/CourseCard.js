@@ -15,6 +15,7 @@ const CourseCard = ({ course, modal, editable, setUrl }) => {
     description,
     difficulty,
     tags = {},
+    published,
     bordered,
     imageUrl,
     id
@@ -36,9 +37,11 @@ const CourseCard = ({ course, modal, editable, setUrl }) => {
           }
           extra={
             <span>
-              <Button onClick={stopEvent(modal.showModal(id))}>
-                <Icon type='plus' />Add to Class
-              </Button>
+              {published && (
+                <Button onClick={stopEvent(modal.showModal(id))}>
+                  <Icon type='plus' />Add to Class
+                </Button>
+              )}
               {editable && (
                 <Button
                   style={{ marginLeft: 8 }}
