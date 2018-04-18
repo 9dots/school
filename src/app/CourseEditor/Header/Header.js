@@ -1,6 +1,6 @@
 import CreateCourseModal from 'app/CreateCourseModal'
 import { Layout, Button, Icon, Menu } from 'antd'
-import { idsToText } from 'utils/data'
+import { idsToText, gradesToText } from 'utils/data'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -8,13 +8,7 @@ import './Header.less'
 
 const Header = props => {
   const { publish, courseId, modal, course, setMode, mode } = props
-  const {
-    duration = {},
-    displayName,
-    description,
-    difficulty,
-    tags = {}
-  } = course
+  const { duration = {}, displayName, description, grade, tags = {} } = course
 
   return (
     <Layout className='course-editor-header'>
@@ -42,7 +36,7 @@ const Header = props => {
           <Icon type='clock-circle-o' />
           {duration.time} {duration.unit}
           <Icon type='book' />
-          {idsToText('difficulty', difficulty)}
+          {gradesToText(Object.keys(grade))}
           <Icon type='tags-o' />
           {idsToText('tags', Object.keys(tags))}
         </div>
