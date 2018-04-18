@@ -7,6 +7,7 @@ import enhancer from './enhancer'
 import Course from '../Course'
 import Header from './Header'
 import React from 'react'
+
 import './CourseEditor.less'
 
 const CourseEditor = props => {
