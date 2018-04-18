@@ -1,63 +1,78 @@
 const grades = [
   {
     label: 'Kindergarten',
-    value: 0
+    value: 0,
+    id: 0
   },
   {
     label: '1st',
-    value: 1
+    value: 1,
+    id: 1
   },
   {
     label: '2nd',
-    value: 2
+    value: 2,
+    id: 2
   },
   {
     label: '3rd',
-    value: 3
+    value: 3,
+    id: 3
   },
   {
     label: '4th',
-    value: 4
+    value: 4,
+    id: 4
   },
   {
     label: '5th',
-    value: 5
+    value: 5,
+    id: 5
   },
   {
     label: '6th',
-    value: 6
+    value: 6,
+    id: 6
   },
   {
     label: '7th',
-    value: 7
+    value: 7,
+    id: 7
   },
   {
     label: '8th',
-    value: 8
+    value: 8,
+    id: 8
   },
   {
     label: '9th',
-    value: 9
+    value: 9,
+    id: 9
   },
   {
     label: '10th',
-    value: 10
+    value: 10,
+    id: 10
   },
   {
     label: '11th',
-    value: 11
+    value: 11,
+    id: 11
   },
   {
     label: '12th',
-    value: 12
+    value: 12,
+    id: 12
   },
   {
     label: 'Higher Education',
-    value: 13
+    value: 13,
+    id: 13
   },
   {
     label: 'Professional Development',
-    value: 14
+    value: 14,
+    id: 14
   }
 ]
 
@@ -180,6 +195,16 @@ const taskTypes = [
 
 const typeMap = { difficulty, grades, tags, taskTypes }
 
+// Takes an array of grade values and returns a grade range e.g. "K - 2nd"
+const gradesToText = function (grades) {
+  const arr = [].concat(grades)
+  const max = idsToText('grades', Math.max(...arr)).join()
+  const min = idsToText('grades', Math.min(...arr)).join()
+
+  if (max === min) return max
+  else return `${min === 'Kindergarten' ? 'K' : min} - ${max}`
+}
+
 const getTaskIcon = function (val) {
   return (taskTypes.find(type => type.value === val) || {}).icon
 }
@@ -191,11 +216,12 @@ const idsToText = function (dataType, ids) {
 }
 
 export {
-  grades,
+  gradesToText,
+  getTaskIcon,
   difficulty,
-  tags,
-  taskTypes,
-  timeUnits,
   idsToText,
-  getTaskIcon
+  timeUnits,
+  taskTypes,
+  grades,
+  tags
 }

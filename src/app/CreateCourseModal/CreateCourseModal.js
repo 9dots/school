@@ -1,5 +1,5 @@
 import { TextField, TextAreaField, SelectField } from 'redux-form-antd'
-import { grades, tags, timeUnits } from 'utils/data'
+import { grades, gradesToText, tags, timeUnits } from 'utils/data'
 import { Modal, Form, Row, Col } from 'antd'
 import { Field, Fields } from 'redux-form'
 import PropTypes from 'prop-types'
@@ -52,30 +52,30 @@ const CreateCourseModal = props => {
             component={TextAreaField} />
         </Form.Item>
 
+        <Form.Item label='Tags'>
+          <Field
+            name='tags'
+            mode='multiple'
+            style={{ width: 'auto' }}
+            multiple
+            placeholder='Javascript'
+            options={tags.map(tag => ({ ...tag, value: tag.id }))}
+            component={SelectField} />
+        </Form.Item>
+
         <Row gutter={24}>
           <Col span={8}>
-            <Form.Item label='Grade'>
+            <Form.Item label='Grade Level'>
               <Field
                 name='grade'
                 placeholder='Select a Grade'
-                options={grades.map(grade => grade)}
+                options={gradeChunks.map(chunk => ({
+                  value: chunk,
+                  label: gradesToText(chunk)
+                }))}
                 component={SelectField} />
             </Form.Item>
           </Col>
-          <Col span={16}>
-            <Form.Item label='Tags'>
-              <Field
-                name='tags'
-                mode='multiple'
-                style={{ width: 'auto' }}
-                multiple
-                placeholder='Javascript'
-                options={tags.map(tag => ({ ...tag, value: tag.id }))}
-                component={SelectField} />
-            </Form.Item>
-          </Col>
-        </Row>
-        <Row gutter={24}>
           <Col span={16}>
             <Form.Item label='Duration'>
               <Fields
@@ -92,3 +92,5 @@ const CreateCourseModal = props => {
 CreateCourseModal.propTypes = {}
 
 export default enhancer(CreateCourseModal)
+
+const gradeChunks = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [9, 10, 11, 12], 13, 14]
