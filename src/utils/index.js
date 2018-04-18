@@ -16,12 +16,14 @@ export function stopEvent (action) {
   }
 }
 
+/**
+ * getValidationError
+ * @param {object} e The error object to transform
+ * @returns object with {errorField: message}
+ */
 export function getValidationErrors (e) {
-  if (e.errorDetails) {
-    return e.errorDetails.reduce(
-      (acc, { field, message }) => setProp(field, acc, errorToMessage(message)),
-      {}
-    )
-  }
-  return []
+  return (e.errorDetails || []).reduce(
+    (acc, { field, message }) => setProp(field, acc, errorToMessage(message)),
+    {}
+  )
 }

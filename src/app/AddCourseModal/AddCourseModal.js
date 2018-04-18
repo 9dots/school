@@ -50,9 +50,6 @@ const AddCourseModal = props => {
                 ))}
             </List>
           </div>
-          {/* <Button className='new-school'>
-            <Icon type='plus' /> Create New Class
-          </Button> */}
         </form>
       </Modal>
     </span>
