@@ -1,5 +1,5 @@
 import { TextField, TextAreaField, SelectField } from 'redux-form-antd'
-import { difficulty, grades, tags, timeUnits } from 'utils/data'
+import { grades, tags, timeUnits } from 'utils/data'
 import { Modal, Form, Row, Col } from 'antd'
 import { Field, Fields } from 'redux-form'
 import PropTypes from 'prop-types'
@@ -81,15 +81,6 @@ const CreateCourseModal = props => {
               <Fields
                 names={['duration.unit', 'duration.time']}
                 component={durationFields} />
-            </Form.Item>
-          </Col>
-          <Col span={8}>
-            <Form.Item label='Difficulty'>
-              <Field
-                name='difficulty'
-                placeholder='Select difficulty'
-                options={difficulty.map(diff => diff)}
-                component={SelectField} />
             </Form.Item>
           </Col>
         </Row>

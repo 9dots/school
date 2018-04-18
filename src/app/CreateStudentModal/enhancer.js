@@ -1,9 +1,9 @@
-import formModal from '../../../components/formModal'
 import { compose, withHandlers } from 'recompose'
 import { SubmissionError } from 'redux-form'
+import formModal from 'components/formModal'
+import { getValidationErrors } from 'utils'
 import { connect } from 'react-redux'
-import { rpc } from '../../actions'
-import setProp from '@f/set-prop'
+import { rpc } from 'app/actions'
 import { message } from 'antd'
 
 export default compose(
@@ -22,7 +22,8 @@ export default compose(
       try {
         const res = await rpc('user.createStudent', { ...values, school })
         await rpc('class.addStudent', { class: id, student: res.student })
-        ok('Success! Added student.')
+        message.success('Success! Added student.')
+        ok(null)
       } catch (e) {
         setLoading(false)
         if (e.error === 'studentId_taken') {
@@ -30,12 +31,7 @@ export default compose(
             studentId: 'Student ID taken'
           })
         } else if (e.errorDetails) {
-          throw new SubmissionError(
-            e.errorDetails.reduce(
-              (acc, { field, message }) => setProp(field, acc, message),
-              {}
-            )
-          )
+          throw new SubmissionError(getValidationErrors(e))
         }
         message.error('Oops, something went wrong. Please try again.')
       }
