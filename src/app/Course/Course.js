@@ -1,7 +1,7 @@
 import AddCourseWrapper from 'app/AddCourseModal/AddCourseWrapper'
 import modalContainer from '../../components/modalContainer'
 import { Card, Avatar, Button, Icon, Col, Row } from 'antd'
-import { idsToText } from 'utils/data'
+import { idsToText, gradesToText } from 'utils/data'
 import LessonList from './LessonList'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -27,10 +27,10 @@ const Course = props => {
     duration = {},
     lessons = [],
     description,
-    difficulty,
     published,
     tags = {},
     imageUrl,
+    grade,
     id
   } = course
   return (
@@ -55,10 +55,10 @@ const Course = props => {
                 <Icon type='clock-circle-o' />
                 {duration.time} {duration.unit}
                 <Icon type='book' />
-                {idsToText('difficulty', difficulty)}
+                {gradesToText(Object.keys(grade))}
                 <Icon type='tag-o' />
                 <span className='capitalize'>
-                  {idsToText('tags', Object.keys(tags)).join(', ')}
+                  {idsToText('tags', Object.keys(tags))}
                 </span>
               </span>
             )}
