@@ -13,6 +13,7 @@ const Header = props => {
     displayName,
     description,
     difficulty,
+    published,
     tags = {}
   } = course
 
@@ -25,9 +26,15 @@ const Header = props => {
           </h3>
         </Link>
         <div className='actions'>
-          <Button onClick={() => publish(courseId)} type='primary'>
-            Publish
-          </Button>
+          {published ? (
+            <Button disabled type='primary'>
+              Published
+            </Button>
+          ) : (
+            <Button onClick={() => publish(courseId)} type='primary'>
+              Publish
+            </Button>
+          )}
         </div>
       </Layout.Header>
       <Layout.Content>

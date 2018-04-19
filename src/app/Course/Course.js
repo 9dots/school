@@ -58,7 +58,7 @@ const Course = props => {
                 {idsToText('difficulty', difficulty)}
                 <Icon type='tag-o' />
                 <span className='capitalize'>
-                  {idsToText('tags', Object.keys(tags)).join(', ')}
+                  {idsToText('tags', Object.keys(tags))}
                 </span>
               </span>
             )}

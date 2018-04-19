@@ -28,6 +28,15 @@ export default compose(
   withState('editKey', 'setEditKey', null),
   withState('mode', 'setMode', 'edit'),
   withState('orderedLessons', 'setOrderedLessons', []),
+  firestoreConnect(props => [
+    {
+      collection: 'courses',
+      doc: props.courseId,
+      storeAs: props.courseId
+    }
+  ]),
+  connect((state, props) => ({ course: course(state, props.courseId) })),
+  waitFor(['course']),
   withHandlers({
     sendReorder: props => async data => {
       try {
@@ -38,18 +47,20 @@ export default compose(
       } catch (e) {
         message.error(e.message || e)
       }
-    },
+    }
+  }),
+  withHandlers({
     publish: props => async data => {
       try {
         await props.rpc('course.publish', {
           course: props.courseId
         })
+        props.setUrl('/library')
+        message.success('Course published')
       } catch (e) {
-        message.error(e.error)
+        message.error((e.errorDetails || [{}])[0].message || e.error)
       }
-    }
-  }),
-  withHandlers({
+    },
     onDrop: ({ orderedLessons, setOrderedLessons, sendReorder }) => e => {
       const { reason, destination, source, draggableId, type } = e
       if (reason === 'DROP' && destination) {
@@ -73,15 +84,6 @@ export default compose(
       }
     }
   }),
-  firestoreConnect(props => [
-    {
-      collection: 'courses',
-      doc: props.courseId,
-      storeAs: props.courseId
-    }
-  ]),
-  connect((state, props) => ({ course: course(state, props.courseId) })),
-  waitFor(['course']),
   lifecycle({
     componentDidMount () {
       if (this.props.course) {
