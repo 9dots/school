@@ -1,14 +1,14 @@
 import AddCourseWrapper from 'app/AddCourseModal/AddCourseWrapper'
 import { Card, Icon, Button, Avatar } from 'antd'
-import { stopEvent } from 'utils'
-import { idsToText } from 'utils/data'
 import { Link } from 'react-router-dom'
+import { idsToText } from 'utils/data'
 import PropTypes from 'prop-types'
+import { stopEvent } from 'utils'
 import enhancer from './enhancer'
 import React from 'react'
 import './CourseCard.less'
 
-const CourseCard = ({ course, modal, editable, setUrl }) => {
+const CourseCard = ({ course, modal, editCourse, editable, setUrl }) => {
   const {
     duration = {},
     displayName,
@@ -45,9 +45,7 @@ const CourseCard = ({ course, modal, editable, setUrl }) => {
               {editable && (
                 <Button
                   style={{ marginLeft: 8 }}
-                  onClick={stopEvent(() =>
-                    setUrl(`/courses/${course.id}/edit`)
-                  )}
+                  onClick={stopEvent(editCourse)}
                   icon='edit' />
               )}
             </span>
@@ -61,7 +59,7 @@ const CourseCard = ({ course, modal, editable, setUrl }) => {
                 <Icon type='book' />
                 {idsToText('difficulty', difficulty)}
                 <Icon type='tag-o' />
-                {idsToText('tags', Object.keys(tags)).join(', ')}
+                {idsToText('tags', Object.keys(tags))}
               </span>
             } />
         </Card>
