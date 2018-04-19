@@ -8,7 +8,14 @@ import './Header.less'
 
 const Header = props => {
   const { publish, courseId, modal, course, setMode, mode } = props
-  const { duration = {}, displayName, description, grade, tags = {} } = course
+  const {
+    duration = {},
+    displayName,
+    description,
+    published,
+    tags = {},
+    grade
+  } = course
 
   return (
     <Layout className='course-editor-header'>
@@ -19,9 +26,15 @@ const Header = props => {
           </h3>
         </Link>
         <div className='actions'>
-          <Button onClick={() => publish(courseId)} type='primary'>
-            Publish
-          </Button>
+          {published ? (
+            <Button disabled type='primary'>
+              Published
+            </Button>
+          ) : (
+            <Button onClick={() => publish(courseId)} type='primary'>
+              Publish
+            </Button>
+          )}
         </div>
       </Layout.Header>
       <Layout.Content>
