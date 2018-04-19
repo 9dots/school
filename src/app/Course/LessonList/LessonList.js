@@ -165,18 +165,18 @@ const TeacherExtra = ({ added, moduleId, assigned, onAssign, lesson }) => {
             mouseEnterDelay={0.4}
             onClick={e => e.stopPropagation()}>
             {/* Must use stopProp instead of stopEvent so a tags work */}
-            <a target='_blank' href={lesson.lessonPlan}>
-              <Icon type='bars' />
-            </a>
+            <Button target='_blank' href={lesson.lessonPlan} style={{border: 'none'}} icon='bars'/>
           </Tooltip>
           <Tooltip
             title='Slides'
             mouseEnterDelay={0.4}
             onClick={e => e.stopPropagation()}>
             {/* Must use stopProp instead of stopEvent so a tags work */}
-            <a target='_blank' href={lesson.slides}>
-              <Icon type='file-ppt' />
-            </a>
+            <Button
+              target='_blank'
+              style={{border: 'none'}}
+              href={lesson.slides}
+              icon='file-ppt' />
           </Tooltip>
           {assigned ? (
             <Button

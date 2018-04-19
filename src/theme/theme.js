@@ -14,5 +14,6 @@ module.exports = {
   'body-background': palette['@off-white'],
   'layout-body-background': palette['@off-white'],
   'card-padding-base': '24px',
-  'card-padding-wider': '24px'
+  'card-padding-wider': '24px',
+  'link-color': palette['@blue-light']
 }

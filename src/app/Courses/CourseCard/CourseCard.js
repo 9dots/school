@@ -48,7 +48,9 @@ const CourseCard = ({ course, modal, editable, setUrl }) => {
                   onClick={stopEvent(() =>
                     setUrl(`/courses/${course.id}/edit`)
                   )}
-                  icon='edit' />
+                  icon='edit'>
+                  {!published && 'Edit Draft'}
+                </Button>
               )}
             </span>
           }>
