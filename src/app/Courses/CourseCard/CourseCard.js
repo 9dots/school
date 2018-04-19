@@ -1,7 +1,7 @@
 import AddCourseWrapper from 'app/AddCourseModal/AddCourseWrapper'
 import { Card, Icon, Button, Avatar } from 'antd'
+import { idsToText, gradesToText } from 'utils/data'
 import { Link } from 'react-router-dom'
-import { idsToText } from 'utils/data'
 import PropTypes from 'prop-types'
 import { stopEvent } from 'utils'
 import enhancer from './enhancer'
@@ -13,11 +13,11 @@ const CourseCard = ({ course, modal, editCourse, editable, setUrl }) => {
     duration = {},
     displayName,
     description,
-    difficulty,
     tags = {},
     published,
     bordered,
     imageUrl,
+    grade,
     id
   } = course
 
@@ -57,7 +57,7 @@ const CourseCard = ({ course, modal, editCourse, editable, setUrl }) => {
                 <Icon type='clock-circle-o' />
                 {duration.time} {duration.unit}
                 <Icon type='book' />
-                {idsToText('difficulty', difficulty)}
+                {gradesToText(Object.keys(grade))}
                 <Icon type='tag-o' />
                 {idsToText('tags', Object.keys(tags))}
               </span>

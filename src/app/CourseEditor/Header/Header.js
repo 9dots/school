@@ -1,6 +1,6 @@
 import CreateCourseModal from 'app/CreateCourseModal'
 import { Layout, Button, Icon, Menu } from 'antd'
-import { idsToText } from 'utils/data'
+import { idsToText, gradesToText } from 'utils/data'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -12,9 +12,9 @@ const Header = props => {
     duration = {},
     displayName,
     description,
-    difficulty,
     published,
-    tags = {}
+    tags = {},
+    grade
   } = course
 
   return (
@@ -49,7 +49,7 @@ const Header = props => {
           <Icon type='clock-circle-o' />
           {duration.time} {duration.unit}
           <Icon type='book' />
-          {idsToText('difficulty', difficulty)}
+          {gradesToText(Object.keys(grade))}
           <Icon type='tags-o' />
           {idsToText('tags', Object.keys(tags))}
         </div>
