@@ -61,20 +61,15 @@ const StudentClass = props => {
       <Route
         exact
         path='/class/:classId/lesson/:lessonId/:taskNum'
-        render={matchProp =>
-          progressByStudent[auth.uid] &&
-          progressByStudent[auth.uid].progress ? (
-              <LessonStudentView
-                {...matchProp}
-                progress={progressByStudent[auth.uid].progress}
-                assignedLesson={assignedLesson}
-                key={
-                  matchProp.match.params.lessonId + matchProp.match.params.taskNum
-                } />
-            ) : (
-              <Loading />
-            )
-        } />
+        render={matchProp => (
+          <LessonStudentView
+            {...matchProp}
+            progress={(progressByStudent[auth.uid] || {}).progress}
+            assignedLesson={assignedLesson}
+            key={
+              matchProp.match.params.lessonId + matchProp.match.params.taskNum
+            } />
+        )} />
       <Route exact path='/class/:classId' render={() => classView} />
     </Switch>
   )
