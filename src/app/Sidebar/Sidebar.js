@@ -20,8 +20,8 @@ class Sidebar extends React.PureComponent {
       logout,
       profile
     } = this.props
-    const roles = mapValues(role => role, profile.schools)
-    const isTeacher = roles.indexOf('teacher') > -1
+
+    const isTeacher = profile.role === 'teacher'
 
     return (
       <div className='main-sidebar'>
