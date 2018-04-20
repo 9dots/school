@@ -76,7 +76,6 @@ export default compose(
           module,
           lesson
         })
-        message.success('Lesson assigned')
       } catch (e) {
         message.error(e.message)
       }
