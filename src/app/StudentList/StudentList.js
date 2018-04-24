@@ -1,4 +1,4 @@
-import { Button, Menu, Icon, Divider } from 'antd'
+import { Button, Menu, Icon, Divider, Row, Col } from 'antd'
 import waitFor from 'components/waitFor'
 import StudentItem from './StudentItem'
 import { compose } from 'recompose'
@@ -19,14 +19,18 @@ const StudentList = props => {
         minHeight: 'calc(100vh - 62px)',
         borderLeft: '1px solid #e8e8e8'
       }}>
-      <div
+      <Row
+        type='flex'
         style={{
           padding: '10px 16px',
           textTransform: 'uppercase',
           letterSpacing: 1
         }}>
-        Students
-      </div>
+        <Col className='flex-grow'>Students</Col>
+        <Col>
+          <Icon type='setting' />
+        </Col>
+      </Row>
       <Menu
         mode='vertical-right'
         selectedKeys={[]}

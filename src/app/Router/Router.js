@@ -1,8 +1,8 @@
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import LessonStudentView from '../LessonStudentView'
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 import CourseEditor from 'app/CourseEditor'
 import CourseView from 'app/CourseView'
 import Modals from 'components/Modals'
+import HomeLayout from 'app/HomeLayout'
 import Onboarding from '../Onboarding'
 import AppLayout from '../AppLayout'
 import PropTypes from 'prop-types'
@@ -13,8 +13,10 @@ import Splash from '../Splash'
 import Home from 'app/Home'
 import React from 'react'
 import {
-  userIsNotAuthenticatedRedir,
+  // userIsNotAuthenticatedRedir,
   userIsAuthenticatedRedir,
+  userIsNotAuthenticated,
+  userIsAuthenticated,
   userHasSchool
 } from '../../auth'
 
@@ -40,16 +42,31 @@ const App = props => (
   </div>
 )
 
+const HomeRoutes = prop => (
+  <HomeLayout>
+    <Switch>
+      <Redirect exact path='/' to='/courses' />
+      <Route exact path='/school/:schoolId' />
+      <Route exact path='/courses' render={() => <Courses header={false} />} />
+      <Route exact path='/courses/:courseId' component={CourseView} />
+    </Switch>
+  </HomeLayout>
+)
+
 const routes = (
   <Switch>
-    <Route path='/login' component={userIsNotAuthenticatedRedir(Splash)} />
     <Route
       path='/onboarding/class'
       component={userIsAuthenticatedRedir(Onboarding)} />
     <Route
       path='/onboarding'
       component={userIsAuthenticatedRedir(Onboarding)} />
-    <Route path='/' component={userIsAuthenticatedRedir(userHasSchool(App))} />
+    <Route path='/'>
+      <div>
+        <Route path='/' component={userIsAuthenticated(userHasSchool(App))} />
+        <Route path='/' component={userIsNotAuthenticated(HomeRoutes)} />
+      </div>
+    </Route>
   </Switch>
 )
 

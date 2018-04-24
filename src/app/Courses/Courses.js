@@ -17,13 +17,15 @@ const enhancer = compose(
   waitFor(['courses'])
 )
 
-const Courses = props => {
-  if (!props.isLoaded) return <Loading />
+const Courses = ({ isLoaded, courses, header = true }) => {
+  if (!isLoaded) return <Loading />
   return (
     <Layout>
-      <Layout.Header>
-        <h2>COURSES</h2>
-      </Layout.Header>
+      {!!header && (
+        <Layout.Header>
+          <h2>COURSES</h2>
+        </Layout.Header>
+      )}
 
       <Layout.Content>
         <div style={{ padding: '30px 50px' }}>
@@ -38,7 +40,7 @@ const Courses = props => {
           <br />
           */}
           <Row gutter={24} align='middle'>
-            {props.courses.map((course, key) => (
+            {courses.map((course, key) => (
               <Col span={12} key={key}>
                 <CourseCard course={course} />
               </Col>
