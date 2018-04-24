@@ -1,6 +1,6 @@
 import LessonStudentView from '../../../LessonStudentView'
 import { Link, Switch, Route } from 'react-router-dom'
-import { Layout, Divider, Icon, Button } from 'antd'
+import { Layout, Divider, Icon, Button, Row, Col } from 'antd'
 import backpack from 'assets/images/emptypack.png'
 import NoActiveLesson from '../NoActiveLesson'
 import ActiveLesson from '../ActiveLesson'
@@ -68,8 +68,13 @@ const ClassView = props => {
   const students = Object.keys(classData.students || {})
   return (
     <Layout className='class'>
-      <Layout.Header>
-        <h2>{classData.displayName}</h2>
+      <Layout.Header style={{ lineHeight: '20px', padding: '10px 50px' }}>
+        <h2 style={{ marginBottom: 6 }}>{classData.displayName}</h2>
+        <div style={{ fontSize: '12px' }}>
+          {/* <Icon type='user' /> */}
+          {students.length} Student{students.length !== 1 ? 's' : ''}&ensp;|&ensp;
+          <Icon type='setting' />&ensp;Class Settings
+        </div>
       </Layout.Header>
       <Layout>
         <Layout.Content
