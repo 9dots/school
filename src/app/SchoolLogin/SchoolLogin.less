@@ -1,0 +1,68 @@
+@import "../../theme/vars/palette.less";
+
+/* SchoolLogin less */
+
+.school-login {
+  background: @blue;
+  width: 100%;
+  height: ~"calc(100vh - 64px)";
+  text-align: center;
+  padding-top: 10vh;
+  * {
+    color: white;
+  }
+
+  h1,
+  h2 {
+    width: 900px;
+  }
+
+  h2 {
+    margin-bottom: 30px;
+  }
+
+  .school-header {
+    position: relative;
+    border-bottom: 1px solid fade(white, 10);
+    margin-bottom: 30px;
+    .back {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      height: 42px;
+      font-size: 17px;
+      font-weight: 100;
+      margin: auto;
+      &:hover {
+        opacity: 0.8;
+        color: white;
+      }
+    }
+  }
+
+  .login-button-wrapper {
+    padding: 10px;
+    display: block;
+  }
+
+  .login-button {
+    width: 100%;
+    height: 47px;
+    line-height: 45px;
+    color: white;
+    border-color: white;
+    &:after {
+      display: none !important;
+    }
+    &:hover {
+      opacity: 0.8;
+    }
+    &:focus {
+      opacity: 0.85;
+    }
+    &:active {
+      opacity: 1;
+    }
+  }
+}

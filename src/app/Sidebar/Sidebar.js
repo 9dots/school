@@ -59,6 +59,13 @@ class Sidebar extends React.PureComponent {
               </Link>
             </Menu.Item>
           )}
+          {/* {isTeacher && (
+            <Menu.Item key={'/library'}>
+              <Link to='/library'>
+                <Icon type='book' />My Library
+              </Link>
+            </Menu.Item>
+          )} */}
           {mapValues(
             (school, key) => (
               <Menu.SubMenu

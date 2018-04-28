@@ -1,6 +1,7 @@
 import LessonStudentView from '../../../LessonStudentView'
 import { Link, Switch, Route } from 'react-router-dom'
-import { Layout, Divider, Icon, Button, Row, Col } from 'antd'
+import modalContainer from 'components/modalContainer'
+import { Layout, Divider, Icon, Button } from 'antd'
 import backpack from 'assets/images/emptypack.png'
 import NoActiveLesson from '../NoActiveLesson'
 import ActiveLesson from '../ActiveLesson'
@@ -12,6 +13,7 @@ import PropTypes from 'prop-types'
 import Modules from '../Modules'
 import React from 'react'
 import './TeacherClass.less'
+import ClassSettingsModal from '../../../ClassSettingsModal/ClassSettingsModal'
 
 const TeacherClass = props => {
   const { progressByStudent, classData = {} } = props
@@ -51,7 +53,7 @@ const TeacherClass = props => {
 
 TeacherClass.propTypes = {}
 
-export default TeacherClass
+export default modalContainer(TeacherClass)
 
 const ClassView = props => {
   const {
@@ -59,21 +61,26 @@ const ClassView = props => {
     activeByTask,
     classData = {},
     studentData,
-    onAssign
+    onAssign,
+    modal
   } = props
   const { classId } = props.match.params
   const { assignedLesson } = classData
 
   const modules = Object.keys(classData.modules || {})
   const students = Object.keys(classData.students || {})
+
   return (
     <Layout className='class'>
       <Layout.Header style={{ lineHeight: '20px', padding: '10px 50px' }}>
         <h2 style={{ marginBottom: 6 }}>{classData.displayName}</h2>
         <div style={{ fontSize: '12px' }}>
-          {/* <Icon type='user' /> */}
           {students.length} Student{students.length !== 1 ? 's' : ''}&ensp;|&ensp;
-          <Icon type='setting' />&ensp;Class Settings
+          <span
+            onClick={modal.showModal('classSettingsModal')}
+            style={{ cursor: 'pointer' }}>
+            <Icon type='setting' />&ensp;Class Settings
+          </span>
         </div>
       </Layout.Header>
       <Layout>
@@ -108,6 +115,26 @@ const ClassView = props => {
                 assignedLesson={assignedLesson}
                 modules={modules} />
             </div>
+          )}
+          <Route
+            path={`/class/:classId/settings`}
+            render={() => (
+              <ClassSettingsModal
+                visible
+                classData={{ id: classId, ...classData }}
+                students={studentData}
+                onOk={modal.hideModal('classSettingsModal')}
+                onCancel={modal.hideModal('classSettingsModal')} />
+            )} />
+
+          {modal.isVisible('classSettingsModal') && (
+            <ClassSettingsModal
+              visible
+              {...modal.getProps('classSettingsModal')}
+              classData={classData}
+              students={studentData}
+              onOk={modal.hideModal('classSettingsModal')}
+              onCancel={modal.hideModal('classSettingsModal')} />
           )}
         </Layout.Content>
 
