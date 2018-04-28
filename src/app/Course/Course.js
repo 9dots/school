@@ -2,7 +2,6 @@ import AddCourseWrapper from 'app/AddCourseModal/AddCourseWrapper'
 import modalContainer from '../../components/modalContainer'
 import { Card, Avatar, Button, Icon, Col, Row } from 'antd'
 import { idsToText, gradesToText } from 'utils/data'
-import { Link, withRouter } from 'react-router-dom'
 import LessonList from './LessonList'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -37,11 +36,6 @@ const Course = props => {
   } = course
   return (
     <div>
-      <h2>
-        <Link to='/courses'>
-          <Icon type='left' /> Back to Courses
-        </Link>
-      </h2>
       <Card
         className='course'
         bordered={bordered}

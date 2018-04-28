@@ -1,8 +1,9 @@
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 import CourseEditor from 'app/CourseEditor'
+import SchoolLogin from '../SchoolLogin'
 import CourseView from 'app/CourseView'
-import Modals from 'components/Modals'
 import HomeLayout from 'app/HomeLayout'
+import Modals from 'components/Modals'
 import Onboarding from '../Onboarding'
 import AppLayout from '../AppLayout'
 import PropTypes from 'prop-types'
@@ -28,8 +29,7 @@ const App = props => (
       <Route exact path='/courses/:courseId/edit' component={CourseEditor} />
       <AppLayout {...props}>
         <Switch>
-          <Route path='/class/:classId' component={School} />
-          <Route exact path='/class' component={School} />
+          <Route path='/class/:classId?' component={School} />
           <Route exact path='/library' component={Library} />
           <Route exact path='/courses' component={Courses} />
           <Route exact path='/analytics' component={Courses} />
@@ -46,7 +46,7 @@ const HomeRoutes = prop => (
   <HomeLayout>
     <Switch>
       <Redirect exact path='/' to='/courses' />
-      <Route exact path='/school/:schoolId' />
+      <Route exact path='/school/:schoolId/:classId?' component={SchoolLogin} />
       <Route exact path='/courses' render={() => <Courses header={false} />} />
       <Route exact path='/courses/:courseId' component={CourseView} />
     </Switch>
@@ -55,9 +55,6 @@ const HomeRoutes = prop => (
 
 const routes = (
   <Switch>
-    <Route
-      path='/onboarding/class'
-      component={userIsAuthenticatedRedir(Onboarding)} />
     <Route
       path='/onboarding'
       component={userIsAuthenticatedRedir(Onboarding)} />

@@ -28,7 +28,13 @@ const StudentList = props => {
         }}>
         <Col className='flex-grow'>Students</Col>
         <Col>
-          <Icon type='setting' />
+          <Icon
+            style={{ cursor: 'pointer' }}
+            type='setting'
+            onClick={modal.showModal({
+              name: 'classSettingsModal',
+              tab: 'students'
+            })} />
         </Col>
       </Row>
       <Menu
