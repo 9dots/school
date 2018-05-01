@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import setProp from '@f/set-prop'
 import { message } from 'antd'
 import pick from '@f/pick'
+import { getValidationErrors } from '../../utils'
 
 const submitKeys = [
   'course',
@@ -38,19 +39,15 @@ export default compose(
       try {
         const { course } = await rpc(fn, {
           ...formatSubmit(values),
-          course: props.courseId
+          course: props.courseId,
+          draft: props.draft
         })
         message.success(`Success! Created ${values.displayName}.`)
         ok(course)
       } catch (e) {
         setLoading(false)
         if (e.errorDetails) {
-          throw new SubmissionError(
-            e.errorDetails.reduce(
-              (acc, { field, message }) => setProp(field, acc, message),
-              {}
-            )
-          )
+          throw new SubmissionError(getValidationErrors(e))
         }
         message.error('Oops, something went wrong. Please try again.')
       }

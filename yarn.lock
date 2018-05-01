@@ -6788,7 +6788,7 @@ redux-effects@^0.4.3:
   dependencies:
     is-promise "^2.1.0"
 
-redux-firestore@^0.3.2:
+redux-firestore@0.3:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/redux-firestore/-/redux-firestore-0.3.2.tgz#00342b958b757be77548f346d770a8bb3d912e4c"
   dependencies:
