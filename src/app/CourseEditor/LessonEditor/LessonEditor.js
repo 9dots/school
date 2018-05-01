@@ -10,12 +10,14 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import './LessonEditor.less'
 
 const LessonEditor = ({
-  lesson,
-  course,
+  deleteLesson,
+  handleProps,
+  setEditKey,
   toggleMode,
   editKey,
-  setEditKey,
-  handleProps
+  lesson,
+  course,
+  draft
 }) => {
   const { tasks = [] } = lesson
   const editing = editKey === lesson.id + 'addTask'
@@ -23,25 +25,14 @@ const LessonEditor = ({
     <span>
       <Card className='course lesson-editor' bordered={false}>
         <LessonDetails
+          deleteLesson={deleteLesson}
           handleProps={handleProps}
           editKey={editKey}
           setEditKey={setEditKey}
+          draft={draft}
           course={course}
           lesson={lesson} />
         <br />
-
-        {/* <List
-          dataSource={tasks}
-          renderItem={task => (
-            <List.Item className='task-details'>
-              <TaskDetails
-                task={task}
-                editKey={editKey}
-                course={course}
-                lesson={lesson.id}
-                setEditKey={setEditKey} />
-            </List.Item>
-          )} /> */}
 
         <Droppable droppableId={lesson.id} type='task'>
           {(provided, snapshot) => (
@@ -61,6 +52,7 @@ const LessonEditor = ({
                         <TaskDetails
                           handleProps={{ ...provided.dragHandleProps }}
                           task={task}
+                          draft={draft}
                           editKey={editKey}
                           course={course}
                           lesson={lesson.id}
@@ -80,6 +72,7 @@ const LessonEditor = ({
           <AddTask
             editing={editKey === lesson.id + 'addTask'}
             setEditKey={setEditKey}
+            draft={draft}
             course={course}
             lesson={lesson.id} />
         )}

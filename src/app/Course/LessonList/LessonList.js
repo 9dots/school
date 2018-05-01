@@ -1,8 +1,9 @@
-import { Collapse, Tooltip, Button, Avatar, Icon, List, Row, Col } from 'antd'
+import { Collapse, Tooltip, Button, Icon, Row, Col } from 'antd'
 import { Link } from 'react-router-dom'
 import { stopEvent } from 'utils'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
+import Tasks from './Tasks'
 import React from 'react'
 
 import './LessonList.less'
@@ -94,30 +95,6 @@ const Header = props => {
   )
 }
 
-const Tasks = ({ lesson: { tasks = [], id }, classId, student }) => (
-  <List className='task-list'>
-    {(tasks || []).map(({ displayName, description }, i) => (
-      <List.Item key={id + '-' + i}>
-        <List.Item.Meta
-          avatar={<Avatar size='small'>{i + 1}</Avatar>}
-          title={displayName}
-          description={description} />
-        {student ? (
-          <Link to={`/class/${classId}/lesson/${id}/${i}`} className='extra'>
-            <Icon type='caret-right' />
-            Play
-          </Link>
-        ) : (
-          <Link to={'/'} className='extra'>
-            <Icon type='eye-o' />
-            Preview
-          </Link>
-        )}
-      </List.Item>
-    ))}
-  </List>
-)
-
 const StudentExtra = ({
   lesson,
   module,
@@ -165,7 +142,11 @@ const TeacherExtra = ({ added, moduleId, assigned, onAssign, lesson }) => {
             mouseEnterDelay={0.4}
             onClick={e => e.stopPropagation()}>
             {/* Must use stopProp instead of stopEvent so a tags work */}
-            <Button target='_blank' href={lesson.lessonPlan} style={{border: 'none'}} icon='bars'/>
+            <Button
+              target='_blank'
+              href={lesson.lessonPlan}
+              style={{ border: 'none' }}
+              icon='bars' />
           </Tooltip>
           <Tooltip
             title='Slides'
@@ -174,7 +155,7 @@ const TeacherExtra = ({ added, moduleId, assigned, onAssign, lesson }) => {
             {/* Must use stopProp instead of stopEvent so a tags work */}
             <Button
               target='_blank'
-              style={{border: 'none'}}
+              style={{ border: 'none' }}
               href={lesson.slides}
               icon='file-ppt' />
           </Tooltip>
