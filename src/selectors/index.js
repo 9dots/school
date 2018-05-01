@@ -38,7 +38,14 @@ const moduleSelector = (state, mods) =>
     m => state.firestore.data[m] && { id: m, ...state.firestore.data[m] }
   )
 const students = (state, students) =>
-  Object.keys(students).map(student => state.firestore.data[student])
+  Object.keys(students).map(student => {
+    if (state.firestore.data[student]) {
+      return {
+        id: student,
+        ...state.firestore.data[student]
+      }
+    }
+  })
 const classes = (state, id) => state.firestore.ordered[`classes-${id}`]
 const allClasses = state => state.firestore.ordered[`allClasses`]
 const studentAssignment = (state, id, lesson) =>
