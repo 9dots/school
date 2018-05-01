@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
-import { Row, Col, Button } from 'antd'
+import { Row } from 'antd'
 import React from 'react'
 import ClassSelect from './ClassSelect'
 import NameSelect from './NameSelect'

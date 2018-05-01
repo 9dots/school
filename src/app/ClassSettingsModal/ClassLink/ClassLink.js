@@ -3,7 +3,7 @@ import { Card, Input, Icon, Divider } from 'antd'
 import React from 'react'
 import './ClassLink.less'
 
-const ClassLink = props => {
+const ClassLink = ({ classData }) => {
   return (
     <Card className='course'>
       <h2>Getting Students Logged In!</h2>
@@ -17,10 +17,9 @@ const ClassLink = props => {
         </p>
         <Input
           readOnly
-          onFocus={e => e.target.select()}
-          value='https://www.schoolapp.com/736ehdkjd72'
-          style={{ width: 300 }}
-          prefix={<Icon type='link' />}
+          onClick={e => e.target.select()}
+          value={`${window.location.origin}/school/${classData.school}`}
+          style={{ width: 410 }}
           size='large' />
         <Divider />
         <h4>Gmail Sign on</h4>
