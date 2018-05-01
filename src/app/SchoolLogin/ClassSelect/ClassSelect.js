@@ -5,7 +5,8 @@ import React from 'react'
 import './ClassSelect.less'
 
 const ClassSelect = ({ school = {}, classes = [], schoolId, colors }) => {
-  const numCols = Math.ceil(Math.sqrt(classes.length))
+  const withStudents = classes.filter(c => Object.keys(c.students || {}).length)
+  const numCols = Math.ceil(Math.sqrt(withStudents.length))
   const span = Math.min(Math.max(2, Math.ceil(24 / numCols), 6))
 
   return (
@@ -17,26 +18,23 @@ const ClassSelect = ({ school = {}, classes = [], schoolId, colors }) => {
       <Row
         type='flex'
         className='flex-wrap'
-        style={{ maxWidth: 300 * numCols }}>
-        {classes
-          // Only show classes that have students in them
-          .filter(c => Object.keys(c.students || {}).length)
-          .map(({ displayName, id }, i) => (
-            <Col key={id} span={span}>
-              <Link
-                to={`/school/${schoolId}/${id}`}
-                className='login-button-wrapper'>
-                <Button
-                  className='login-button'
-                  size='large'
-                  style={{
-                    background: colors[i % numCols]
-                  }}>
-                  {displayName}
-                </Button>
-              </Link>
-            </Col>
-          ))}
+        style={{ maxWidth: 250 * numCols }}>
+        {withStudents.map(({ displayName, id }, i) => (
+          <Col key={id} span={span}>
+            <Link
+              to={`/school/${schoolId}/${id}`}
+              className='login-button-wrapper'>
+              <Button
+                className='login-button'
+                size='large'
+                style={{
+                  background: colors[i % numCols]
+                }}>
+                {displayName}
+              </Button>
+            </Link>
+          </Col>
+        ))}
       </Row>
     </Col>
   )

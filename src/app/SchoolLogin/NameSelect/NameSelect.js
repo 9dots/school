@@ -13,10 +13,8 @@ const NameSelect = ({
   schoolId,
   cls = {}
 }) => {
-  // const students = Object.keys(cls.students || {})
   const numCols = Math.ceil(Math.sqrt(students.length))
   const span = Math.min(Math.max(2, Math.ceil(24 / numCols), 6))
-  // console.log(students)
 
   return (
     <Col style={{ maxWidth: 900 }} align='center'>
@@ -30,7 +28,7 @@ const NameSelect = ({
       <Row
         type='flex'
         className='flex-wrap'
-        style={{ maxWidth: 300 * numCols }}>
+        style={{ maxWidth: 250 * numCols }}>
         {students.filter(s => s).map(({ displayName, id }, i) => (
           <Col key={i} span={span}>
             <div style={{ margin: 10 }}>
