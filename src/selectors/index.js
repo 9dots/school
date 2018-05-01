@@ -1,5 +1,5 @@
-import getProp from '@f/get-prop'
 import findKey from 'lodash/findKey'
+import getProp from '@f/get-prop'
 import map from '@f/map'
 
 const progressByStudent = (state, lesson, students) => {
@@ -52,7 +52,9 @@ const studentAssignment = (state, id, lesson) =>
   getProp(`lessonProgress-${lesson}-${id}`, state.firestore.data)
 const myCourses = state => state.firestore.ordered.myCourses
 const courses = state => state.firestore.ordered.courses
-const course = (state, id) => state.firestore.data[id]
+const draft = (state, id) =>
+  getProp(`courses.${id}.drafts`, state.firestore.data)
+const course = (state, id) => getProp(id, state.firestore.data)
 const school = (state, id) => state.firestore.data[id]
 const profile = state => state.firebase.profile
 const uid = state => state.firebase.auth.uid
@@ -70,6 +72,7 @@ export {
   profile,
   course,
   school,
+  draft,
   uid
 }
 

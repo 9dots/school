@@ -7,7 +7,17 @@ import React from 'react'
 import './Header.less'
 
 const Header = props => {
-  const { publish, courseId, modal, course, setMode, mode } = props
+  const {
+    publishing,
+    courseId,
+    isDirty,
+    setMode,
+    publish,
+    course,
+    draft,
+    modal,
+    mode
+  } = props
   const {
     duration = {},
     displayName,
@@ -26,15 +36,13 @@ const Header = props => {
           </h3>
         </Link>
         <div className='actions'>
-          {published ? (
-            <Button disabled type='primary'>
-              Published
-            </Button>
-          ) : (
-            <Button onClick={() => publish(courseId)} type='primary'>
-              Publish
-            </Button>
-          )}
+          <Button
+            disabled={!isDirty}
+            loading={publishing}
+            onClick={() => publish(courseId)}
+            type='primary'>
+            Publish
+          </Button>
         </div>
       </Layout.Header>
       <Layout.Content>
@@ -71,6 +79,7 @@ const Header = props => {
           visible
           edit
           courseId={courseId}
+          draft={draft}
           initialValues={{
             ...course,
             grade: Object.keys(course.grade).join(','),

@@ -1,6 +1,6 @@
-import Field from '../../../../components/Field'
-import { TextField } from 'redux-form-antd'
 import { Form, Button, Row, Col } from 'antd'
+import { TextField } from 'redux-form-antd'
+import Field from 'components/Field'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
 import React from 'react'
