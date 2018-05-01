@@ -6,11 +6,13 @@ import React from 'react'
 import './LessonDetails.less'
 
 const LessonDetails = ({
+  deleteLesson,
+  handleProps,
+  setEditKey,
+  editKey,
   lesson,
   course,
-  editKey,
-  setEditKey,
-  handleProps
+  draft
 }) => {
   const { displayName, slides, lessonPlan, description, id } = lesson
 
@@ -30,27 +32,20 @@ const LessonDetails = ({
         </div>
         <span>{description}</span>
       </Col>
-      {/* <Col>
-        <Tooltip title='Sildes'>
-          <Button target='_blank' href={slides} icon='file-ppt' />
-        </Tooltip>
-        <Tooltip title='Lesson Plan'>
-          <Button target='_blank' href={lessonPlan} icon='profile' />
-        </Tooltip>
-      </Col> */}
       <Col className='actions'>
         <Icon type='edit' onClick={() => setEditKey(id)} />
         <Icon
           type='swap'
           style={{ transform: 'rotate(90deg)', cursor: 'move' }}
           {...handleProps} />
-        <Icon type='delete' />
+        <Icon onClick={() => deleteLesson(lesson)} type='delete' />
       </Col>
     </Row>
   ) : (
     <LessonForm
       mode='updateLesson'
       lesson={lesson.id}
+      draft={draft}
       course={course}
       initialValues={lesson}
       setEditKey={setEditKey} />

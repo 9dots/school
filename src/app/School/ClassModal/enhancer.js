@@ -24,7 +24,11 @@ export default compose(
       const { setUrl, school, ok, setLoading, rpc } = props
       setLoading(true)
       try {
-        const cls = await rpc('class.createClass', { ...values, school })
+        const cls = await rpc('class.createClass', {
+          ...values,
+          grade: Number(values.grade),
+          school
+        })
         ok(`Success! Created ${values.displayName}.`)
         await rpc('user.setNav', { class: cls.class })
         await setUrl(`/class/${cls.class}`)

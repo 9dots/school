@@ -13,14 +13,18 @@ import './CourseEditor.less'
 const CourseEditor = props => {
   const {
     orderedLessons: lessons = [],
+    publishing = false,
+    deleteLesson,
     course = {},
     setEditKey,
     isLoaded,
     courseId,
     editKey,
+    isDirty,
     publish,
     setMode,
     onDrop,
+    draft,
     modal,
     mode
   } = props
@@ -30,8 +34,11 @@ const CourseEditor = props => {
   return (
     <div>
       <Header
+        publishing={publishing}
         modal={modal}
         courseId={courseId}
+        draft={draft}
+        isDirty={isDirty}
         course={course}
         publish={publish}
         setMode={setMode}
@@ -56,8 +63,10 @@ const CourseEditor = props => {
                               {...provided.draggableProps}>
                               <LessonEditor
                                 handleProps={{ ...provided.dragHandleProps }}
+                                deleteLesson={deleteLesson}
                                 setEditKey={setEditKey}
                                 course={courseId}
+                                draft={draft}
                                 editKey={editKey}
                                 key={lesson.id}
                                 lesson={lesson} />
@@ -73,6 +82,7 @@ const CourseEditor = props => {
             </DragDropContext>
             <AddLesson
               course={courseId}
+              draft={draft}
               setEditKey={setEditKey}
               editing={editKey === 'addLesson'} />
           </span>
@@ -84,13 +94,17 @@ const CourseEditor = props => {
   )
 }
 
-const AddLesson = ({ editing, setEditKey, course }) => {
+const AddLesson = ({ editing, setEditKey, draft, course }) => {
   return editing ? (
     <Card
       bordered={false}
       className='course lesson-editor'
       style={{ marginBottom: 40 }}>
-      <LessonForm mode='addLesson' course={course} setEditKey={setEditKey} />
+      <LessonForm
+        mode='addLesson'
+        draft={draft}
+        course={course}
+        setEditKey={setEditKey} />
     </Card>
   ) : (
     <div

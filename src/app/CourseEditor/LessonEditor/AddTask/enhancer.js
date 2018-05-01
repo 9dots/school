@@ -17,6 +17,7 @@ export default compose(
         await props.rpc('course.addTask', {
           ...values,
           lesson: props.lesson,
+          draft: props.draft,
           course: props.course
         })
         props.setLoading(false)

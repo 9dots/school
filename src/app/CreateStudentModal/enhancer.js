@@ -17,10 +17,19 @@ export default compose(
   ),
   withHandlers({
     onSubmit: props => async values => {
-      const { setLoading, school, class: { id }, rpc, ok } = props
+      const {
+        setLoading,
+        school,
+        class: { id },
+        rpc,
+        ok
+      } = props
       setLoading(true)
       try {
-        const res = await rpc('user.createStudent', { ...values, school })
+        const res = await rpc('user.createStudent', {
+          ...values,
+          school
+        })
         await rpc('class.addStudent', { class: id, student: res.student })
         message.success('Success! Added student.')
         ok(null)

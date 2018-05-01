@@ -11,7 +11,10 @@ import './Courses.less'
 
 const enhancer = compose(
   firestoreConnect(props => [
-    { collection: 'courses', where: ['featured', '==', true] }
+    {
+      collection: 'courses',
+      where: [['featured', '==', true], ['published', '==', true]]
+    }
   ]),
   connect((state, props) => ({ courses: courses(state) })),
   waitFor(['courses'])

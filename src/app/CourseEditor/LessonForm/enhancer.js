@@ -18,7 +18,8 @@ export default compose(
         await props.rpc(`course.${props.mode}`, {
           ...omit('tasks', values),
           lesson: props.lesson,
-          course: props.course
+          course: props.course,
+          draft: props.draft
         })
         props.setLoading(false)
         props.setEditKey(null)
