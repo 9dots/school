@@ -20,8 +20,8 @@ class Sidebar extends React.PureComponent {
       logout,
       profile
     } = this.props
-    const roles = mapValues(role => role, profile.schools)
-    const isTeacher = roles.indexOf('teacher') > -1
+
+    const isTeacher = profile.role === 'teacher'
 
     return (
       <div className='main-sidebar'>
@@ -59,6 +59,13 @@ class Sidebar extends React.PureComponent {
               </Link>
             </Menu.Item>
           )}
+          {/* {isTeacher && (
+            <Menu.Item key={'/library'}>
+              <Link to='/library'>
+                <Icon type='book' />My Library
+              </Link>
+            </Menu.Item>
+          )} */}
           {mapValues(
             (school, key) => (
               <Menu.SubMenu

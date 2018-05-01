@@ -22,6 +22,7 @@ const Course = props => {
     modal,
     added
   } = props
+
   const {
     displayName = '',
     duration = {},
@@ -34,66 +35,68 @@ const Course = props => {
     id
   } = course
   return (
-    <Card
-      className='course'
-      bordered={bordered}
-      title={
-        <Row type='flex' justify='middle'>
-          <Col>
-            <Avatar
-              size='large'
-              className='xlg'
-              src={imageUrl}
-              style={{ float: 'left' }}>
-              {displayName ? displayName[0] : ''}
-            </Avatar>
-          </Col>
-          <Col className='flex-grow'>
-            <h2>{displayName}</h2>
-            {!student && (
-              <span className='sub-title'>
-                <Icon type='clock-circle-o' />
-                {duration.time} {duration.unit}
-                <Icon type='book' />
-                {gradesToText(Object.keys(grade))}
-                <Icon type='tag-o' />
-                <span className='capitalize'>
-                  {idsToText('tags', Object.keys(tags))}
+    <div>
+      <Card
+        className='course'
+        bordered={bordered}
+        title={
+          <Row type='flex' justify='middle'>
+            <Col>
+              <Avatar
+                size='large'
+                className='xlg'
+                src={imageUrl}
+                style={{ float: 'left' }}>
+                {displayName ? displayName[0] : ''}
+              </Avatar>
+            </Col>
+            <Col className='flex-grow'>
+              <h2>{displayName}</h2>
+              {!student && (
+                <span className='sub-title'>
+                  <Icon type='clock-circle-o' />
+                  {duration.time} {duration.unit}
+                  <Icon type='book' />
+                  {gradesToText(Object.keys(grade))}
+                  <Icon type='tag-o' />
+                  <span className='capitalize'>
+                    {idsToText('tags', Object.keys(tags))}
+                  </span>
                 </span>
-              </span>
-            )}
-          </Col>
-        </Row>
-      }
-      extra={
-        published &&
-        !added &&
-        !preview && (
-          <Button
-            className='secondary'
-            onClick={modal.showModal(id)}
-            type='primary'>
-            <Icon type='plus' />Add to Class
-          </Button>
-        )
-      }>
-      {!student && <p>{description}</p>}
-      <LessonList
-        student={student}
-        assignedId={assignedId}
-        assignToStudent={assignToStudent}
-        progress={progress}
-        moduleId={id}
-        classId={classId}
-        onAssign={onAssign}
-        lessons={lessons}
-        added={added} />
-      <AddCourseWrapper
-        modal={modal}
-        displayName={displayName}
-        id={id}
-        name={id} />
-    </Card>
+              )}
+            </Col>
+          </Row>
+        }
+        extra={
+          published &&
+          !added &&
+          !preview && (
+            <Button
+              className='secondary'
+              onClick={modal.showModal(id)}
+              type='primary'>
+              <Icon type='plus' />Add to Class
+            </Button>
+          )
+        }>
+        {!student && <p>{description}</p>}
+        <LessonList
+          student={student}
+          assignedId={assignedId}
+          assignToStudent={assignToStudent}
+          progress={progress}
+          moduleId={id}
+          classId={classId}
+          onAssign={onAssign}
+          lessons={lessons}
+          added={added} />
+        <AddCourseWrapper
+          modal={modal}
+          displayName={displayName}
+          id={id}
+          name={id} />
+      </Card>
+    </div>
   )
 }
 
