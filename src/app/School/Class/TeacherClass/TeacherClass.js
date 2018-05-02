@@ -116,7 +116,7 @@ const ClassView = props => {
                 modules={modules} />
             </div>
           )}
-          <Route
+          {/* <Route
             path={`/class/:classId/settings`}
             render={() => (
               <ClassSettingsModal
@@ -125,12 +125,13 @@ const ClassView = props => {
                 students={studentData}
                 onOk={modal.hideModal('classSettingsModal')}
                 onCancel={modal.hideModal('classSettingsModal')} />
-            )} />
+            )} /> */}
 
           {modal.isVisible('classSettingsModal') && (
             <ClassSettingsModal
               visible
               {...modal.getProps('classSettingsModal')}
+              class={classId}
               classData={classData}
               students={studentData}
               onOk={modal.hideModal('classSettingsModal')}

@@ -8,10 +8,17 @@ export function isEmail (str) {
 export const setArrayImmutable = (arr, i, value) =>
   Object.assign([...arr], { [i]: value })
 
-export function stopEvent (action) {
+export function stopEvent (action = () => {}) {
   return e => {
     e.stopPropagation()
     e.preventDefault()
+    action(e)
+  }
+}
+
+export function stopProp (action = () => {}) {
+  return e => {
+    e.stopPropagation()
     action(e)
   }
 }

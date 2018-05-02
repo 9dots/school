@@ -1,20 +1,15 @@
-import { Modal, Layout, Menu, Card, Icon } from 'antd'
-import ClassSudentSettings from './ClassStudentSettings'
+import ClassStudentSettings from './ClassStudentSettings'
+import { Modal, Layout, Menu, Icon } from 'antd'
 import ClassDetails from './ClassDetails'
 import ClassLink from './ClassLink'
-import enhancer from './enhancer'
 import PropTypes from 'prop-types'
+import enhancer from './enhancer'
 import React from 'react'
+
 import './ClassSettingsModal.less'
 
-const ClassSettingsModal = ({
-  onOk,
-  classData,
-  students,
-  tab,
-  setTab,
-  ...rest
-}) => {
+const ClassSettingsModal = props => {
+  const { onOk, classData, students, tab, setTab, ...rest } = props
   const { displayName } = classData
 
   return (
@@ -54,7 +49,8 @@ const ClassSettingsModal = ({
             {
               details: <ClassDetails classData={classData} />,
               students: (
-                <ClassSudentSettings
+                <ClassStudentSettings
+                  class={props.class}
                   classData={classData}
                   students={students} />
               ),

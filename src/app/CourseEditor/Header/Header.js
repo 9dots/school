@@ -8,7 +8,7 @@ import './Header.less'
 
 const Header = props => {
   const {
-    publishing,
+    publishing = false,
     courseId,
     isDirty,
     setMode,
@@ -18,14 +18,8 @@ const Header = props => {
     modal,
     mode
   } = props
-  const {
-    duration = {},
-    displayName,
-    description,
-    published,
-    tags = {},
-    grade
-  } = course
+
+  const { duration = {}, displayName, description, tags = {}, grade } = course
 
   return (
     <Layout className='course-editor-header'>
@@ -41,7 +35,7 @@ const Header = props => {
             loading={publishing}
             onClick={() => publish(courseId)}
             type='primary'>
-            Publish
+            Save
           </Button>
         </div>
       </Layout.Header>
