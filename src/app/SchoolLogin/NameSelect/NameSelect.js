@@ -1,6 +1,7 @@
-import PropTypes from 'prop-types'
+import StudentLoginModal from '../StudentLoginModal'
 import { Row, Col, Button, Icon } from 'antd'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import enhancer from './enhancer'
 import React from 'react'
 import './NameSelect.less'
@@ -8,10 +9,11 @@ import './NameSelect.less'
 const NameSelect = ({
   school = {},
   students = [],
-  colors,
-  classId,
   schoolId,
-  cls = {}
+  cls = {},
+  classId,
+  colors,
+  modal
 }) => {
   const numCols = Math.ceil(Math.sqrt(students.length))
   const span = Math.min(Math.max(2, Math.ceil(24 / numCols), 6))
@@ -29,21 +31,27 @@ const NameSelect = ({
         type='flex'
         className='flex-wrap'
         style={{ maxWidth: 250 * numCols }}>
-        {students.filter(s => s).map(({ displayName, id }, i) => (
+        {students.filter(s => s).map((student, i) => (
           <Col key={i} span={span}>
             <div style={{ margin: 10 }}>
               <Button
                 size='large'
+                onClick={modal.showModal({ name: 'studentLogin', student })}
                 className='login-button'
                 style={{
                   background: colors[i % numCols]
                 }}>
-                {displayName}
+                {student.displayName}
               </Button>
             </div>
           </Col>
         ))}
       </Row>
+      {modal.isVisible('studentLogin') && (
+        <StudentLoginModal
+          {...modal.getProps('studentLogin')}
+          onCancel={modal.hideModal('studentLogin')} />
+      )}
     </Col>
   )
 }

@@ -1,9 +1,11 @@
+import modalContainer from '../../../components/modalContainer'
 import { firestoreConnect } from 'react-redux-firebase'
 import { students } from '../../../selectors'
-import { compose } from 'recompose'
 import { connect } from 'react-redux'
+import { compose } from 'recompose'
 
 export default compose(
+  modalContainer,
   connect((state, { match: { params: { classId } }, classes = [] }) => ({
     cls: classes.find(c => c.id === classId) || {}
   })),

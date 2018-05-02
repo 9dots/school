@@ -1,6 +1,7 @@
 import { firebaseConnect } from 'react-redux-firebase'
-import { compose, withHandlers } from 'recompose'
 import { Layout, Button, Icon, Row, Col } from 'antd'
+import { compose, withHandlers } from 'recompose'
+import { Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import React from 'react'
 import './HomeLayout.less'
@@ -12,7 +13,7 @@ const enhancer = compose(
   })
 )
 
-const HomeLayout = props => {
+const HomeLayout = ({ allowSignIn, login, children }) => {
   return (
     <Layout>
       <Layout.Header className='dark'>
@@ -23,14 +24,16 @@ const HomeLayout = props => {
             </h1>
           </Col>
           <Col>
-            <Button onClick={props.login} type='primary' className='secondary'>
-              <Icon type='login' />
-              SIGN IN
-            </Button>
+            {!!allowSignIn && (
+              <Button onClick={login} type='primary' className='secondary'>
+                <Icon type='login' />
+                SIGN IN
+              </Button>
+            )}
           </Col>
         </Row>
       </Layout.Header>
-      <Layout.Content>{props.children}</Layout.Content>
+      <Layout.Content>{children}</Layout.Content>
     </Layout>
   )
 }
