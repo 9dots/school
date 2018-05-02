@@ -1,12 +1,13 @@
 import { Card, Button, Dropdown, Icon, Menu, Table } from 'antd'
-import './ClassStudentSettings.less'
 import getProp from '@f/get-prop'
 import PropTypes from 'prop-types'
+import enhancer from './enhancer'
 import React from 'react'
 
-const tableConfig = {}
+import './ClassStudentSettings.less'
 
-const ClassStudentSettings = ({ students, classData }) => {
+const ClassStudentSettings = props => {
+  const { students, tableConfig, removeStudents } = props
   return (
     <div className='class-student-settings'>
       <div className='actions'>
@@ -22,7 +23,11 @@ const ClassStudentSettings = ({ students, classData }) => {
             <Icon type='down' />
           </Button>
         </Dropdown>
-        <Button icon='delete' type='danger' style={{ float: 'right' }}>
+        <Button
+          onClick={removeStudents}
+          icon='delete'
+          type='danger'
+          style={{ float: 'right' }}>
           Remove Students
         </Button>
       </div>
@@ -80,4 +85,4 @@ function alphaSort (a, b, selector) {
 
 ClassStudentSettings.propTypes = {}
 
-export default ClassStudentSettings
+export default enhancer(ClassStudentSettings)

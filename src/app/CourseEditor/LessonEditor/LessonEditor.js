@@ -1,11 +1,11 @@
+import { Droppable, Draggable } from 'react-beautiful-dnd'
 import LessonDetails from './LessonDetails'
 import TaskDetails from './TaskDetails'
 import PropTypes from 'prop-types'
-import { Card, List, Icon } from 'antd'
+import { Card, Icon } from 'antd'
 import enhancer from './enhancer'
 import AddTask from './AddTask'
 import React from 'react'
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 
 import './LessonEditor.less'
 
@@ -21,6 +21,7 @@ const LessonEditor = ({
 }) => {
   const { tasks = [] } = lesson
   const editing = editKey === lesson.id + 'addTask'
+
   return (
     <span>
       <Card className='course lesson-editor' bordered={false}>
