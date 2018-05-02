@@ -64,6 +64,7 @@ const ClassView = props => {
     onAssign,
     modal
   } = props
+
   const { classId } = props.match.params
   const { assignedLesson } = classData
 

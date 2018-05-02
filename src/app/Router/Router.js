@@ -42,8 +42,12 @@ const App = props => (
   </div>
 )
 
-const HomeRoutes = prop => (
-  <HomeLayout>
+const HomeRoutes = ({
+  match: {
+    params: { route }
+  }
+}) => (
+  <HomeLayout allowSignIn={route !== 'school'}>
     <Switch>
       <Redirect exact path='/' to='/courses' />
       <Route exact path='/school/:schoolId/:classId?' component={SchoolLogin} />
@@ -61,7 +65,7 @@ const routes = (
     <Route path='/'>
       <div>
         <Route path='/' component={userIsAuthenticated(userHasSchool(App))} />
-        <Route path='/' component={userIsNotAuthenticated(HomeRoutes)} />
+        <Route path='/:route?' component={userIsNotAuthenticated(HomeRoutes)} />
       </div>
     </Route>
   </Switch>
