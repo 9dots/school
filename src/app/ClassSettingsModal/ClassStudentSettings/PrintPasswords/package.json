@@ -1,0 +1,6 @@
+
+{
+  "name": "PrintPasswords",
+  "main": "PrintPasswords.js",
+  "browser": "PrintPasswords.js"
+}

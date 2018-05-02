@@ -1,15 +1,21 @@
 import { compose, withHandlers, withStateHandlers, withProps } from 'recompose'
 import { connect } from 'react-redux'
 import { Modal, message } from 'antd'
+import modalContainer from '../../../components/modalContainer'
 import { rpc } from 'app/actions'
 
 export default compose(
+  modalContainer,
   connect(() => ({}), { rpc }),
   withStateHandlers(
-    { selectedStudents: [] },
+    {
+      selectedStudents: [],
+      isSelected: false
+    },
     {
       setSelectedStudents: () => (ids, selectedStudents) => ({
-        selectedStudents
+        selectedStudents,
+        isSelected: !!selectedStudents.length
       })
     }
   ),
@@ -19,12 +25,18 @@ export default compose(
     }
   })),
   withHandlers({
+    printPasswords: ({ modal, selectedStudents }) => {
+      return modal.showModal({
+        name: 'printPasswords',
+        students: selectedStudents
+      })
+    },
     removeStudents: props => e => {
       Modal.confirm({
         title: 'Remove students?',
-        content: `The following students will be removed from class:\n\n ${props.selectedStudents.map(
-          student => student.displayName + '\n'
-        )}`,
+        content: `The following students will be removed from your class:\n\n ${props.selectedStudents
+          .map(student => student.displayName)
+          .join(', ')}`,
         okText: 'Yes',
         cancelText: 'No',
         async onOk () {
