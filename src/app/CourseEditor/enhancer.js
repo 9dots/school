@@ -71,8 +71,7 @@ export default compose(
           draft: props.draft
         })
         props.setDirty(false)
-        props.setUrl('/library')
-        message.success('Course published')
+        message.success('Course saved')
       } catch (e) {
         message.error((e.errorDetails || [{}])[0].message || e.error)
       }

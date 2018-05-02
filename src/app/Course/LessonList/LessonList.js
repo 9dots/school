@@ -1,6 +1,6 @@
 import { Collapse, Tooltip, Button, Icon, Row, Col } from 'antd'
 import { Link } from 'react-router-dom'
-import { stopEvent } from 'utils'
+import { stopProp, stopEvent } from 'utils'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
 import Tasks from './Tasks'
@@ -122,15 +122,16 @@ const StudentExtra = ({
 }
 
 const TeacherExtra = ({ added, moduleId, assigned, onAssign, lesson }) => {
+  console.log(added)
   return (
     <span>
       {!added ? (
         <span>
-          <Button onClick={e => e.stopPropagation()}>
+          <Button target='_blank' href={lesson.slides} onClick={stopProp()}>
             <Icon type='file-ppt' />
             Slides
           </Button>
-          <Button onClick={e => e.stopPropagation()}>
+          <Button target='_blank' href={lesson.lessonPlan} onClick={stopProp()}>
             <Icon type='profile' />
             Lesson Plan
           </Button>
@@ -140,19 +141,14 @@ const TeacherExtra = ({ added, moduleId, assigned, onAssign, lesson }) => {
           <Tooltip
             title='Lesson Plan'
             mouseEnterDelay={0.4}
-            onClick={e => e.stopPropagation()}>
-            {/* Must use stopProp instead of stopEvent so a tags work */}
+            onClick={stopProp()}>
             <Button
               target='_blank'
               href={lesson.lessonPlan}
               style={{ border: 'none' }}
               icon='bars' />
           </Tooltip>
-          <Tooltip
-            title='Slides'
-            mouseEnterDelay={0.4}
-            onClick={e => e.stopPropagation()}>
-            {/* Must use stopProp instead of stopEvent so a tags work */}
+          <Tooltip title='Slides' mouseEnterDelay={0.4} onClick={stopProp()}>
             <Button
               target='_blank'
               style={{ border: 'none' }}

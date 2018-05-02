@@ -13,19 +13,11 @@ import './CourseEditor.less'
 const CourseEditor = props => {
   const {
     orderedLessons: lessons = [],
-    publishing = false,
-    deleteLesson,
     course = {},
-    setEditKey,
     isLoaded,
     courseId,
     editKey,
-    isDirty,
-    publish,
-    setMode,
     onDrop,
-    draft,
-    modal,
     mode
   } = props
 
@@ -33,16 +25,7 @@ const CourseEditor = props => {
 
   return (
     <div>
-      <Header
-        publishing={publishing}
-        modal={modal}
-        courseId={courseId}
-        draft={draft}
-        isDirty={isDirty}
-        course={course}
-        publish={publish}
-        setMode={setMode}
-        mode={mode} />
+      <Header {...props} />
       <div className='main-col'>
         {mode === 'edit' ? (
           <span>
@@ -62,12 +45,9 @@ const CourseEditor = props => {
                               ref={provided.innerRef}
                               {...provided.draggableProps}>
                               <LessonEditor
+                                {...props}
                                 handleProps={{ ...provided.dragHandleProps }}
-                                deleteLesson={deleteLesson}
-                                setEditKey={setEditKey}
                                 course={courseId}
-                                draft={draft}
-                                editKey={editKey}
                                 key={lesson.id}
                                 lesson={lesson} />
                             </div>
@@ -81,9 +61,8 @@ const CourseEditor = props => {
               </Droppable>
             </DragDropContext>
             <AddLesson
+              {...props}
               course={courseId}
-              draft={draft}
-              setEditKey={setEditKey}
               editing={editKey === 'addLesson'} />
           </span>
         ) : (
