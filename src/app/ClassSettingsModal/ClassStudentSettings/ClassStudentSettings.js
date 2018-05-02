@@ -5,17 +5,22 @@ import enhancer from './enhancer'
 import React from 'react'
 
 import './ClassStudentSettings.less'
+import PrintPasswords from './PrintPasswords'
 
 const ClassStudentSettings = props => {
-  const { students, tableConfig, removeStudents } = props
+  const {
+    students,
+    tableConfig,
+    removeStudents,
+    printPasswords,
+    modal,
+    isSelected
+  } = props
   return (
     <div className='class-student-settings'>
       <div className='actions'>
         <Button icon='user-add' type='primary'>
           Add Student
-        </Button>
-        <Button icon='printer' type='primary'>
-          Print Passwords
         </Button>
         <Dropdown overlay={menu}>
           <Button>
@@ -23,7 +28,11 @@ const ClassStudentSettings = props => {
             <Icon type='down' />
           </Button>
         </Dropdown>
+        <Button icon='printer' onClick={printPasswords} disabled={!isSelected}>
+          Print Passwords
+        </Button>
         <Button
+          disabled={!isSelected}
           onClick={removeStudents}
           icon='delete'
           type='danger'
@@ -39,6 +48,12 @@ const ClassStudentSettings = props => {
           pagination={false}
           columns={columns} />
       </Card>
+      {modal.isVisible('printPasswords') && (
+        <PrintPasswords
+          {...modal.getProps('printPasswords')}
+          onCancel={modal.hideModal('printPasswords')}
+          onOk={modal.hideModal('printPasswords')} />
+      )}
     </div>
   )
 }

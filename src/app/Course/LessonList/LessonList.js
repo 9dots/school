@@ -122,7 +122,6 @@ const StudentExtra = ({
 }
 
 const TeacherExtra = ({ added, moduleId, assigned, onAssign, lesson }) => {
-  console.log(added)
   return (
     <span>
       {!added ? (
