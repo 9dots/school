@@ -1,6 +1,6 @@
 import { Collapse, Tooltip, Button, Icon, Row, Col } from 'antd'
-import { Link } from 'react-router-dom'
 import { stopProp, stopEvent } from 'utils'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
 import Tasks from './Tasks'
@@ -122,7 +122,6 @@ const StudentExtra = ({
 }
 
 const TeacherExtra = ({ added, moduleId, assigned, onAssign, lesson }) => {
-  console.log(added)
   return (
     <span>
       {!added ? (

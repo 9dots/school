@@ -1,11 +1,10 @@
 import { compose, withStateHandlers, withHandlers } from 'recompose'
-import { reduxForm } from 'redux-form'
+import { withFormik } from 'formik'
 import React from 'react'
 import './formModal.less'
 
 const formModal = form => Component => {
   const formModalEnhancer = compose(
-    reduxForm(form),
     withStateHandlers(
       { confirmLoading: false },
       {
@@ -19,7 +18,8 @@ const formModal = form => Component => {
         setLoading(false)
         handler(...args)
       }
-    })
+    }),
+    withFormik(form)
   )
   return formModalEnhancer(props => <Component {...props} />)
 }

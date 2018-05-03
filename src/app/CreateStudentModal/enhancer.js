@@ -1,29 +1,29 @@
-import { compose, withHandlers } from 'recompose'
+import { getFormDefaults, getValidationErrors } from 'utils'
 import { SubmissionError } from 'redux-form'
 import formModal from 'components/formModal'
-import { getValidationErrors } from 'utils'
 import { connect } from 'react-redux'
+import { compose } from 'recompose'
+import schema from 'school-schema'
 import { rpc } from 'app/actions'
 import { message } from 'antd'
 
 export default compose(
-  formModal({ form: 'createStudent' }),
-  connect(
-    (state, props) => ({
-      ok: props.close(props.onOk),
-      cancel: props.close(props.onCancel)
+  connect(() => ({}), { rpc }),
+  formModal({
+    displayName: 'createStudent',
+    mapPropsToValues: props => ({
+      name: { given: '', family: '' },
+      studentId: ''
     }),
-    { rpc }
-  ),
-  withHandlers({
-    onSubmit: props => async values => {
+    handleSubmit: async (values, handbag) => {
+      const { props } = handbag
       const {
+        class: { id },
         setLoading,
         school,
-        class: { id },
-        rpc,
-        ok
+        rpc
       } = props
+
       setLoading(true)
       try {
         const res = await rpc('user.createStudent', {
@@ -32,7 +32,7 @@ export default compose(
         })
         await rpc('class.addStudent', { class: id, student: res.student })
         message.success('Success! Added student.')
-        ok(null)
+        props.onOk('done')
       } catch (e) {
         setLoading(false)
         if (e.error === 'studentId_taken') {
@@ -44,6 +44,15 @@ export default compose(
         }
         message.error('Oops, something went wrong. Please try again.')
       }
-    }
+    },
+    ...getFormDefaults(schema.default.user.createStudent, cast)
   })
 )
+
+function cast (values, props) {
+  return {
+    ...values,
+    email: values.email || undefined,
+    school: props.school
+  }
+}

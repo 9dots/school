@@ -1,16 +1,13 @@
-import modalContainer from '../../../components/modalContainer'
+import { progressByStudent, students as studentsSelector } from 'selectors'
 import { compose, lifecycle, withHandlers } from 'recompose'
 import { firestoreConnect } from 'react-redux-firebase'
-import waitFor from '../../../components/waitFor'
+import modalContainer from 'components/modalContainer'
+import waitFor from 'components/waitFor'
 import { connect } from 'react-redux'
 import { message, Modal } from 'antd'
 import mapValues from '@f/map-values'
 import getProp from '@f/get-prop'
-import { rpc } from '../../actions'
-import {
-  progressByStudent,
-  students as studentsSelector
-} from '../../../selectors'
+import { rpc } from 'app/actions'
 
 export default compose(
   modalContainer,
