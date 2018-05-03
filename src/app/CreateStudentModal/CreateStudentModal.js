@@ -1,18 +1,10 @@
-import { TextField } from 'redux-form-antd'
 import { Modal, Form, Row, Col } from 'antd'
-import { Field } from 'redux-form'
+import Field, { TextField } from 'components/Field'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
-import { isEmail } from 'utils'
 import React from 'react'
 
 import './CreateStudentModal.less'
-
-const commonProps = {
-  validate: v => (v ? '' : 'Required')
-}
-
-const email = value => (isEmail(value) ? 'Invalid email address' : undefined)
 
 const CreateStudentModal = props => {
   const displayName = props.class && props.class.displayName
@@ -21,45 +13,38 @@ const CreateStudentModal = props => {
       {...props}
       destroyOnClose
       onCancel={props.close(props.onCancel)}
-      onOk={props.handleSubmit(props.onSubmit)}
+      onOk={props.handleSubmit}
       confirmLoading={props.confirmLoading}
       title={'Add Student to ' + displayName}>
-      <Form onSubmit={props.handleSubmit(props.onSubmit)}>
+      <Form onSubmit={props.handleSubmit}>
         <Item label='Full Name'>
           <Row gutter={8}>
             <Col span={12}>
-              <Form.Item>
-                <Field
-                  {...commonProps}
-                  name='name.given'
-                  placeholder='First'
-                  component={TextField} />
-              </Form.Item>
+              <Field
+                {...props}
+                name='name.given'
+                placeholder='First'
+                component={TextField} />
             </Col>
             <Col span={12}>
-              <Form.Item>
-                <Field
-                  {...commonProps}
-                  name='name.family'
-                  placeholder='Last'
-                  component={TextField} />
-              </Form.Item>
+              <Field
+                {...props}
+                name='name.family'
+                placeholder='Last'
+                component={TextField} />
             </Col>
           </Row>
         </Item>
         <Item label='Student ID'>
           <Field
-            {...commonProps}
+            {...props}
             name='studentId'
             placeholder='abc123'
             component={TextField} />
         </Item>
         <Item label='Email (optional)'>
           <Field
-            // {...commonProps}
-            // validate={v => (isEmail(v) ? 'Invalid Email' : undefined)}
-            validate={email}
-            type='email'
+            {...props}
             name='email'
             placeholder='student@email.com'
             component={TextField} />

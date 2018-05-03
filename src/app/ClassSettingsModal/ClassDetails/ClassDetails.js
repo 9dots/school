@@ -16,7 +16,6 @@ const itemLayout = {
 
 const ClassDetails = ({ classData }) => {
   const { displayName, grade, school, teachers } = classData
-  console.log(classData)
   return (
     <Card className='course'>
       <h2>Class Details</h2>

@@ -1,7 +1,6 @@
-import { TextField, SelectField } from 'redux-form-antd'
+import Field, { TextField, SelectField } from 'components/Field'
 import { grades } from 'utils/data'
 import { Modal, Form } from 'antd'
-import { Field } from 'redux-form'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
 import { stopEvent } from 'utils'
@@ -9,28 +8,25 @@ import React from 'react'
 
 import './ClassModal.less'
 
-const commonProps = {
-  validate: v => (v ? '' : 'Required')
-}
-
 const ClassModal = props => (
   <span onClick={stopEvent(() => {})}>
     <Modal
       {...props}
       onCancel={props.close(props.onCancel)}
-      onOk={props.handleSubmit(props.onSubmit)}
+      onOk={props.handleSubmit}
       title='Create A Class'>
       <Form>
         <Form.Item label='Name'>
           <Field
-            {...commonProps}
+            {...props}
+            label='Name'
             name='displayName'
             placeholder='Coding 1'
             component={TextField} />
         </Form.Item>
         <Form.Item label='Grade'>
           <Field
-            {...commonProps}
+            {...props}
             options={grades}
             name='grade'
             placeholder='Select a Grade'

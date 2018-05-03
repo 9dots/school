@@ -1,6 +1,6 @@
 import { Modal, List, Checkbox } from 'antd'
 import SchoolDetails from '../School/SchoolDetails'
-import { Field } from 'redux-form'
+import Field from 'components/Field'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
 import React from 'react'
@@ -23,13 +23,13 @@ const AddCourseModal = props => {
   return (
     <span>
       <Modal
-        onOk={props.handleSubmit(props.onSubmit)}
+        onOk={props.handleSubmit}
         confirmLoading={confirmLoading}
         className='add-course-modal'
         title='Add a Course'
         okText='Add'
         {...rest}>
-        <form onSubmit={props.handleSubmit(props.onSubmit)}>
+        <form onSubmit={props.handleSubmit}>
           <p>
             Select classes to assign <b>&quot;{displayName}&quot;</b> to:
           </p>
@@ -41,7 +41,8 @@ const AddCourseModal = props => {
                 classes.map(({ displayName, school, id }) => (
                   <List.Item key={id}>
                     <Field
-                      meta={{ valid: false }}
+                      {...props}
+                      noItem
                       component={checkField}
                       displayName={displayName}
                       school={school}
@@ -56,9 +57,11 @@ const AddCourseModal = props => {
   )
 }
 
-const checkField = ({ input, displayName, meta, school }) => (
+const checkField = ({ displayName, setFieldValue, school, name }) => (
   <div className='input-row'>
-    <Checkbox {...input} className='large'>
+    <Checkbox
+      onChange={e => setFieldValue(name, e.target.checked)}
+      className='large'>
       <div>
         <div>{displayName}</div>
         <i>
@@ -66,7 +69,6 @@ const checkField = ({ input, displayName, meta, school }) => (
         </i>
       </div>
     </Checkbox>
-    {meta.touched && meta.error && <span className='error'>{meta.error}</span>}
   </div>
 )
 

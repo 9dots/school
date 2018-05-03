@@ -23,6 +23,24 @@ export function stopProp (action = () => {}) {
   }
 }
 
+export function validate (validator, cast) {
+  return (values, props) => {
+    const { valid, errors } = validator(cast(values, props), { greedy: true })
+    if (valid) return
+    return getValidationErrors({
+      errorDetails: errors
+    })
+  }
+}
+
+export function getFormDefaults (validator, cast) {
+  return {
+    validateOnChange: true,
+    validateOnBlur: false,
+    validate: validate(validator, cast)
+  }
+}
+
 /**
  * getValidationError
  * @param {object} e The error object to transform
