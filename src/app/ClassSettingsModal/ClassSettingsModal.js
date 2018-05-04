@@ -4,6 +4,7 @@ import ClassDetails from './ClassDetails'
 import ClassLink from './ClassLink'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
+import pick from '@f/pick'
 import React from 'react'
 
 import './ClassSettingsModal.less'
@@ -47,7 +48,11 @@ const ClassSettingsModal = props => {
           <h1>{displayName} | Settings</h1>
           {
             {
-              details: <ClassDetails classData={classData} />,
+              details: (
+                <ClassDetails
+                  initialValues={pick(['displayName', 'grade'], classData)}
+                  classData={classData} />
+              ),
               students: (
                 <ClassStudentSettings
                   class={props.class}

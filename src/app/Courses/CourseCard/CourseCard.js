@@ -1,6 +1,6 @@
 import AddCourseWrapper from 'app/AddCourseModal/AddCourseWrapper'
-import { Card, Icon, Button, Avatar } from 'antd'
 import { idsToText, gradesToText } from 'utils/data'
+import { Card, Icon, Button, Avatar } from 'antd'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { stopEvent } from 'utils'
@@ -21,6 +21,10 @@ const CourseCard = ({ course, modal, editCourse, editable, setUrl }) => {
     id
   } = course
 
+  const btnStyle = {
+    backgroundColor: 'transparent'
+  }
+
   return (
     <span>
       <Link to={`courses/${id}`}>
@@ -38,13 +42,15 @@ const CourseCard = ({ course, modal, editCourse, editable, setUrl }) => {
           extra={
             <span>
               {published && (
-                <Button onClick={stopEvent(modal.showModal(id))}>
+                <Button
+                  style={btnStyle}
+                  onClick={stopEvent(modal.showModal(id))}>
                   <Icon type='plus' />Add to Class
                 </Button>
               )}
               {editable && (
                 <Button
-                  style={{ marginLeft: 8 }}
+                  style={{ marginLeft: 8, ...btnStyle }}
                   onClick={stopEvent(editCourse)}
                   icon='edit'>
                   {!published && 'Edit Draft'}
