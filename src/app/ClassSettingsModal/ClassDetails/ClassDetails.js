@@ -1,6 +1,10 @@
-import PropTypes from 'prop-types'
 import { Card, Form, Input, Divider, Button } from 'antd'
+import Field, { TextField, SelectField } from 'components/Field'
+import { grades } from 'utils/data'
+import PropTypes from 'prop-types'
+import enhancer from './enhancer'
 import React from 'react'
+
 import './ClassDetails.less'
 
 const itemLayout = {
@@ -14,8 +18,9 @@ const itemLayout = {
   }
 }
 
-const ClassDetails = ({ classData }) => {
-  const { displayName, grade, school, teachers } = classData
+const ClassDetails = ({ classData, teachers, school, isLoaded, ...rest }) => {
+  if (!isLoaded) return <span />
+
   return (
     <Card className='course'>
       <h2>Class Details</h2>
@@ -23,16 +28,20 @@ const ClassDetails = ({ classData }) => {
       <div style={{ maxWidth: 600 }}>
         <Form>
           <Form.Item label='Class Title' {...itemLayout}>
-            <Input defaultValue={displayName} />
+            <Field {...rest} name='displayName' component={TextField} />
           </Form.Item>
           <Form.Item label='Grade' {...itemLayout}>
-            <Input defaultValue={grade} />
+            <Field
+              {...rest}
+              name='grade'
+              options={grades}
+              component={SelectField} />
           </Form.Item>
           <Form.Item label='School' {...itemLayout}>
-            <Input defaultValue={school} />
+            <Input disabled defaultValue={school.displayName} />
           </Form.Item>
           <Form.Item label='Teacher' {...itemLayout}>
-            <Input defaultValue={Object.keys(teachers)[0]} />
+            <Input disabled defaultValue={teachers[0].displayName} />
           </Form.Item>
           <Button type='primary' style={{ float: 'right' }}>
             Save Changes
@@ -45,4 +54,4 @@ const ClassDetails = ({ classData }) => {
 
 ClassDetails.propTypes = {}
 
-export default ClassDetails
+export default enhancer(ClassDetails)

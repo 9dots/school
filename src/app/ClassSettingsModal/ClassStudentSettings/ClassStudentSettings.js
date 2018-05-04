@@ -5,26 +5,52 @@ import enhancer from './enhancer'
 import React from 'react'
 
 import './ClassStudentSettings.less'
+import PrintPasswords from './PrintPasswords'
 
 const ClassStudentSettings = props => {
-  const { students, tableConfig, removeStudents } = props
+  const {
+    selectedStudents,
+    removeStudents,
+    printPasswords,
+    openDropdown,
+    tableConfig,
+    isSelected,
+    addStudent,
+    classData,
+    students,
+    modal
+  } = props
+
+  const { passwordType = 'text' } = classData
+
   return (
     <div className='class-student-settings'>
       <div className='actions'>
-        <Button icon='user-add' type='primary'>
+        <Button icon='user-add' type='primary' onClick={addStudent}>
           Add Student
         </Button>
-        <Button icon='printer' type='primary'>
-          Print Passwords
-        </Button>
-        <Dropdown overlay={menu}>
+        <Dropdown
+          overlay={
+            <Menu onClick={({ key }) => props.setPasswordType(key)}>
+              {
+                {
+                  image: <Menu.Item key='text'>Use Text Password</Menu.Item>,
+                  text: <Menu.Item key='image'>Use Image Password</Menu.Item>
+                }[passwordType]
+              }
+            </Menu>
+          }>
           <Button>
-            Use Image Password
+            Use {passwordType === 'text' ? 'Text' : 'Image'} Password
             <Icon type='down' />
           </Button>
         </Dropdown>
+        <Button icon='printer' onClick={printPasswords} disabled={!isSelected}>
+          Print Passwords
+        </Button>
         <Button
-          onClick={removeStudents}
+          disabled={!isSelected}
+          onClick={() => removeStudents(selectedStudents)}
           icon='delete'
           type='danger'
           style={{ float: 'right' }}>
@@ -35,22 +61,22 @@ const ClassStudentSettings = props => {
         <Table
           rowKey='id'
           rowSelection={tableConfig}
-          dataSource={students}
+          rowClassName={({ id }) => (id === openDropdown ? 'open' : '')}
+          dataSource={students.filter(s => s)}
           pagination={false}
-          columns={columns} />
+          columns={columns(props)} />
       </Card>
+      {modal.isVisible('printPasswords') && (
+        <PrintPasswords
+          {...modal.getProps('printPasswords')}
+          onCancel={modal.hideModal('printPasswords')}
+          onOk={modal.hideModal('printPasswords')} />
+      )}
     </div>
   )
 }
 
-const menu = (
-  <Menu>
-    <Menu.Item key='1'>Use Text Password</Menu.Item>
-    <Menu.Item key='2'>Use Image Password</Menu.Item>
-  </Menu>
-)
-
-const columns = [
+const columns = props => [
   {
     title: 'First',
     key: 'first',
@@ -71,7 +97,27 @@ const columns = [
   {
     title: 'Password',
     key: 'password',
-    dataIndex: 'password'
+    // dataIndex: 'password'
+    render: () => <span style={{ fontFamily: 'monospace' }}>****</span>
+  },
+  {
+    key: 'actions',
+    render: s => (
+      <Dropdown
+        trigger={['click']}
+        overlay={
+          <Menu onClick={({ key }) => props.studentMenuClick(key, s)}>
+            <Menu.Item key='remove'>Remove Student</Menu.Item>
+            <Menu.Item key='resetPassword'>Change Password</Menu.Item>
+          </Menu>
+        }
+        placement='bottomRight'
+        onVisibleChange={v => props.setOpenDropdown(v, s.id)}>
+        <a className='ant-dropdown-link'>
+          <Icon type='setting' />
+        </a>
+      </Dropdown>
+    )
   }
 ]
 
