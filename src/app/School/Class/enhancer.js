@@ -26,10 +26,10 @@ export default compose(
     }
   ]),
   connect(
-    ({ firestore: { data }, firebase: { auth } }, props) => ({
-      classData: data[props.classId],
-      assignedLesson: (data[props.classId] || {}).assignedLesson || false,
-      students: (data[props.classId] || {}).students || {},
+    ({ firestore: { data }, firebase: { auth } }, { classId }) => ({
+      classData: { id: classId, ...data[classId] },
+      assignedLesson: (data[classId] || {}).assignedLesson || false,
+      students: (data[classId] || {}).students || {},
       auth
     }),
     { rpc }
