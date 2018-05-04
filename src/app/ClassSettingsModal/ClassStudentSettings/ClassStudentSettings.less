@@ -13,12 +13,26 @@
     }
   }
   .ant-table-tbody > tr {
-    &:hover > td {
-      background: none;
+    .ant-dropdown-link {
+      float: right;
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+    &:hover,
+    &.open {
+      > td {
+        background: none;
+        .ant-dropdown-link {
+          opacity: 1;
+        }
+      }
     }
     &.ant-table-row-selected {
-      &:hover > td {
-        background: #fafafa;
+      &,
+      &:hover {
+        td {
+          background: white;
+        }
       }
     }
   }
