@@ -33,7 +33,7 @@ export default compose(
         message.error('Oops, something went wrong. Please try again.')
       }
     },
-    ...getFormDefaults(schema.default.class.createClass, cast)
+    ...getFormDefaults(schema.class.createClass, cast)
   })
 )
 

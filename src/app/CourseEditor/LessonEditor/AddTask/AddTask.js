@@ -1,13 +1,12 @@
+import Field, { TextField } from 'components/Field'
 import { Form, Button, Row, Col } from 'antd'
-import { TextField } from 'redux-form-antd'
-import Field from 'components/Field'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
 import React from 'react'
 import './AddTask.less'
 
 const AddTask = enhancer(
-  ({ confirmLoading, setEditKey, handleSubmit, onSubmit }) => {
+  ({ confirmLoading, setEditKey, handleSubmit, ...rest }) => {
     return (
       <Form
         style={{
@@ -18,6 +17,7 @@ const AddTask = enhancer(
           <Col className='flex-grow'>
             <Form.Item>
               <Field
+                {...rest}
                 placeholder='Link to resource...'
                 name='url'
                 component={TextField} />
@@ -34,7 +34,7 @@ const AddTask = enhancer(
               <Button
                 loading={confirmLoading}
                 type='primary'
-                onClick={handleSubmit(onSubmit)}>
+                onClick={handleSubmit}>
                 Save
               </Button>
             </Form.Item>

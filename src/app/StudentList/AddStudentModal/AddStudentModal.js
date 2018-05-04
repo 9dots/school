@@ -1,5 +1,5 @@
 import { Modal, Form, AutoComplete } from 'antd'
-import { Field } from 'redux-form'
+import Field from 'components/Field'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
 import React from 'react'

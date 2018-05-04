@@ -1,13 +1,12 @@
-import { TextField, SelectField } from 'redux-form-antd'
+import Field, { TextField } from 'components/Field'
 import { Button, Form, Row, Col } from 'antd'
-import { Field } from 'redux-form'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
 import React from 'react'
 import './LessonForm.less'
 
 const LessonForm = props => {
-  const { mode, setEditKey, handleSubmit, onSubmit, confirmLoading } = props
+  const { mode, setEditKey, handleSubmit, confirmLoading, ...rest } = props
   return (
     <Form
       style={{
@@ -17,6 +16,7 @@ const LessonForm = props => {
         <Col span={12}>
           <Form.Item label='Title'>
             <Field
+              {...rest}
               name='displayName'
               placeholder='Lesson Title...'
               component={TextField} />
@@ -25,6 +25,7 @@ const LessonForm = props => {
         <Col span={6}>
           <Form.Item label='Slides'>
             <Field
+              {...rest}
               name='slides'
               placeholder='Link to Slides...'
               component={TextField} />
@@ -33,6 +34,7 @@ const LessonForm = props => {
         <Col span={6}>
           <Form.Item label='Lesson Plan'>
             <Field
+              {...rest}
               name='lessonPlan'
               placeholder='Link to Lesson Plan...'
               component={TextField} />
@@ -42,6 +44,7 @@ const LessonForm = props => {
 
       <Form.Item label='Description'>
         <Field
+          {...rest}
           name='description'
           placeholder='Description...'
           component={TextField} />
@@ -54,10 +57,7 @@ const LessonForm = props => {
           onClick={() => setEditKey(null)}>
           Cancel
         </Button>
-        <Button
-          type='primary'
-          loading={confirmLoading}
-          onClick={handleSubmit(onSubmit)}>
+        <Button type='primary' loading={confirmLoading} onClick={handleSubmit}>
           {mode === 'addLesson' ? 'Create' : 'Save'}
         </Button>
       </Form.Item>

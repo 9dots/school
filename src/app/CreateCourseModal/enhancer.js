@@ -1,13 +1,11 @@
-import formModal from '../../components/formModal'
-import { compose, withHandlers } from 'recompose'
-import { withRouter } from 'react-router-dom'
-import { SubmissionError } from 'redux-form'
+import { getFormDefaults, getValidationErrors } from 'utils'
+import formModal from 'components/formModal'
 import { rpc, setUrl } from '../actions'
 import { connect } from 'react-redux'
-import setProp from '@f/set-prop'
+import { compose } from 'recompose'
+import schema from 'school-schema'
 import { message } from 'antd'
 import pick from '@f/pick'
-import { getValidationErrors } from '../../utils'
 
 const submitKeys = [
   'course',
@@ -20,50 +18,61 @@ const submitKeys = [
 ]
 
 export default compose(
-  withRouter,
+  connect(() => ({}), { rpc, setUrl }),
   formModal({
-    form: 'createCourse'
-  }),
-  connect(
-    (state, props) => ({
-      ok: props.close(props.onOk),
-      cancel: props.close(props.onCancel)
+    displayName: 'createCourse',
+    mapPropsToValues: ({ initialValues = {} }) => ({
+      displayName: undefined,
+      description: undefined,
+      tags: undefined,
+      grade: undefined,
+      duration: {
+        time: undefined,
+        unit: undefined,
+        ...initialValues.duration
+      },
+      ...initialValues
     }),
-    { rpc, setUrl }
-  ),
-  withHandlers({
-    onSubmit: props => async values => {
-      const { ok, setLoading, rpc, edit } = props
+    handleSubmit: async (values, handbag) => {
+      const { props } = handbag
+      const { setLoading, rpc, edit } = props
       const fn = edit ? 'course.update' : 'course.create'
       setLoading(true)
       try {
         const { course } = await rpc(fn, {
-          ...formatSubmit(values),
+          ...cast(values),
           course: props.courseId,
           draft: props.draft
         })
-        message.success(`Success! Created ${values.displayName}.`)
-        ok(course)
+        message.success(
+          `Success! ${edit ? 'Saved' : 'Created'} ${values.displayName}.`
+        )
+        props.onOk(course)
       } catch (e) {
         setLoading(false)
         if (e.errorDetails) {
-          throw new SubmissionError(getValidationErrors(e))
+          throw getValidationErrors(e)
         }
         message.error('Oops, something went wrong. Please try again.')
       }
-    }
+    },
+    ...getFormDefaults(schema.course.create, cast)
   })
 )
 
-function formatSubmit (values) {
-  const { grade, tags = [], duration = {} } = values
+function cast (values) {
+  const { grade = '', tags = [], duration = {} } = values
   return {
     ...pick(submitKeys, values),
-    grade: grade.split(',').reduce((acc, g) => ({ ...acc, [g]: true }), {}),
+    grade: grade.length
+      ? grade.split(',').reduce((acc, g) => ({ ...acc, [g]: true }), {})
+      : undefined,
     duration: {
       time: Number(duration.time || 0) || undefined,
       unit: (duration.unit || '').toLowerCase() || undefined
     },
-    tags: tags.reduce((acc, val, key) => ({ ...acc, [val]: true }), {})
+    tags: tags.length
+      ? tags.reduce((acc, val, key) => ({ ...acc, [val]: true }), {})
+      : undefined
   }
 }

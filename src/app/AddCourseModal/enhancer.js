@@ -1,9 +1,9 @@
-import { getValidationErrors, getFormDefaults } from 'utils'
 import { firestoreConnect } from 'react-redux-firebase'
 import modalContainer from 'components/modalContainer'
 import formModal from 'components/formModal'
 import { allClasses, uid } from 'selectors'
 import waitFor from 'components/waitFor'
+import { getFormDefaults } from 'utils'
 import mapValues from '@f/map-values'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
@@ -40,7 +40,6 @@ export default compose(
       }
       try {
         props.setLoading(true)
-        console.log(cast(values, props))
         await Promise.all(
           cast(values, props).map(vals => props.rpc('class.addCourse', vals))
         )
@@ -54,10 +53,10 @@ export default compose(
         message.error('Oops, something went wrong. Please try again.')
       }
     },
-    ...getFormDefaults(schema.default.class.addCourse, cast),
+    ...getFormDefaults(schema.class.addCourse, cast),
     validate: (values, props) => {
       const formatted = cast(values, props)
-      return formatted.some(val => schema.default.class.addCourse(val).errors)
+      return formatted.some(val => schema.class.addCourse(val).errors)
     }
   }),
   waitFor(['classes'])

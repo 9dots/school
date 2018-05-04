@@ -1,34 +1,43 @@
-import { reduxForm, SubmissionError } from 'redux-form'
-import { compose, withHandlers } from 'recompose'
+import { getValidationErrors, getFormDefaults } from 'utils'
 import addLoading from 'components/addLoading'
-import { getValidationErrors } from 'utils'
 import { connect } from 'react-redux'
+import { compose } from 'recompose'
+import { withFormik } from 'formik'
+import schema from 'school-schema'
 import { rpc } from 'app/actions'
 import { message } from 'antd'
 
 export default compose(
   addLoading,
-  reduxForm({ form: 'addTask' }),
   connect(() => ({}), { rpc }),
-  withHandlers({
-    onSubmit: props => async values => {
+  withFormik({
+    displayName: 'addTask',
+    mapPropsToValues: props => ({
+      url: undefined
+    }),
+    handleSubmit: async (values, { props }) => {
       try {
         props.setLoading(true)
-        await props.rpc('course.addTask', {
-          ...values,
-          lesson: props.lesson,
-          draft: props.draft,
-          course: props.course
-        })
+        await props.rpc('course.addTask', cast(values, props))
         props.setLoading(false)
         props.setEditKey(null)
       } catch (e) {
         props.setLoading(false)
         if (e.errorDetails) {
-          throw new SubmissionError(getValidationErrors(e))
+          throw getValidationErrors(e)
         }
         message.error(e.error)
       }
-    }
+    },
+    ...getFormDefaults(schema.course.addTask, cast)
   })
 )
+
+function cast (values, props) {
+  return {
+    ...values,
+    lesson: props.lesson,
+    draft: props.draft,
+    course: props.course
+  }
+}

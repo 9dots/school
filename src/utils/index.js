@@ -23,21 +23,24 @@ export function stopProp (action = () => {}) {
   }
 }
 
-export function validate (validator, cast) {
+export function validate (validator, cast, overWrites) {
   return (values, props) => {
     const { valid, errors } = validator(cast(values, props), { greedy: true })
     if (valid) return
-    return getValidationErrors({
-      errorDetails: errors
-    })
+    return getValidationErrors(
+      {
+        errorDetails: errors
+      },
+      overWrites
+    )
   }
 }
 
-export function getFormDefaults (validator, cast) {
+export function getFormDefaults (validator, cast, overWrites) {
   return {
     validateOnChange: true,
     validateOnBlur: false,
-    validate: validate(validator, cast)
+    validate: validate(validator, cast, overWrites)
   }
 }
 
@@ -46,9 +49,10 @@ export function getFormDefaults (validator, cast) {
  * @param {object} e The error object to transform
  * @returns object with {errorField: message}
  */
-export function getValidationErrors (e) {
+export function getValidationErrors (e, overWrites = {}) {
   return (e.errorDetails || []).reduce(
-    (acc, { field, message }) => setProp(field, acc, errorToMessage(message)),
+    (acc, { field, message }) =>
+      setProp(field, acc, errorToMessage(message, overWrites[field])),
     {}
   )
 }

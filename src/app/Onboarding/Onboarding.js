@@ -1,14 +1,13 @@
+import Field, { TextField, SelectField } from 'components/Field'
+import { Modal, Form, Row, Col, Button } from 'antd'
+import { Switch, Route } from 'react-router-dom'
+import ClassModal from '../School/ClassModal'
+import PropTypes from 'prop-types'
+import React from 'react'
 import enhancer, {
   profileDetailEnhancer,
   classOnboardingEnhancer
 } from './enhancer'
-import { TextField, SelectField } from 'redux-form-antd'
-import { Modal, Form, Row, Col, Button } from 'antd'
-import { Switch, Route } from 'react-router-dom'
-import ClassModal from '../School/ClassModal'
-import { Field } from 'redux-form'
-import PropTypes from 'prop-types'
-import React from 'react'
 
 import './Onboarding.less'
 
@@ -43,25 +42,25 @@ const ProfileDetails = profileDetailEnhancer(props => {
     <Modal
       title='Complete Your Profile!'
       visible={true}
-      onOk={props.handleSubmit(props.onSubmit)}
+      onOk={props.handleSubmit}
       confirmLoading={props.confirmLoading}
       maskClosable={false}
       footer={
         <Button
           loading={props.confirmLoading}
-          onClick={props.handleSubmit(props.onSubmit)}
+          onClick={props.handleSubmit}
           type='primary'>
           Next
         </Button>
       }
       closable={false}>
-      <form onSubmit={props.handleSubmit(props.onSubmit)}>
+      <form onSubmit={props.handleSubmit}>
         <Item label='Full Name'>
           <Row gutter={8}>
             <Col span={12}>
               <Form.Item name='given'>
                 <Field
-                  {...commonProps}
+                  {...props}
                   name='name.given'
                   component={TextField}
                   placeholder='First' />
@@ -70,7 +69,7 @@ const ProfileDetails = profileDetailEnhancer(props => {
             <Col span={12}>
               <Form.Item name='family' style={{ marginBottom: 0 }}>
                 <Field
-                  {...commonProps}
+                  {...props}
                   name='name.family'
                   component={TextField}
                   placeholder='Last' />
@@ -80,15 +79,14 @@ const ProfileDetails = profileDetailEnhancer(props => {
         </Item>
         <Item label='Displayed Name'>
           <Field
-            {...commonProps}
-            validateStatus='validating'
+            {...props}
             name='displayName'
             component={TextField}
             placeholder='Ms. Lastname' />
         </Item>
         <Item label='School'>
           <Field
-            {...commonProps}
+            {...props}
             name='school'
             placeholder='Select a School'
             options={props.schools}
