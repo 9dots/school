@@ -5,6 +5,6 @@ export const messages = {
   missing_required_field: 'Required'
 }
 
-export const errorToMessage = msg => {
-  return messages[msg] || msg
+export const errorToMessage = (msg, overWrite) => {
+  return overWrite || messages[msg] || msg
 }

@@ -1,5 +1,4 @@
 import { getFormDefaults, getValidationErrors } from 'utils'
-import { SubmissionError } from 'redux-form'
 import formModal from 'components/formModal'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
@@ -11,9 +10,10 @@ export default compose(
   connect(() => ({}), { rpc }),
   formModal({
     displayName: 'createStudent',
-    mapPropsToValues: props => ({
+    mapPropsToValues: ({ initialValues = {} }) => ({
       name: { given: '', family: '' },
-      studentId: ''
+      studentId: '',
+      ...initialValues
     }),
     handleSubmit: async (values, handbag) => {
       const { props } = handbag
@@ -36,16 +36,16 @@ export default compose(
       } catch (e) {
         setLoading(false)
         if (e.error === 'studentId_taken') {
-          throw new SubmissionError({
+          throw {
             studentId: 'Student ID taken'
-          })
+          }
         } else if (e.errorDetails) {
-          throw new SubmissionError(getValidationErrors(e))
+          throw getValidationErrors(e)
         }
         message.error('Oops, something went wrong. Please try again.')
       }
     },
-    ...getFormDefaults(schema.default.user.createStudent, cast)
+    ...getFormDefaults(schema.user.createStudent, cast)
   })
 )
 

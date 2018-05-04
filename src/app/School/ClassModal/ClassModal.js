@@ -19,7 +19,7 @@ const ClassModal = props => (
         <Form.Item label='Name'>
           <Field
             {...props}
-            label='Name'
+            label='Class name'
             name='displayName'
             placeholder='Coding 1'
             component={TextField} />

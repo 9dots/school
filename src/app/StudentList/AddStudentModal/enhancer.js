@@ -1,7 +1,7 @@
-import { reduxForm, SubmissionError } from 'redux-form'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose, withHandlers } from 'recompose'
 import { connect } from 'react-redux'
+import { withFormik } from 'formik'
 import { rpc } from '../../actions'
 
 export default compose(
@@ -15,8 +15,8 @@ export default compose(
   connect(({ firestore: { data, ordered: { studentList } } }) => ({
     studentList
   })),
-  reduxForm({
-    form: 'addStudent'
+  withFormik({
+    displayName: 'addStudent'
   }),
   withHandlers({
     onSubmit: ({ dispatch, school, onOk }) => values => {
@@ -33,9 +33,9 @@ export default compose(
           onOk()
         })
         .catch(e => {
-          throw new SubmissionError({
+          throw {
             school: 'School code not found.'
-          })
+          }
         })
     }
   })
