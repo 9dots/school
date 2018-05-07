@@ -15,13 +15,11 @@ const AddTask = enhancer(
         }}>
         <Row type='flex' gutter={16}>
           <Col className='flex-grow'>
-            <Form.Item>
-              <Field
-                {...rest}
-                placeholder='Link to resource...'
-                name='url'
-                component={TextField} />
-            </Form.Item>
+            <Field
+              {...rest}
+              placeholder='Link to resource...'
+              name='url'
+              component={TextField} />
           </Col>
           <Col>
             <Form.Item style={{ textAlign: 'right' }}>
