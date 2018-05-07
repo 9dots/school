@@ -33,8 +33,7 @@ export default compose(
       },
       ...initialValues
     }),
-    handleSubmit: async (values, handbag) => {
-      const { props } = handbag
+    handleSubmit: async (values, { props, setErrors }) => {
       const { setLoading, rpc, edit } = props
       const fn = edit ? 'course.update' : 'course.create'
       setLoading(true)
@@ -51,7 +50,7 @@ export default compose(
       } catch (e) {
         setLoading(false)
         if (e.errorDetails) {
-          throw getValidationErrors(e)
+          return setErrors(getValidationErrors(e))
         }
         message.error('Oops, something went wrong. Please try again.')
       }

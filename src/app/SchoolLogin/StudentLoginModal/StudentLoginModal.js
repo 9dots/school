@@ -1,17 +1,29 @@
 import { Modal, Input, Row, Col } from 'antd'
+import Field, { TextField } from 'components/Field'
+import avatars from 'assets/avatars'
 import PropTypes from 'prop-types'
+import enhancer from './enhancer'
 import React from 'react'
 
-import avatars from 'assets/avatars'
 import './StudentLoginModal.less'
 
-const StudentLoginModal = ({ student, passwordType = 'picture', ...rest }) => {
+const StudentLoginModal = props => {
+  const {
+    passwordType = 'picture',
+    confirmLoading,
+    handleSubmit,
+    onCancel,
+    student,
+    ...rest
+  } = props
   const picturePwd = passwordType === 'picture'
 
   return (
     <Modal
+      onOk={handleSubmit}
+      onCancel={onCancel}
+      confirmLoading={confirmLoading}
       width={picturePwd ? 900 : 520}
-      {...rest}
       visible
       title={student.displayName}>
       {picturePwd ? (
@@ -26,7 +38,13 @@ const StudentLoginModal = ({ student, passwordType = 'picture', ...rest }) => {
         </Row>
       ) : (
         <div style={{ padding: '25px 100px' }}>
-          <Input size='large' placeholder='Enter Your Password...' />
+          <Field
+            {...rest}
+            name='password'
+            type='password'
+            size='large'
+            component={TextField}
+            placeholder='Enter Your Password...' />
         </div>
       )}
     </Modal>
@@ -35,4 +53,4 @@ const StudentLoginModal = ({ student, passwordType = 'picture', ...rest }) => {
 
 StudentLoginModal.propTypes = {}
 
-export default StudentLoginModal
+export default enhancer(StudentLoginModal)
