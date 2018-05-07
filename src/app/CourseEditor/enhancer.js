@@ -130,6 +130,7 @@ export default compose(
       }
     },
     componentWillUnmount () {
+      console.log(this.props.router)
       this.props.setDirty(false)
       this.props.rpc('course.createDraft', {
         course: this.props.courseId
@@ -154,6 +155,9 @@ export default compose(
           !nextProps.isDirty &&
           isDirtyCourse(nextProps.originalCourse, nextProps.course)
         ) {
+          window.onbeforeunload = function (e) {
+            return true
+          }
           this.props.setDirty(true)
         }
         if (
@@ -161,6 +165,7 @@ export default compose(
           this.props.isDirty &&
           !isDirtyCourse(nextProps.originalCourse, nextProps.course)
         ) {
+          window.onbeforeunload = null
           this.props.setDirty(false)
         }
       }
