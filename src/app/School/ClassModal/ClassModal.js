@@ -8,6 +8,8 @@ import React from 'react'
 
 import './ClassModal.less'
 
+const itemProps = { labelCol: { span: 5 }, wrapperCol: { span: 19 } }
+
 const ClassModal = props => (
   <span onClick={stopEvent(() => {})}>
     <Modal
@@ -18,6 +20,7 @@ const ClassModal = props => (
       <form>
         <Field
           {...props}
+          itemProps={itemProps}
           label='Class name'
           name='displayName'
           placeholder='Coding 1'
@@ -25,6 +28,7 @@ const ClassModal = props => (
         <Field
           {...props}
           options={grades}
+          itemProps={itemProps}
           label='Grade'
           name='grade'
           placeholder='Select a Grade'

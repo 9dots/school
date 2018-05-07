@@ -6,6 +6,17 @@ import React from 'react'
 
 import './CreateStudentModal.less'
 
+const itemLayout = {
+  labelCol: {
+    xs: { span: 24 },
+    sm: { span: 6 }
+  },
+  wrapperCol: {
+    xs: { span: 24 },
+    sm: { span: 18 }
+  }
+}
+
 const CreateStudentModal = props => {
   const displayName = props.class && props.class.displayName
   return (
@@ -17,7 +28,7 @@ const CreateStudentModal = props => {
       confirmLoading={props.confirmLoading}
       title={'Add Student to ' + displayName}>
       <Form onSubmit={props.handleSubmit}>
-        <Item label='Full Name'>
+        <Form.Item {...itemLayout} label='Full Name'>
           <Row gutter={8}>
             <Col span={12}>
               <Field
@@ -34,39 +45,25 @@ const CreateStudentModal = props => {
                 component={TextField} />
             </Col>
           </Row>
-        </Item>
-        <Item label='Student ID'>
-          <Field
-            {...props}
-            name='studentId'
-            placeholder='abc123'
-            component={TextField} />
-        </Item>
-        <Item label='Email (optional)'>
-          <Field
-            {...props}
-            name='email'
-            placeholder='student@email.com'
-            component={TextField} />
-        </Item>
+        </Form.Item>
+        <Field
+          {...props}
+          itemProps={itemLayout}
+          label='Student ID'
+          name='studentId'
+          placeholder='abc123'
+          component={TextField} />
+        <Field
+          {...props}
+          itemProps={itemLayout}
+          label='Email (optional)'
+          name='email'
+          placeholder='student@email.com'
+          component={TextField} />
       </Form>
     </Modal>
   )
 }
-
-const Item = props => <Form.Item {...itemLayout} {...props} />
-
-const itemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 7 }
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 17 }
-  }
-}
-
 CreateStudentModal.propTypes = {}
 
 export default enhancer(CreateStudentModal)

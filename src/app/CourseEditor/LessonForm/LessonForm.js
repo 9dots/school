@@ -7,6 +7,8 @@ import './LessonForm.less'
 
 const LessonForm = props => {
   const { mode, setEditKey, handleSubmit, confirmLoading, ...rest } = props
+  const itemProps = { style: { marginBottom: 0 } }
+
   return (
     <Form
       style={{
@@ -14,43 +16,43 @@ const LessonForm = props => {
       }}>
       <Row type='flex' gutter={16}>
         <Col span={12}>
-          <Form.Item label='Title'>
-            <Field
-              {...rest}
-              name='displayName'
-              placeholder='Lesson Title...'
-              component={TextField} />
-          </Form.Item>
+          <Field
+            {...rest}
+            itemProps={itemProps}
+            label='Title'
+            name='displayName'
+            placeholder='Lesson Title...'
+            component={TextField} />
         </Col>
         <Col span={6}>
-          <Form.Item label='Slides'>
-            <Field
-              {...rest}
-              name='slides'
-              placeholder='Link to Slides...'
-              component={TextField} />
-          </Form.Item>
+          <Field
+            {...rest}
+            itemProps={itemProps}
+            label='Slides'
+            name='slides'
+            placeholder='Link to Slides...'
+            component={TextField} />
         </Col>
         <Col span={6}>
-          <Form.Item label='Lesson Plan'>
-            <Field
-              {...rest}
-              name='lessonPlan'
-              placeholder='Link to Lesson Plan...'
-              component={TextField} />
-          </Form.Item>
+          <Field
+            {...rest}
+            itemProps={itemProps}
+            label='Lesson Plan'
+            name='lessonPlan'
+            placeholder='Link to Lesson Plan...'
+            component={TextField} />
         </Col>
       </Row>
 
-      <Form.Item label='Description'>
-        <Field
-          {...rest}
-          name='description'
-          placeholder='Description...'
-          component={TextField} />
-      </Form.Item>
+      <Field
+        {...rest}
+        itemProps={itemProps}
+        label='Description'
+        name='description'
+        placeholder='Description...'
+        component={TextField} />
 
-      <Form.Item style={{ textAlign: 'right', marginTop: 38 }}>
+      <Form.Item style={{ textAlign: 'right', marginTop: 10 }}>
         <Button
           style={{ marginRight: 10 }}
           disabled={confirmLoading}

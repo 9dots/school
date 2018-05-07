@@ -1,20 +1,22 @@
-import Sidebar from '../Sidebar'
+import { Route, Switch } from 'react-router-dom'
 import React, { Component } from 'react'
 import styles from 'theme/vars/vars.js'
-import { Layout, Affix } from 'antd'
-import { Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
+import HomeHeader from '../HomeLayout/HomeHeader'
+import Sidebar from '../Sidebar'
+import { Layout } from 'antd'
 
 class AppLayout extends Component {
   render () {
     const {
-      children,
+      showSidebar = true,
+      classesBySchool,
       onCreateModal,
-      uid,
+      children,
       profile,
       logout,
-      classesBySchool
+      uid
     } = this.props
 
     const Sider = () => (
@@ -28,12 +30,16 @@ class AppLayout extends Component {
       </Layout.Sider>
     )
 
+    // {!showSidebar && <HomeHeader />}
     return (
       <Layout>
         <Switch>
           <Route path='/class/:classId/lesson/' />
-          {/* <Route path='/library' /> */}
-          <Route path='**' render={Sider} />
+          {!showSidebar ? (
+            <Route path='**' render={HomeHeader} />
+          ) : (
+            <Route path='**' render={Sider} />
+          )}
         </Switch>
         <Layout.Content>{children}</Layout.Content>
       </Layout>

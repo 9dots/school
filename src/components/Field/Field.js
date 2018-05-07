@@ -7,7 +7,16 @@ import omit from '@f/omit'
 import './Field.less'
 
 const BaseComponent = props => {
-  const { errors = {}, touched = {}, component, name, noItem, label } = props
+  const {
+    itemProps = {},
+    touched = {},
+    errors = {},
+    component,
+    noItem,
+    label,
+    name
+  } = props
+
   return createElement(
     noItem ? 'div' : Form.Item,
     noItem
@@ -17,7 +26,8 @@ const BaseComponent = props => {
         validateStatus:
             getProp(name, touched) && getProp(name, errors) && 'error',
         help: getProp(name, touched) && getProp(name, errors),
-        label: label
+        label,
+        ...itemProps
       },
     createElement(component, omit('component', props))
   )
@@ -78,6 +88,7 @@ const SelectField = props => {
     mode,
     ...rest
   } = props
+
   return (
     <Select
       {...omit(formProps, rest)}
@@ -87,7 +98,7 @@ const SelectField = props => {
       notFoundContent={notFoundContent}
       options={options}
       placeholder={placeholder}
-      value={getProp(name, values) || undefined}>
+      value={getProp(name, values)}>
       {options.map((opt, i) => (
         <Select.Option label={opt.label} key={i} value={opt.value}>
           {opt.label}
@@ -118,6 +129,7 @@ const formProps = [
   'staticContext',
   'dispatch',
   'redirectPath',
+  'itemProps',
   'setLoading',
   'close',
   'errors',
