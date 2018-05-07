@@ -5,8 +5,8 @@ import React from 'react'
 import avatars from 'assets/avatars'
 import './StudentLoginModal.less'
 
-const StudentLoginModal = ({ student, ...rest }) => {
-  const picturePwd = !!Math.floor(Math.random() * 2)
+const StudentLoginModal = ({ student, passwordType = 'picture', ...rest }) => {
+  const picturePwd = passwordType === 'picture'
 
   return (
     <Modal

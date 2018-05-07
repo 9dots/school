@@ -1,6 +1,7 @@
 import { firestoreConnect } from 'react-redux-firebase'
-import { compose } from 'recompose'
+import waitFor from 'components/waitFor'
 import { connect } from 'react-redux'
+import { compose } from 'recompose'
 
 export default compose(
   connect((state, { match: { params: { schoolId, classId } } }) => ({
@@ -22,7 +23,8 @@ export default compose(
   connect(({ firestore: { data } }, { schoolId }) => ({
     school: data[schoolId],
     classes: values(data[`${schoolId}-classes`])
-  }))
+  })),
+  waitFor(['school', 'classes'])
 )
 
 function values (obj) {

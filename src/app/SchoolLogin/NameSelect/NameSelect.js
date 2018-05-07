@@ -7,8 +7,8 @@ import React from 'react'
 import './NameSelect.less'
 
 const NameSelect = ({
-  school = {},
   students = [],
+  school = {},
   schoolId,
   cls = {},
   classId,
@@ -36,7 +36,11 @@ const NameSelect = ({
             <div style={{ margin: 10 }}>
               <Button
                 size='large'
-                onClick={modal.showModal({ name: 'studentLogin', student })}
+                onClick={modal.showModal({
+                  name: 'studentLogin',
+                  student,
+                  passwordType: cls.passwordType
+                })}
                 className='login-button'
                 style={{
                   background: colors[i % numCols]

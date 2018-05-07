@@ -45,7 +45,7 @@ export function getFormDefaults (validator, cast, overWrites) {
 }
 
 /**
- * getValidationError
+ * @function getValidationError
  * @param {object} e The error object to transform
  * @returns object with {errorField: message}
  */
