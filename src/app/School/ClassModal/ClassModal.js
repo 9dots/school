@@ -15,24 +15,21 @@ const ClassModal = props => (
       onCancel={props.close(props.onCancel)}
       onOk={props.handleSubmit}
       title='Create A Class'>
-      <Form>
-        <Form.Item label='Name'>
-          <Field
-            {...props}
-            label='Class name'
-            name='displayName'
-            placeholder='Coding 1'
-            component={TextField} />
-        </Form.Item>
-        <Form.Item label='Grade'>
-          <Field
-            {...props}
-            options={grades}
-            name='grade'
-            placeholder='Select a Grade'
-            component={SelectField} />
-        </Form.Item>
-      </Form>
+      <form>
+        <Field
+          {...props}
+          label='Class name'
+          name='displayName'
+          placeholder='Coding 1'
+          component={TextField} />
+        <Field
+          {...props}
+          options={grades}
+          label='Grade'
+          name='grade'
+          placeholder='Select a Grade'
+          component={SelectField} />
+      </form>
     </Modal>
   </span>
 )

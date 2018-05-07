@@ -7,7 +7,7 @@ import omit from '@f/omit'
 import './Field.less'
 
 const BaseComponent = props => {
-  const { errors = {}, touched = {}, component, name, noItem } = props
+  const { errors = {}, touched = {}, component, name, noItem, label } = props
   return createElement(
     noItem ? 'div' : Form.Item,
     noItem
@@ -16,7 +16,8 @@ const BaseComponent = props => {
         hasFeedback: !!getProp(name, touched) && !!getProp(name, errors),
         validateStatus:
             getProp(name, touched) && getProp(name, errors) && 'error',
-        help: getProp(name, touched) && getProp(name, errors)
+        help: getProp(name, touched) && getProp(name, errors),
+        label: label
       },
     createElement(component, omit('component', props))
   )
@@ -26,12 +27,12 @@ BaseComponent.propTypes = {}
 
 const TextField = props => {
   const {
-    placeholder,
-    name,
-    values,
-    setFieldValue,
     setFieldTouched,
+    setFieldValue,
     handleSubmit,
+    placeholder,
+    values,
+    name,
     ...rest
   } = props
   return (
@@ -47,12 +48,12 @@ const TextField = props => {
 
 const TextAreaField = props => {
   const {
-    placeholder,
-    name,
-    values,
-    setFieldValue,
     setFieldTouched,
+    setFieldValue,
     handleSubmit,
+    placeholder,
+    values,
+    name,
     ...rest
   } = props
   return (
@@ -67,13 +68,13 @@ const TextAreaField = props => {
 
 const SelectField = props => {
   const {
-    placeholder,
-    options,
-    name,
-    values,
-    setFieldValue,
     setFieldTouched,
     notFoundContent,
+    setFieldValue,
+    placeholder,
+    options,
+    values,
+    name,
     mode,
     ...rest
   } = props
@@ -107,6 +108,7 @@ const formProps = [
   'onCancel',
   'edit',
   'courseId',
+  'noItem',
   'rpc',
   'setUrl',
   'confirmLoading',

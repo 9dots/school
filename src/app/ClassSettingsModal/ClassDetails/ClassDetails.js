@@ -18,7 +18,9 @@ const itemLayout = {
   }
 }
 
-const ClassDetails = ({ classData, teachers, school, isLoaded, ...rest }) => {
+const ClassDetails = props => {
+  const { handleSubmit, classData, teachers, school, isLoaded, ...rest } = props
+
   if (!isLoaded) return <span />
 
   return (
@@ -43,7 +45,12 @@ const ClassDetails = ({ classData, teachers, school, isLoaded, ...rest }) => {
           <Form.Item label='Teacher' {...itemLayout}>
             <Input disabled defaultValue={teachers[0].displayName} />
           </Form.Item>
-          <Button type='primary' style={{ float: 'right' }}>
+          <Button
+            loading={props.confirmLoading}
+            disabled={!props.dirty}
+            onClick={handleSubmit}
+            type='primary'
+            style={{ float: 'right' }}>
             Save Changes
           </Button>
         </Form>
