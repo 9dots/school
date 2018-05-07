@@ -11,12 +11,7 @@ import enhancer, {
 
 import './Onboarding.less'
 
-const commonProps = {
-  validate: v => (v ? '' : 'Required')
-}
-
 const Onboarding = props => {
-  // if (!props.isLoaded) return <Loading />
   return (
     <Switch>
       <Route
@@ -37,6 +32,17 @@ const ClassOnboarding = classOnboardingEnhancer(props => {
   )
 })
 
+const itemLayout = {
+  labelCol: {
+    xs: { span: 24 },
+    sm: { span: 6 }
+  },
+  wrapperCol: {
+    xs: { span: 24 },
+    sm: { span: 18 }
+  }
+}
+
 const ProfileDetails = profileDetailEnhancer(props => {
   return (
     <Modal
@@ -55,61 +61,44 @@ const ProfileDetails = profileDetailEnhancer(props => {
       }
       closable={false}>
       <form onSubmit={props.handleSubmit}>
-        <Item label='Full Name'>
+        <Form.Item {...itemLayout} label='Full Name'>
           <Row gutter={8}>
             <Col span={12}>
-              <Form.Item name='given'>
-                <Field
-                  {...props}
-                  name='name.given'
-                  component={TextField}
-                  placeholder='First' />
-              </Form.Item>
+              <Field
+                {...props}
+                name='name.given'
+                component={TextField}
+                placeholder='First' />
             </Col>
             <Col span={12}>
-              <Form.Item name='family' style={{ marginBottom: 0 }}>
-                <Field
-                  {...props}
-                  name='name.family'
-                  component={TextField}
-                  placeholder='Last' />
-              </Form.Item>
+              <Field
+                {...props}
+                name='name.family'
+                component={TextField}
+                placeholder='Last' />
             </Col>
           </Row>
-        </Item>
-        <Item label='Displayed Name'>
-          <Field
-            {...props}
-            name='displayName'
-            component={TextField}
-            placeholder='Ms. Lastname' />
-        </Item>
-        <Item label='School'>
-          <Field
-            {...props}
-            name='school'
-            placeholder='Select a School'
-            options={props.schools}
-            component={SelectField} />
-        </Item>
+        </Form.Item>
+        <Field
+          {...props}
+          label='Displayed Name'
+          itemProps={itemLayout}
+          name='displayName'
+          component={TextField}
+          placeholder='Ms. Lastname' />
+        <Field
+          {...props}
+          label='School'
+          itemProps={itemLayout}
+          name='school'
+          placeholder='Select a School'
+          options={props.schools}
+          component={SelectField} />
         <button type='submit' style={{ display: 'none' }} />
       </form>
     </Modal>
   )
 })
-
-const itemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 7 }
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 17 }
-  }
-}
-
-const Item = props => <Form.Item {...itemLayout} {...props} />
 
 Onboarding.propTypes = {
   handleSubmit: PropTypes.func,

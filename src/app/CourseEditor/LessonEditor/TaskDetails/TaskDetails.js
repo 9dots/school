@@ -55,6 +55,8 @@ const TaskDetails = props => {
   )
 }
 
+const itemProps = { style: { marginBottom: 0 } }
+
 const TaskForm = withFormik({
   displayName: 'taskEditForm',
   mapPropsToValues: ({ initialValues = {} }) => ({
@@ -70,30 +72,31 @@ const TaskForm = withFormik({
   <Form onSubmit={handleSubmit} style={{ margin: '8px 0 10px' }}>
     <Row type='flex' gutter={16} style={{ margin: 0 }}>
       <Col>
-        <Form.Item style={{ marginBottom: 0 }}>
-          <Field
-            {...props}
-            name='type'
-            className='type-selector'
-            component={SelectField}
-            options={taskTypes.map(task => ({
-              ...task,
-              label: (
-                <span>
-                  <Icon type={task.icon} style={{ marginRight: 10 }} />
-                  {task.label}
-                </span>
-              )
-            }))} />
-        </Form.Item>
+        <Field
+          {...props}
+          itemProps={itemProps}
+          name='type'
+          className='type-selector'
+          component={SelectField}
+          options={taskTypes.map(task => ({
+            ...task,
+            label: (
+              <span>
+                <Icon type={task.icon} style={{ marginRight: 10 }} />
+                {task.label}
+              </span>
+            )
+          }))} />
       </Col>
       <Col className='flex-grow'>
-        <Form.Item style={{ marginBottom: 0 }}>
-          <Field {...props} name='displayName' component={TextField} />
-        </Form.Item>
+        <Field
+          {...props}
+          itemProps={itemProps}
+          name='displayName'
+          component={TextField} />
       </Col>
       <Col>
-        <Form.Item style={{ marginBottom: 0 }}>
+        <Form.Item {...itemProps}>
           <Button
             style={{ marginRight: 10 }}
             disabled={confirmLoading}

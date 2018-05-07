@@ -29,16 +29,19 @@ const ClassDetails = props => {
       <Divider />
       <div style={{ maxWidth: 600 }}>
         <Form>
-          <Form.Item label='Class Title' {...itemLayout}>
-            <Field {...rest} name='displayName' component={TextField} />
-          </Form.Item>
-          <Form.Item label='Grade' {...itemLayout}>
-            <Field
-              {...rest}
-              name='grade'
-              options={grades}
-              component={SelectField} />
-          </Form.Item>
+          <Field
+            {...rest}
+            itemProps={itemLayout}
+            label='Class Title'
+            name='displayName'
+            component={TextField} />
+          <Field
+            {...rest}
+            label='Grade'
+            itemProps={itemLayout}
+            name='grade'
+            options={grades}
+            component={SelectField} />
           <Form.Item label='School' {...itemLayout}>
             <Input disabled defaultValue={school.displayName} />
           </Form.Item>

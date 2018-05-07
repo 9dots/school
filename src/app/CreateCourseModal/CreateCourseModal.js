@@ -11,6 +11,10 @@ const CreateCourseModal = props => {
   const { close, onCancel, onSubmit, handleSubmit, ...rest } = props
 
   const maxLength = '150'
+  const itemProps = {
+    labelCol: { span: 5 },
+    wrapperCol: { span: 19 }
+  }
 
   return (
     <Modal
@@ -20,79 +24,73 @@ const CreateCourseModal = props => {
       onOk={handleSubmit}
       title='Create a New Course'>
       <Form>
-        <Form.Item label='Title'>
-          <Field
-            {...props}
-            name='displayName'
-            placeholder='Enter your title here...'
-            component={TextField} />
-        </Form.Item>
-        <Form.Item label='Description'>
-          <Field
-            {...props}
-            id='course-description'
-            name='description'
-            rows={3}
-            maxLength={maxLength}
-            autosize={{ minRows: 3 }}
-            placeholder='A little bit about this course...'
-            component={TextAreaField} />
-        </Form.Item>
+        <Field
+          {...props}
+          itemProps={itemProps}
+          label='Title'
+          name='displayName'
+          placeholder='Enter your title here...'
+          component={TextField} />
+        <Field
+          {...props}
+          itemProps={itemProps}
+          label='Description'
+          id='course-description'
+          name='description'
+          rows={3}
+          maxLength={maxLength}
+          autosize={{ minRows: 3 }}
+          placeholder='A little bit about this course...'
+          component={TextAreaField} />
 
-        <Form.Item label='Tags'>
-          <Field
-            {...props}
-            name='tags'
-            mode='multiple'
-            style={{ width: 'auto' }}
-            multiple
-            placeholder='Javascript'
-            filterOption={(inputVal, { props: { label = '' } }) =>
-              label.toLowerCase().indexOf(inputVal.toLowerCase()) > -1
-            }
-            options={tags.map(tag => ({ ...tag, value: tag.id }))}
-            component={SelectField} />
-        </Form.Item>
+        <Field
+          {...props}
+          itemProps={itemProps}
+          label='Tags'
+          name='tags'
+          mode='multiple'
+          style={{ width: 'auto' }}
+          multiple
+          placeholder='Javascript'
+          filterOption={(inputVal, { props: { label = '' } }) =>
+            label.toLowerCase().indexOf(inputVal.toLowerCase()) > -1
+          }
+          options={tags.map(tag => ({ ...tag, value: tag.id }))}
+          component={SelectField} />
+        <Field
+          {...props}
+          itemProps={itemProps}
+          label='Grade Level'
+          name='grade'
+          placeholder='Select a Grade'
+          options={gradeChunks.map(chunk => ({
+            value: chunk.join(','),
+            label: gradesToText(chunk)
+          }))}
+          component={SelectField} />
 
-        <Row gutter={24}>
-          <Col span={8}>
-            <Form.Item label='Grade Level'>
-              <Field
+        <Form.Item label='Duration' {...itemProps}>
+          <Row gutter={8}>
+            <Col span={8}>
+              <TextField
                 {...props}
-                name='grade'
-                placeholder='Select a Grade'
-                options={gradeChunks.map(chunk => ({
-                  value: chunk.join(','),
-                  label: gradesToText(chunk)
-                }))}
-                component={SelectField} />
-            </Form.Item>
-          </Col>
-          <Col span={16}>
-            <Form.Item label='Duration'>
-              <Row gutter={8}>
-                <Col span={8}>
-                  <TextField
-                    {...props}
-                    name='duration.time'
-                    type='number'
-                    placeholder='8' />
-                </Col>
-                <Col span={16}>
-                  <SelectField
-                    {...props}
-                    fluid
-                    name='duration.unit'
-                    placeholder='Weeks'
-                    options={timeUnits.map(unit => ({
-                      label: unit,
-                      value: unit
-                    }))} />
-                </Col>
-              </Row>
-            </Form.Item>
-          </Col>
-        </Row>
+                name='duration.time'
+                type='number'
+                placeholder='8' />
+            </Col>
+            <Col span={16}>
+              <SelectField
+                {...props}
+                fluid
+                name='duration.unit'
+                placeholder='Weeks'
+                options={timeUnits.map(unit => ({
+                  label: unit,
+                  value: unit
+                }))} />
+            </Col>
+          </Row>
+        </Form.Item>
       </Form>
     </Modal>
   )
