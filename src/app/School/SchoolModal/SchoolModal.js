@@ -15,15 +15,14 @@ const SchoolModal = props => {
       confirmLoading={props.confirmLoading}
       onOk={props.handleSubmit}>
       <Form>
-        <Form.Item>
-          <Field
-            {...props}
-            name='school'
-            placeholder='Select a School'
-            options={props.schools}
-            notFoundContent='No schools to join'
-            component={SelectField} />
-        </Form.Item>
+        <Field
+          {...props}
+          itemProps={{ style: { margin: 24 } }}
+          name='school'
+          placeholder='Select a School'
+          options={props.schools}
+          notFoundContent='No schools to join'
+          component={SelectField} />
       </Form>
     </Modal>
   )

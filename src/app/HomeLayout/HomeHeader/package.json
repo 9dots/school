@@ -1,0 +1,6 @@
+
+{
+  "name": "HomeHeader",
+  "main": "HomeHeader.js",
+  "browser": "HomeHeader.js"
+}
