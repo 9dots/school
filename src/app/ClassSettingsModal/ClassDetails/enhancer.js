@@ -37,7 +37,7 @@ export default compose(
       grade: undefined,
       ...initialValues
     }),
-    handleSubmit: async (values, { props, resetForm }) => {
+    handleSubmit: async (values, { props, resetForm, setErrors }) => {
       props.setLoading(true)
       try {
         await props.rpc('class.updateDetails', cast(values, props))
@@ -46,7 +46,7 @@ export default compose(
       } catch (e) {
         props.setLoading(false)
         if (e.errorDetails) {
-          throw getValidationErrors(e)
+          return setErrors(getValidationErrors(e))
         }
         message.error(e.error)
       }

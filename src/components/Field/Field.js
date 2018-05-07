@@ -109,6 +109,7 @@ const formProps = [
   'edit',
   'courseId',
   'noItem',
+  'studentSignIn',
   'rpc',
   'setUrl',
   'confirmLoading',
