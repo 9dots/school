@@ -1,4 +1,5 @@
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+import { Prompt } from 'react-router-dom'
 import LessonEditor from './LessonEditor'
 import LessonForm from './LessonForm'
 import PropTypes from 'prop-types'
@@ -26,6 +27,11 @@ const CourseEditor = props => {
   return (
     <div>
       <Header {...props} />
+      <Prompt
+        when={props.isDirty}
+        message={location =>
+          'You have unsaved changes. Are you sure want to leave this page and discard your changes?'
+        } />
       <div className='main-col'>
         {mode === 'edit' ? (
           <span>
