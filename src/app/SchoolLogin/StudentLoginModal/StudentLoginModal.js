@@ -1,5 +1,5 @@
-import { Modal, Input, Row, Col } from 'antd'
 import Field, { TextField } from 'components/Field'
+import { Modal, Row, Col } from 'antd'
 import avatars from 'assets/avatars'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
@@ -9,14 +9,15 @@ import './StudentLoginModal.less'
 
 const StudentLoginModal = props => {
   const {
-    passwordType = 'picture',
+    passwordType = 'image',
     confirmLoading,
     handleSubmit,
     onCancel,
     student,
+    submit,
     ...rest
   } = props
-  const picturePwd = passwordType === 'picture'
+  const picturePwd = passwordType === 'image'
 
   return (
     <Modal
@@ -28,13 +29,14 @@ const StudentLoginModal = props => {
       title={student.displayName}>
       {picturePwd ? (
         <Row>
-          {Object.keys(avatars)
-            .sort(() => Math.random() - 0.5)
-            .map(key => (
-              <Col key={key} span={3} style={{ padding: 10 }}>
-                <img src={avatars[key]} style={{ width: '100%' }} />
-              </Col>
-            ))}
+          {avatars.map(avatar => (
+            <Col key={avatar.id} span={3} style={{ padding: 10 }}>
+              <img
+                onClick={() => submit({ password: avatar.value })}
+                src={avatar.src}
+                style={{ width: '100%' }} />
+            </Col>
+          ))}
         </Row>
       ) : (
         <div style={{ padding: '25px 100px' }}>
