@@ -1,9 +1,13 @@
 import { getFirebase } from 'react-redux-firebase'
 import fetch from 'isomorphic-fetch'
 
-const rpc = (method, data) => async dispatch => {
-  const idToken = await getIdToken()
-  return apiRequest(`api/${method}`, data, 'Bearer ' + idToken)
+const rpc = (method, data, meta) => {
+  const thunk = async dispatch => {
+    const idToken = await getIdToken()
+    return apiRequest(`api/${method}`, data, 'Bearer ' + idToken)
+  }
+  thunk.meta = meta
+  return thunk
 }
 
 const studentSignIn = data => async dispatch => {
