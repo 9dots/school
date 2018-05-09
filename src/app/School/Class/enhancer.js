@@ -70,6 +70,7 @@ export default compose(
       try {
         await props.rpc('user.assignLesson', {
           class: props.classId,
+          teachers: props.classData.teachers,
           module,
           lesson
         })

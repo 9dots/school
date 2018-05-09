@@ -1,14 +1,16 @@
 import { Card, Button, Dropdown, Icon, Menu, Table } from 'antd'
-import getProp from '@f/get-prop'
+import PrintPasswords from './PrintPasswords'
+import { getAvatarByValue } from 'utils'
 import PropTypes from 'prop-types'
+import getProp from '@f/get-prop'
 import enhancer from './enhancer'
 import React from 'react'
 
 import './ClassStudentSettings.less'
-import PrintPasswords from './PrintPasswords'
 
 const ClassStudentSettings = props => {
   const {
+    resettingPassword,
     selectedStudents,
     removeStudents,
     printPasswords,
@@ -30,6 +32,7 @@ const ClassStudentSettings = props => {
           Add Student
         </Button>
         <Dropdown
+          disabled={resettingPassword}
           overlay={
             <Menu onClick={({ key }) => props.setPasswordType(key)}>
               {
@@ -42,7 +45,7 @@ const ClassStudentSettings = props => {
           }>
           <Button>
             Use {passwordType === 'text' ? 'Text' : 'Image'} Password
-            <Icon type='down' />
+            <Icon type={resettingPassword ? 'loading' : 'down'} />
           </Button>
         </Dropdown>
         <Button icon='printer' onClick={printPasswords} disabled={!isSelected}>
@@ -97,13 +100,19 @@ const columns = props => [
   {
     title: 'Password',
     key: 'password',
-    // dataIndex: 'password'
-    render: () => <span style={{ fontFamily: 'monospace' }}>****</span>
+    dataIndex: `passwords.${props.classData.passwordType}`,
+    render: password =>
+      props.classData.passwordType === 'text' ? (
+        <span style={{ fontFamily: 'monospace' }}>{password}</span>
+      ) : (
+        <img style={{ width: 50 }} src={getAvatarByValue(password)} />
+      )
   },
   {
     key: 'actions',
     render: s => (
       <Dropdown
+        disabled={props.resettingPassword}
         trigger={['click']}
         overlay={
           <Menu onClick={({ key }) => props.studentMenuClick(key, s)}>

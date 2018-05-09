@@ -71,16 +71,18 @@ const CreateCourseModal = props => {
         <Form.Item label='Duration' {...itemProps}>
           <Row gutter={8}>
             <Col span={8}>
-              <TextField
+              <Field
                 {...props}
                 name='duration.time'
                 type='number'
+                component={TextField}
                 placeholder='8' />
             </Col>
             <Col span={16}>
-              <SelectField
+              <Field
                 {...props}
                 fluid
+                component={SelectField}
                 name='duration.unit'
                 placeholder='Weeks'
                 options={timeUnits.map(unit => ({
