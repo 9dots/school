@@ -9226,9 +9226,9 @@ schema-utils@^0.3.0:
   dependencies:
     ajv "^5.0.0"
 
-school-schema@^0.1.46:
-  version "0.1.46"
-  resolved "https://registry.yarnpkg.com/school-schema/-/school-schema-0.1.46.tgz#57d93eccab3bece9c15a853e59d62cf448d7dacf"
+school-schema@^0.1.47:
+  version "0.1.47"
+  resolved "https://registry.yarnpkg.com/school-schema/-/school-schema-0.1.47.tgz#04c26c293001a509baa1876665c2e3f4050c224e"
   dependencies:
     "@f/map" "^1.5.3"
     "@weo-edu/schema" "https://github.com/danleavitt0/schema.git"
