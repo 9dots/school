@@ -21,7 +21,7 @@ const LessonStudentView = ({
       <Route
         path='/class/:classId/lesson/:lessonId/:taskNum'
         render={({ match: { params } }) => (
-          <Layout.Header>
+          <Layout.Header style={{ padding: '0 20px' }}>
             <LessonHeader
               progress={progress}
               profile={profile}

@@ -30,7 +30,9 @@ const LessonControls = ({ lesson, progress }) => {
           <Link
             key={key}
             to={urlJoin(path, '' + key, uid)}
-            className={getClasses(val)} />
+            className={getClasses(val)}>
+            <span className='dot-index'>{key + 1}</span>
+          </Link>
         ))}
       </span>
       <Link to={next()}>
