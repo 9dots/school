@@ -34,7 +34,6 @@ export function filterByLabel (inputVal, { props: { label = '' } }) {
 export function validate (validator, cast, overWrites) {
   return (values, props) => {
     const { valid, errors } = validator(cast(values, props), { greedy: true })
-    console.log(errors)
     if (valid) return
     return getValidationErrors(
       {

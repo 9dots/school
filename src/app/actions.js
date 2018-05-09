@@ -24,7 +24,7 @@ function apiRequest (endpoint, data, Authorization) {
     },
     body: JSON.stringify(data)
   })
-    .then(res => (res.status === 500 ? Promise.reject(res.error) : res.json()))
+    .then(res => (res.status === 500 ? Promise.reject(res) : res.json()))
     .then(res => (res.ok ? res : Promise.reject(res)))
 }
 
