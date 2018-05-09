@@ -17,11 +17,13 @@ const itemLayout = {
   }
 }
 
-const CreateStudentModal = props => {
+const CreateStudentModal = ({ mask = true, stepModal, ...props }) => {
   const displayName = props.class && props.class.displayName
   return (
     <Modal
       {...props}
+      mask={mask}
+      visible
       destroyOnClose
       onCancel={props.close(props.onCancel)}
       onOk={props.handleSubmit}
@@ -61,6 +63,13 @@ const CreateStudentModal = props => {
           placeholder='student@email.com'
           component={TextField} />
       </Form>
+      {stepModal && (
+        <div style={{ textAlign: 'center', fontSize: 12, fontStyle: 'italic' }}>
+          <a onClick={stepModal.next}>
+            Add an existing student from my school instead.
+          </a>
+        </div>
+      )}
     </Modal>
   )
 }
