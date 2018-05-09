@@ -7,7 +7,7 @@ export function isEmail (str) {
 }
 
 export const getAvatarByValue = password =>
-  avatars.find(a => a.value === password).src
+  (avatars.find(a => a.value === password) || {}).src
 
 export const setArrayImmutable = (arr, i, value) =>
   Object.assign([...arr], { [i]: value })

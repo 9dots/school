@@ -1,30 +1,48 @@
-import { Modal, Form, AutoComplete } from 'antd'
-import Field from 'components/Field'
+import Field, { SelectField } from 'components/Field'
+import { filterByLabel } from 'utils'
 import PropTypes from 'prop-types'
+import { Modal } from 'antd'
 import enhancer from './enhancer'
 import React from 'react'
 
 import './AddStudentModal.less'
 
-const commonProps = {
-  validate: v => (v.trim() ? '' : 'Required')
-}
-
-const AddStudentModal = props => {
+const AddStudentModal = ({
+  studentList = [],
+  handleSubmit,
+  stepModal,
+  onCancel,
+  ...props
+}) => {
   return (
     <Modal
       {...props}
-      onOk={props.handleSubmit(props.onSubmit)}
+      onCancel={onCancel}
+      onOk={handleSubmit}
       title='Add a Student to Your Class'>
-      <Form>
-        <Form.Item label='First'>
-          <Field
-            {...commonProps}
-            name='name.given'
-            placeholder='Michael'
-            component={AutoComplete} />
-        </Form.Item>
-      </Form>
+      <form onSubmit={handleSubmit}>
+        <Field
+          {...props}
+          style={{}}
+          name='student'
+          placeholder='Find a someone in your school...'
+          filterOption={filterByLabel}
+          options={studentList.map(s => ({
+            value: s.id,
+            label: s.displayName
+          }))}
+          showSearch
+          component={SelectField} />
+        {stepModal && (
+          <div
+            style={{ textAlign: 'center', fontSize: 12, fontStyle: 'italic' }}>
+            <a onClick={stepModal.next}>
+              I can&apos;t find my student. Create a new student account
+              instead.
+            </a>
+          </div>
+        )}
+      </form>
     </Modal>
   )
 }

@@ -1,11 +1,11 @@
 import { firestoreConnect } from 'react-redux-firebase'
-import { compose, withHandlers } from 'recompose'
 import formModal from 'components/formModal'
 import { schoolClasses } from 'selectors'
 import { getFormDefaults } from 'utils'
 import { connect } from 'react-redux'
-import { rpc } from 'app/actions'
 import schema from 'school-schema'
+import { compose } from 'recompose'
+import { rpc } from 'app/actions'
 import { message } from 'antd'
 
 export default compose(
