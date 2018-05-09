@@ -1,7 +1,6 @@
 import { Card, Button, Dropdown, Icon, Menu, Table } from 'antd'
 import PrintPasswords from './PrintPasswords'
 import { getAvatarByValue } from 'utils'
-import avatars from 'assets/avatars'
 import PropTypes from 'prop-types'
 import getProp from '@f/get-prop'
 import enhancer from './enhancer'
@@ -106,7 +105,7 @@ const columns = props => [
       props.classData.passwordType === 'text' ? (
         <span style={{ fontFamily: 'monospace' }}>{password}</span>
       ) : (
-        <img src={getAvatarByValue(password)} />
+        <img style={{ width: 50 }} src={getAvatarByValue(password)} />
       )
   },
   {
