@@ -26,12 +26,12 @@ const CourseEditor = props => {
 
   return (
     <div>
-      <Header {...props} />
       <Prompt
         when={props.isDirty}
         message={location =>
           'You have unsaved changes. Are you sure want to leave this page and discard your changes?'
         } />
+      <Header {...props} />
       <div className='main-col'>
         {mode === 'edit' ? (
           <span>
