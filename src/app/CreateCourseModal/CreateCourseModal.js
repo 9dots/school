@@ -1,6 +1,7 @@
 import Field, { TextField, SelectField, TextAreaField } from 'components/Field'
 import { gradesToText, tags, timeUnits } from 'utils/data'
 import { Modal, Form, Row, Col } from 'antd'
+import { filterByLabel } from '../../utils'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
 import React from 'react'
@@ -52,9 +53,7 @@ const CreateCourseModal = props => {
           style={{ width: 'auto' }}
           multiple
           placeholder='Javascript'
-          filterOption={(inputVal, { props: { label = '' } }) =>
-            label.toLowerCase().indexOf(inputVal.toLowerCase()) > -1
-          }
+          filterOption={filterByLabel}
           options={tags.map(tag => ({ ...tag, value: tag.id }))}
           component={SelectField} />
         <Field
