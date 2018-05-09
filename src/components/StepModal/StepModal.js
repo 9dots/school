@@ -9,11 +9,12 @@ import './StepModal.less'
 const enhancer = compose(
   withStateHandlers(() => ({ openModal: 0 }), {
     next: ({ openModal }, { modals = [] }) => () => ({
-      openModal: openModal >= modals.length - 1 ? 0 : ++openModal
+      openModal: wrap(++openModal, 0, modals.length - 1)
     }),
     prev: ({ openModal }, { modals = [] }) => () => ({
-      openModal: openModal <= 0 ? modals.length - 1 : --openModal
-    })
+      openModal: wrap(--openModal, 0, modals.length - 1)
+    }),
+    goTo: () => i => ({ openModal: i })
   })
 )
 
@@ -24,6 +25,7 @@ const StepModal = ({
   modals,
   next,
   prev,
+  goTo,
   ...rest
 }) => {
   const modal = modals[openModal]
@@ -38,7 +40,11 @@ const StepModal = ({
         maskStyle={maskStyle}
         maskClosable={maskClosable}
         className='step-modal'>
-        <Component {...props} stepModal={{ next, prev }} mask={false} />
+        <Component
+          {...props}
+          key={openModal}
+          stepModal={{ next, prev, goTo }}
+          mask={false} />
       </Modal>
     </span>
   )
@@ -47,3 +53,13 @@ const StepModal = ({
 StepModal.propTypes = {}
 
 export default enhancer(StepModal)
+
+function clamp (val, min, max) {
+  return Math.min(Math.max(val, min), max)
+}
+
+function wrap (val, min, max) {
+  if (val < min) return max
+  if (val > max) return min
+  return val
+}

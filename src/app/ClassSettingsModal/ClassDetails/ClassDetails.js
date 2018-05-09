@@ -46,7 +46,9 @@ const ClassDetails = props => {
             <Input disabled defaultValue={school.displayName} />
           </Form.Item>
           <Form.Item label='Teacher' {...itemLayout}>
-            <Input disabled defaultValue={teachers[0].displayName} />
+            {teachers.map((teacher, id) => (
+              <Input disabled key={id} defaultValue={teacher.displayName} />
+            ))}
           </Form.Item>
           <Button
             loading={props.confirmLoading}

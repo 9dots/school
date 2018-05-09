@@ -23,7 +23,9 @@ export default compose(
     }
   ]),
   connect((state, { school }) => ({
-    classes: schoolClasses(state, school)
+    classes: schoolClasses(state, school).filter(s => {
+      return !s.teachers[state.firebase.auth.uid]
+    })
   })),
   formModal({
     displayName: 'addToClass',
