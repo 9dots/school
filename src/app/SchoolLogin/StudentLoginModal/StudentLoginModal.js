@@ -30,11 +30,10 @@ const StudentLoginModal = props => {
       {picturePwd ? (
         <Row>
           {avatars.map(avatar => (
-            <Col key={avatar.id} span={3} style={{ padding: 10 }}>
+            <Col key={avatar.id} span={3} className='login-image'>
               <img
                 onClick={() => submit({ password: avatar.value })}
-                src={avatar.src}
-                className='login-image' />
+                src={avatar.src} />
             </Col>
           ))}
         </Row>
