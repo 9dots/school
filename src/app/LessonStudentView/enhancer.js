@@ -33,7 +33,7 @@ export default compose(
   })),
   waitFor(['progress', 'uid', 'profile']),
   lifecycle({
-    componentWillMount () {
+    componentDidMount () {
       const {
         uid,
         lessonId,
@@ -48,10 +48,19 @@ export default compose(
         storeAs: getProgressString(lessonId, uid)
       })
       if (progress && !teacherView) {
-        this.props.rpc('activity.setActive', {
-          activity: progress[taskNum].id,
-          lesson: lessonId
-        })
+        this.props.rpc(
+          'activity.setActive',
+          {
+            activity: progress[taskNum].id,
+            lesson: lessonId
+          },
+          {
+            debounce: {
+              time: 100,
+              key: 'SET_ACTIVE'
+            }
+          }
+        )
       }
     },
     componentWillUnmount () {
@@ -64,10 +73,19 @@ export default compose(
       if (!this.props.isLoaded && nextProps.isLoaded) {
         const { lessonId, progress, taskNum, teacherView } = nextProps
         if (!teacherView) {
-          this.props.rpc('activity.setActive', {
-            activity: progress[taskNum].id,
-            lesson: lessonId
-          })
+          this.props.rpc(
+            'activity.setActive',
+            {
+              activity: progress[taskNum].id,
+              lesson: lessonId
+            },
+            {
+              debounce: {
+                time: 100,
+                key: 'SET_ACTIVE'
+              }
+            }
+          )
         }
       }
     }

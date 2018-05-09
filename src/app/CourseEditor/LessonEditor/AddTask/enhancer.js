@@ -15,7 +15,7 @@ export default compose(
     mapPropsToValues: props => ({
       url: undefined
     }),
-    handleSubmit: async (values, { props }) => {
+    handleSubmit: async (values, { props, setErrors }) => {
       try {
         props.setLoading(true)
         await props.rpc('course.addTask', cast(values, props))
@@ -24,7 +24,7 @@ export default compose(
       } catch (e) {
         props.setLoading(false)
         if (e.errorDetails) {
-          throw getValidationErrors(e)
+          return setErrors(getValidationErrors(e))
         }
         message.error(e.error)
       }

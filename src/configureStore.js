@@ -4,6 +4,7 @@ import fetch, { fetchEncodeJSON } from 'redux-effects-fetch'
 import { reactReduxFirebase } from 'react-redux-firebase'
 import { reduxFirestore } from 'redux-firestore'
 import createSagaMiddleware from 'redux-saga'
+import createDebounce from 'redux-debounced'
 import { createLogger } from 'redux-logger'
 import rootReducer from './app/reducers'
 import effects from 'redux-effects'
@@ -44,6 +45,7 @@ export { history }
 export default (initialState = {}) => {
   const sagaMiddleware = createSagaMiddleware()
   const middleware = [
+    createDebounce(),
     thunk.withExtraArgument(history),
     fetchEncodeJSON,
     sagaMiddleware,

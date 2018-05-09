@@ -19,8 +19,7 @@ const profileDetailEnhancer = compose(
       displayName: '',
       school: ''
     }),
-    handleSubmit: async (values, handbag) => {
-      const { props } = handbag
+    handleSubmit: async (values, { props, setErrors }) => {
       const { rpc, setLoading, setUrl } = props
       setLoading(true)
       try {
@@ -29,9 +28,9 @@ const profileDetailEnhancer = compose(
       } catch (e) {
         setLoading(false)
         if (e === 'school_not_found') {
-          throw { school: 'School code not found.' }
+          return setErrors({ school: 'School code not found.' })
         } else if (e.errorDetails) {
-          throw getValidationErrors(e)
+          return setErrors(getValidationErrors(e))
         }
         message.error('Oops, something went wrong. Please try again.')
       }

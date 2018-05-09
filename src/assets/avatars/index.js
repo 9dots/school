@@ -1,5 +1,4 @@
-const ctx = require.context('.', true, /\.png$/)
-
-export default ctx.keys().reduce((acc, key) => {
-  return { ...acc, [key]: ctx(key) }
-}, {})
+const ctx = require.context('.', false, /\.png$/)
+const pictureData = require('school-schema').picturePasswords
+const avatars = pictureData.map(image => ({ ...image, src: ctx(image.path) }))
+export default avatars

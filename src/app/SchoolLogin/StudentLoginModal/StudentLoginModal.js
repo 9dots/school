@@ -1,32 +1,52 @@
-import { Modal, Input, Row, Col } from 'antd'
+import Field, { TextField } from 'components/Field'
+import { Modal, Row, Col } from 'antd'
+import avatars from 'assets/avatars'
 import PropTypes from 'prop-types'
+import enhancer from './enhancer'
 import React from 'react'
 
-import avatars from 'assets/avatars'
 import './StudentLoginModal.less'
 
-const StudentLoginModal = ({ student, passwordType = 'picture', ...rest }) => {
-  const picturePwd = passwordType === 'picture'
+const StudentLoginModal = props => {
+  const {
+    passwordType = 'image',
+    confirmLoading,
+    handleSubmit,
+    onCancel,
+    student,
+    submit,
+    ...rest
+  } = props
+  const picturePwd = passwordType === 'image'
 
   return (
     <Modal
+      onOk={handleSubmit}
+      onCancel={onCancel}
+      confirmLoading={confirmLoading}
       width={picturePwd ? 900 : 520}
-      {...rest}
       visible
       title={student.displayName}>
       {picturePwd ? (
         <Row>
-          {Object.keys(avatars)
-            .sort(() => Math.random() - 0.5)
-            .map(key => (
-              <Col key={key} span={3} style={{ padding: 10 }}>
-                <img src={avatars[key]} style={{ width: '100%' }} />
-              </Col>
-            ))}
+          {avatars.map(avatar => (
+            <Col key={avatar.id} span={3} style={{ padding: 10 }}>
+              <img
+                onClick={() => submit({ password: avatar.value })}
+                src={avatar.src}
+                style={{ width: '100%' }} />
+            </Col>
+          ))}
         </Row>
       ) : (
         <div style={{ padding: '25px 100px' }}>
-          <Input size='large' placeholder='Enter Your Password...' />
+          <Field
+            {...rest}
+            name='password'
+            type='password'
+            size='large'
+            component={TextField}
+            placeholder='Enter Your Password...' />
         </div>
       )}
     </Modal>
@@ -35,4 +55,4 @@ const StudentLoginModal = ({ student, passwordType = 'picture', ...rest }) => {
 
 StudentLoginModal.propTypes = {}
 
-export default StudentLoginModal
+export default enhancer(StudentLoginModal)

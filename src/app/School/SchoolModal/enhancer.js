@@ -34,8 +34,7 @@ export default compose(
   formModal({
     displayName: 'createSchool',
     mapPropsToValues: props => ({ school: undefined }),
-    handleSubmit: async (values, handbag) => {
-      const { props } = handbag
+    handleSubmit: async (values, { props, setErrors }) => {
       const { rpc, setLoading } = props
       setLoading(true)
       try {
@@ -44,9 +43,9 @@ export default compose(
       } catch (e) {
         setLoading(false)
         if (e === 'school_not_found') {
-          throw {
+          return setErrors({
             school: 'School code not found.'
-          }
+          })
         }
         message.error('Unknown error. Please try again.')
       }

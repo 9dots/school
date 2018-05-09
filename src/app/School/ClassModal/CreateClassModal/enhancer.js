@@ -14,8 +14,7 @@ export default compose(
       displayName: undefined,
       grade: undefined
     }),
-    handleSubmit: async (values, handbag) => {
-      const { props } = handbag
+    handleSubmit: async (values, { props, setErrors }) => {
       const { setUrl, setLoading, rpc } = props
       setLoading(true)
       try {
@@ -26,9 +25,9 @@ export default compose(
       } catch (e) {
         setLoading(false)
         if (e === 'school_not_found') {
-          throw { school: 'School code not found.' }
+          return setErrors({ school: 'School code not found.' })
         } else if (e.errorDetails) {
-          throw getValidationErrors(e)
+          return setErrors(getValidationErrors(e))
         }
         message.error('Oops, something went wrong. Please try again.')
       }
