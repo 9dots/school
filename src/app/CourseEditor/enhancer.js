@@ -130,7 +130,6 @@ export default compose(
       }
     },
     componentWillUnmount () {
-      console.log(this.props.router)
       this.props.setDirty(false)
       this.props.rpc('course.createDraft', {
         course: this.props.courseId

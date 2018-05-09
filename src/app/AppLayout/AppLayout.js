@@ -36,9 +36,9 @@ class AppLayout extends Component {
         <Switch>
           <Route path='/class/:classId/lesson/' />
           {!showSidebar ? (
-            <Route path='**' render={HomeHeader} />
+            <Route path='**' component={HomeHeader} />
           ) : (
-            <Route path='**' render={Sider} />
+            <Route path='**' component={Sider} />
           )}
         </Switch>
         <Layout.Content>{children}</Layout.Content>
