@@ -20,7 +20,7 @@ const JoinClassModal = ({
       onCancel={onCancel}
       title='Join A Class'>
       <form onSubmit={handleSubmit}>
-        <div style={{ padding: '20px 50px 30px' }}>
+        <div style={{ padding: '20px 50px 0' }}>
           <Field
             {...rest}
             showSearch

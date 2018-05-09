@@ -8,9 +8,10 @@ import './CreateClassModal.less'
 
 const itemProps = { labelCol: { span: 5 }, wrapperCol: { span: 19 } }
 
-const CreateClassModal = ({ stepModal, ...props }) => (
+const CreateClassModal = ({ stepModal, mask, ...props }) => (
   <Modal
     {...props}
+    mask={mask}
     onCancel={props.close(props.onCancel)}
     onOk={props.handleSubmit}
     title='Create A Class'>
