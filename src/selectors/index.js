@@ -33,6 +33,12 @@ const classBySchools = (state, schools) => {
     getClasses(state, schools)
   )
 }
+
+const schoolClasses = (state, school) => {
+  const classes = state.firestore.data[`${school}-classes`] || {}
+  return Object.keys(classes).map(key => ({ id: key, ...classes[key] }))
+}
+
 const moduleSelector = (state, mods) =>
   mods.map(
     m => state.firestore.data[m] && { id: m, ...state.firestore.data[m] }
@@ -64,6 +70,7 @@ export {
   studentAssignment,
   classBySchools,
   moduleSelector,
+  schoolClasses,
   allClasses,
   myCourses,
   students,
