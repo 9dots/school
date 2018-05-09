@@ -15,8 +15,7 @@ export default compose(
       studentId: '',
       ...initialValues
     }),
-    handleSubmit: async (values, handbag) => {
-      const { props } = handbag
+    handleSubmit: async (values, { props, setErrors }) => {
       const {
         class: { id },
         setLoading,
@@ -36,11 +35,11 @@ export default compose(
       } catch (e) {
         setLoading(false)
         if (e.error === 'studentId_taken') {
-          throw {
+          return setErrors({
             studentId: 'Student ID taken'
-          }
+          })
         } else if (e.errorDetails) {
-          throw getValidationErrors(e)
+          return setErrors(getValidationErrors(e))
         }
         message.error('Oops, something went wrong. Please try again.')
       }
