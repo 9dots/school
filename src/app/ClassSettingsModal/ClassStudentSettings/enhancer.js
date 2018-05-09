@@ -1,8 +1,9 @@
 import { compose, withHandlers, withStateHandlers, withProps } from 'recompose'
+import modalContainer from 'components/modalContainer'
 import { connect } from 'react-redux'
 import { Modal, message } from 'antd'
-import modalContainer from '../../../components/modalContainer'
 import { rpc } from 'app/actions'
+import React from 'react'
 
 export default compose(
   modalContainer,
@@ -11,7 +12,8 @@ export default compose(
     {
       selectedStudents: [],
       isSelected: false,
-      openDropdown: undefined
+      openDropdown: undefined,
+      resettingPassword: false
     },
     {
       setOpenDropdown: () => (visible, s) => ({
@@ -20,7 +22,8 @@ export default compose(
       setSelectedStudents: () => (ids, selectedStudents) => ({
         selectedStudents,
         isSelected: !!selectedStudents.length
-      })
+      }),
+      setResetting: () => resettingPassword => ({ resettingPassword })
     }
   ),
   withProps(props => ({
@@ -32,9 +35,19 @@ export default compose(
     const removeStudents = props => students => {
       Modal.confirm({
         title: 'Remove students?',
-        content: `The following students will be removed from your class:\n\n ${students
-          .map(student => student.displayName)
-          .join(', ')}`,
+        content: (
+          <span>
+            The following students will be removed from your class: <br />
+            <span>
+              {students.map(student => (
+                <b key={student.id}>
+                  {student.displayName}
+                  <br />
+                </b>
+              ))}
+            </span>
+          </span>
+        ),
         okText: 'Yes',
         cancelText: 'No',
         async onOk () {
@@ -50,15 +63,41 @@ export default compose(
         }
       })
     }
+    const resetPassword = props => async student => {
+      Modal.confirm({
+        title: 'Change password?',
+        content: (
+          <span>
+            This will change the password for <b>{student.displayName}</b>.
+          </span>
+        ),
+        okText: 'Yes',
+        cancelText: 'No',
+        async onOk () {
+          try {
+            props.setResetting(true)
+            await props.rpc('user.setInsecurePassword', {
+              user: student.id,
+              type: props.classData.passwordType
+            })
+          } catch (e) {
+            message.error(e.error)
+          }
+          props.setResetting(false)
+        }
+      })
+    }
     return {
-      printPasswords: ({ modal, selectedStudents }) => {
+      printPasswords: ({ modal, classData, selectedStudents }) => {
         return modal.showModal({
           name: 'printPasswords',
-          students: selectedStudents
+          students: selectedStudents,
+          passwordType: classData.passwordType
         })
       },
       setPasswordType: props => async key => {
         try {
+          props.setResetting(true)
           await props.rpc('class.setPasswordType', {
             class: props.class,
             passwordType: key
@@ -66,6 +105,7 @@ export default compose(
         } catch (e) {
           message.error(e.error)
         }
+        props.setResetting(false)
       },
       addStudent: ({ modal, classData }) => {
         return modal.showModal({
@@ -82,10 +122,11 @@ export default compose(
           case 'remove':
             return removeStudents(props)([student])
           case 'resetPassword':
-            return console.log('reset')
+            return resetPassword(props)(student)
         }
       },
-      removeStudents
+      removeStudents,
+      resetPassword
     }
   })
 )
