@@ -34,7 +34,7 @@ const StudentLoginModal = props => {
               <img
                 onClick={() => submit({ password: avatar.value })}
                 src={avatar.src}
-                style={{ width: '100%' }} />
+                className='login-image' />
             </Col>
           ))}
         </Row>
