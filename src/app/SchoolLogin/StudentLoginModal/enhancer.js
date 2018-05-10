@@ -13,10 +13,21 @@ export default compose(
   connect(() => ({}), { studentSignIn, setUrl }),
   withHandlers({
     submit: props => async values => {
-      props.setLoading(true)
-      await props.studentSignIn(cast(values, props))
-      props.setLoading(false)
-      props.setUrl('/')
+      try {
+        props.setLoading(true)
+        await props.studentSignIn(cast(values, props))
+        props.setLoading(false)
+        props.setUrl('/')
+      } catch (e) {
+        props.setLoading(false)
+        if (
+          e.error === 'invalid_credentials' &&
+          props.passwordType === 'image'
+        ) {
+          return message.error('Incorrect password.')
+        }
+        return Promise.reject(e)
+      }
     }
   }),
   withFormik({
@@ -26,11 +37,10 @@ export default compose(
       try {
         await props.submit(values)
       } catch (e) {
-        props.setLoading(false)
         if (e.error === 'invalid_credentials') {
           return setErrors({ password: errorToMessage(e.error) })
         }
-        message.error(e.error)
+        message.error('Oops, something went wrong')
       }
     },
     ...getFormDefaults(schema.user.signInWithPassword, cast)
