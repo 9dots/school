@@ -32,7 +32,10 @@ const noClasses = props => (
         <Icon type='plus' style={{ marginRight: 10 }} />New Class
       </span>
     }
-    action={props.showModal('classModal')} />
+    action={props.modal.showModal({
+      name: 'classModal',
+      school: Object.keys(props.profile.schools || {})[0]
+    })} />
 )
 
 School.propTypes = {}
