@@ -1,11 +1,11 @@
 import { firestoreConnect } from 'react-redux-firebase'
 import formModal from 'components/formModal'
+import { rpc, setUrl } from 'app/actions'
 import { schoolClasses } from 'selectors'
 import { getFormDefaults } from 'utils'
 import { connect } from 'react-redux'
 import schema from 'school-schema'
 import { compose } from 'recompose'
-import { rpc } from 'app/actions'
 import { message } from 'antd'
 
 export default compose(
@@ -13,19 +13,26 @@ export default compose(
     (state, { school }) => ({
       school
     }),
-    { rpc }
+    { rpc, setUrl }
   ),
-  firestoreConnect(props => [
-    {
-      collection: 'classes',
-      where: ['school', '==', props.school],
-      storeAs: `${props.school}-classes`
-    }
-  ]),
+  firestoreConnect(
+    props =>
+      props.school
+        ? [
+          {
+            collection: 'classes',
+            where: ['school', '==', props.school],
+            storeAs: `${props.school}-classes`
+          }
+        ]
+        : []
+  ),
   connect((state, { school }) => ({
-    classes: schoolClasses(state, school).filter(s => {
-      return !s.teachers[state.firebase.auth.uid]
-    })
+    classes: school
+      ? schoolClasses(state, school).filter(s => {
+        return !s.teachers[state.firebase.auth.uid]
+      })
+      : []
   })),
   formModal({
     displayName: 'addToClass',
@@ -35,6 +42,7 @@ export default compose(
       try {
         await props.rpc('class.addTeacher', cast(values, props))
         props.onOk('Successfully joined class')
+        props.setUrl(`/class/${values.class}`)
       } catch (e) {
         message.error(e.error)
       }

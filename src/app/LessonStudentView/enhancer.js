@@ -56,7 +56,7 @@ export default compose(
           },
           {
             debounce: {
-              time: 100,
+              time: 300,
               key: 'SET_ACTIVE'
             }
           }
@@ -81,7 +81,7 @@ export default compose(
             },
             {
               debounce: {
-                time: 100,
+                time: 300,
                 key: 'SET_ACTIVE'
               }
             }
