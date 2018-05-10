@@ -45,7 +45,7 @@ const ClassDetails = props => {
           <Form.Item label='School' {...itemLayout}>
             <Input disabled defaultValue={school.displayName} />
           </Form.Item>
-          <Form.Item label='Teacher' {...itemLayout}>
+          <Form.Item label='Teachers' {...itemLayout}>
             {teachers.map((teacher, id) => (
               <Input disabled key={id} defaultValue={teacher.displayName} />
             ))}
