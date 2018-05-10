@@ -8,7 +8,7 @@ import './CreateClassModal.less'
 
 const itemProps = { labelCol: { span: 5 }, wrapperCol: { span: 19 } }
 
-const CreateClassModal = ({ stepModal, mask, ...props }) => (
+const CreateClassModal = ({ stepModal, mask, profile = {}, ...props }) => (
   <Modal
     {...props}
     mask={mask}
@@ -21,7 +21,7 @@ const CreateClassModal = ({ stepModal, mask, ...props }) => (
         itemProps={itemProps}
         label='Class name'
         name='displayName'
-        placeholder='Coding 1'
+        placeholder={`${profile.displayName}'s Class`}
         component={TextField} />
       <Field
         {...props}
