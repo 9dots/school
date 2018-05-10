@@ -21,18 +21,19 @@ const AddStudentModal = ({
       onOk={handleSubmit}
       title='Add a Student to Your Class'>
       <form onSubmit={handleSubmit}>
-        <Field
-          {...props}
-          style={{}}
-          name='student'
-          placeholder='Find a someone in your school...'
-          filterOption={filterByLabel}
-          options={studentList.map(s => ({
-            value: s.id,
-            label: s.displayName
-          }))}
-          showSearch
-          component={SelectField} />
+        <div style={{ margin: '24px 50px 0' }}>
+          <Field
+            {...props}
+            name='student'
+            placeholder='Find a someone in your school...'
+            filterOption={filterByLabel}
+            options={studentList.map(s => ({
+              value: s.id,
+              label: s.displayName
+            }))}
+            showSearch
+            component={SelectField} />
+        </div>
         {stepModal && (
           <div
             style={{ textAlign: 'center', fontSize: 12, fontStyle: 'italic' }}>

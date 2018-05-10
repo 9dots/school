@@ -20,16 +20,22 @@ const MenuTitle = ({
             className='add-class-button'
             type='plus'
             size='small'
-            onClick={stopEvent(showModal('classModal-' + id))} />
+            onClick={stopEvent(
+              showModal({
+                name: 'classModal',
+                onOk: msg => onCreateModal(msg, 'classModal'),
+                school: id
+              })
+            )} />
         </Col>
       </Row>
-      {isVisible('classModal-' + id) && (
+      {/* {isVisible('classModal-' + id) && (
         <ClassModal
           visible
           school={id}
-          onOk={msg => onCreateModal(msg, 'classModal-' + id)}
+          onOk={}
           onCancel={hideModal('classModal-' + id)} />
-      )}
+      )} */}
     </div>
   )
 }
