@@ -1,4 +1,5 @@
 import { getFormDefaults, getValidationErrors } from 'utils'
+import { profile } from 'selectors'
 import formModal from 'components/formModal'
 import { rpc, setUrl } from 'app/actions'
 import { connect } from 'react-redux'
@@ -7,7 +8,7 @@ import schema from 'school-schema'
 import { message } from 'antd'
 
 export default compose(
-  connect(() => ({}), { rpc, setUrl }),
+  connect(state => ({ profile: profile(state) }), { rpc, setUrl }),
   formModal({
     displayName: 'createClass',
     mapPropsToValues: props => ({

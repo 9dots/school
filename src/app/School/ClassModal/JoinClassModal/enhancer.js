@@ -41,8 +41,8 @@ export default compose(
       props.setLoading(true)
       try {
         await props.rpc('class.addTeacher', cast(values, props))
-        props.onOk('Successfully joined class')
         props.setUrl(`/class/${values.class}`)
+        return props.onOk('Successfully joined class')
       } catch (e) {
         message.error(e.error)
       }
