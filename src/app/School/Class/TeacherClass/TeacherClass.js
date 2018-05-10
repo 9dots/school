@@ -140,7 +140,12 @@ const ClassView = props => {
           )}
         </Layout.Content>
 
-        <Layout.Sider width={styles['@sidebar-width']}>
+        <Layout.Sider
+          width={styles['@sidebar-width']}
+          style={{
+            minHeight: 'calc(100vh - 62px)',
+            borderLeft: '1px solid #e8e8e8'
+          }}>
           <StudentList
             studentData={studentData}
             tasks={(assignedLesson || {}).tasks}
