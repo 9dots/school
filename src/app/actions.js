@@ -11,8 +11,12 @@ const rpc = (method, data, meta) => {
 }
 
 const studentSignIn = data => async dispatch => {
-  const { token } = await apiRequest('studentSignIn', data)
-  return signInWithToken(token)
+  try {
+    const { token } = await apiRequest('studentSignIn', data)
+    return signInWithToken(token)
+  } catch (e) {
+    return Promise.reject(e)
+  }
 }
 
 function apiRequest (endpoint, data, Authorization) {
