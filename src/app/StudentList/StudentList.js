@@ -14,11 +14,7 @@ const StudentList = props => {
   const { progressByStudent, students, isLoaded, modal, tasks } = props
   if (!isLoaded) return <Loading />
   return (
-    <div
-      style={{
-        minHeight: 'calc(100vh - 62px)',
-        borderLeft: '1px solid #e8e8e8'
-      }}>
+    <div>
       <Row
         type='flex'
         style={{

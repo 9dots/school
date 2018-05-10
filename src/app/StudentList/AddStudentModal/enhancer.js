@@ -38,7 +38,7 @@ export default compose(
       props.setLoading(true)
       try {
         await props.rpc('class.addStudent', cast(values, props))
-        props.onOk('Successfully added.')
+        return props.onOk('Successfully added.')
       } catch (e) {
         message.error(e.error)
       }
