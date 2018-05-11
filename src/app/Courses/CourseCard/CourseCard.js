@@ -8,7 +8,14 @@ import enhancer from './enhancer'
 import React from 'react'
 import './CourseCard.less'
 
-const CourseCard = ({ course, modal, editCourse, editable, setUrl }) => {
+const CourseCard = ({
+  course,
+  modal,
+  editCourse,
+  editable,
+  setUrl,
+  context = ''
+}) => {
   const {
     duration = {},
     displayName,
@@ -27,7 +34,7 @@ const CourseCard = ({ course, modal, editCourse, editable, setUrl }) => {
 
   return (
     <span>
-      <Link to={`courses/${id}`}>
+      <Link to={`courses/${id}${context ? `?redirect=${context}` : ''}`}>
         <Card
           className='course-card'
           bordered={bordered}

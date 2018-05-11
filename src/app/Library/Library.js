@@ -38,7 +38,7 @@ const Library = ({ modal, onCreateCourse, courses = [], uid }) => {
           <Row gutter={24} align='middle'>
             {courses.map((course, key) => (
               <Col span={12} key={key}>
-                <CourseCard course={course} editable />
+                <CourseCard course={course} context='library' editable />
               </Col>
             ))}
           </Row>

@@ -1,6 +1,5 @@
 import Field, { SelectField } from 'components/Field'
 import { Modal, Form } from 'antd'
-import { filterByLabel } from '../../../utils'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
 import React from 'react'
@@ -24,7 +23,7 @@ const SchoolModal = props => {
           showSearch
           placeholder='Select a School'
           options={props.schools}
-          filterOption={filterByLabel}
+          optionFilterProp='label'
           notFoundContent='No schools to join'
           component={SelectField} />
       </Form>

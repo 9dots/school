@@ -56,6 +56,7 @@ const LessonEditor = ({
                           draft={draft}
                           editKey={editKey}
                           course={course}
+                          i={i}
                           lesson={lesson.id}
                           setEditKey={setEditKey} />
                       </div>

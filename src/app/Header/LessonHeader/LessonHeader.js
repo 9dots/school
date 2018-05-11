@@ -13,6 +13,7 @@ const LessonHeader = ({
   classId,
   lessonId,
   taskNum,
+  studentId,
   lesson,
   progress
 }) => {
@@ -27,7 +28,10 @@ const LessonHeader = ({
         </h2>
       </Layout.Sider>
       <Layout.Content style={{ textAlign: 'center' }}>
-        <LessonControls lesson={lesson} progress={progress} />
+        <LessonControls
+          studentId={studentId}
+          lesson={lesson}
+          progress={progress} />
       </Layout.Content>
       <Layout.Sider width={styles['@sidebar-width']}>
         <UserMenu
