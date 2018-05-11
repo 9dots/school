@@ -16,7 +16,7 @@ export default compose(
   ),
   withHandlers({
     onCreateCourse: props => course => {
-      props.hideModal('createCourse')
+      props.hideModal('createCourse', null)
       props.setUrl(`/courses/${course}/edit`)
     }
   }),

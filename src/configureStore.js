@@ -7,6 +7,7 @@ import createSagaMiddleware from 'redux-saga'
 import createDebounce from 'redux-debounced'
 import { createLogger } from 'redux-logger'
 import rootReducer from './app/reducers'
+import * as middlewares from 'middleware'
 import effects from 'redux-effects'
 import firebase from 'firebase'
 import thunk from 'redux-thunk'
@@ -45,6 +46,7 @@ export { history }
 export default (initialState = {}) => {
   const sagaMiddleware = createSagaMiddleware()
   const middleware = [
+    middlewares.authRequired,
     createDebounce(),
     thunk.withExtraArgument(history),
     fetchEncodeJSON,

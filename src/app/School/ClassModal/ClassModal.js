@@ -6,7 +6,7 @@ import React from 'react'
 import './ClassModal.less'
 
 const ClassModal = props => {
-  return <StepModal {...props} modals={[CreateClassModal, JoinClassModal]} />
+  return <StepModal {...props} modals={[JoinClassModal, CreateClassModal]} />
 }
 
 ClassModal.propTypes = {}
