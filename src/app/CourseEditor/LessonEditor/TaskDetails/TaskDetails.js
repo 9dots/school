@@ -1,5 +1,5 @@
 import Field, { TextField, SelectField } from 'components/Field'
-import { Button, Row, Col, Icon, Form } from 'antd'
+import { Button, Row, Col, Icon, Form, Avatar } from 'antd'
 import { taskTypes, getTaskIcon } from 'utils/data'
 import { getFormDefaults } from 'utils'
 import { withFormik } from 'formik'
@@ -18,6 +18,7 @@ const TaskDetails = props => {
     editTask,
     editKey,
     task,
+    i,
     ...rest
   } = props
 
@@ -29,8 +30,11 @@ const TaskDetails = props => {
         <Row type='flex'>
           <Col className='flex-grow ellipsis'>
             <h3 style={{ marginBottom: 0 }}>
-              <Icon type={getTaskIcon(type)} />&ensp;
-              {displayName}
+              <Row align='middle' type='flex'>
+                <Avatar size='small'>{i + 1}</Avatar>
+                <Icon type={getTaskIcon(type)} />&ensp;
+                {displayName}
+              </Row>
             </h3>
           </Col>
           <Col className='actions'>

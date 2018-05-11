@@ -33,7 +33,7 @@ const App = props => {
   return (
     <div>
       <Switch>
-        <Route exact path='/courses/:courseId/edit' component={CourseEditor} />
+        <Route exact path='/course/:courseId/edit' component={CourseEditor} />
         <AppLayout showSidebar={route !== 'school'} {...props}>
           <Switch>
             <Route path='/class/:classId?' component={School} />

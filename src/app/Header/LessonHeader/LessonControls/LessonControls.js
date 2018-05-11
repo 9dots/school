@@ -10,7 +10,7 @@ import './LessonControls.less'
 const path1Re = toRegexp('/class/:classId/lesson/:lessonId/:taskNum')
 const path2Re = toRegexp('/class/:classId/lesson/:lessonId/:taskNum/:uid')
 
-const LessonControls = ({ lesson, progress }) => {
+const LessonControls = ({ lesson, progress, studentId }) => {
   const { pathname } = window.location
   const [, classId, lessonId, current, uid = ''] = path2Re.test(pathname)
     ? path2Re.exec(pathname)
@@ -27,12 +27,12 @@ const LessonControls = ({ lesson, progress }) => {
       </Link>
       <span className='dots'>
         {progress.map((val, key) => (
-          <Link
-            key={key}
-            to={urlJoin(path, '' + key, uid)}
-            className={getClasses(val)}>
-            <span className='dot-index'>{key + 1}</span>
-          </Link>
+          <span key={key} className='dot-wrap'>
+            <Link to={urlJoin(path, '' + key, uid)} className={getClasses(val)}>
+              <span className='dot-index'>{key + 1}</span>
+            </Link>
+            {key === cur && studentId && <span className='dot-arrow' />}
+          </span>
         ))}
       </span>
       <Link to={next()}>

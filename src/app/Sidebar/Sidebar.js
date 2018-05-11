@@ -88,18 +88,22 @@ class Sidebar extends React.PureComponent {
           )}
           <Menu.Divider />
         </Menu>
-        <div style={{ padding: '12px 24px' }}>
-          <Button
-            style={{ width: '100%' }}
-            onClick={modal.showModal('schoolModal')}>
-            <Icon type='plus' />New School
-          </Button>
-        </div>
-        {modal.isVisible('schoolModal') && (
-          <SchoolModal
-            visible
-            onOk={msg => onCreateModal(msg, 'schoolModal')}
-            onCancel={modal.hideModal('schoolModal')} />
+        {isTeacher && (
+          <span>
+            <div style={{ padding: '12px 24px' }}>
+              <Button
+                style={{ width: '100%' }}
+                onClick={modal.showModal('schoolModal')}>
+                <Icon type='plus' />New School
+              </Button>
+            </div>
+            {modal.isVisible('schoolModal') && (
+              <SchoolModal
+                visible
+                onOk={msg => onCreateModal(msg, 'schoolModal')}
+                onCancel={modal.hideModal('schoolModal')} />
+            )}
+          </span>
         )}
       </div>
     )
