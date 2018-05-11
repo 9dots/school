@@ -1,4 +1,5 @@
 import { Card, List, Avatar, Icon, Tooltip, Button } from 'antd'
+import { getTaskIcon } from 'utils/data'
 import modalContainer from 'components/modalContainer'
 import LessonProgress from '../LessonProgress'
 import PropTypes from 'prop-types'
@@ -30,12 +31,15 @@ const ActiveLesson = ({ lesson, modal, studentProgress, activeByTask }) => {
         </span>
       }>
       <List className='task-list'>
-        {tasks.map(({ displayName, description, id, url }, i) => (
+        {tasks.map(({ displayName, description, id, url, type }, i) => (
           <List.Item key={i}>
             <List.Item.Meta
               avatar={<Avatar size='small'>{i + 1}</Avatar>}
               title={
-                <span style={{ fontWeight: 'normal' }}>{displayName}</span>
+                <span style={{ fontWeight: 'normal' }}>
+                  <Icon type={getTaskIcon(type)} style={{ marginRight: 5 }} />
+                  {displayName}
+                </span>
               } />
             {!!activeByTask[i].length && (
               <Tooltip

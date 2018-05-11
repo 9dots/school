@@ -26,7 +26,7 @@ export default compose(
       props
     ) => ({
       studentList: studentList.filter(
-        ({ id }) => !(props.class.students || {})[id]
+        ({ id }) => !(props.class.members || {})[id]
       )
     }),
     { rpc }

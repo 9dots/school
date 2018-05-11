@@ -1,16 +1,22 @@
 import { Avatar, Icon, List } from 'antd'
 import { Link } from 'react-router-dom'
+import { getTaskIcon } from 'utils/data'
 import PropTypes from 'prop-types'
 import React from 'react'
 import './Tasks.less'
 
 const Tasks = ({ lesson: { tasks = [], id }, classId, student }) => (
   <List className='task-list'>
-    {(tasks || []).map(({ displayName, description, url }, i) => (
+    {(tasks || []).map(({ displayName, description, url, type }, i) => (
       <List.Item key={id + '-' + i}>
         <List.Item.Meta
           avatar={<Avatar size='small'>{i + 1}</Avatar>}
-          title={displayName}
+          title={
+            <span>
+              <Icon type={getTaskIcon(type)} />
+              {displayName}
+            </span>
+          }
           description={description} />
         {student ? (
           <Link to={`/class/${classId}/lesson/${id}/${i}`} className='extra'>

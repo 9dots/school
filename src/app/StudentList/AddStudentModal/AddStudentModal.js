@@ -1,7 +1,6 @@
 import Field, { SelectField } from 'components/Field'
-import { filterByLabel } from 'utils'
 import PropTypes from 'prop-types'
-import { Modal } from 'antd'
+import { Modal, Icon, Row, Col, Select } from 'antd'
 import enhancer from './enhancer'
 import React from 'react'
 
@@ -26,20 +25,25 @@ const AddStudentModal = ({
             {...props}
             name='student'
             placeholder='Find a someone in your school...'
-            filterOption={filterByLabel}
-            options={studentList.map(s => ({
-              value: s.id,
-              label: s.displayName
-            }))}
+            optionLabelProp='label'
+            filterOption={filter}
             showSearch
-            component={SelectField} />
+            component={SelectField}>
+            {studentList.map(s => (
+              <Select.Option
+                studentId={s.studentId}
+                label={s.displayName}
+                value={s.id}
+                key={s.id}>
+                <Option student={s} />
+              </Select.Option>
+            ))}
+          </Field>
         </div>
         {stepModal && (
-          <div
-            style={{ textAlign: 'center', fontSize: 12, fontStyle: 'italic' }}>
+          <div style={{ textAlign: 'center', fontSize: 12 }}>
             <a onClick={stepModal.next}>
-              I can&apos;t find my student. Create a new student account
-              instead.
+              <Icon type='plus' />&ensp;Create a New Student Account
             </a>
           </div>
         )}
@@ -51,3 +55,27 @@ const AddStudentModal = ({
 AddStudentModal.propTypes = {}
 
 export default enhancer(AddStudentModal)
+
+const Option = ({ student }) => {
+  const { studentId, displayName } = student
+  return (
+    <span>
+      {studentId ? (
+        <Row type='flex'>
+          <Col span={15}>{displayName}</Col>
+          <Col span={9} style={{ fontFamily: 'monospace' }}>
+            ID:&ensp;{studentId}
+          </Col>
+        </Row>
+      ) : (
+        displayName
+      )}
+    </span>
+  )
+}
+
+function filter (inputVal, { props: { label = '', studentId = '' } }) {
+  return (
+    (label + ' ' + studentId).toLowerCase().indexOf(inputVal.toLowerCase()) > -1
+  )
+}

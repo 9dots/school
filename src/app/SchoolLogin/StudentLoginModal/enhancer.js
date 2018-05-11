@@ -1,8 +1,9 @@
 import { studentSignIn, setUrl } from 'app/actions'
-import { compose, withHandlers } from 'recompose'
+import { compose, withHandlers, lifecycle } from 'recompose'
 import addLoading from 'components/addLoading'
 import { errorToMessage } from 'utils/errors'
 import { getFormDefaults } from 'utils'
+import avatars from 'assets/avatars'
 import { connect } from 'react-redux'
 import { withFormik } from 'formik'
 import schema from 'school-schema'
@@ -10,6 +11,12 @@ import { message } from 'antd'
 
 export default compose(
   addLoading,
+  lifecycle({
+    componentWillMount () {
+      // pseudo random sort which works fine for our purposes here
+      this.setState({ avatars: avatars.sort(() => 0.5 - Math.random()) })
+    }
+  }),
   connect(() => ({}), { studentSignIn, setUrl }),
   withHandlers({
     submit: props => async values => {

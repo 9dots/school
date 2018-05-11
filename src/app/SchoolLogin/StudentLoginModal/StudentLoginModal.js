@@ -1,6 +1,5 @@
 import Field, { TextField } from 'components/Field'
 import { Modal, Row, Col } from 'antd'
-import avatars from 'assets/avatars'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
 import React from 'react'
@@ -13,6 +12,7 @@ const StudentLoginModal = props => {
     confirmLoading,
     handleSubmit,
     onCancel,
+    avatars,
     student,
     submit,
     ...rest

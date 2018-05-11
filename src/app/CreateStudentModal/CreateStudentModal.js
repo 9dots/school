@@ -1,4 +1,4 @@
-import { Modal, Form, Row, Col } from 'antd'
+import { Modal, Form, Row, Col, Icon } from 'antd'
 import Field, { TextField } from 'components/Field'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
@@ -64,9 +64,9 @@ const CreateStudentModal = ({ mask = true, stepModal, ...props }) => {
           component={TextField} />
       </Form>
       {stepModal && (
-        <div style={{ textAlign: 'center', fontSize: 12, fontStyle: 'italic' }}>
+        <div style={{ textAlign: 'center', fontSize: 12 }}>
           <a onClick={stepModal.next}>
-            Add an existing student from my school instead.
+            <Icon type='plus' />&ensp;Find an Existing Student
           </a>
         </div>
       )}

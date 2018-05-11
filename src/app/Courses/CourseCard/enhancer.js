@@ -8,7 +8,7 @@ export default compose(
   connect(null, { setUrl, rpc }),
   withHandlers({
     editCourse: props => values => {
-      props.setUrl(`/courses/${props.course.id}/edit`)
+      props.setUrl(`/course/${props.course.id}/edit`)
     }
   })
 )
