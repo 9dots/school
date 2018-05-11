@@ -48,8 +48,7 @@ function getIdToken () {
   }
 }
 
-const setUrl = (url, opts = {}) => (dispatch, getState, history) => {
-  return history.push(url, opts)
-}
+const setUrl = (url, opts = {}) => (dispatch, getState, history) =>
+  history.push(url, opts)
 
 export { setUrl, rpc, studentSignIn }

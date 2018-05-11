@@ -1,13 +1,13 @@
 import { compose, withState, lifecycle, withHandlers } from 'recompose'
 import { firestoreConnect } from 'react-redux-firebase'
 import modalContainer from 'components/modalContainer'
-import { setUrl, rpc } from 'app/actions'
 import { setArrayImmutable } from 'utils'
 import { draft, course } from 'selectors'
 import waitFor from 'components/waitFor'
 import deepEqual from '@f/deep-equal'
 import { connect } from 'react-redux'
 import { Modal, message } from 'antd'
+import { rpc } from 'app/actions'
 import splice from '@f/splice'
 import omit from '@f/omit'
 
@@ -17,7 +17,7 @@ export default compose(
     (state, { match }) => ({
       courseId: match.params.courseId
     }),
-    { setUrl, rpc }
+    { rpc }
   ),
   withState('editKey', 'setEditKey', null),
   withState('mode', 'setMode', 'edit'),

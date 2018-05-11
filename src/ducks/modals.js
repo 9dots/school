@@ -1,9 +1,13 @@
 import createAction from '@f/create-action'
 
-const showModal = createAction('<modals/>: SHOW_MODAL', (name, props) => ({
-  name,
-  props
-}))
+const showModal = createAction(
+  '<modals/>: SHOW_MODAL',
+  (name, props) => ({
+    name,
+    props
+  }),
+  (name, props, authRequired) => ({ authRequired })
+)
 const hideModal = createAction('<modals/>: HIDE_MODAL', name => ({ name }))
 
 export default function (state = {}, action) {

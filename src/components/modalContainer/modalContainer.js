@@ -15,11 +15,11 @@ const modalContainer = Component => {
         if (typeof props === 'string') {
           return this.props.showModal(props)
         } else if (typeof props === 'object') {
-          const { name, ...restProps } = props
+          const { name, authRequired, ...restProps } = props
           if (!name) {
             throw new Error('Object must have a name property')
           }
-          return this.props.showModal(name, restProps)
+          return this.props.showModal(name, restProps, authRequired)
         }
         throw new Error('First argument must be a string or an object')
       })

@@ -1,6 +1,6 @@
-import PropTypes from 'prop-types'
 import { Row, Col, Button } from 'antd'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import React from 'react'
 import './ClassSelect.less'
 

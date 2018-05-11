@@ -49,7 +49,6 @@ const App = props => {
           </Switch>
         </AppLayout>
       </Switch>
-      <Modals />
     </div>
   )
 }
@@ -70,19 +69,24 @@ const HomeRoutes = ({
 )
 
 const routes = (
-  <Switch>
-    <Route
-      path='/onboarding'
-      component={userIsAuthenticatedRedir(Onboarding)} />
-    <Route path='/'>
-      <div>
-        <Route
-          path='/:route?'
-          component={userIsAuthenticated(userHasSchool(App))} />
-        <Route path='/:route?' component={userIsNotAuthenticated(HomeRoutes)} />
-      </div>
-    </Route>
-  </Switch>
+  <span>
+    <Switch>
+      <Route
+        path='/onboarding'
+        component={userIsAuthenticatedRedir(Onboarding)} />
+      <Route path='/'>
+        <div>
+          <Route
+            path='/:route?'
+            component={userIsAuthenticated(userHasSchool(App))} />
+          <Route
+            path='/:route?'
+            component={userIsNotAuthenticated(HomeRoutes)} />
+        </div>
+      </Route>
+    </Switch>
+    <Modals />
+  </span>
 )
 
 const Router = props => (

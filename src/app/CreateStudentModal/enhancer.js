@@ -19,19 +19,14 @@ export default compose(
       const {
         class: { id },
         setLoading,
-        school,
         rpc
       } = props
-
       setLoading(true)
       try {
-        const res = await rpc('user.createStudent', {
-          ...values,
-          school
-        })
+        const res = await rpc('user.createStudent', cast(values, props))
         await rpc('class.addStudent', { class: id, student: res.student })
         message.success('Success! Added student.')
-        props.onOk('done')
+        return props.onOk('done')
       } catch (e) {
         setLoading(false)
         if (e.error === 'studentId_taken') {
@@ -52,6 +47,7 @@ function cast (values, props) {
   return {
     ...values,
     email: values.email || undefined,
+    grade: props.class.grade,
     school: props.school
   }
 }

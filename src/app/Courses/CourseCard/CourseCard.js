@@ -44,7 +44,9 @@ const CourseCard = ({ course, modal, editCourse, editable, setUrl }) => {
               {published && (
                 <Button
                   style={btnStyle}
-                  onClick={stopEvent(modal.showModal(id))}>
+                  onClick={stopEvent(
+                    modal.showModal({ name: id, authRequired: true })
+                  )}>
                   <Icon type='plus' />Add to Class
                 </Button>
               )}
