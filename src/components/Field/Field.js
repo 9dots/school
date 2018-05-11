@@ -82,6 +82,7 @@ const SelectField = props => {
     notFoundContent,
     setFieldValue,
     placeholder,
+    children,
     options,
     values,
     name,
@@ -99,11 +100,12 @@ const SelectField = props => {
       options={options}
       placeholder={placeholder}
       value={getProp(name, values)}>
-      {options.map((opt, i) => (
-        <Select.Option label={opt.label} key={i} value={opt.value}>
-          {opt.label}
-        </Select.Option>
-      ))}
+      {children ||
+        options.map(({ label, value }, i) => (
+          <Select.Option label={label} key={i} value={value}>
+            {label}
+          </Select.Option>
+        ))}
     </Select>
   )
 }

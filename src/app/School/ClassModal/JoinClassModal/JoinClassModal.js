@@ -1,6 +1,5 @@
 import Field, { SelectField } from 'components/Field'
-import { filterByLabel } from 'utils'
-import { Modal } from 'antd'
+import { Modal, Icon } from 'antd'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
 import React from 'react'
@@ -26,16 +25,15 @@ const JoinClassModal = ({
             showSearch
             name='class'
             placeholder='Find a class...'
-            filterOption={filterByLabel}
+            optionFilterProp='label'
             component={SelectField}
             options={classes.map(c => ({ label: c.displayName, value: c.id }))}
             style={{ width: '100%' }} />
         </div>
         {stepModal && (
-          <div
-            style={{ textAlign: 'center', fontSize: 12, fontStyle: 'italic' }}>
+          <div style={{ textAlign: 'center', fontSize: 12 }}>
             <a onClick={stepModal.next}>
-              My class is not listed. Create a new class.
+              <Icon type='plus' />&ensp;Create a New Class
             </a>
           </div>
         )}

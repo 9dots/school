@@ -1,6 +1,6 @@
 import Field, { TextField, SelectField } from 'components/Field'
 import { grades } from 'utils/data'
-import { Modal, Form } from 'antd'
+import { Modal, Form, Icon } from 'antd'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
 import React from 'react'
@@ -33,9 +33,9 @@ const CreateClassModal = ({ stepModal, mask, profile = {}, ...props }) => (
         component={SelectField} />
     </form>
     {stepModal && (
-      <div style={{ textAlign: 'center', fontSize: 12, fontStyle: 'italic' }}>
+      <div style={{ textAlign: 'center', fontSize: 12 }}>
         <a onClick={stepModal.next}>
-          I don&apos;t want to create a new class. Find a class to join.
+          <Icon type='plus' />&ensp;Find a Class to Join
         </a>
       </div>
     )}

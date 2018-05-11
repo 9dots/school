@@ -19,7 +19,7 @@ const LessonStudentView = ({
   return (
     <Layout className='lesson-view'>
       <Route
-        path='/class/:classId/lesson/:lessonId/:taskNum'
+        path='/class/:classId/lesson/:lessonId/:taskNum/:studentId?'
         render={({ match: { params } }) => (
           <Layout.Header style={{ padding: '0 20px' }}>
             <LessonHeader
