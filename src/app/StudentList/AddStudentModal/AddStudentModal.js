@@ -1,6 +1,6 @@
 import Field, { SelectField } from 'components/Field'
 import PropTypes from 'prop-types'
-import { Modal, Icon, Row, Col, Select } from 'antd'
+import { Modal, Icon, Row, Col, Select, Button } from 'antd'
 import enhancer from './enhancer'
 import React from 'react'
 
@@ -18,6 +18,27 @@ const AddStudentModal = ({
       {...props}
       onCancel={onCancel}
       onOk={handleSubmit}
+      // footer={
+      //   <span>
+      //     <Button
+      //       style={{ float: 'left' }}
+      //       className='secondary'
+      //       type='primary'
+      //       ghost>
+      //       Upload Spreadsheet
+      //     </Button>
+      //     <Button key='back' onClick={onCancel}>
+      //       Cancel
+      //     </Button>
+      //     <Button
+      //       key='submit'
+      //       type='primary'
+      //       loading={props.confirmLoading}
+      //       onClick={handleSubmit}>
+      //       Submit
+      //     </Button>
+      //   </span>
+      // }
       title='Add a Student to Your Class'>
       <form onSubmit={handleSubmit}>
         <div style={{ margin: '24px 50px 0' }}>
@@ -62,8 +83,11 @@ const Option = ({ student }) => {
     <span>
       {studentId ? (
         <Row type='flex'>
-          <Col span={15}>{displayName}</Col>
-          <Col span={9} style={{ fontFamily: 'monospace' }}>
+          <Col span={14}>{displayName}</Col>
+          <Col
+            span={10}
+            className='ellipsis'
+            style={{ fontFamily: 'monospace' }}>
             ID:&ensp;{studentId}
           </Col>
         </Row>

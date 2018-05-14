@@ -9,6 +9,7 @@ const locationHelper = locationHelperBuilder({})
 const userIsAuthenticatedDefaults = {
   authenticatedSelector: state => !state.firebase.profile.isEmpty,
   authenticatingSelector: state => !state.firebase.profile.isLoaded,
+  AuthenticatingComponent: Loading,
   wrapperDisplayName: 'UserIsAuthenticated'
 }
 
@@ -25,6 +26,8 @@ export const userIsAuthenticatedRedir = connectedRouterRedirect({
 export const userHasSchool = connectedRouterRedirect({
   redirectPath: '/onboarding',
   allowRedirectBack: false,
+  authenticatingSelector: state => !state.firebase.profile.isLoaded,
+  AuthenticatingComponent: Loading,
   authenticatedSelector: state =>
     state.firebase.profile &&
     Object.keys(state.firebase.profile.schools || {}).length > 0,

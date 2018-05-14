@@ -3,6 +3,7 @@ import { Form, Input, Select } from 'antd'
 import PropTypes from 'prop-types'
 import getProp from '@f/get-prop'
 import omit from '@f/omit'
+import pick from '@f/pick'
 
 import './Field.less'
 
@@ -156,4 +157,58 @@ const formProps = [
   'handleReset',
   'validateOnChange',
   'validateOnBlur'
+]
+
+const inputProps = [
+  'addonAfter',
+  'addonBefore',
+  'autosize',
+  'defaultValue',
+  'enterButton',
+  'disabled',
+  'id',
+  'onPressEnter',
+  'onSearch',
+  'prefix',
+  'size',
+  'suffix',
+  'type',
+  'value'
+]
+
+const selectProps = [
+  'allowClear',
+  'autoFocus',
+  'defaultActiveFirstOption',
+  'defaultValue',
+  'disabled',
+  'dropdownClassName',
+  'dropdownMatchSelectWidth',
+  'dropdownStyle',
+  'filterOption',
+  'firstActiveValue',
+  'getPopupContainer',
+  'labelInValue',
+  'maxTagCount',
+  'maxTagPlaceholder',
+  'mode',
+  'notFoundContent',
+  'optionFilterProp',
+  'optionLabelProp',
+  'placeholder',
+  'showSearch',
+  'showArrow',
+  'size',
+  'tokenSeparators',
+  'value',
+  'onBlur',
+  'onChange',
+  'onDeselect',
+  'onFocus',
+  'onInputKeyDown',
+  'onMouseEnter',
+  'onMouseLeave',
+  'onPopupScroll',
+  'onSearch',
+  'onSelect'
 ]

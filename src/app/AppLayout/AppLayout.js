@@ -30,7 +30,6 @@ class AppLayout extends Component {
       </Layout.Sider>
     )
 
-    // {!showSidebar && <HomeHeader />}
     return (
       <Layout>
         <Switch>

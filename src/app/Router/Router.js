@@ -9,8 +9,9 @@ import AppLayout from '../AppLayout'
 import PropTypes from 'prop-types'
 import Courses from 'app/Courses'
 import Library from 'app/Library'
+import Loading from '../Loading'
 import School from 'app/School'
-import Splash from '../Splash'
+// import Splash from '../Splash'
 import Home from 'app/Home'
 import React from 'react'
 import {
@@ -30,6 +31,7 @@ const App = props => {
     }
   } = props
 
+
   return (
     <div>
       <Switch>
@@ -42,9 +44,9 @@ const App = props => {
             <Route exact path='/analytics' component={Courses} />
             <Route exact path='/courses/:courseId' component={CourseView} />
             <Route
-              exact
               path='/school/:schoolId/:classId?'
-              component={SchoolLogin} />
+              component={SchoolLogin}
+              exact />
             <Route exact path='/' component={Home} />
           </Switch>
         </AppLayout>

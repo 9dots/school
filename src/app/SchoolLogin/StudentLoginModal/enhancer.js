@@ -31,7 +31,8 @@ export default compose(
           e.error === 'invalid_credentials' &&
           props.passwordType === 'image'
         ) {
-          return message.error('Incorrect password.')
+          message.error('Incorrect password.')
+          return props.onCancel(null)
         }
         return Promise.reject(e)
       }

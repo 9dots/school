@@ -1,9 +1,7 @@
-import AddStudentModal from 'app/StudentList/AddStudentModal'
-import CreateStudentModal from 'app/CreateStudentModal'
 import modalContainer from 'components/modalContainer'
 import LoginModal from 'app/LoginModal/LoginModal'
 import ClassModal from 'app/School/ClassModal'
-import StepModal from 'components/StepModal'
+import StudentModal from 'app/StudentModal'
 import PropTypes from 'prop-types'
 import React from 'react'
 import './Modals.less'
@@ -11,19 +9,17 @@ import './Modals.less'
 const Modals = ({ modal }) => {
   return (
     <div>
-      {modal.isVisible('loginModal') && <LoginModal />}
+      {modal.isVisible('loginModal') && (
+        <LoginModal
+          onCancel={modal.hideModal('loginModal')}
+          onOk={modal.hideModal('loginModal')}
+          {...modal.getProps('classModal')} />
+      )}
       {modal.isVisible('createStudent') && (
-        <StepModal
-          modals={[
-            {
-              modal: AddStudentModal,
-              props: modal.getProps('createStudent')
-            },
-            {
-              modal: CreateStudentModal,
-              props: modal.getProps('createStudent')
-            }
-          ]} />
+        <StudentModal
+          onCancel={modal.hideModal('createStudent')}
+          onOk={modal.hideModal('createStudent')}
+          {...modal.getProps('createStudent')} />
       )}
 
       {modal.isVisible('classModal') && (
