@@ -73,7 +73,7 @@ const Course = props => {
           !preview && (
             <Button
               className='secondary'
-              onClick={modal.showModal(id)}
+              onClick={modal.showModal({ name: id, authRequired: true })}
               type='primary'>
               <Icon type='plus' />Add to Class
             </Button>

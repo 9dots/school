@@ -1,0 +1,6 @@
+
+{
+  "name": "StudentModal",
+  "main": "StudentModal.js",
+  "browser": "StudentModal.js"
+}
