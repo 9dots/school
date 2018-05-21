@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import { stopEvent } from 'utils'
 import { Modal } from 'antd'
 import React from 'react'
 import { compose, withStateHandlers } from 'recompose'
@@ -8,11 +7,13 @@ import './StepModal.less'
 
 const enhancer = compose(
   withStateHandlers(() => ({ openModal: 0 }), {
-    next: ({ openModal }, { modals = [] }) => () => ({
-      openModal: wrap(++openModal, 0, modals.length - 1)
+    next: ({ openModal }, { modals = [] }) => props => ({
+      openModal: wrap(++openModal, 0, modals.length - 1),
+      ...props
     }),
-    prev: ({ openModal }, { modals = [] }) => () => ({
-      openModal: wrap(--openModal, 0, modals.length - 1)
+    prev: ({ openModal }, { modals = [] }) => props => ({
+      openModal: wrap(--openModal, 0, modals.length - 1),
+      ...props
     }),
     goTo: () => i => ({ openModal: i })
   })
@@ -34,20 +35,18 @@ const StepModal = ({
   const props = isObj ? { ...rest, ...modal.props } : rest
 
   return (
-    <span onClick={stopEvent(() => {})}>
-      <Modal
-        visible
-        maskStyle={maskStyle}
-        maskClosable={maskClosable}
-        className='step-modal'>
-        <Component
-          {...props}
-          stepModal={{ next, prev, goTo }}
-          key={openModal}
-          mask={false}
-          visible />
-      </Modal>
-    </span>
+    <Modal
+      visible
+      maskStyle={maskStyle}
+      maskClosable={maskClosable}
+      className='step-modal'>
+      <Component
+        {...props}
+        stepModal={{ next, prev, goTo }}
+        key={openModal}
+        mask={false}
+        visible />
+    </Modal>
   )
 }
 

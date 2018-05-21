@@ -1,6 +1,7 @@
 import Field, { SelectField } from 'components/Field'
 import PropTypes from 'prop-types'
-import { Modal, Icon, Row, Col, Select, Button } from 'antd'
+import { Modal, Divider, Row, Col, Select, Button } from 'antd'
+
 import enhancer from './enhancer'
 import React from 'react'
 
@@ -10,6 +11,7 @@ const AddStudentModal = ({
   studentList = [],
   handleSubmit,
   stepModal,
+  parseCsv,
   onCancel,
   ...props
 }) => {
@@ -46,10 +48,10 @@ const AddStudentModal = ({
             {...props}
             name='student'
             placeholder='Find a someone in your school...'
+            component={SelectField}
             optionLabelProp='label'
             filterOption={filter}
-            showSearch
-            component={SelectField}>
+            showSearch>
             {studentList.map(s => (
               <Select.Option
                 studentId={s.studentId}
@@ -62,10 +64,42 @@ const AddStudentModal = ({
           </Field>
         </div>
         {stepModal && (
-          <div style={{ textAlign: 'center', fontSize: 12 }}>
-            <a onClick={stepModal.next}>
-              <Icon type='plus' />&ensp;Create a New Student Account
-            </a>
+          // <div style={{ textAlign: 'center', fontSize: 12 }}>
+          //   <a onClick={stepModal.next}>
+          //     <Icon type='plus' />&ensp;Create a New Student Account
+          //   </a>
+          // </div>
+          <div style={{ paddingBottom: 20 }}>
+            <Divider style={{ padding: '4px 100px 16px' }}>OR</Divider>
+            <Row type='flex' gutter={16} justify='center'>
+              <Col>
+                <Button
+                  style={{ float: 'left' }}
+                  className='secondary'
+                  type='primary'
+                  onClick={() => document.getElementById('csv').click()}
+                  icon='upload'
+                  ghost>
+                  Upload Spreadsheet
+                  <input
+                    hidden
+                    onChange={parseCsv}
+                    id='csv'
+                    name='csv'
+                    accept='.csv, .xls, .xlsx'
+                    type='file' />
+                </Button>
+              </Col>
+              <Col>
+                <Button
+                  icon='user-add'
+                  type='primary'
+                  ghost
+                  onClick={stepModal.next}>
+                  Create New Student
+                </Button>
+              </Col>
+            </Row>
           </div>
         )}
       </form>
