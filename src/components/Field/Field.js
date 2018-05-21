@@ -7,31 +7,39 @@ import pick from '@f/pick'
 
 import './Field.less'
 
-const BaseComponent = props => {
-  const {
-    itemProps = {},
-    touched = {},
-    errors = {},
-    component,
-    noItem,
-    label,
-    name
-  } = props
+class BaseComponent extends React.Component {
+  shouldComponentUpdate (next, nextState) {
+    return (
+      getProp(this.props.name, this.props.values) !==
+      getProp(next.name, next.values)
+    )
+  }
+  render () {
+    const {
+      itemProps = {},
+      touched = {},
+      errors = {},
+      component,
+      noItem,
+      label,
+      name
+    } = this.props
 
-  return createElement(
-    noItem ? 'div' : Form.Item,
-    noItem
-      ? {}
-      : {
-        hasFeedback: !!getProp(name, touched) && !!getProp(name, errors),
-        validateStatus:
-            getProp(name, touched) && getProp(name, errors) && 'error',
-        help: getProp(name, touched) && getProp(name, errors),
-        label,
-        ...itemProps
-      },
-    createElement(component, omit('component', props))
-  )
+    return createElement(
+      noItem ? 'div' : Form.Item,
+      noItem
+        ? {}
+        : {
+          hasFeedback: !!getProp(name, touched) && !!getProp(name, errors),
+          validateStatus:
+              getProp(name, touched) && getProp(name, errors) && 'error',
+          help: getProp(name, touched) && getProp(name, errors),
+          label,
+          ...itemProps
+        },
+      createElement(component, omit('component', this.props))
+    )
+  }
 }
 
 BaseComponent.propTypes = {}
@@ -46,6 +54,7 @@ const TextField = props => {
     name,
     ...rest
   } = props
+  // console.log('render')
   return (
     <Input
       {...omit(formProps, rest)}
