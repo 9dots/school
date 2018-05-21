@@ -17,7 +17,7 @@ const LessonProgress = ({
   data,
   ...rest
 }) => {
-  const { tasks = [], displayName, description } = lesson
+  const { tasks = [], displayName, description, module: moduleId } = lesson
 
   return (
     <Modal
@@ -54,7 +54,7 @@ const LessonProgress = ({
           <p>{description}</p>
           <Card className='course' bordered={false}>
             <h2>{task ? task.displayName : 'Average score for all Tasks'}</h2>
-            <ProgressTable data={data} />
+            <ProgressTable moduleId={moduleId} data={data} />
           </Card>
         </Layout.Content>
       </Layout>

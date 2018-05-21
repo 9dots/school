@@ -9,13 +9,11 @@ import AppLayout from '../AppLayout'
 import PropTypes from 'prop-types'
 import Courses from 'app/Courses'
 import Library from 'app/Library'
-import Loading from '../Loading'
 import School from 'app/School'
-// import Splash from '../Splash'
 import Home from 'app/Home'
 import React from 'react'
 import {
-  // userIsNotAuthenticatedRedir,
+  userIsNotAuthenticatedRedir,
   userIsAuthenticatedRedir,
   userIsNotAuthenticated,
   userIsAuthenticated,
@@ -30,7 +28,6 @@ const App = props => {
       params: { route }
     }
   } = props
-
 
   return (
     <div>
@@ -78,12 +75,17 @@ const routes = (
         component={userIsAuthenticatedRedir(Onboarding)} />
       <Route path='/'>
         <div>
+          <Switch>
+            <Route
+              path='/:route(courses|school)'
+              component={userIsNotAuthenticated(HomeRoutes)} />
+            <Route
+              path='/'
+              component={userIsNotAuthenticatedRedir(HomeRoutes)} />
+          </Switch>
           <Route
             path='/:route?'
             component={userIsAuthenticated(userHasSchool(App))} />
-          <Route
-            path='/:route?'
-            component={userIsNotAuthenticated(HomeRoutes)} />
         </div>
       </Route>
     </Switch>

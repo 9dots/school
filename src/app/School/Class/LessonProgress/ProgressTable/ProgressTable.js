@@ -1,17 +1,18 @@
-import PropTypes from 'prop-types'
-import React from 'react'
-import getProp from '@f/get-prop'
-import { Table, Progress } from 'antd'
 import { Link } from 'react-router-dom'
+import { Table, Progress } from 'antd'
+import PropTypes from 'prop-types'
+import getProp from '@f/get-prop'
+import React from 'react'
+
 import './ProgressTable.less'
 
-const ProgressTable = ({ data }) => {
+const ProgressTable = ({ data, moduleId }) => {
   return (
     <Table
       className='progress-table'
       pagination={false}
       rowKey={(data, i) => i}
-      columns={columns}
+      columns={columns(moduleId)}
       dataSource={data} />
   )
 }
@@ -20,7 +21,7 @@ ProgressTable.propTypes = {}
 
 export default ProgressTable
 
-const columns = [
+const columns = moduleId => [
   {
     title: 'First',
     key: 'first',
@@ -38,7 +39,8 @@ const columns = [
     key: 'link',
     render: ({ class: cls, student, lesson, index }) => (
       <div style={{ minWidth: 70 }}>
-        <Link to={`/class/${cls}/lesson/${lesson}/${index}/${student}`}>
+        <Link
+          to={`/class/${cls}/module/${moduleId}/lesson/${lesson}/${index}/${student}`}>
           View Work
         </Link>
       </div>

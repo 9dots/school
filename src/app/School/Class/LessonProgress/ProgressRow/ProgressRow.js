@@ -6,7 +6,6 @@ import enhancer from './enhancer'
 
 const ProgressRow = ({ user, progress, active }) => {
   const activeProgress = progress.find(p => p.activity === active)
-  // console.log(user)
   return (
     <Row className='progress-row' type='flex' style={{ width: '100%' }}>
       <Col className='flex-grow ellipsis'>{user.displayName}</Col>

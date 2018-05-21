@@ -3,7 +3,7 @@ import getProp from '@f/get-prop'
 import map from '@f/map'
 
 const progressByStudent = (state, lesson, students) => {
-  const progress = stateToProgress(state, lesson.id)
+  const progress = stateToProgress(state, lesson.module, students)
   return map(
     (val, key) =>
       (Object.keys(progress[key] || {}) || []).length > 0
@@ -95,18 +95,18 @@ function getClasses (state, schools) {
   )
 }
 
-function stateToProgress (state, lesson) {
-  return Object.keys(state.firestore.data)
-    .filter(key => key.indexOf(`lessonProgress-${lesson}`) === 0)
+function stateToProgress (state, mod, students) {
+  return Object.keys(state.firestore.ordered)
+    .filter(key => key.indexOf(`${mod}-`) === 0)
+    .reduce((acc, key) => acc.concat(state.firestore.ordered[key]), [])
     .reduce(
-      (acc, key) => ({
+      (acc, task) => ({
         ...acc,
-        [getStudentFromProgress(key, lesson)]: state.firestore.data[key]
+        [task.student]: (Array.isArray(acc[task.student])
+          ? acc[task.student]
+          : []
+        ).concat(task)
       }),
-      {}
+      students
     )
-}
-
-function getStudentFromProgress (key, lesson) {
-  return key.slice(`lessonProgress-${lesson}`.length + 1)
 }
