@@ -23,7 +23,7 @@ const BaseComponent = props => {
     noItem
       ? {}
       : {
-        hasFeedback: !!getProp(name, touched) && !!getProp(name, errors),
+        // hasFeedback: !!getProp(name, touched) && !!getProp(name, errors),
         validateStatus:
             getProp(name, touched) && getProp(name, errors) && 'error',
         help: getProp(name, touched) && getProp(name, errors),

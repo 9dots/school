@@ -619,9 +619,9 @@
   version "8.10.12"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.10.12.tgz#dcb66f6de39074a296534bd1a256a3c6a1c8f5b5"
 
-"@weo-edu/schema@git+https://github.com/danleavitt0/schema.git":
+"@weo-edu/schema@https://github.com/danleavitt0/schema.git":
   version "0.1.10"
-  resolved "git+https://github.com/danleavitt0/schema.git#e873030634f916f9ae0639eaccaf1bcda65c15bd"
+  resolved "https://github.com/danleavitt0/schema.git#e873030634f916f9ae0639eaccaf1bcda65c15bd"
   dependencies:
     "@f/clone-shallow" "^1.1.3"
     component-inherit "0.0.3"
@@ -629,9 +629,9 @@
     object-assign "^3.0.0"
     sliced "0.0.5"
 
-"@weo-edu/validate@git+https://github.com/danleavitt0/validate.git":
+"@weo-edu/validate@https://github.com/danleavitt0/validate.git":
   version "2.12.5"
-  resolved "git+https://github.com/danleavitt0/validate.git#80e274cfb7fb428c2a14f9114275a540081474e6"
+  resolved "https://github.com/danleavitt0/validate.git#80e274cfb7fb428c2a14f9114275a540081474e6"
   dependencies:
     generate-function "^2.0.0"
     generate-object-property "^1.1.0"
@@ -1232,7 +1232,7 @@ babel-eslint@7.2.3:
     babel-types "^6.23.0"
     babylon "^6.17.0"
 
-babel-eslint@^8.0.2:
+babel-eslint@^8.2.3:
   version "8.2.3"
   resolved "https://registry.yarnpkg.com/babel-eslint/-/babel-eslint-8.2.3.tgz#1a2e6681cc9bc4473c32899e59915e19cd6733cf"
   dependencies:
@@ -3651,7 +3651,7 @@ eslint-plugin-flowtype@2.39.1:
   dependencies:
     lodash "^4.15.0"
 
-eslint-plugin-flowtype@^2.37.0:
+eslint-plugin-flowtype@^2.46.3:
   version "2.46.3"
   resolved "https://registry.yarnpkg.com/eslint-plugin-flowtype/-/eslint-plugin-flowtype-2.46.3.tgz#7e84131d87ef18b496b1810448593374860b4e8e"
   dependencies:
@@ -3817,7 +3817,7 @@ eslint@^0.21.0:
     user-home "^1.0.0"
     xml-escape "~1.0.0"
 
-eslint@^4.7.2:
+eslint@^4.19.1:
   version "4.19.1"
   resolved "https://registry.yarnpkg.com/eslint/-/eslint-4.19.1.tgz#32d1d653e1d90408854bfb296f076ec7e186a300"
   dependencies:
@@ -4341,6 +4341,10 @@ flatten@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
 
+flow-bin@^0.72.0:
+  version "0.72.0"
+  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.72.0.tgz#12051180fb2db7ccb728fefe67c77e955e92a44d"
+
 follow-redirects@^1.0.0, follow-redirects@^1.3.0:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.4.1.tgz#d8120f4518190f55aac65bb6fc7b85fcd666d6aa"
@@ -4685,7 +4689,7 @@ globby@^8.0.0:
     pify "^3.0.0"
     slash "^1.0.0"
 
-google-auth-library@^1.3.1:
+google-auth-library@^1.3.1, google-auth-library@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/google-auth-library/-/google-auth-library-1.4.0.tgz#27dae3b6aceadcc115a9910b4f1ed27b68b1eb0b"
   dependencies:
@@ -4737,6 +4741,10 @@ google-p12-pem@^1.0.0:
     node-forge "^0.7.4"
     pify "^3.0.0"
 
+google-picker@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/google-picker/-/google-picker-0.1.1.tgz#5254894a5c3623fcb9b9fcd307e8e1a15fe3b04f"
+
 google-proto-files@^0.15.0:
   version "0.15.1"
   resolved "https://registry.yarnpkg.com/google-proto-files/-/google-proto-files-0.15.1.tgz#5c9c485e574e2c100fe829a5ec0bbb3d9bc789a2"
@@ -4744,6 +4752,16 @@ google-proto-files@^0.15.0:
     globby "^7.1.1"
     power-assert "^1.4.4"
     protobufjs "^6.8.0"
+
+googleapis@^30.0.0:
+  version "30.0.0"
+  resolved "https://registry.yarnpkg.com/googleapis/-/googleapis-30.0.0.tgz#4673ba34878217539ca5aa4216fef4db6c247649"
+  dependencies:
+    google-auth-library "^1.4.0"
+    pify "^3.0.0"
+    qs "^6.5.1"
+    url-template "^2.0.8"
+    uuid "^3.2.1"
 
 got@^6.7.1:
   version "6.7.1"
@@ -6182,6 +6200,10 @@ load-json-file@^2.0.0:
     parse-json "^2.2.0"
     pify "^2.0.0"
     strip-bom "^3.0.0"
+
+load-script@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/load-script/-/load-script-1.0.0.tgz#0491939e0bee5643ee494a7e3da3d2bac70c6ca4"
 
 loader-fs-cache@^1.0.0:
   version "1.0.1"
@@ -7932,6 +7954,10 @@ qs@6.5.1, qs@~6.5.1:
   version "6.5.1"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.1.tgz#349cdf6eef89ec45c12d7d5eb3fc0c870343a6d8"
 
+qs@^6.5.1:
+  version "6.5.2"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
+
 qs@~6.4.0:
   version "6.4.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.4.0.tgz#13e26d28ad6b0ffaa91312cd3bf708ed351e7233"
@@ -8402,6 +8428,12 @@ react-dom@^16.2.0:
 react-error-overlay@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-3.0.0.tgz#c2bc8f4d91f1375b3dad6d75265d51cd5eeaf655"
+
+react-google-picker@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/react-google-picker/-/react-google-picker-0.0.8.tgz#4b176f5c04bb4245f7a5c87c21140cc2cc09cdea"
+  dependencies:
+    load-script "^1.0.0"
 
 react-lazy-load@^3.0.12:
   version "3.0.13"
@@ -10280,6 +10312,10 @@ url-parse@^1.1.8:
     querystringify "^2.0.0"
     requires-port "^1.0.0"
 
+url-template@^2.0.8:
+  version "2.0.8"
+  resolved "https://registry.yarnpkg.com/url-template/-/url-template-2.0.8.tgz#fc565a3cccbff7730c775f5641f9555791439f21"
+
 url@^0.11.0:
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/url/-/url-0.11.0.tgz#3838e97cfc60521eb73c525a8e55bfdd9e2e28f1"
@@ -10329,7 +10365,7 @@ uuid@^2.0.2:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-2.0.3.tgz#67e2e863797215530dff318e5bf9dcebfd47b21a"
 
-uuid@^3.0.0, uuid@^3.1.0:
+uuid@^3.0.0, uuid@^3.1.0, uuid@^3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.2.1.tgz#12c528bb9d58d0b9265d9a2f6f0fe8be17ff1f14"
 

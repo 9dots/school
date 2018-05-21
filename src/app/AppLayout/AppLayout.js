@@ -33,7 +33,7 @@ class AppLayout extends Component {
     return (
       <Layout>
         <Switch>
-          <Route path='/class/:classId/lesson/' />
+          <Route path='/class/:classId/module/' />
           {!showSidebar ? (
             <Route path='**' render={() => <HomeHeader />} />
           ) : (

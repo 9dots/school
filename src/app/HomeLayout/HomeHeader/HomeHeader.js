@@ -1,6 +1,7 @@
 import { firebaseConnect } from 'react-redux-firebase'
 import { Layout, Button, Icon, Row, Col } from 'antd'
 import { compose, withHandlers } from 'recompose'
+import { config } from 'configureStore'
 import PropTypes from 'prop-types'
 import React from 'react'
 import './HomeHeader.less'
@@ -8,7 +9,8 @@ import './HomeHeader.less'
 const enhancer = compose(
   firebaseConnect(),
   withHandlers({
-    login: props => event => props.firebase.login({ provider: 'google' })
+    login: props => event =>
+      props.firebase.login({ provider: 'google', scopes: config.scopes })
   })
 )
 

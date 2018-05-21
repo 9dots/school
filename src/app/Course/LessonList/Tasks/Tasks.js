@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import './Tasks.less'
 
-const Tasks = ({ lesson: { tasks = [], id }, classId, student }) => (
+const Tasks = ({ lesson: { tasks = [], id }, moduleId, classId, student }) => (
   <List className='task-list'>
     {(tasks || []).map(({ displayName, description, url, type }, i) => (
       <List.Item key={id + '-' + i}>
@@ -19,7 +19,9 @@ const Tasks = ({ lesson: { tasks = [], id }, classId, student }) => (
           }
           description={description} />
         {student ? (
-          <Link to={`/class/${classId}/lesson/${id}/${i}`} className='extra'>
+          <Link
+            to={`/class/${classId}/module/${moduleId}/lesson/${id}/${i}`}
+            className='extra'>
             <Icon type='caret-right' />
             Play
           </Link>
