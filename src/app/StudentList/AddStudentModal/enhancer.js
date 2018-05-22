@@ -46,9 +46,15 @@ export default compose(
           header: 1,
           raw: true
         })
+
         props.onCancel(null)
         return props.modal.showModal(
-          { name: 'studentCsvModal', data: json },
+          {
+            name: 'studentCsvModal',
+            data: json,
+            school: props.school,
+            class: props.class
+          },
           null
         )
       }

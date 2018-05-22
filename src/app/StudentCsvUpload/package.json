@@ -1,0 +1,6 @@
+
+{
+  "name": "StudentCsvUpload",
+  "main": "StudentCsvUpload.js",
+  "browser": "StudentCsvUpload.js"
+}

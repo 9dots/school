@@ -15,10 +15,13 @@ import 'firebase/firestore'
 
 const history = createBrowserHistory()
 const config = {
-  apiKey: 'AIzaSyBu6M3-jHVZqDxh6QSsD5ydDEWzB23Ng34',
+  apiKey: process.env.REACT_APP_GOOGLE_API_KEY,
   authDomain: 'school-5927d.firebaseapp.com',
   databaseURL: 'https://school-5927d.firebaseio.com',
-  projectId: 'school-5927d'
+  clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+  discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'],
+  projectId: 'school-5927d',
+  scopes: ['https://www.googleapis.com/auth/drive']
 }
 
 firebase.initializeApp(config)
@@ -29,12 +32,39 @@ firestore.settings(settings)
 const rrfbConfig = {
   userProfile: 'users',
   useFirestoreForProfile: true,
-  updateProfileOnLogin: false
-  // onAuthStateChanged: () =>
-  //   firebase
-  //     .auth()
-  //     .currentUser.getToken()
-  //     .then(console.log)
+  updateProfileOnLogin: false,
+  onAuthStateChanged: (user, firebase, dispatch) => {
+    if (user && Object.keys(user.providerData).length) {
+      const script = document.createElement('script')
+      script.type = 'text/javascript'
+      script.src = 'https://apis.google.com/js/api.js'
+      script.onload = function (e) {
+        // Initialize the Google API Client with the config object
+        window.gapi.load('client', {
+          callback: function () {
+            window.gapi.client
+              .init({
+                apiKey: config.apiKey,
+                clientId: config.clientId,
+                discoveryDocs: config.discoveryDocs,
+                scope: config.scopes.join(' ')
+              })
+              // Loading is finished, so start the app
+              .then(function () {
+                // Make sure the Google API Client is properly signed in
+                if (window.gapi.auth2.getAuthInstance().isSignedIn.get()) {
+                  console.log('ready')
+                } else {
+                  firebase.auth().signOut() // Something went wrong, sign out
+                }
+              })
+          }
+        })
+      }
+      // Add to the document
+      document.getElementsByTagName('head')[0].appendChild(script)
+    }
+  }
 }
 
 const createStoreWithFirebase = compose(
@@ -42,7 +72,7 @@ const createStoreWithFirebase = compose(
   reduxFirestore(firebase)
 )(createStore)
 
-export { history }
+export { history, config }
 export default (initialState = {}) => {
   const sagaMiddleware = createSagaMiddleware()
   const middleware = [

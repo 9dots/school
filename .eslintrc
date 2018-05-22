@@ -1,15 +1,19 @@
 {
-  "parser": "babel-eslint",
   "extends": [
     "standard",
+    "plugin:flowtype/recommended",
     "plugin:react/recommended"
   ],
-  "globals": {
-    "hljs": true
-  },
+  "parser": "babel-eslint",
   "plugins": [
+    "flowtype",
     "react"
   ],
+  "settings": {
+    "flowtype": {
+      "onlyFilesWithFlowAnnotation": true
+    }
+  },
   "rules": {
     "jsx-quotes": [
       "error",

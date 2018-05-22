@@ -1,35 +1,45 @@
 import { firestoreConnect } from 'react-redux-firebase'
-import waitFor from '../../components/waitFor'
 import { compose, lifecycle } from 'recompose'
+import waitFor from 'components/waitFor'
 import { connect } from 'react-redux'
 import { rpc } from '../actions'
 
-const getProgressString = (lesson, uid) => `lessonProgress-${lesson}-${uid}`
-
 export default compose(
+  firestoreConnect(props => [
+    {
+      collection: 'modules',
+      doc: props.match.params.moduleId,
+      storeAs: props.match.params.moduleId
+    }
+  ]),
   connect(
-    ({ firebase: { auth, profile } }, props) => ({
+    ({ firestore, firebase: { auth, profile } }, props) => ({
       lessonId: props.match.params.lessonId,
       taskNum: props.match.params.taskNum,
       profile: props.profile || profile,
+      mod: firestore.data[props.match.params.moduleId],
       uid: props.uid || auth.uid
     }),
     { rpc }
   ),
-  firestoreConnect(props => [
-    {
+  connect(({ firestore }, props) => ({
+    tasks: props.mod
+      ? props.mod.lessons.find(l => l.id === props.lessonId).tasks
+      : []
+  })),
+  firestoreConnect(props =>
+    props.tasks.map(task => ({
       collection: 'activities',
-      where: [['student', '==', props.uid], ['lesson', '==', props.lessonId]],
-      storeAs: getProgressString(props.lessonId, props.uid)
-    }
-  ]),
+      where: [['student', '==', props.uid], ['task', '==', task.id]],
+      storeAs: task.id
+    }))
+  ),
   connect(({ firestore: { ordered } }, props) => ({
-    progress:
-      (ordered[getProgressString(props.lessonId, props.uid)] || []).length > 0
-        ? ordered[getProgressString(props.lessonId, props.uid)].sort(
-          (a, b) => a.index - b.index
-        )
-        : undefined
+    progress: props.tasks.length
+      ? props.tasks
+        .map(task => ordered[task.id])
+        .reduce((acc, next) => acc.concat(next), [])
+      : undefined
   })),
   waitFor(['progress', 'uid', 'profile']),
   lifecycle({
@@ -38,16 +48,20 @@ export default compose(
         uid,
         lessonId,
         progress,
+        tasks,
         taskNum,
         teacherView,
+        isLoaded,
         firestore
       } = this.props
-      firestore.setListener({
-        collection: 'activities',
-        where: [['student', '==', uid], ['lesson', '==', lessonId]],
-        storeAs: getProgressString(lessonId, uid)
-      })
-      if (progress && !teacherView) {
+      firestore.setListeners(
+        tasks.map(task => ({
+          collection: 'activities',
+          where: [['student', '==', uid], ['task', '==', task.id]],
+          storeAs: task.id
+        }))
+      )
+      if (progress && isLoaded && !teacherView) {
         this.props.rpc(
           'activity.setActive',
           {
@@ -64,15 +78,17 @@ export default compose(
       }
     },
     componentWillUnmount () {
-      const { progress, taskNum } = this.props
-      this.props.rpc('activity.maybeSetCompleted', {
-        activity: progress[taskNum].id
-      })
+      const { teacherView, progress, taskNum } = this.props
+      if (!teacherView) {
+        this.props.rpc('activity.maybeSetCompleted', {
+          activity: progress[taskNum].id
+        })
+      }
     },
     componentWillUpdate (nextProps) {
       if (!this.props.isLoaded && nextProps.isLoaded) {
         const { lessonId, progress, taskNum, teacherView } = nextProps
-        if (!teacherView) {
+        if (progress && !teacherView) {
           this.props.rpc(
             'activity.setActive',
             {

@@ -7,15 +7,28 @@ import React from 'react'
 
 import './LessonControls.less'
 
-const path1Re = toRegexp('/class/:classId/lesson/:lessonId/:taskNum')
-const path2Re = toRegexp('/class/:classId/lesson/:lessonId/:taskNum/:uid')
+const path1Re = toRegexp(
+  '/class/:classId/module/:moduleId/lesson/:lessonId/:taskNum'
+)
+const path2Re = toRegexp(
+  '/class/:classId/module/:moduleId/lesson/:lessonId/:taskNum/:uid'
+)
 
 const LessonControls = ({ lesson, progress, studentId }) => {
   const { pathname } = window.location
-  const [, classId, lessonId, current, uid = ''] = path2Re.test(pathname)
+  const [, classId, moduleId, lessonId, current, uid = ''] = path2Re.test(
+    pathname
+  )
     ? path2Re.exec(pathname)
     : path1Re.exec(pathname)
-  const path = urlJoin('/class', classId, 'lesson', lessonId)
+  const path = urlJoin(
+    '/class',
+    classId,
+    'module',
+    moduleId,
+    'lesson',
+    lessonId
+  )
 
   const cur = parseInt(current, 10)
   const isLast = progress.length <= cur + 1

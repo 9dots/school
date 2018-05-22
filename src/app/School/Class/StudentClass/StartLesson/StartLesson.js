@@ -16,22 +16,21 @@ const StartLesson = props => {
   } = props
   if (!isLoaded) return <span />
   const prog = progress || []
-  const { displayName, module: mod, id } = assignedLesson
+  const { displayName, module: moduleId, id } = assignedLesson
   const current = getIndex(prog)
 
   return (
-    <Card className="course start-lesson">
+    <Card className='course start-lesson'>
       <h1>{displayName}</h1>
       <p>Click the button below to begin!</p>
-      <Link to={`/class/${classId}/lesson/${id}/${current}`}>
+      <Link to={`/class/${classId}/module/${moduleId}/lesson/${id}/${current}`}>
         <Button
-          onClick={assignToStudent(id, mod)}
-          size="large"
-          type="primary"
-          className="secondary rounded"
-        >
+          onClick={assignToStudent(id, moduleId)}
+          size='large'
+          type='primary'
+          className='secondary rounded'>
           {parseInt(current, 10) ? 'CONTINUE' : 'START'}
-          <Icon type="caret-right" />
+          <Icon type='caret-right' />
         </Button>
       </Link>
       <div>
@@ -43,12 +42,12 @@ const StartLesson = props => {
   )
 }
 
-function getIndex(progress) {
+function getIndex (progress) {
   const idx = progress.findIndex(p => p && !!p.active) || 0
   return idx > -1 ? idx : 0
 }
 
-function getClasses({ completed, active, started }) {
+function getClasses ({ completed, active, started }) {
   let name = 'dot'
   if (completed) name += ' completed'
   if (started) name += ' started'

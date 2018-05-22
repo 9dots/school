@@ -33,13 +33,13 @@ export default compose(
   ),
   firestoreConnect(({ assignedLesson, classData, students }) =>
     (assignedLesson
-      ? Object.keys(students).map(student => ({
+      ? assignedLesson.tasks.map(task => ({
         collection: 'activities',
         where: [
-          ['student', '==', student],
-          ['lesson', '==', assignedLesson.id]
+          ['module', '==', assignedLesson.module],
+          ['task', '==', task.id]
         ],
-        storeAs: `lessonProgress-${assignedLesson.id}-${student}`
+        storeAs: assignedLesson.module + '-' + task.id
       }))
       : []
     ).concat(
