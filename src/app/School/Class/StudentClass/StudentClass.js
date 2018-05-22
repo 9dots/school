@@ -64,7 +64,7 @@ const StudentClass = props => {
         render={matchProp => (
           <LessonStudentView
             {...matchProp}
-            progress={(progressByStudent[auth.uid] || {}).progress}
+            // progress={(progressByStudent[auth.uid] || {}).progress}
             assignedLesson={assignedLesson}
             key={
               matchProp.match.params.lessonId + matchProp.match.params.taskNum

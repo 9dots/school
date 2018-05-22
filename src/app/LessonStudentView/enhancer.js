@@ -4,6 +4,13 @@ import waitFor from 'components/waitFor'
 import { connect } from 'react-redux'
 import { rpc } from '../actions'
 
+function getData (ordered, props, task) {
+  const val = ordered[props.uid + '-' + task.id]
+  if (!val) return undefined
+  if (!val.length) return undefined
+  return val
+}
+
 export default compose(
   firestoreConnect(props => [
     {
@@ -14,10 +21,10 @@ export default compose(
   ]),
   connect(
     ({ firestore, firebase: { auth, profile } }, props) => ({
+      mod: firestore.data[props.match.params.moduleId],
       lessonId: props.match.params.lessonId,
       taskNum: props.match.params.taskNum,
       profile: props.profile || profile,
-      mod: firestore.data[props.match.params.moduleId],
       uid: props.uid || auth.uid
     }),
     { rpc }
@@ -31,13 +38,13 @@ export default compose(
     props.tasks.map(task => ({
       collection: 'activities',
       where: [['student', '==', props.uid], ['task', '==', task.id]],
-      storeAs: task.id
+      storeAs: props.uid + '-' + task.id
     }))
   ),
   connect(({ firestore: { ordered } }, props) => ({
     progress: props.tasks.length
       ? props.tasks
-        .map(task => ordered[task.id])
+        .map(task => getData(ordered, props, task))
         .reduce((acc, next) => acc.concat(next), [])
       : undefined
   })),
@@ -58,7 +65,7 @@ export default compose(
         tasks.map(task => ({
           collection: 'activities',
           where: [['student', '==', uid], ['task', '==', task.id]],
-          storeAs: task.id
+          storeAs: uid + '-' + task.id
         }))
       )
       if (progress && isLoaded && !teacherView) {
@@ -88,7 +95,8 @@ export default compose(
     componentWillUpdate (nextProps) {
       if (!this.props.isLoaded && nextProps.isLoaded) {
         const { lessonId, progress, taskNum, teacherView } = nextProps
-        if (progress && !teacherView) {
+        console.log(progress, teacherView)
+        if (progress.length && !teacherView) {
           this.props.rpc(
             'activity.setActive',
             {

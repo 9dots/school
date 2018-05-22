@@ -13,11 +13,11 @@ import School from 'app/School'
 import Home from 'app/Home'
 import React from 'react'
 import {
-  userIsNotAuthenticatedRedir,
   userIsAuthenticatedRedir,
   userIsNotAuthenticated,
   userIsAuthenticated,
-  userHasSchool
+  userHasSchool,
+  splashRedir
 } from '../../auth'
 
 import './Router.less'
@@ -57,7 +57,7 @@ const HomeRoutes = ({
     params: { route }
   }
 }) => (
-  <HomeLayout allowSignIn={route !== 'school'}>
+  <HomeLayout log={console.log('here', route)} allowSignIn={route !== 'school'}>
     <Switch>
       <Redirect exact path='/' to='/courses' />
       <Route exact path='/school/:schoolId/:classId?' component={SchoolLogin} />
@@ -81,7 +81,7 @@ const routes = (
               component={userIsNotAuthenticated(HomeRoutes)} />
             <Route
               path='/'
-              component={userIsNotAuthenticatedRedir(HomeRoutes)} />
+              component={userIsNotAuthenticated(splashRedir(HomeRoutes))} />
           </Switch>
           <Route
             path='/:route?'
