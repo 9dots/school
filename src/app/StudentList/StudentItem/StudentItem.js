@@ -72,28 +72,6 @@ const StudentItem = ({
             </div>
           )}
         </Col>
-        <Col>
-          <span onClick={stopEvent(() => {})}>
-            <Dropdown
-              trigger={['click']}
-              overlay={
-                <Menu onClick={deleteStudent}>
-                  <Menu.Item>Remove Student</Menu.Item>
-                </Menu>
-              }>
-              <Button
-                icon='ellipsis'
-                shape='circle'
-                style={{
-                  transform: 'rotate(90deg)',
-                  background: 'transparent',
-                  border: 'none',
-                  float: 'right',
-                  marginRight: -8
-                }} />
-            </Dropdown>
-          </span>
-        </Col>
       </Row>
     </Popover>
   )

@@ -33,8 +33,7 @@ export default compose(
   formModal({
     displayName: 'addCourse',
     mapPropsToValues: () => ({}),
-    handleSubmit: async (values, handbag) => {
-      const { props } = handbag
+    handleSubmit: async (values, { props }) => {
       if (Object.keys(values).length === 0) {
         return
       }
@@ -71,11 +70,10 @@ function getSuccessModal (id) {
 }
 
 function cast (values, props) {
-  return mapValues(
-    (cls, key) => ({
+  return Object.keys(values)
+    .filter(cls => !!values[cls])
+    .map(cls => ({
       course: props.courseId,
-      class: key
-    }),
-    values
-  )
+      class: cls
+    }))
 }

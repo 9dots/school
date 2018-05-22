@@ -4,8 +4,6 @@ import connectedAuthWrapper from 'redux-auth-wrapper/connectedAuthWrapper'
 
 import Loading from './app/Loading'
 
-const locationHelper = locationHelperBuilder({})
-
 const userIsAuthenticatedDefaults = {
   authenticatedSelector: state => !state.firebase.profile.isEmpty,
   authenticatingSelector: state => !state.firebase.profile.isLoaded,
@@ -43,10 +41,21 @@ export const userHasNoSchool = connectedRouterRedirect({
   wrapperDisplayName: 'UserHasNoSchool'
 })
 
-const userIsNotAuthenticatedDefaults = {
+const splashDefaults = {
   // Want to redirect the user when they are done loading and authenticated
+  AuthenticatingComponent: Loading,
   authenticatedSelector: state =>
-    state.firebase.profile.isEmpty && state.firebase.profile.isLoaded,
+    state.firebase.profile.isLoaded && !state.firebase.profile.isEmpty,
+  authenticatingSelector: state => !state.firebase.profile.isLoaded,
+  wrapperDisplayName: 'SplashRedirect'
+}
+
+export const userIsNotAuthenticatedDefaults = {
+  // Want to redirect the user when they are done loading and authenticated
+  AuthenticatingComponent: Loading,
+  authenticatedSelector: state =>
+    state.firebase.profile.isLoaded && state.firebase.profile.isEmpty,
+  authenticatingSelector: state => !state.firebase.profile.isLoaded,
   wrapperDisplayName: 'UserIsNotAuthenticated'
 }
 
@@ -54,9 +63,8 @@ export const userIsNotAuthenticated = connectedAuthWrapper(
   userIsNotAuthenticatedDefaults
 )
 
-export const userIsNotAuthenticatedRedir = connectedRouterRedirect({
-  ...userIsNotAuthenticatedDefaults,
-  redirectPath: (state, ownProps) =>
-    locationHelper.getRedirectQueryParam(ownProps) || '/',
+export const splashRedir = connectedRouterRedirect({
+  ...splashDefaults,
+  redirectPath: (state, ownProps) => '/courses',
   allowRedirectBack: false
 })
