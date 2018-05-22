@@ -1,7 +1,7 @@
+import { compose, withHandlers } from 'recompose'
 import addLoading from 'components/addLoading'
 import { getValidationErrors } from 'utils'
 import { connect } from 'react-redux'
-import { compose } from 'recompose'
 import { withFormik } from 'formik'
 import schema from 'school-schema'
 import { rpc } from 'app/actions'
@@ -43,6 +43,15 @@ export default compose(
       return getValidationErrors({
         errorDetails: errors
       })
+    }
+  }),
+  withHandlers({
+    onGoogleDoc: props => name => files => {
+      const file = files[0]
+      return window.gapi.client.drive.permissions
+        .create({ fileId: files[0].id }, { type: 'anyone', role: 'reader' })
+        .then(() => props.setFieldValue(name, file.url))
+        .catch(console.error)
     }
   })
 )

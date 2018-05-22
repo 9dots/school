@@ -1,64 +1,17 @@
-import { compose, withHandlers } from 'recompose'
-import { stopEvent } from '../../../utils'
+import { Progress, Dropdown, Popover, Button, Menu, Row, Col } from 'antd'
 import { Link } from 'react-router-dom'
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { rpc } from '../../actions'
+import { stopEvent } from 'utils'
+import enhancer from './enhancer'
 import React from 'react'
-import {
-  Progress,
-  Dropdown,
-  Popover,
-  message,
-  Button,
-  Modal,
-  Menu,
-  Row,
-  Col
-} from 'antd'
+
 import './StudentItem.less'
-
-const confirm = Modal.confirm
-
-const enhancer = compose(
-  connect(({ firestore: { data } }, props) => ({ student: data[props.uid] }), {
-    rpc
-  }),
-  withHandlers({
-    deleteStudent: ({
-      rpc,
-      class: { id, displayName },
-      uid,
-      student
-    }) => () => {
-      confirm({
-        title: 'Remove Student',
-        content: `Are you sure want to remove ${
-          student.displayName
-        } from ${displayName}?`,
-        okText: 'Yes',
-        okType: 'danger',
-        cancelText: 'No',
-        async onOk () {
-          try {
-            await rpc('class.removeStudent', {
-              student: uid,
-              class: id
-            })
-            message.success('Student removed')
-          } catch (e) {
-            message.error(e)
-          }
-        }
-      })
-    }
-  })
-)
 
 const StudentItem = ({
   studentProgress = {},
   deleteStudent,
   tasks = [],
+  moduleId,
   uid
 }) => {
   const { student, progress = [] } = studentProgress
@@ -67,7 +20,9 @@ const StudentItem = ({
   const idx = progress.findIndex((p, i) => p.active)
   const active = idx > -1 ? progress[idx] : false
   const path = active
-    ? `/class/${active.class}/lesson/${active.lesson}/${idx}/${uid}`
+    ? `/class/${active.class}/module/${moduleId}/lesson/${
+      active.lesson
+    }/${idx}/${uid}`
     : ''
 
   const title = (

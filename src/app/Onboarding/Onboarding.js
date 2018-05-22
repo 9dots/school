@@ -91,9 +91,11 @@ const ProfileDetails = profileDetailEnhancer(props => {
           label='School'
           itemProps={itemLayout}
           name='school'
-          placeholder='Select a School'
+          optionFilterProp='label'
           options={props.schools}
-          component={SelectField} />
+          showSearch
+          component={SelectField}
+          placeholder='Select a School' />
         <button type='submit' style={{ display: 'none' }} />
       </form>
     </Modal>

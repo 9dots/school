@@ -17,7 +17,7 @@ export default compose(
   withHandlers({
     onCreateCourse: props => course => {
       props.hideModal('createCourse', null)
-      props.setUrl(`/courses/${course}/edit`)
+      props.setUrl(`/course/${course}/edit`)
     }
   }),
   firestoreConnect(({ uid }) => [

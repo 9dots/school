@@ -1,5 +1,5 @@
-import { Route, Switch } from 'react-router-dom'
 import backpack from 'assets/images/emptypack.png'
+import { Route, Switch } from 'react-router-dom'
 import EmptyState from '../EmptyState'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'

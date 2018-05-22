@@ -1,6 +1,6 @@
 import AddCourseWrapper from 'app/AddCourseModal/AddCourseWrapper'
-import modalContainer from '../../components/modalContainer'
 import { Card, Avatar, Button, Icon, Col, Row } from 'antd'
+import modalContainer from 'components/modalContainer'
 import { idsToText, gradesToText } from 'utils/data'
 import LessonList from './LessonList'
 import PropTypes from 'prop-types'

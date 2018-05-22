@@ -11,7 +11,14 @@ import './StudentList.less'
 const enhancer = compose(waitFor(['studentData']))
 
 const StudentList = props => {
-  const { progressByStudent, students, isLoaded, modal, tasks } = props
+  const {
+    progressByStudent,
+    moduleId,
+    students,
+    isLoaded,
+    modal,
+    tasks
+  } = props
   if (!isLoaded) return <Loading />
   return (
     <div>
@@ -44,6 +51,7 @@ const StudentList = props => {
             style={{ borderTop: '1px solid #e8e8e8', margin: 0 }}>
             <StudentItem
               tasks={tasks}
+              moduleId={moduleId}
               studentProgress={progressByStudent[uid] || {}}
               class={props.class}
               uid={uid} />

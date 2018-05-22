@@ -1,4 +1,4 @@
-import LessonStudentView from '../../../LessonStudentView'
+import LessonStudentView from 'app/LessonStudentView'
 import backpack from 'assets/images/emptypack.png'
 import { Switch, Route } from 'react-router-dom'
 import EmptyState from 'app/EmptyState'
@@ -19,7 +19,7 @@ const StudentClass = props => {
   const modules = Object.keys(classData.modules || {})
 
   const classView = (
-    <Layout className="class">
+    <Layout className='class'>
       <Layout.Header>
         <h2>{classData.displayName}</h2>
       </Layout.Header>
@@ -27,14 +27,13 @@ const StudentClass = props => {
         style={{
           minHeight: 'calc(100vh - 64px)',
           padding: '30px 50px 50px'
-        }}
-      >
+        }}>
         {!modules.length ? (
           <NoCourses />
         ) : (
-          <div className="main-col" style={{ padding: 0 }}>
+          <div className='main-col' style={{ padding: 0 }}>
             {!assignedLesson ? (
-              <div className="no-active-lesson">
+              <div className='no-active-lesson'>
                 <h2 style={{ lineHeight: '30vh' }}>No Assigned Lessons</h2>
               </div>
             ) : (
@@ -42,8 +41,7 @@ const StudentClass = props => {
                 uid={auth.uid}
                 assignToStudent={assignToStudent}
                 classId={classId}
-                assignedLesson={assignedLesson}
-              />
+                assignedLesson={assignedLesson} />
             )}
             <Divider style={{ margin: '45px 0px 40px' }}>Courses</Divider>
             <Modules
@@ -52,8 +50,7 @@ const StudentClass = props => {
               classId={classId}
               progress={progressByStudent}
               assignedLesson={assignedLesson}
-              modules={modules}
-            />
+              modules={modules} />
           </div>
         )}
       </Layout.Content>
@@ -63,7 +60,7 @@ const StudentClass = props => {
     <Switch>
       <Route
         exact
-        path="/class/:classId/lesson/:lessonId/:taskNum"
+        path='/class/:classId/module/:moduleId/lesson/:lessonId/:taskNum'
         render={matchProp => (
           <LessonStudentView
             {...matchProp}
@@ -71,11 +68,9 @@ const StudentClass = props => {
             assignedLesson={assignedLesson}
             key={
               matchProp.match.params.lessonId + matchProp.match.params.taskNum
-            }
-          />
-        )}
-      />
-      <Route exact path="/class/:classId" render={() => classView} />
+            } />
+        )} />
+      <Route exact path='/class/:classId' render={() => classView} />
     </Switch>
   )
 }
@@ -87,11 +82,10 @@ export default StudentClass
 const NoCourses = props => {
   return (
     <EmptyState
-      header="Your Class Has No Courses"
+      header='Your Class Has No Courses'
       text={
         <span>When your teacher assigns something it will show up here!</span>
       }
-      image={backpack}
-    />
+      image={backpack} />
   )
 }

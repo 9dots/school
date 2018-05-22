@@ -1,6 +1,7 @@
-import LessonStudentView from '../../../LessonStudentView'
+import ClassSettingsModal from 'app/ClassSettingsModal'
 import { Link, Switch, Route } from 'react-router-dom'
 import modalContainer from 'components/modalContainer'
+import LessonStudentView from 'app/LessonStudentView'
 import { Layout, Divider, Icon, Button } from 'antd'
 import backpack from 'assets/images/emptypack.png'
 import NoActiveLesson from '../NoActiveLesson'
@@ -8,12 +9,11 @@ import ActiveLesson from '../ActiveLesson'
 import StudentList from 'app/StudentList'
 import EmptyState from 'app/EmptyState'
 import styles from 'theme/vars/vars.js'
-import Loading from '../../../Loading'
 import PropTypes from 'prop-types'
+import Loading from 'app/Loading'
 import Modules from '../Modules'
 import React from 'react'
 import './TeacherClass.less'
-import ClassSettingsModal from '../../../ClassSettingsModal/ClassSettingsModal'
 
 const TeacherClass = props => {
   const { progressByStudent, classData = {} } = props
@@ -24,7 +24,7 @@ const TeacherClass = props => {
     <Switch>
       <Route
         exact
-        path='/class/:classId/lesson/:lessonId/:taskNum/:uid'
+        path='/class/:classId/module/:moduleId/lesson/:lessonId/:taskNum/:uid'
         render={routeProps =>
           progressByStudent[routeProps.match.params.uid] &&
           progressByStudent[routeProps.match.params.uid].progress ? (
@@ -149,6 +149,7 @@ const ClassView = props => {
           <StudentList
             studentData={studentData}
             tasks={(assignedLesson || {}).tasks}
+            moduleId={(assignedLesson || {}).module}
             progressByStudent={progressByStudent}
             students={students}
             addStudentSuccess={props.addStudentSuccess}

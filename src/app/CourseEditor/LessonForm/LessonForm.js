@@ -1,12 +1,20 @@
 import Field, { TextField } from 'components/Field'
-import { Button, Form, Row, Col } from 'antd'
+import { Button, Icon, Form, Row, Col } from 'antd'
+import DrivePicker from 'components/DrivePicker'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
 import React from 'react'
-import './LessonForm.less'
 
 const LessonForm = props => {
-  const { mode, setEditKey, handleSubmit, confirmLoading, ...rest } = props
+  const {
+    mode,
+    onGoogleDoc,
+    setEditKey,
+    handleSubmit,
+    confirmLoading,
+    ...rest
+  } = props
+
   const itemProps = { style: { marginBottom: 0 } }
 
   return (
@@ -30,6 +38,11 @@ const LessonForm = props => {
             itemProps={itemProps}
             label='Slides'
             name='slides'
+            addonAfter={
+              <DrivePicker
+                onSelect={onGoogleDoc('slides')}
+                component={<Icon style={{ cursor: 'pointer' }} type='google' />} />
+            }
             placeholder='Link to Slides...'
             component={TextField} />
         </Col>
@@ -39,6 +52,11 @@ const LessonForm = props => {
             itemProps={itemProps}
             label='Lesson Plan'
             name='lessonPlan'
+            addonAfter={
+              <DrivePicker
+                onSelect={onGoogleDoc('lessonPlan')}
+                component={<Icon style={{ cursor: 'pointer' }} type='google' />} />
+            }
             placeholder='Link to Lesson Plan...'
             component={TextField} />
         </Col>

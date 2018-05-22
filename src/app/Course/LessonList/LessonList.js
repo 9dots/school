@@ -43,7 +43,11 @@ const LessonList = ({
                 student={student}
                 i={lesson.id} />
             }>
-            <Tasks lesson={lesson} classId={classId} student={student} />
+            <Tasks
+              moduleId={moduleId}
+              lesson={lesson}
+              classId={classId}
+              student={student} />
           </Collapse.Panel>
         )
       })}
@@ -75,8 +79,9 @@ const Header = props => {
       <Col className='extra'>
         {student ? (
           <StudentExtra
-            path={`/class/${classId}/lesson/${lesson.id}/${progress.current ||
-              0}`}
+            path={`/class/${classId}/module/${moduleId}/lesson/${
+              lesson.id
+            }/${progress.current || 0}`}
             module={moduleId}
             lesson={lesson.id}
             assignToStudent={assignToStudent}
