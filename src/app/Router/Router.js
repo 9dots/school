@@ -45,6 +45,7 @@ const App = props => {
               component={SchoolLogin}
               exact />
             <Route exact path='/' component={Home} />
+            <Redirect to='/' />
           </Switch>
         </AppLayout>
       </Switch>
