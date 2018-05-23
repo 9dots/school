@@ -7,14 +7,14 @@ import React from 'react'
 
 import './CreateCourseModal.less'
 
+const maxLength = '150'
+const itemProps = {
+  labelCol: { span: 5 },
+  wrapperCol: { span: 19 }
+}
+
 const CreateCourseModal = props => {
   const { close, onCancel, onSubmit, handleSubmit, ...rest } = props
-
-  const maxLength = '150'
-  const itemProps = {
-    labelCol: { span: 5 },
-    wrapperCol: { span: 19 }
-  }
 
   return (
     <Modal
@@ -66,7 +66,6 @@ const CreateCourseModal = props => {
             label: gradesToText(chunk)
           }))}
           component={SelectField} />
-
         <Form.Item label='Duration' {...itemProps}>
           <Row gutter={8}>
             <Col span={8}>

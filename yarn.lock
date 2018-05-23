@@ -802,7 +802,7 @@ ansi-styles@^3.0.0, ansi-styles@^3.2.1:
   dependencies:
     color-convert "^1.9.0"
 
-antd@^3.1.0:
+antd@3.4.5:
   version "3.4.5"
   resolved "https://registry.yarnpkg.com/antd/-/antd-3.4.5.tgz#dc33d746586899ac3a87ef45ad78b741a5f98ee9"
   dependencies:
