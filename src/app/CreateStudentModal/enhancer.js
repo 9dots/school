@@ -10,22 +10,29 @@ export default compose(
   connect(() => ({}), { rpc }),
   formModal({
     displayName: 'createStudent',
-    mapPropsToValues: ({ initialValues = {} }) => ({
+    mapPropsToValues: ({ user = {} }) => ({
       name: { given: '', family: '' },
       studentId: '',
-      ...initialValues
+      ...user
     }),
     handleSubmit: async (values, { props, setErrors }) => {
       const {
         class: { id },
         setLoading,
+        edit,
         rpc
       } = props
+      const fn = edit ? 'user.editUser' : 'user.createStudent'
       setLoading(true)
+
       try {
-        const res = await rpc('user.createStudent', cast(values, props))
-        await rpc('class.addStudent', { class: id, student: res.student })
-        message.success('Success! Added student.')
+        const res = await rpc(fn, cast(values, props))
+        if (edit) {
+          message.success('Success! Edited student.')
+        } else {
+          await rpc('class.addStudent', { class: id, student: res.student })
+          message.success('Success! Added student.')
+        }
         return props.onOk('done')
       } catch (e) {
         setLoading(false)
@@ -44,10 +51,17 @@ export default compose(
 )
 
 function cast (values, props) {
+  const { class: cls, school, edit } = props
+  const obj = edit
+    ? {}
+    : {
+      email: values.email || undefined,
+      grade: cls.grade,
+      school: school
+    }
+
   return {
     ...values,
-    email: values.email || undefined,
-    grade: props.class.grade,
-    school: props.school
+    ...obj
   }
 }

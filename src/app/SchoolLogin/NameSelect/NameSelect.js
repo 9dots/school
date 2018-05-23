@@ -13,13 +13,14 @@ const NameSelect = ({
   cls = {},
   classId,
   colors,
-  modal
+  modal,
+  ...rest
 }) => {
-  const numCols = Math.ceil(Math.sqrt(students.length))
+  const numCols = Math.min(Math.ceil(Math.sqrt(students.length)), 4)
   const span = Math.min(Math.max(2, Math.ceil(24 / numCols), 6))
 
   return (
-    <Col style={{ maxWidth: 900 }} align='center'>
+    <Col style={{ maxWidth: 1000 }} align='center'>
       <div className='school-header'>
         <Link to={`/school/${schoolId}`} className='back'>
           <Icon type='left' />&ensp;Back
@@ -41,7 +42,7 @@ const NameSelect = ({
                   student,
                   passwordType: cls.passwordType
                 })}
-                className='login-button'
+                className='login-button ellipsis'
                 style={{
                   background: colors[i % numCols]
                 }}>

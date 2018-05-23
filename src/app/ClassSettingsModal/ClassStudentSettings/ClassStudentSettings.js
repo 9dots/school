@@ -1,5 +1,4 @@
 import { Card, Button, Dropdown, Icon, Menu, Table } from 'antd'
-import PrintPasswords from './PrintPasswords'
 import { getAvatarByValue } from 'utils'
 import PropTypes from 'prop-types'
 import getProp from '@f/get-prop'
@@ -19,8 +18,7 @@ const ClassStudentSettings = props => {
     isSelected,
     addStudent,
     classData,
-    students,
-    modal
+    students
   } = props
 
   const { passwordType = 'text' } = classData
@@ -69,12 +67,6 @@ const ClassStudentSettings = props => {
           pagination={false}
           columns={columns(props)} />
       </Card>
-      {modal.isVisible('printPasswords') && (
-        <PrintPasswords
-          {...modal.getProps('printPasswords')}
-          onCancel={modal.hideModal('printPasswords')}
-          onOk={modal.hideModal('printPasswords')} />
-      )}
     </div>
   )
 }
@@ -116,6 +108,7 @@ const columns = props => [
         trigger={['click']}
         overlay={
           <Menu onClick={({ key }) => props.studentMenuClick(key, s)}>
+            <Menu.Item key='edit'>Edit Details</Menu.Item>
             <Menu.Item key='remove'>Remove Student</Menu.Item>
             <Menu.Item key='resetPassword'>Change Password</Menu.Item>
           </Menu>
