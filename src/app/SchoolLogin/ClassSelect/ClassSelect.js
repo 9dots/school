@@ -6,11 +6,11 @@ import './ClassSelect.less'
 
 const ClassSelect = ({ school = {}, classes = [], schoolId, colors }) => {
   const withStudents = classes.filter(c => Object.keys(c.students || {}).length)
-  const numCols = Math.ceil(Math.sqrt(withStudents.length))
+  const numCols = Math.min(Math.ceil(Math.sqrt(withStudents.length)), 4)
   const span = Math.min(Math.max(2, Math.ceil(24 / numCols), 6))
-
+  console.log(numCols)
   return (
-    <Col style={{ maxWidth: 900 }} align='center'>
+    <Col style={{ maxWidth: 1000 }} align='center'>
       <div className='school-header'>
         <h1>{school.displayName}</h1>
       </div>
@@ -25,7 +25,7 @@ const ClassSelect = ({ school = {}, classes = [], schoolId, colors }) => {
               to={`/school/${schoolId}/${id}`}
               className='login-button-wrapper'>
               <Button
-                className='login-button'
+                className='login-button ellipsis'
                 size='large'
                 style={{
                   background: colors[i % numCols]

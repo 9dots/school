@@ -125,11 +125,11 @@ const SelectField = props => {
       {...omit(formProps, rest)}
       onBlur={() => setFieldTouched(name, true, true)}
       onChange={value => setFieldValue(name, value)}
-      value={getProp(name, values) || undefined}>
+      value={getProp(name, values) || undefined}
       notFoundContent={notFoundContent}
       placeholder={placeholder}
       options={options}
-      mode={mode}
+      mode={mode}>
       {children ||
         options.map(({ label, value }, i) => (
           <Select.Option label={label} key={i} value={value}>

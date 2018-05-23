@@ -45,7 +45,7 @@
     "redux-logger": "^3.0.6",
     "redux-saga": "^0.16.0",
     "redux-thunk": "^2.2.0",
-    "school-schema": "^0.1.5",
+    "school-schema": "^0.1.52",
     "url-join": "^4.0.0",
     "why-did-you-update": "^0.1.0",
     "xlsx": "^0.12.12"

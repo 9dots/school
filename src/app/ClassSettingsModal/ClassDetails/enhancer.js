@@ -32,7 +32,7 @@ export default compose(
   ),
   withFormik({
     displayName: 'courseDetails',
-    mapPropsToValues: ({ initialValues }) => ({
+    mapPropsToValues: ({ initialValues = {} }) => ({
       displayName: '',
       grade: undefined,
       ...initialValues
@@ -59,6 +59,7 @@ export default compose(
 function cast (values, props) {
   return {
     ...values,
+    grade: isNaN(values.grade) ? undefined : Number(values.grade),
     class: props.classData.id
   }
 }

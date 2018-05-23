@@ -119,6 +119,11 @@ export default compose(
       studentMenuClick: props => (key, student) => {
         props.setOpenDropdown(false)
         switch (key) {
+          case 'edit':
+            return props.modal.showModal(
+              { name: 'editUser', user: student },
+              null
+            )
           case 'remove':
             return removeStudents(props)([student])
           case 'resetPassword':

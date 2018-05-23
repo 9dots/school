@@ -1,3 +1,5 @@
+import PrintPasswords from 'app/ClassSettingsModal/ClassStudentSettings/PrintPasswords'
+import CreateStudentModal from 'app/CreateStudentModal'
 import modalContainer from 'components/modalContainer'
 import StudentCsvUpload from 'app/StudentCsvUpload'
 import LoginModal from 'app/LoginModal/LoginModal'
@@ -7,35 +9,15 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import './Modals.less'
 
-const Modals = ({ modal }) => {
+const Modals = props => {
   return (
     <div>
-      {modal.isVisible('loginModal') && (
-        <LoginModal
-          onCancel={modal.hideModal('loginModal')}
-          onOk={modal.hideModal('loginModal')}
-          {...modal.getProps('classModal')} />
-      )}
-      {modal.isVisible('createStudent') && (
-        <StudentModal
-          onCancel={modal.hideModal('createStudent')}
-          onOk={modal.hideModal('createStudent')}
-          {...modal.getProps('createStudent')} />
-      )}
-
-      {modal.isVisible('classModal') && (
-        <ClassModal
-          visible
-          onCancel={modal.hideModal('classModal')}
-          onOk={modal.hideModal('classModal')}
-          {...modal.getProps('classModal')} />
-      )}
-      {modal.isVisible('studentCsvModal') && (
-        <StudentCsvUpload
-          onCancel={modal.hideModal('studentCsvModal')}
-          onOk={modal.hideModal('studentCsvModal')}
-          {...modal.getProps('studentCsvModal')} />
-      )}
+      <Modal {...props} component={ClassModal} name='classModal' />
+      <Modal {...props} component={CreateStudentModal} name='editUser' edit />
+      <Modal {...props} component={LoginModal} name='loginModal' />
+      <Modal {...props} component={StudentModal} name='createStudent' />
+      <Modal {...props} component={PrintPasswords} name='printPasswords' />
+      <Modal {...props} component={StudentCsvUpload} name='studentCsvUpload' />
     </div>
   )
 }
@@ -43,3 +25,18 @@ const Modals = ({ modal }) => {
 Modals.propTypes = {}
 
 export default modalContainer(Modals)
+
+const Modal = props => {
+  const { modal, component: Component, name, ...rest } = props
+
+  return (
+    modal.isVisible(name) && (
+      <Component
+        {...rest}
+        visible
+        onCancel={modal.hideModal(name)}
+        onOk={modal.hideModal(name)}
+        {...modal.getProps(name)} />
+    )
+  )
+}

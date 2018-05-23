@@ -11,7 +11,7 @@ import './SchoolLogin.less'
 const SchoolLogin = props => {
   const colors = ['#3c8074', '#e6a730', '#2e7599', '#745280']
   if (!props.isLoaded) return <Loading />
-  console.log(props)
+
   return (
     <Row className='school-login' type='flex' justify='center'>
       {props.classId ? (

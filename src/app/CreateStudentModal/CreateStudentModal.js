@@ -17,7 +17,7 @@ const itemLayout = {
   }
 }
 
-const CreateStudentModal = ({ mask = true, stepModal, ...props }) => {
+const CreateStudentModal = ({ mask = true, stepModal, edit, ...props }) => {
   const displayName = props.class && props.class.displayName
   return (
     <Modal
@@ -28,7 +28,7 @@ const CreateStudentModal = ({ mask = true, stepModal, ...props }) => {
       onCancel={props.close(props.onCancel)}
       onOk={props.handleSubmit}
       confirmLoading={props.confirmLoading}
-      title={'Add Student to ' + displayName}>
+      title={edit ? 'Edit User' : 'Add Student to ' + displayName}>
       <Form onSubmit={props.handleSubmit}>
         <Form.Item {...itemLayout} label='Full Name'>
           <Row gutter={8}>
@@ -55,13 +55,24 @@ const CreateStudentModal = ({ mask = true, stepModal, ...props }) => {
           name='studentId'
           placeholder='abc123'
           component={TextField} />
-        <Field
-          {...props}
-          itemProps={itemLayout}
-          label='Email (optional)'
-          name='email'
-          placeholder='student@email.com'
-          component={TextField} />
+        {edit && (
+          <Field
+            {...props}
+            itemProps={itemLayout}
+            label='Username'
+            name='username'
+            placeholder='Username'
+            component={TextField} />
+        )}
+        {!edit && (
+          <Field
+            {...props}
+            itemProps={itemLayout}
+            label='Email (optional)'
+            name='email'
+            placeholder='student@email.com'
+            component={TextField} />
+        )}
       </Form>
       {stepModal && (
         <div style={{ textAlign: 'center', fontSize: 12 }}>
