@@ -18,7 +18,7 @@
     "antd": "3.4.5",
     "curry": "^1.2.0",
     "firebase": "^4.8.1",
-    "formik": "^0.11.11",
+    "formik": "^1.0.0-beta.2",
     "fs": "^0.0.1-security",
     "google-picker": "^0.1.1",
     "googleapis": "^30.0.0",
@@ -47,7 +47,8 @@
     "redux-thunk": "^2.2.0",
     "school-schema": "^0.1.5",
     "url-join": "^4.0.0",
-    "why-did-you-update": "^0.1.0"
+    "why-did-you-update": "^0.1.0",
+    "xlsx": "^0.12.12"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.3",

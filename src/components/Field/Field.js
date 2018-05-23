@@ -7,31 +7,57 @@ import pick from '@f/pick'
 
 import './Field.less'
 
-const BaseComponent = props => {
-  const {
-    itemProps = {},
-    touched = {},
-    errors = {},
-    component,
-    noItem,
-    label,
-    name
-  } = props
+class BaseComponent extends React.Component {
+  constructor (props) {
+    super(props)
+    this.input = React.createRef()
+  }
+  shouldComponentUpdate (nextProps) {
+    const { options, submitCount } = this.props
+    const optsChanged = options !== nextProps.options
+    const submitChange = submitCount !== nextProps.submitCount
 
-  return createElement(
-    noItem ? 'div' : Form.Item,
-    noItem
-      ? {}
-      : {
-        // hasFeedback: !!getProp(name, touched) && !!getProp(name, errors),
-        validateStatus:
-            getProp(name, touched) && getProp(name, errors) && 'error',
-        help: getProp(name, touched) && getProp(name, errors),
-        label,
-        ...itemProps
-      },
-    createElement(component, omit('component', props))
-  )
+    return submitChange || optsChanged || isChanged(this.props, nextProps)
+  }
+  componentDidUpdate (prevProps) {
+    if (
+      this.props.scrollOnError &&
+      this.props.submitCount !== prevProps.submitCount &&
+      !this.props.isValid &&
+      getProp(this.props.name, this.props.errors)
+    ) {
+      this.input.current.focus()
+    }
+  }
+  render () {
+    const {
+      itemProps = {},
+      touched = {},
+      errors = {},
+      component,
+      noItem,
+      label,
+      name
+    } = this.props
+
+    return createElement(
+      noItem ? 'div' : Form.Item,
+      noItem
+        ? {}
+        : {
+          // hasFeedback: !!getProp(name, touched) && !!getProp(name, errors),
+          validateStatus:
+              getProp(name, touched) && getProp(name, errors) && 'error',
+          help: getProp(name, touched) && getProp(name, errors),
+          label,
+          ...itemProps
+        },
+      createElement(
+        component,
+        omit('component', { itemRef: this.input, ...this.props })
+      )
+    )
+  }
 }
 
 BaseComponent.propTypes = {}
@@ -42,13 +68,16 @@ const TextField = props => {
     setFieldValue,
     handleSubmit,
     placeholder,
+    itemRef,
     values,
     name,
     ...rest
   } = props
+
   return (
     <Input
       {...omit(formProps, rest)}
+      ref={itemRef}
       placeholder={placeholder}
       value={getProp(name, values)}
       onChange={event => setFieldValue(name, event.target.value, true)}
@@ -114,6 +143,12 @@ const SelectField = props => {
 export default BaseComponent
 export { TextField, SelectField, TextAreaField }
 
+function isChanged (props, next, watchProps = ['errors', 'values']) {
+  return watchProps.some(
+    val => getProp(props.name, props[val]) !== getProp(next.name, next[val])
+  )
+}
+
 const formProps = [
   'editing',
   'visible',
@@ -156,7 +191,8 @@ const formProps = [
   'handleChange',
   'handleReset',
   'validateOnChange',
-  'validateOnBlur'
+  'validateOnBlur',
+  'scrollOnError'
 ]
 
 const inputProps = [

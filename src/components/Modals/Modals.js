@@ -1,4 +1,5 @@
 import modalContainer from 'components/modalContainer'
+import StudentCsvUpload from 'app/StudentCsvUpload'
 import LoginModal from 'app/LoginModal/LoginModal'
 import ClassModal from 'app/School/ClassModal'
 import StudentModal from 'app/StudentModal'
@@ -28,6 +29,12 @@ const Modals = ({ modal }) => {
           onCancel={modal.hideModal('classModal')}
           onOk={modal.hideModal('classModal')}
           {...modal.getProps('classModal')} />
+      )}
+      {modal.isVisible('studentCsvModal') && (
+        <StudentCsvUpload
+          onCancel={modal.hideModal('studentCsvModal')}
+          onOk={modal.hideModal('studentCsvModal')}
+          {...modal.getProps('studentCsvModal')} />
       )}
     </div>
   )

@@ -1,0 +1,49 @@
+@import "../../../theme/mixins.less";
+
+/* DisplaySheet less */
+
+@padding: 22px;
+
+.upload-sheet {
+  .ant-row.ant-form-item {
+    margin-bottom: 0;
+  }
+  .ant-table-tbody > tr > td {
+    padding: 0;
+    // max-width: 167px;
+    .ellipsis;
+
+    input {
+      padding: @padding;
+      border-radius: 0;
+      &:not(:focus) {
+        border-color: transparent;
+      }
+    }
+    .ant-form-explain {
+      position: absolute;
+      background: #ec5863;
+      color: white;
+      z-index: 999;
+      top: 0px;
+      right: 0;
+      transition: none;
+      font-size: 10px;
+      line-height: 15px;
+      padding: 0 4px;
+      border-bottom-left-radius: 4px;
+    }
+    .row-actions {
+      padding: 0 @padding;
+    }
+  }
+  .ant-table-body {
+    max-height: 500px;
+    overflow: auto;
+  }
+  .ant-table-tbody {
+    > tr:hover > td {
+      background: none;
+    }
+  }
+}
