@@ -16,6 +16,7 @@ const LessonStudentView = ({
   isLoaded
 }) => {
   if (!isLoaded) return <Loading />
+  console.log(progress)
   return (
     <Layout className='lesson-view'>
       <Route
