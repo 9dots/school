@@ -1,7 +1,7 @@
 const grades = [
   {
     label: 'Kindergarten',
-    value: 0,
+    value: '0',
     id: 0
   },
   {

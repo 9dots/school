@@ -1,5 +1,8 @@
 import { getFirebase } from 'react-redux-firebase'
 import fetch from 'isomorphic-fetch'
+import getConfig from 'getConfig'
+
+const config = getConfig()
 
 const rpc = (method, data, meta) => {
   const thunk = async dispatch => {
@@ -20,7 +23,7 @@ const studentSignIn = data => async dispatch => {
 }
 
 function apiRequest (endpoint, data, Authorization) {
-  return fetch(`${process.env.REACT_APP_API_SERVER}/${endpoint}`, {
+  return fetch(`${config.apiServer}/${endpoint}`, {
     method: 'POST',
     headers: {
       Authorization,
