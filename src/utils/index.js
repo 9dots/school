@@ -28,8 +28,9 @@ export function stopProp (action = () => {}) {
 }
 
 export function validate (validator, cast, overWrites) {
-  return (values, props) => {
+  return (values, props, next) => {
     const { valid, errors } = validator(cast(values, props), { greedy: true })
+
     if (valid) return
     return getValidationErrors(
       {

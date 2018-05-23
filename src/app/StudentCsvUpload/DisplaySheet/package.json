@@ -1,0 +1,6 @@
+
+{
+  "name": "DisplaySheet",
+  "main": "DisplaySheet.js",
+  "browser": "DisplaySheet.js"
+}
