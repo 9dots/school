@@ -1,6 +1,6 @@
+import { Modal, Divider, Row, Col, Select, Button } from 'antd'
 import Field, { SelectField } from 'components/Field'
 import PropTypes from 'prop-types'
-import { Modal, Divider, Row, Col, Select, Button } from 'antd'
 
 import enhancer from './enhancer'
 import React from 'react'
