@@ -95,7 +95,6 @@ export default compose(
     componentWillUpdate (nextProps) {
       if (!this.props.isLoaded && nextProps.isLoaded) {
         const { lessonId, progress, taskNum, teacherView } = nextProps
-        console.log(progress, teacherView)
         if (progress.length && !teacherView) {
           this.props.rpc(
             'activity.setActive',
