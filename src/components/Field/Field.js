@@ -1,6 +1,5 @@
 import React, { createElement } from 'react'
 import { Form, Input, Select } from 'antd'
-import { hoistStatics, compose, lifecycle } from 'recompose'
 import PropTypes from 'prop-types'
 import getProp from '@f/get-prop'
 import omit from '@f/omit'
@@ -8,39 +7,25 @@ import pick from '@f/pick'
 
 import './Field.less'
 
-const enhancer = compose(lifecycle({}))
-
 class BaseComponent extends React.Component {
   constructor (props) {
     super(props)
     this.input = React.createRef()
   }
-  shouldComponentUpdate (next, nextState) {
+  shouldComponentUpdate (nextProps) {
     const { options, submitCount } = this.props
-    const optsChanged = options !== next.options
-    const submitChange = submitCount !== next.submitCount
+    const optsChanged = options !== nextProps.options
+    const submitChange = submitCount !== nextProps.submitCount
 
-    const update = submitChange || optsChanged || isChanged(this.props, next)
-
-    // if (scrollOnError && update && isChanged(this.props, next, ['errors'])) {
-    //   console.log(this.input.current, (window.taco = this.input.current))
-    //   this.input.current.focus()
-    // }
-    return update
+    return submitChange || optsChanged || isChanged(this.props, nextProps)
   }
   componentDidUpdate (prevProps) {
-    console.log(
-      this.props.submitCount,
-      prevProps.submitCount,
-      this.props.isValid,
-      this.props.scrollOnError
-    )
     if (
       this.props.scrollOnError &&
       this.props.submitCount !== prevProps.submitCount &&
-      !this.props.isValid
+      !this.props.isValid &&
+      getProp(this.props.name, this.props.errors)
     ) {
-      console.log(this.input)
       this.input.current.focus()
     }
   }
