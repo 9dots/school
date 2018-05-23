@@ -1,10 +1,14 @@
 import { compose, withHandlers } from 'recompose'
+import getConfig from '../../getConfig'
 import PropTypes from 'prop-types'
 import picker from 'google-picker'
 import React from 'react'
+const config = getConfig()
+
+console.log(config.clientId, config.apiKey)
 const pick = picker({
-  clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-  apiKey: process.env.REACT_APP_GOOGLE_API_KEY
+  clientId: config.clientId,
+  apiKey: config.apiKey
 })
 
 const enhancer = compose(
