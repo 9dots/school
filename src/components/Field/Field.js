@@ -123,13 +123,13 @@ const SelectField = props => {
   return (
     <Select
       {...omit(formProps, rest)}
-      mode={mode}
-      onChange={value => setFieldValue(name, value)}
       onBlur={() => setFieldTouched(name, true, true)}
+      onChange={value => setFieldValue(name, value)}
+      value={getProp(name, values) || undefined}>
       notFoundContent={notFoundContent}
-      options={options}
       placeholder={placeholder}
-      value={getProp(name, values)}>
+      options={options}
+      mode={mode}
       {children ||
         options.map(({ label, value }, i) => (
           <Select.Option label={label} key={i} value={value}>

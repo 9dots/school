@@ -40,7 +40,7 @@ export default compose(
 function cast (values, props) {
   return {
     ...values,
-    grade: Number(values.grade) || undefined,
+    grade: isNaN(values.grade) ? undefined : Number(values.grade),
     school: props.school
   }
 }
