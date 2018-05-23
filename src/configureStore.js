@@ -6,23 +6,16 @@ import { reduxFirestore } from 'redux-firestore'
 import createSagaMiddleware from 'redux-saga'
 import createDebounce from 'redux-debounced'
 import { createLogger } from 'redux-logger'
-import rootReducer from './app/reducers'
 import * as middlewares from 'middleware'
+import rootReducer from './app/reducers'
 import effects from 'redux-effects'
+import getConfig from './getConfig'
 import firebase from 'firebase'
 import thunk from 'redux-thunk'
 import 'firebase/firestore'
 
 const history = createBrowserHistory()
-const config = {
-  apiKey: process.env.REACT_APP_GOOGLE_API_KEY,
-  authDomain: 'school-5927d.firebaseapp.com',
-  databaseURL: 'https://school-5927d.firebaseio.com',
-  clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-  discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'],
-  projectId: 'school-5927d',
-  scopes: ['https://www.googleapis.com/auth/drive']
-}
+const config = getConfig()
 
 firebase.initializeApp(config)
 const firestore = firebase.firestore()

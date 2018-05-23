@@ -14,7 +14,7 @@ const itemProps = {
 }
 
 const CreateCourseModal = props => {
-  const { close, onCancel, onSubmit, handleSubmit, ...rest } = props
+  const { close, onCancel, edit, onSubmit, handleSubmit, ...rest } = props
 
   return (
     <Modal
@@ -22,7 +22,7 @@ const CreateCourseModal = props => {
       {...rest}
       onCancel={close(onCancel)}
       onOk={handleSubmit}
-      title='Create a New Course'>
+      title={edit ? 'Edit Course' : 'Create a New Course'}>
       <Form>
         <Field
           {...props}
