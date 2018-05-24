@@ -4,7 +4,9 @@ export const messages = {
   invalid_firebase_ref: 'Must be at least 6 characters',
   password_too_short: 'Must be at least 4 characters',
   invalid_credentials: 'Incorrect password',
-  missing_required_field: 'Required'
+  invalid_username: 'Invalid username',
+  missing_required_field: 'Required',
+  username_taken: 'Username taken'
 }
 
 export const errorToMessage = (msg, overWrite) => {
