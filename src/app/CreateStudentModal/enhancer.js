@@ -5,7 +5,6 @@ import { compose } from 'recompose'
 import schema from 'school-schema'
 import { rpc } from 'app/actions'
 import { message } from 'antd'
-import pick from '@f/pick'
 
 export default compose(
   connect(() => ({}), { rpc }),
@@ -60,12 +59,7 @@ export default compose(
 
 function cast (values, props) {
   const { class: cls, school, edit } = props
-  console.log({
-    studentId: values.studentId || undefined,
-    username: values.username,
-    name: values.name,
-    id: values.id
-  })
+
   return edit
     ? {
       studentId: values.studentId || undefined,

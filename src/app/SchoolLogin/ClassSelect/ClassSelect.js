@@ -8,7 +8,7 @@ const ClassSelect = ({ school = {}, classes = [], schoolId, colors }) => {
   const withStudents = classes.filter(c => Object.keys(c.students || {}).length)
   const numCols = Math.min(Math.ceil(Math.sqrt(withStudents.length)), 4)
   const span = Math.min(Math.max(2, Math.ceil(24 / numCols), 6))
-  console.log(numCols)
+
   return (
     <Col style={{ maxWidth: 1000 }} align='center'>
       <div className='school-header'>

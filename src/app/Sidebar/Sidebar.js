@@ -70,7 +70,10 @@ class Sidebar extends React.PureComponent {
             (school, key) => (
               <Menu.SubMenu
                 title={
-                  <MenuTitle {...this.props} school={{ ...school, id: key }} />
+                  <MenuTitle
+                    {...this.props}
+                    isTeacher={isTeacher}
+                    school={{ ...school, id: key }} />
                 }
                 key={key}>
                 {school.classes.map(cls => (
