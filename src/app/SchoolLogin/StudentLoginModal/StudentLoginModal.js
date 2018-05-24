@@ -29,7 +29,6 @@ const StudentLoginModal = props => {
       title={student.displayName}>
       {picturePwd ? (
         <Row>
-          <Col onClick={onCancel}>CLose</Col>
           {avatars.map(avatar => (
             <Col key={avatar.id} span={3} className='login-image'>
               <img

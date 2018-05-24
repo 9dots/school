@@ -29,7 +29,7 @@ const LessonControls = ({ lesson, progress, studentId }) => {
     'lesson',
     lessonId
   )
-
+  console.log(progress)
   const cur = parseInt(current, 10)
   const isLast = progress.length <= cur + 1
 

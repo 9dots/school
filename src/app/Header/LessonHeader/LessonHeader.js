@@ -15,7 +15,8 @@ const LessonHeader = ({
   taskNum,
   studentId,
   lesson,
-  progress
+  progress,
+  tasks
 }) => {
   return (
     <Layout className='lesson-header'>
@@ -30,8 +31,9 @@ const LessonHeader = ({
       <Layout.Content style={{ textAlign: 'center' }}>
         <LessonControls
           studentId={studentId}
+          progress={progress}
           lesson={lesson}
-          progress={progress} />
+          tasks={tasks} />
       </Layout.Content>
       <Layout.Sider width={styles['@sidebar-width']}>
         <UserMenu

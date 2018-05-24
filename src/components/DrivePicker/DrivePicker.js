@@ -5,7 +5,6 @@ import picker from 'google-picker'
 import React from 'react'
 const config = getConfig()
 
-console.log(config.clientId, config.apiKey)
 const pick = picker({
   clientId: config.clientId,
   apiKey: config.apiKey
