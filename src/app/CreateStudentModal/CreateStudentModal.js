@@ -55,7 +55,6 @@ const CreateStudentModal = ({
             </Col>
           </Row>
         </Form.Item>
-        {console.log(props)}
         {(!edit || user.role === 'student') && (
           <Field
             {...props}

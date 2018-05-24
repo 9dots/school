@@ -8,6 +8,7 @@ const MenuTitle = ({
   isVisible,
   showModal,
   onCreateModal,
+  isTeacher,
   school
 }) => {
   const { id, displayName } = school
@@ -15,19 +16,21 @@ const MenuTitle = ({
     <div>
       <Row type='flex' justify='space-between' align='middle'>
         <Col>{displayName}</Col>
-        <Col>
-          <Icon
-            className='add-class-button'
-            type='plus'
-            size='small'
-            onClick={stopEvent(
-              showModal({
-                name: 'classModal',
-                onOk: msg => onCreateModal(msg, 'classModal'),
-                school: id
-              })
-            )} />
-        </Col>
+        {isTeacher && (
+          <Col>
+            <Icon
+              className='add-class-button'
+              type='plus'
+              size='small'
+              onClick={stopEvent(
+                showModal({
+                  name: 'classModal',
+                  onOk: msg => onCreateModal(msg, 'classModal'),
+                  school: id
+                })
+              )} />
+          </Col>
+        )}
       </Row>
       {/* {isVisible('classModal-' + id) && (
         <ClassModal

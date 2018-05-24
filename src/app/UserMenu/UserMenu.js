@@ -15,22 +15,18 @@ const UserMenu = ({
 }) => {
   const overlay = (
     <Menu onClick={menuClick} style={{ minWidth: 150, ...overlayStyle }}>
-      {/* <Menu.Item>
-        <Icon type='user' style={{ marginRight: 10 }} />
-        Profile
-      </Menu.Item> */}
-      {isTeacher && (
-        <Menu.Item>
+      {isTeacher && [
+        <Menu.Item key='library'>
           <Link to='/library'>
             <Icon type='book' style={{ marginRight: 10 }} />
             My Library
           </Link>
+        </Menu.Item>,
+        <Menu.Item key='settings'>
+          <Icon type='setting' style={{ marginRight: 10 }} />
+          Settings
         </Menu.Item>
-      )}
-      <Menu.Item key='settings'>
-        <Icon type='setting' style={{ marginRight: 10 }} />
-        Settings
-      </Menu.Item>
+      ]}
       <Menu.Item key='logout'>
         <Icon type='logout' style={{ marginRight: 10 }} />
         Log Out
