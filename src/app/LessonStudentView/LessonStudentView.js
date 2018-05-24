@@ -11,9 +11,10 @@ import './LessonStudentView.less'
 const LessonStudentView = ({
   assignedLesson = {},
   progress = {},
+  isLoaded,
   profile,
   taskNum,
-  isLoaded
+  tasks
 }) => {
   if (!isLoaded) return <Loading />
   return (
@@ -26,6 +27,7 @@ const LessonStudentView = ({
               progress={progress}
               profile={profile}
               lesson={assignedLesson}
+              tasks={tasks}
               {...params} />
           </Layout.Header>
         )} />

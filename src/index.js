@@ -9,11 +9,6 @@ import './index.less'
 
 const store = createStore()
 
-// if (process.env.NODE_ENV !== 'production') {
-//   const { whyDidYouUpdate } = require('why-did-you-update')
-//   whyDidYouUpdate(React)
-// }
-
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>{routes}</Router>
