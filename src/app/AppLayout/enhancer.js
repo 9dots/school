@@ -40,15 +40,10 @@ export default compose(
     }
   }),
   withHandlers({
-    logout: props => event => {
-      switch (event.key) {
-        case 'logout':
-          return props.firebase
-            .logout()
-            .then(() => (window.location = window.location.origin))
-        default:
-          break
-      }
+    logout: props => {
+      return props.firebase
+        .logout()
+        .then(() => (window.location = window.location.origin))
     }
   }),
   waitFor(['classesBySchool', 'profile'])

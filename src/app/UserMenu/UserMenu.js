@@ -1,11 +1,12 @@
 import { Dropdown, Menu, Icon, Button } from 'antd'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import enhancer from './enhancer'
 import React from 'react'
 import './UserMenu.less'
 
 const UserMenu = ({
-  logout,
+  menuClick,
   profile,
   button,
   overlayStyle = {},
@@ -13,11 +14,11 @@ const UserMenu = ({
   ...rest
 }) => {
   const overlay = (
-    <Menu onClick={logout} style={{ minWidth: 150, ...overlayStyle }}>
-      <Menu.Item>
+    <Menu onClick={menuClick} style={{ minWidth: 150, ...overlayStyle }}>
+      {/* <Menu.Item>
         <Icon type='user' style={{ marginRight: 10 }} />
         Profile
-      </Menu.Item>
+      </Menu.Item> */}
       {isTeacher && (
         <Menu.Item>
           <Link to='/library'>
@@ -26,7 +27,7 @@ const UserMenu = ({
           </Link>
         </Menu.Item>
       )}
-      <Menu.Item>
+      <Menu.Item key='settings'>
         <Icon type='setting' style={{ marginRight: 10 }} />
         Settings
       </Menu.Item>
@@ -49,4 +50,4 @@ const UserMenu = ({
 
 UserMenu.propTypes = {}
 
-export default UserMenu
+export default enhancer(UserMenu)

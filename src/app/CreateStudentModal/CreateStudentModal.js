@@ -17,8 +17,15 @@ const itemLayout = {
   }
 }
 
-const CreateStudentModal = ({ mask = true, stepModal, edit, ...props }) => {
+const CreateStudentModal = ({
+  mask = true,
+  stepModal,
+  edit,
+  user = {},
+  ...props
+}) => {
   const displayName = props.class && props.class.displayName
+
   return (
     <Modal
       {...props}
@@ -48,13 +55,16 @@ const CreateStudentModal = ({ mask = true, stepModal, edit, ...props }) => {
             </Col>
           </Row>
         </Form.Item>
-        <Field
-          {...props}
-          itemProps={itemLayout}
-          label='Student ID'
-          name='studentId'
-          placeholder='abc123'
-          component={TextField} />
+        {console.log(props)}
+        {(!edit || user.role === 'student') && (
+          <Field
+            {...props}
+            itemProps={itemLayout}
+            label='Student ID'
+            name='studentId'
+            placeholder='abc123'
+            component={TextField} />
+        )}
         {edit && (
           <Field
             {...props}
