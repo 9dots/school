@@ -46,6 +46,7 @@ const StudentClass = props => {
               <StartLesson
                 uid={auth.uid}
                 assignToStudent={assignToStudent}
+                progress={progressByStudent[auth.uid].progress}
                 classId={classId}
                 assignedLesson={{
                   ...assignedLesson,

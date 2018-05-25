@@ -10,7 +10,6 @@ const Class = props => {
   if (!isLoaded) return <Loading />
 
   const isTeacher = (classData.teachers || {})[auth.uid]
-
   return isTeacher ? <TeacherClass {...props} /> : <StudentClass {...props} />
 }
 

@@ -11,14 +11,14 @@ const StartLesson = props => {
   const {
     assignedLesson = {},
     assignToStudent,
-    progress,
+    progress = [],
     classId,
     isLoaded
   } = props
   if (!isLoaded) return <Loading />
-  const prog = progress || []
+
   const { displayName, module: moduleId, id } = assignedLesson
-  const current = getIndex(prog)
+  const current = getIndex(progress)
 
   return (
     <Card className='course start-lesson'>
@@ -35,7 +35,7 @@ const StartLesson = props => {
         </Button>
       </Link>
       <div>
-        {prog.map((task = {}, i) => (
+        {progress.map((task = {}, i) => (
           <div className={getClasses(task)} key={task.task || i} />
         ))}
       </div>
