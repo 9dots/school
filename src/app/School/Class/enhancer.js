@@ -1,5 +1,11 @@
 import { progressByStudent, students as studentsSelector } from 'selectors'
-import { compose, lifecycle, withHandlers } from 'recompose'
+import {
+  compose,
+  lifecycle,
+  withHandlers,
+  branch,
+  renderNothing
+} from 'recompose'
 import { firestoreConnect } from 'react-redux-firebase'
 import modalContainer from 'components/modalContainer'
 import waitFor from 'components/waitFor'
@@ -24,22 +30,34 @@ export default compose(
   ]),
   connect(
     ({ firestore: { data }, firebase: { auth } }, { classId }) => ({
+      classLesson: (data[classId] || {}).assignedLesson || false,
       classData: { id: classId, ...data[classId] },
-      assignedLesson: (data[classId] || {}).assignedLesson || false,
       students: (data[classId] || {}).students || {},
       auth
     }),
     { rpc }
   ),
-  firestoreConnect(({ assignedLesson, classData, students }) =>
+  branch(props => !props.classLesson, renderNothing),
+  firestoreConnect(props => [
+    {
+      collection: 'modules',
+      doc: props.classLesson.module,
+      storeAs: props.classLesson.module
+    }
+  ]),
+  connect(({ firestore: { data } }, props) => ({
+    assignedLesson: getAssignedLesson(data, props)
+  })),
+  branch(props => !props.assignedLesson, renderNothing),
+  firestoreConnect(({ assignedLesson, classLesson, classData, students }) =>
     (assignedLesson
       ? assignedLesson.tasks.map(task => ({
         collection: 'activities',
         where: [
-          ['module', '==', assignedLesson.module],
+          ['module', '==', classLesson.module],
           ['task', '==', task.id]
         ],
-        storeAs: assignedLesson.module + '-' + task.id
+        storeAs: classLesson.module + '-' + task.id
       }))
       : []
     ).concat(
@@ -50,9 +68,19 @@ export default compose(
       }))
     )
   ),
-  connect((state, { assignedLesson, students }) => ({
-    progressByStudent: getProgress(assignedLesson, state, students),
-    activeByTask: getActive(assignedLesson, state, students),
+  connect((state, { assignedLesson, students, classLesson }) => ({
+    progressByStudent: getProgress(
+      assignedLesson,
+      state,
+      students,
+      classLesson.module
+    ),
+    activeByTask: getActive(
+      assignedLesson,
+      state,
+      students,
+      classLesson.module
+    ),
     studentData: studentsSelector(state, students)
   })),
   lifecycle({
@@ -103,8 +131,8 @@ export default compose(
   waitFor(['classData', 'assignedLesson', 'progressByStudent'])
 )
 
-function getActive (assignedLesson, state, students) {
-  const studentProgress = getProgress(assignedLesson, state, students)
+function getActive (assignedLesson, state, students, mod) {
+  const studentProgress = getProgress(assignedLesson, state, students, mod)
   if (assignedLesson) {
     return assignedLesson.tasks.map(({ id }) =>
       mapValues(
@@ -115,12 +143,18 @@ function getActive (assignedLesson, state, students) {
   }
 }
 
-function getProgress (assignedLesson, state, students) {
-  return progressByStudent(state, assignedLesson, students)
+function getProgress (assignedLesson, state, students, mod) {
+  return progressByStudent(state, assignedLesson, students, mod)
 }
 
 function isActive (prog, lessonId) {
   return (getProp('progress', prog) || []).some(
     p => p.active && p.task === lessonId
   )
+}
+
+function getAssignedLesson (data, props) {
+  const lesson = props.classLesson.id
+  const lessons = (data[props.classLesson.module] || {}).lessons || []
+  return lessons.find(l => l.id === lesson)
 }

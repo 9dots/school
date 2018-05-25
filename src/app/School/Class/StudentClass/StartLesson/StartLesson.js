@@ -1,6 +1,7 @@
 import { Card, Button, Icon } from 'antd'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import Loading from 'app/Loading'
 import enhancer from './enhancer'
 import React from 'react'
 
@@ -14,7 +15,7 @@ const StartLesson = props => {
     classId,
     isLoaded
   } = props
-  if (!isLoaded) return <span />
+  if (!isLoaded) return <Loading />
   const prog = progress || []
   const { displayName, module: moduleId, id } = assignedLesson
   const current = getIndex(prog)

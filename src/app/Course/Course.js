@@ -34,6 +34,7 @@ const Course = props => {
     grade,
     id
   } = course
+  console.log(id)
   return (
     <div>
       <Card

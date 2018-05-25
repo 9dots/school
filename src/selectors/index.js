@@ -2,8 +2,8 @@ import findKey from 'lodash/findKey'
 import getProp from '@f/get-prop'
 import map from '@f/map'
 
-const progressByStudent = (state, lesson, students) => {
-  const progress = stateToProgress(state, lesson.module, students)
+const progressByStudent = (state, lesson, students, mod) => {
+  const progress = stateToProgress(state, mod, students)
   return map(
     (val, key) =>
       (Object.keys(progress[key] || {}) || []).length > 0

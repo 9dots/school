@@ -16,9 +16,7 @@ import React from 'react'
 import './TeacherClass.less'
 
 const TeacherClass = props => {
-  const { progressByStudent, classData = {} } = props
-
-  const { assignedLesson } = classData
+  const { progressByStudent, assignedLesson } = props
 
   return (
     <Switch>
@@ -58,6 +56,7 @@ export default modalContainer(TeacherClass)
 const ClassView = props => {
   const {
     progressByStudent,
+    assignedLesson,
     activeByTask,
     classData = {},
     studentData,
@@ -66,7 +65,6 @@ const ClassView = props => {
   } = props
 
   const { classId } = props.match.params
-  const { assignedLesson } = classData
 
   const modules = Object.keys(classData.modules || {})
   const students = Object.keys(classData.students || {})

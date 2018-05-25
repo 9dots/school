@@ -12,9 +12,15 @@ import './StudentClass.less'
 // TODO: make this less terrible
 
 const StudentClass = props => {
-  const { classData = {}, progressByStudent, assignToStudent, auth } = props
+  const {
+    progressByStudent,
+    assignToStudent,
+    classData = {},
+    assignedLesson,
+    classLesson,
+    auth
+  } = props
   const { classId } = props.match.params
-  const { assignedLesson } = classData
 
   const modules = Object.keys(classData.modules || {})
 
@@ -41,15 +47,18 @@ const StudentClass = props => {
                 uid={auth.uid}
                 assignToStudent={assignToStudent}
                 classId={classId}
-                assignedLesson={assignedLesson} />
+                assignedLesson={{
+                  ...assignedLesson,
+                  module: classLesson.module
+                }} />
             )}
             <Divider style={{ margin: '45px 0px 40px' }}>Courses</Divider>
             <Modules
-              student={auth.uid}
-              assignToStudent={assignToStudent}
-              classId={classId}
-              progress={progressByStudent}
               assignedLesson={assignedLesson}
+              assignToStudent={assignToStudent}
+              progress={progressByStudent}
+              student={auth.uid}
+              classId={classId}
               modules={modules} />
           </div>
         )}
