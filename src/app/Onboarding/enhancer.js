@@ -41,10 +41,11 @@ const profileDetailEnhancer = compose(
   })
 )
 
-function cast (values, props) {
+function cast (values, { profile, uid }) {
   return {
     ...values,
-    teacher: props.uid
+    email: profile.email,
+    teacher: uid
   }
 }
 
@@ -75,7 +76,8 @@ export default compose(
         value: school.id
       })),
       school: Object.keys(profile.schools || {})[0],
-      uid
+      uid,
+      profile
     }),
     { rpc, setUrl }
   )
