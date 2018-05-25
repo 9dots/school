@@ -46,7 +46,7 @@ const Modules = props => {
               onAssign={onAssign}
               progress={progress}
               assignToStudent={assignToStudent}
-              assignedId={assignedLesson.id}
+              assignedId={(assignedLesson || {}).id}
               added />
           )
       )}

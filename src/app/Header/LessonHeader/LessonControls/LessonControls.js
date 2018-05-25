@@ -14,7 +14,7 @@ const path2Re = toRegexp(
   '/class/:classId/module/:moduleId/lesson/:lessonId/:taskNum/:uid'
 )
 
-const LessonControls = ({ lesson, progress, studentId }) => {
+const LessonControls = ({ tasks, lesson, progress, studentId }) => {
   const { pathname } = window.location
   const [, classId, moduleId, lessonId, current, uid = ''] = path2Re.test(
     pathname
@@ -29,7 +29,6 @@ const LessonControls = ({ lesson, progress, studentId }) => {
     'lesson',
     lessonId
   )
-  console.log(progress)
   const cur = parseInt(current, 10)
   const isLast = progress.length <= cur + 1
 

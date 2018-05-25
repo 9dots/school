@@ -15,6 +15,14 @@ import mapValues from '@f/map-values'
 import getProp from '@f/get-prop'
 import { rpc } from 'app/actions'
 
+const progressData = firestoreConnect(props => [
+  {
+    collection: 'modules',
+    doc: props.classLesson.module,
+    storeAs: props.classLesson.module
+  }
+])
+
 export default compose(
   modalContainer,
   connect((state, { match: { params: { classId, school } } }) => ({
@@ -37,18 +45,10 @@ export default compose(
     }),
     { rpc }
   ),
-  branch(props => !props.classLesson, renderNothing),
-  firestoreConnect(props => [
-    {
-      collection: 'modules',
-      doc: props.classLesson.module,
-      storeAs: props.classLesson.module
-    }
-  ]),
+  branch(props => props.classLesson, progressData),
   connect(({ firestore: { data } }, props) => ({
-    assignedLesson: getAssignedLesson(data, props)
+    assignedLesson: getAssignedLesson(data, props) || null
   })),
-  branch(props => !props.assignedLesson, renderNothing),
   firestoreConnect(({ assignedLesson, classLesson, classData, students }) =>
     (assignedLesson
       ? assignedLesson.tasks.map(task => ({

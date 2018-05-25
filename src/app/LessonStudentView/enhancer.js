@@ -37,11 +37,15 @@ export default compose(
   firestoreConnect(props =>
     props.tasks.map(task => ({
       collection: 'activities',
-      where: [['student', '==', props.uid], ['task', '==', task.id]],
+      where: [
+        ['student', '==', props.uid],
+        ['task', '==', task.id],
+        ['module', '==', props.match.params.moduleId]
+      ],
       storeAs: props.uid + '-' + task.id
     }))
   ),
-  connect(({ firestore: { ordered } }, props) => ({
+  connect(({ firestore: { ordered, data } }, props) => ({
     progress: props.tasks.length
       ? props.tasks
         .map(task => getData(ordered, props, task))
@@ -57,16 +61,27 @@ export default compose(
         progress,
         tasks,
         taskNum,
+        match,
         teacherView,
         isLoaded,
         firestore
       } = this.props
       firestore.setListeners(
-        tasks.map(task => ({
-          collection: 'activities',
-          where: [['student', '==', uid], ['task', '==', task.id]],
-          storeAs: uid + '-' + task.id
-        }))
+        tasks
+          .map(task => ({
+            collection: 'activities',
+            where: [
+              ['student', '==', uid],
+              ['task', '==', task.id],
+              ['module', '==', match.params.moduleId]
+            ],
+            storeAs: uid + '-' + task.id
+          }))
+          .concat({
+            collection: 'modules',
+            doc: match.params.moduleId,
+            storeAs: match.params.moduleId
+          })
       )
       if (progress && isLoaded && !teacherView) {
         this.props.rpc(
@@ -86,7 +101,7 @@ export default compose(
     },
     componentWillUnmount () {
       const { teacherView, progress, taskNum } = this.props
-      if (!teacherView) {
+      if (progress && !teacherView) {
         this.props.rpc('activity.maybeSetCompleted', {
           activity: progress[taskNum].id
         })
