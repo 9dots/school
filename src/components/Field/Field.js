@@ -1,5 +1,5 @@
 import React, { createElement } from 'react'
-import { Form, Input, Select } from 'antd'
+import { Form, Input, Select, Checkbox } from 'antd'
 import PropTypes from 'prop-types'
 import getProp from '@f/get-prop'
 import omit from '@f/omit'
@@ -140,8 +140,32 @@ const SelectField = props => {
   )
 }
 
+const CheckboxField = props => {
+  const {
+    setFieldTouched,
+    setFieldValue,
+    handleSubmit,
+    placeholder,
+    children,
+    itemRef,
+    values,
+    name,
+    ...rest
+  } = props
+
+  return (
+    <Checkbox
+      {...omit(formProps, rest)}
+      ref={itemRef}
+      checked={getProp(name, values)}
+      onChange={event => setFieldValue(name, event.target.checked, true)}>
+      {children}
+    </Checkbox>
+  )
+}
+
 export default BaseComponent
-export { TextField, SelectField, TextAreaField }
+export { TextField, SelectField, TextAreaField, CheckboxField }
 
 function isChanged (props, next, watchProps = ['errors', 'values']) {
   return watchProps.some(

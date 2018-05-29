@@ -1,4 +1,4 @@
-import { getValidationErrors, getFormDefaults } from 'utils'
+import { getValidationErrors, getFormDefaults, ensureHttp } from 'utils'
 import addLoading from 'components/addLoading'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
@@ -36,6 +36,7 @@ export default compose(
 function cast (values, props) {
   return {
     ...values,
+    url: ensureHttp(values.url),
     lesson: props.lesson,
     draft: props.draft,
     course: props.course
