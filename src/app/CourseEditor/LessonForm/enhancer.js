@@ -1,6 +1,6 @@
 import { compose, withHandlers } from 'recompose'
 import addLoading from 'components/addLoading'
-import { getValidationErrors } from 'utils'
+import { getValidationErrors, ensureHttp } from 'utils'
 import { connect } from 'react-redux'
 import { withFormik } from 'formik'
 import schema from 'school-schema'
@@ -61,6 +61,8 @@ function cast (values, props) {
     ...omit(['tasks', 'lesson'], values),
     course: props.course,
     draft: props.draft,
+    slides: ensureHttp(values.slides),
+    lessonPlan: ensureHttp(values.lessonPlan),
     ...(props.lesson ? { lesson: props.lesson } : {})
   }
 }

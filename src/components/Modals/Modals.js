@@ -17,7 +17,7 @@ const Modals = props => {
       <Modal {...props} component={LoginModal} name='loginModal' />
       <Modal {...props} component={StudentModal} name='createStudent' />
       <Modal {...props} component={PrintPasswords} name='printPasswords' />
-      <Modal {...props} component={StudentCsvUpload} name='studentCsvUpload' />
+      <Modal {...props} component={StudentCsvUpload} name='studentCsvModal' />
     </div>
   )
 }

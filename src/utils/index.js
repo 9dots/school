@@ -41,6 +41,11 @@ export function validate (validator, cast, overWrites) {
   }
 }
 
+export function ensureHttp (url) {
+  if (!url) return ''
+  return url.match(/^[a-zA-Z]+:\/\//) ? url : 'http://' + url
+}
+
 export function getFormDefaults (validator, cast, overWrites) {
   return {
     validateOnChange: true,

@@ -32,3 +32,41 @@
   border: 1px solid #e8e8e8;
   padding: 10px;
 }
+
+.absoluteCenter {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+}
+
+.burst(@size) {
+  width: @size;
+  height: @size;
+  line-height: @size;
+  overflow: visible;
+  position: relative;
+  text-align: center;
+  margin: (@size / 6);
+  background: #ffc700;
+  > span {
+    position: relative;
+    z-index: 1;
+    line-height: inherit;
+  }
+  &:before,
+  &:after {
+    border-radius: 0;
+    .absoluteCenter;
+    content: "";
+    height: @size;
+    width: @size;
+    transform: rotate(155deg);
+    background: inherit;
+  }
+  &:after {
+    transform: rotate(20deg);
+  }
+}

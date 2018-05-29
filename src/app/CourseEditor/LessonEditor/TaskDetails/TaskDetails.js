@@ -1,4 +1,4 @@
-import Field, { TextField, SelectField } from 'components/Field'
+import Field, { TextField, SelectField, CheckboxField } from 'components/Field'
 import { Button, Row, Col, Icon, Form, Avatar } from 'antd'
 import { taskTypes, getTaskIcon } from 'utils/data'
 import { getFormDefaults } from 'utils'
@@ -22,7 +22,7 @@ const TaskDetails = props => {
     ...rest
   } = props
 
-  const { displayName, id, type } = task
+  const { displayName, id, type, keyTask } = task
 
   return (
     <div className='task-details-inner'>
@@ -31,7 +31,9 @@ const TaskDetails = props => {
           <Col className='flex-grow ellipsis'>
             <h3 style={{ marginBottom: 0 }}>
               <Row align='middle' type='flex'>
-                <Avatar size='small'>{i + 1}</Avatar>
+                <Avatar className={keyTask ? 'key-task' : ''} size='small'>
+                  <span>{i + 1}</span>
+                </Avatar>
                 <Icon type={getTaskIcon(type)} />&ensp;
                 {displayName}
               </Row>
@@ -50,7 +52,11 @@ const TaskDetails = props => {
         <TaskForm
           {...rest}
           task={task}
-          initialValues={{ displayName: task.displayName, type: task.type }}
+          initialValues={{
+            displayName: task.displayName,
+            type: task.type,
+            keyTask: task.keyTask
+          }}
           confirmLoading={confirmLoading}
           editTask={editTask}
           setEditKey={setEditKey} />
@@ -63,11 +69,14 @@ const itemProps = { style: { marginBottom: 0 } }
 
 const TaskForm = withFormik({
   displayName: 'taskEditForm',
-  mapPropsToValues: ({ initialValues = {} }) => ({
-    type: undefined,
-    displayName: undefined,
-    ...initialValues
-  }),
+  mapPropsToValues: ({ initialValues = {} }) => {
+    return {
+      type: undefined,
+      displayName: undefined,
+      keyTask: false,
+      ...initialValues
+    }
+  },
   handleSubmit: (values, { props }) => {
     props.editTask(values)
   },
@@ -75,6 +84,15 @@ const TaskForm = withFormik({
 })(({ setEditKey, handleSubmit, editTask, confirmLoading, ...props }) => (
   <Form onSubmit={handleSubmit} style={{ margin: '8px 0 10px' }}>
     <Row type='flex' gutter={16} style={{ margin: 0 }}>
+      <Col>
+        <Field
+          {...props}
+          {...itemProps}
+          name='keyTask'
+          component={CheckboxField}>
+          Key Task
+        </Field>
+      </Col>
       <Col>
         <Field
           {...props}
@@ -97,6 +115,7 @@ const TaskForm = withFormik({
           {...props}
           itemProps={itemProps}
           name='displayName'
+          placeholder='Task Title'
           component={TextField} />
       </Col>
       <Col>
