@@ -1,11 +1,5 @@
 import { progressByStudent, students as studentsSelector } from 'selectors'
-import {
-  compose,
-  lifecycle,
-  withHandlers,
-  branch,
-  renderNothing
-} from 'recompose'
+import { withHandlers, lifecycle, compose, branch } from 'recompose'
 import { firestoreConnect } from 'react-redux-firebase'
 import modalContainer from 'components/modalContainer'
 import waitFor from 'components/waitFor'
@@ -156,5 +150,7 @@ function isActive (prog, lessonId) {
 function getAssignedLesson (data, props) {
   const lesson = props.classLesson.id
   const lessons = (data[props.classLesson.module] || {}).lessons || []
-  return lessons.find(l => l.id === lesson)
+  const assigned = lessons.find(l => l.id === lesson)
+
+  return assigned ? { ...assigned, module: props.classLesson.module } : null
 }

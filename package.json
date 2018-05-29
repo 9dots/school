@@ -54,6 +54,7 @@
     "babel-eslint": "^8.2.3",
     "babel-plugin-import": "^1.6.3",
     "babel-preset-env": "^1.6.1",
+    "cross-env": "^5.1.6",
     "eslint": "^4.19.1",
     "eslint-config-standard": "^10.2.1",
     "eslint-plugin-flowtype": "^2.46.3",
@@ -67,8 +68,9 @@
     "react-app-rewired": "^1.4.0"
   },
   "scripts": {
-    "start": "node src/theme/vars/lessToJs.js; react-app-rewired start",
-    "deploy": "node src/theme/vars/lessToJs.js; yarn build; firebase deploy --only hosting",
+    "dev": "firebase use school-dev-28e75; cross-env NODE_ENV=development node configEnv.js; node src/theme/vars/lessToJs.js; react-app-rewired start",
+    "deploy": "firebase use school-5927d; cross-env NODE_ENV=production node configEnv.js; node src/theme/vars/lessToJs.js; yarn build; firebase deploy --only hosting",
+    "deploy:staging": "firebase use school-dev-28e75; cross-env NODE_ENV=staging node configEnv.js; node src/theme/vars/lessToJs.js; yarn build; firebase deploy --only hosting",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom"
   }

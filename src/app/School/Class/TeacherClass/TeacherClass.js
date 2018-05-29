@@ -30,7 +30,7 @@ const TeacherClass = props => {
                 {...routeProps}
                 teacherView
                 uid={routeProps.match.params.uid}
-                progress={progressByStudent[routeProps.match.params.uid].progress}
+                // progress={progressByStudent[routeProps.match.params.uid].progress}
                 assignedLesson={assignedLesson}
                 profile={progressByStudent[routeProps.match.params.uid].student}
                 key={

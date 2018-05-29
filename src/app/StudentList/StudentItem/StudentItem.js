@@ -1,7 +1,6 @@
-import { Progress, Dropdown, Popover, Button, Menu, Row, Col } from 'antd'
+import { Progress, Popover, Row, Col } from 'antd'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { stopEvent } from 'utils'
 import enhancer from './enhancer'
 import React from 'react'
 
