@@ -62,7 +62,12 @@ export default compose(
 )
 
 function getSubmittedClasses (props, values) {
-  return props.classes.filter(cls => Object.keys(values).indexOf(cls.id) > -1)
+  return props.classes.filter(
+    cls =>
+      Object.keys(values)
+        .filter(key => !!values[key])
+        .indexOf(cls.id) > -1
+  )
 }
 
 function getSuccessModal (id) {

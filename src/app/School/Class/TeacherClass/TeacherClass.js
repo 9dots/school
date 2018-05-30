@@ -13,6 +13,7 @@ import PropTypes from 'prop-types'
 import Loading from 'app/Loading'
 import Modules from '../Modules'
 import React from 'react'
+
 import './TeacherClass.less'
 
 const TeacherClass = props => {
