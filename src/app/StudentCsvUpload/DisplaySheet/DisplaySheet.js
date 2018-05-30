@@ -1,4 +1,4 @@
-import { Modal, Table, Form } from 'antd'
+import { Modal, Table, Button } from 'antd'
 import Field, { TextField } from 'components/Field'
 import enhancer from './enhancer'
 import PropTypes from 'prop-types'
@@ -59,16 +59,21 @@ const columns = props => [
     title: 'Email',
     key: 'email',
     dataIndex: 'email',
+    className: 'email-col',
     render: (text, data, index) => (
       <TableInput type='email' text={text} data={data} {...props} />
     )
   },
   {
-    title: 'Actions',
     key: 'actions',
+    className: 'row-actions-col',
     render: (_, data) => (
       <div className='row-actions'>
-        <a onClick={() => props.removeRow(data.key)}>Delete Row</a>
+        <Button
+          icon='delete'
+          type='primary'
+          ghost
+          onClick={() => props.removeRow(data.key)} />
       </div>
     )
   }

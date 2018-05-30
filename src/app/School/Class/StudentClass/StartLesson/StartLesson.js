@@ -1,5 +1,6 @@
 import { Card, Button, Icon } from 'antd'
 import { Link } from 'react-router-dom'
+import TaskDot from 'components/TaskDot'
 import PropTypes from 'prop-types'
 import Loading from 'app/Loading'
 import enhancer from './enhancer'
@@ -16,8 +17,9 @@ const StartLesson = props => {
     isLoaded
   } = props
   if (!isLoaded) return <Loading />
+  console.log(props)
 
-  const { displayName, module: moduleId, id } = assignedLesson
+  const { displayName, module: moduleId, id, tasks } = assignedLesson
   const current = getIndex(progress)
 
   return (
@@ -35,8 +37,12 @@ const StartLesson = props => {
         </Button>
       </Link>
       <div>
-        {progress.map((task = {}, i) => (
-          <div className={getClasses(task)} key={task.task || i} />
+        {tasks.map((task = {}, i) => (
+          <TaskDot
+            multiple
+            tasks={Object.assign(tasks, progress[i])}
+            task={task}
+            key={task.task || i} />
         ))}
       </div>
     </Card>
@@ -46,14 +52,6 @@ const StartLesson = props => {
 function getIndex (progress) {
   const idx = progress.findIndex(p => p && !!p.active) || 0
   return idx > -1 ? idx : 0
-}
-
-function getClasses ({ completed, active, started }) {
-  let name = 'dot'
-  if (completed) name += ' completed'
-  if (started) name += ' started'
-  if (active) name += ' active'
-  return name
 }
 
 StartLesson.propTypes = {}

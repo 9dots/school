@@ -1,3 +1,4 @@
+import TaskDot from 'components/TaskDot'
 import { Link } from 'react-router-dom'
 import toRegexp from 'path-to-regexp'
 import { Icon, Button } from 'antd'
@@ -38,12 +39,17 @@ const LessonControls = ({ tasks, lesson, progress, studentId }) => {
         <Icon type='left' size='large' />
       </Link>
       <span className='dots'>
-        {progress.map((val, key) => (
-          <span key={key} className='dot-wrap'>
-            <Link to={urlJoin(path, '' + key, uid)} className={getClasses(val)}>
-              <span className='dot-index'>{key + 1}</span>
+        {tasks.map((val, i) => (
+          <span key={i} className='dot-wrap'>
+            <Link to={urlJoin(path, '' + i, uid)}>
+              <TaskDot
+                tasks={tasks}
+                task={Object.assign(val, progress[i])}
+                theme='dark'
+                multiple
+                number={i + 1} />
             </Link>
-            {key === cur && studentId && <span className='dot-arrow' />}
+            {i === cur && studentId && <span className='dot-arrow' />}
           </span>
         ))}
       </span>

@@ -1,6 +1,7 @@
 import Field, { TextField, SelectField, CheckboxField } from 'components/Field'
-import { Button, Row, Col, Icon, Form, Avatar } from 'antd'
+import { Button, Row, Col, Icon, Form } from 'antd'
 import { taskTypes, getTaskIcon } from 'utils/data'
+import TaskDot from 'components/TaskDot'
 import { getFormDefaults } from 'utils'
 import { withFormik } from 'formik'
 import schema from 'school-schema'
@@ -17,25 +18,24 @@ const TaskDetails = props => {
     removeTask,
     editTask,
     editKey,
+    tasks,
     task,
     i,
     ...rest
   } = props
 
-  const { displayName, id, type, keyTask } = task
+  const { displayName, id, type } = task
 
   return (
     <div className='task-details-inner'>
       {editKey !== id ? (
         <Row type='flex'>
-          <Col className='flex-grow ellipsis'>
+          <Col className='flex-grow'>
             <h3 style={{ marginBottom: 0 }}>
               <Row align='middle' type='flex'>
-                <Avatar className={keyTask ? 'key-task' : ''} size='small'>
-                  <span>{i + 1}</span>
-                </Avatar>
+                <TaskDot tasks={tasks} task={task} number={i + 1} />
                 <Icon type={getTaskIcon(type)} />&ensp;
-                {displayName}
+                <div className='ellipsis flex-grow'>{displayName}</div>
               </Row>
             </h3>
           </Col>

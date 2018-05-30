@@ -1,0 +1,125 @@
+@import (reference) "../../theme/mixins";
+@import "../../theme/vars/vars.less";
+
+/* TaskDot less */
+
+@size: 24;
+
+.resize (@s) {
+  height: unit(@s, px);
+  width: unit(@s, px);
+  line-height: unit(@s, px);
+  font-size: unit(@s / 2, px);
+}
+
+.grow {
+  left: -1px;
+  right: -1px;
+  top: -1px;
+  bottom: -1px;
+}
+
+.triangle(@size, @color) {
+  width: 0;
+  height: 0;
+  margin: 0;
+  background-color: transparent;
+  border-left: unit(@size / 2, px) solid transparent;
+  border-right: unit(@size / 2, px) solid transparent;
+  border-bottom: unit(@size / 1.2, px) solid @color;
+  transform: none;
+  border-radius: 0;
+}
+
+.task-dot {
+  .resize(@size);
+  position: relative;
+  display: inline-block;
+  .shape {
+    .absoluteCenter;
+    background: #ccc;
+    border-radius: 99px;
+  }
+  .number {
+    position: relative;
+    z-index: 1;
+    color: white;
+    text-align: center;
+  }
+  &.key-task {
+    .shape {
+      border-radius: 0;
+      margin: 3px;
+      transform: rotate(45deg);
+    }
+    .shape.star {
+      &:after {
+        content: "";
+        .absoluteCenter;
+        background-color: inherit;
+        transform: rotate(-45deg);
+      }
+    }
+    .shape.triangle {
+      .triangle(@size, #ccc);
+    }
+  }
+  &.active {
+    .shape.border {
+      background: @blue;
+      .grow;
+    }
+    .shape,
+    .number {
+      transform: scale(1.3);
+    }
+    &.key-task {
+      .shape {
+        transform: scale(1.3) rotate(45deg);
+      }
+    }
+  }
+  &.completed {
+    .shape {
+      background: @green;
+    }
+  }
+
+  &.dark {
+    .shape {
+      background: fade(white, 50);
+    }
+    &.completed {
+      .shape {
+        background: @green;
+      }
+    }
+    &.active {
+      .shape.border {
+        background: white;
+      }
+    }
+  }
+
+  &.multiple {
+    @size: 13px;
+    height: unit(@size, px);
+    width: unit(@size, px);
+    line-height: unit(@size, px);
+    font-size: unit(@size / 2, px);
+    margin: 0 5px;
+    &.key-task {
+      .shape {
+        margin: 1px;
+      }
+    }
+    &.has-number {
+      @size: 17px;
+      height: unit(@size, px);
+      width: unit(@size, px);
+      line-height: unit(@size, px);
+      font-size: unit(@size / 2 + 1, px);
+      margin: 0 7px;
+    }
+  }
+}

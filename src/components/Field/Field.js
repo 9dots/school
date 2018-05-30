@@ -13,11 +13,17 @@ class BaseComponent extends React.Component {
     this.input = React.createRef()
   }
   shouldComponentUpdate (nextProps) {
-    const { options, submitCount } = this.props
+    const { options, submitCount, name } = this.props
     const optsChanged = options !== nextProps.options
+    const nameChanged = name !== nextProps.name
     const submitChange = submitCount !== nextProps.submitCount
 
-    return submitChange || optsChanged || isChanged(this.props, nextProps)
+    return (
+      submitChange ||
+      optsChanged ||
+      nameChanged ||
+      isChanged(this.props, nextProps)
+    )
   }
   componentDidUpdate (prevProps) {
     if (

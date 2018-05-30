@@ -1,0 +1,6 @@
+
+{
+  "name": "TaskDot",
+  "main": "TaskDot.js",
+  "browser": "TaskDot.js"
+}

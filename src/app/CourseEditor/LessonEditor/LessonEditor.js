@@ -53,6 +53,7 @@ const LessonEditor = ({
                         <TaskDetails
                           handleProps={{ ...provided.dragHandleProps }}
                           task={task}
+                          tasks={tasks}
                           draft={draft}
                           editKey={editKey}
                           course={course}

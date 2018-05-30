@@ -41,7 +41,9 @@ export default compose(
   }),
   withHandlers({
     removeRow: ({ values, update, setState, setValues }) => key => {
+      console.log(values, key, omit(key, values))
       setValues(omit(key, values))
+
       message.success('Row Removed')
     }
   })

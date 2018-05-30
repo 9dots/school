@@ -15,7 +15,9 @@ const MenuTitle = ({
   return (
     <div>
       <Row type='flex' justify='space-between' align='middle'>
-        <Col>{displayName}</Col>
+        <Col className='ellipsis' style={{ flex: 1, paddingRight: 10 }}>
+          {displayName}
+        </Col>
         {isTeacher && (
           <Col>
             <Icon
