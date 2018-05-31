@@ -37,11 +37,11 @@ const StartLesson = props => {
         </Button>
       </Link>
       <div>
-        {tasks.map((task = {}, i) => (
+        {progress.map((task = {}, i) => (
           <TaskDot
             multiple
-            tasks={Object.assign(tasks, progress[i])}
-            task={task}
+            tasks={tasks}
+            task={{ ...task, ...tasks[i] }}
             key={task.task || i} />
         ))}
       </div>

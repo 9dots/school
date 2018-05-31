@@ -1,42 +1,25 @@
 import PropTypes from 'prop-types'
 import { Avatar } from 'antd'
+import Shape from './getShape'
+import getShape from './getShape'
 import React from 'react'
 import './TaskDot.less'
-
-const shapes = ['diamond', 'star', 'triangle', 'square']
 
 const TaskDot = ({
   task,
   number,
   multiple,
   theme,
-  size,
   style = {},
-  tasks = []
+  tasks = [],
+  ...rest
 }) => {
   const shapeIndex =
-    tasks.filter(t => t.keyTask).findIndex(t => t.id === task.id) %
-    shapes.length
-
-  const numSize = parseInt(size, 10)
-  const sizeObj = size
-    ? {
-      height: numSize,
-      width: numSize,
-      lineHeight: numSize + 'px',
-      fontSize: Math.ceil(numSize / 2) + 'px'
-    }
-    : {}
+    tasks.filter(t => t.keyTask).findIndex(t => t.id === task.id) % 4
 
   return (
-    <div
-      className={getClasses(task, multiple, number, theme)}
-      style={{
-        ...sizeObj,
-        ...style
-      }}>
-      <div className={`shape border ${shapes[shapeIndex]}`} />
-      <div className={`shape ${shapes[shapeIndex]}`} />
+    <div className={getClasses(task, multiple, number, theme)} {...rest}>
+      {getShape(shapeIndex)}
       {number && <div className='number'>{number}</div>}
     </div>
   )

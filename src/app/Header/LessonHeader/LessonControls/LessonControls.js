@@ -39,12 +39,12 @@ const LessonControls = ({ tasks, lesson, progress, studentId }) => {
         <Icon type='left' size='large' />
       </Link>
       <span className='dots'>
-        {tasks.map((val, i) => (
+        {progress.map((val, i) => (
           <span key={i} className='dot-wrap'>
             <Link to={urlJoin(path, '' + i, uid)}>
               <TaskDot
                 tasks={tasks}
-                task={Object.assign(val, progress[i])}
+                task={{ ...val, ...tasks[i] }}
                 theme='dark'
                 multiple
                 number={i + 1} />
