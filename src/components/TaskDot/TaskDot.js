@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import { Avatar } from 'antd'
-import Shape from './getShape'
-import getShape from './getShape'
+import Shape from './Shape'
 import React from 'react'
 import './TaskDot.less'
 
@@ -19,7 +18,7 @@ const TaskDot = ({
 
   return (
     <div className={getClasses(task, multiple, number, theme)} {...rest}>
-      {getShape(shapeIndex)}
+      <Shape index={shapeIndex} />
       {number && <div className='number'>{number}</div>}
     </div>
   )
