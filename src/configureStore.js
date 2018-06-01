@@ -25,6 +25,7 @@ firestore.settings(settings)
 const rrfbConfig = {
   userProfile: 'users',
   useFirestoreForProfile: true,
+  enableLogging: true,
   updateProfileOnLogin: false,
   onAuthStateChanged: (user, firebase, dispatch) => {
     if (user && Object.keys(user.providerData).length) {

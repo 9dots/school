@@ -39,7 +39,7 @@ const AddCourseModal = props => {
             <List>
               {isLoaded &&
                 classes.map(({ displayName, school, id }) => (
-                  <List.Item key={id}>
+                  <List.Item key={id} className='ellipsis'>
                     <Field
                       {...props}
                       noItem
@@ -58,10 +58,11 @@ const AddCourseModal = props => {
 }
 
 const checkField = ({ displayName, setFieldValue, school, name }) => (
-  <div className='input-row'>
+  <div className='input-row ellipsis'>
     <Checkbox
       onChange={e => setFieldValue(name, e.target.checked)}
-      className='large'>
+      className='large'
+      style={{ display: 'flex' }}>
       <div>
         <div>{displayName}</div>
         <i>

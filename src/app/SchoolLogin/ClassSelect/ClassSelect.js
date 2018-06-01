@@ -14,7 +14,7 @@ const ClassSelect = ({ school = {}, classes = [], schoolId, colors }) => {
       <div className='school-header'>
         <h1>{school.displayName}</h1>
       </div>
-      <h2>Select your Teacher</h2>
+      <h2>Select your Class</h2>
       <Row
         type='flex'
         className='flex-wrap'

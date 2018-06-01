@@ -63,7 +63,10 @@ const HomeRoutes = ({
       <Redirect exact path='/' to='/courses' />
       <Route exact path='/school/:schoolId/:classId?' component={SchoolLogin} />
       <Route exact path='/courses' render={() => <Courses header={false} />} />
-      <Route exact path='/courses/:courseId' component={CourseView} />
+      <Route
+        exact
+        path='/courses/:courseId'
+        render={props => <CourseView {...props} header={false} />} />
     </Switch>
   </HomeLayout>
 )

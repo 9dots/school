@@ -43,6 +43,7 @@ export default compose(
         await props.rpc('class.updateDetails', cast(values, props))
         resetForm(values)
         props.setLoading(false)
+        message.success('Class updated')
       } catch (e) {
         props.setLoading(false)
         if (e.errorDetails) {

@@ -43,7 +43,7 @@ const StepModal = ({
       <Component
         {...props}
         stepModal={{ next, prev, goTo }}
-        key={openModal}
+        key={'modal-' + openModal}
         mask={false}
         visible />
     </Modal>

@@ -20,27 +20,6 @@ const AddStudentModal = ({
       {...props}
       onCancel={onCancel}
       onOk={handleSubmit}
-      // footer={
-      //   <span>
-      //     <Button
-      //       style={{ float: 'left' }}
-      //       className='secondary'
-      //       type='primary'
-      //       ghost>
-      //       Upload Spreadsheet
-      //     </Button>
-      //     <Button key='back' onClick={onCancel}>
-      //       Cancel
-      //     </Button>
-      //     <Button
-      //       key='submit'
-      //       type='primary'
-      //       loading={props.confirmLoading}
-      //       onClick={handleSubmit}>
-      //       Submit
-      //     </Button>
-      //   </span>
-      // }
       title='Add a Student to Your Class'>
       <form onSubmit={handleSubmit}>
         <div style={{ margin: '24px 50px 0' }}>
@@ -64,11 +43,6 @@ const AddStudentModal = ({
           </Field>
         </div>
         {stepModal && (
-          // <div style={{ textAlign: 'center', fontSize: 12 }}>
-          //   <a onClick={stepModal.next}>
-          //     <Icon type='plus' />&ensp;Create a New Student Account
-          //   </a>
-          // </div>
           <div style={{ paddingBottom: 20 }}>
             <Divider style={{ padding: '4px 100px 16px' }}>OR</Divider>
             <Row type='flex' gutter={16} justify='center'>

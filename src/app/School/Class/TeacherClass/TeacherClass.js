@@ -73,7 +73,9 @@ const ClassView = props => {
   return (
     <Layout className='class'>
       <Layout.Header style={{ lineHeight: '20px', padding: '10px 50px' }}>
-        <h2 style={{ marginBottom: 6 }}>{classData.displayName}</h2>
+        <h2 className='ellipsis' style={{ marginBottom: 6, maxWidth: 400 }}>
+          {classData.displayName}
+        </h2>
         <div style={{ fontSize: '12px' }}>
           {students.length} Student{students.length !== 1 ? 's' : ''}&ensp;|&ensp;
           <span

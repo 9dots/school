@@ -27,7 +27,9 @@ const StudentClass = props => {
   const classView = (
     <Layout className='class'>
       <Layout.Header>
-        <h2>{classData.displayName}</h2>
+        <h2 className='ellipsis' style={{ maxWidth: 400 }}>
+          {classData.displayName}
+        </h2>
       </Layout.Header>
       <Layout.Content
         style={{

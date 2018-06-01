@@ -29,16 +29,16 @@ export default [
     )
   },
   {
-    title: 'Student Id',
+    title: 'Student ID',
     name: 'studentId',
     required: true,
     description: (
       <span>
         Select the column from your file that has your students&apos;{' '}
-        <b>DISTRCIT ID</b> numbers in it?
+        <b>DISTRICT ID</b> numbers in it?
         <br />
         <small>
-          If you don&apos;t have a unique id number you can select a column that
+          If you don&apos;t have a unique ID number you can select a column that
           contains emails or another unique identifier.
         </small>
       </span>

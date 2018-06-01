@@ -3,7 +3,6 @@ import { Form, Input, Select, Checkbox } from 'antd'
 import PropTypes from 'prop-types'
 import getProp from '@f/get-prop'
 import omit from '@f/omit'
-import pick from '@f/pick'
 
 import './Field.less'
 
@@ -13,15 +12,18 @@ class BaseComponent extends React.Component {
     this.input = React.createRef()
   }
   shouldComponentUpdate (nextProps) {
-    const { options, submitCount, name } = this.props
+    const { children = [], options, submitCount, name } = this.props
     const optsChanged = options !== nextProps.options
     const nameChanged = name !== nextProps.name
+    const childrenChanged =
+      children.length !== (nextProps.children || []).length
     const submitChange = submitCount !== nextProps.submitCount
 
     return (
       submitChange ||
       optsChanged ||
       nameChanged ||
+      childrenChanged ||
       isChanged(this.props, nextProps)
     )
   }

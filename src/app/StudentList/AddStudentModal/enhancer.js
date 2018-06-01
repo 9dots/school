@@ -1,6 +1,13 @@
 import modalContainer from 'components/modalContainer'
 import { firestoreConnect } from 'react-redux-firebase'
-import { compose, withHandlers } from 'recompose'
+import {
+  compose,
+  withHandlers,
+  branch,
+  renderNothing,
+  withProps
+} from 'recompose'
+import waitFor from 'components/waitFor'
 import formModal from 'components/formModal'
 import { getFormDefaults } from 'utils'
 import { connect } from 'react-redux'
@@ -15,25 +22,21 @@ export default compose(
     {
       collection: 'users',
       where: [`schools.${props.school}`, '==', true],
-      storeAs: 'studentList'
+      storeAs: `studentLists-${props.school}`
     }
   ]),
   connect(
-    (
-      {
-        firestore: {
-          data,
-          ordered: { studentList = [] }
-        }
-      },
-      props
-    ) => ({
-      studentList: studentList.filter(
-        ({ id }) => !(props.class.members || {})[id]
-      )
+    ({ firestore: { ordered } }, props) => ({
+      studentListData: ordered[`studentLists-${props.school}`]
     }),
     { rpc }
   ),
+  branch(props => props.studentListData === undefined, renderNothing),
+  withProps(props => ({
+    studentList: props.studentListData.filter(
+      ({ id }) => !(props.class.members || {})[id]
+    )
+  })),
   withHandlers({
     parseCsv: props => async e => {
       const file = e.target.files[0]
@@ -76,7 +79,8 @@ export default compose(
       props.setLoading(false)
     },
     ...getFormDefaults(schema.class.addStudent, cast)
-  })
+  }),
+  branch(props => props.studentList.length['studentList'])
 )
 
 function cast (values, props) {

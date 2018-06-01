@@ -6,7 +6,7 @@ import { compose } from 'recompose'
 import { course } from 'selectors'
 import PropTypes from 'prop-types'
 import Course from '../Course'
-import { Icon } from 'antd'
+import { Icon, Layout } from 'antd'
 import React from 'react'
 
 import './CourseView.less'
@@ -30,16 +30,34 @@ const enhancer = compose(
   waitFor(['course'])
 )
 
-const CourseView = ({ context, courseId, course }) => {
+const CourseView = ({ context, courseId, course, header = true }) => {
+  const BackBtn = () => (
+    <h2>
+      <Link to={`/${context || 'courses'}`}>
+        <Icon type='left' /> Back to{' '}
+        <span style={{ textTransform: 'capitalize' }}>
+          {context || 'Courses'}
+        </span>
+      </Link>
+    </h2>
+  )
+
   return (
-    <div className='course-view main-col' style={{ padding: '30px 50px 50px' }}>
-      <h2>
-        <Link to={`/${context || 'courses'}`}>
-          <Icon type='left' /> Back to Courses
-        </Link>
-      </h2>
-      {course && <Course progress={{}} course={{ id: courseId, ...course }} />}
-    </div>
+    <Layout>
+      {header && (
+        <Layout.Header>
+          <BackBtn />
+        </Layout.Header>
+      )}
+      <div
+        className='course-view main-col'
+        style={{ padding: '30px 50px 50px', width: '100%' }}>
+        {!header && <BackBtn />}
+        {course && (
+          <Course progress={{}} course={{ id: courseId, ...course }} />
+        )}
+      </div>
+    </Layout>
   )
 }
 
