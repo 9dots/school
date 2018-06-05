@@ -1,24 +1,19 @@
 import PropTypes from 'prop-types'
-import { Avatar } from 'antd'
 import Shape from './Shape'
 import React from 'react'
 import './TaskDot.less'
 
 const TaskDot = ({
-  task,
+  task = {},
   number,
   multiple,
   theme,
-  style = {},
-  tasks = [],
+  shape = 0,
   ...rest
 }) => {
-  const shapeIndex =
-    tasks.filter(t => t.keyTask).findIndex(t => t.id === task.id) % 4
-
   return (
     <div className={getClasses(task, multiple, number, theme)} {...rest}>
-      <Shape index={shapeIndex} />
+      <Shape index={task.keyTask || shape} />
       {number && <div className='number'>{number}</div>}
     </div>
   )

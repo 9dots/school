@@ -5,6 +5,7 @@ export const messages = {
   password_too_short: 'Must be at least 4 characters',
   invalid_credentials: 'Incorrect password',
   invalid_username: 'Invalid username',
+  invalid_url: 'Invalid URL',
   missing_required_field: 'Required',
   username_taken: 'Username taken'
 }

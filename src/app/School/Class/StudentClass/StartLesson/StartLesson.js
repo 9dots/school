@@ -17,7 +17,6 @@ const StartLesson = props => {
     isLoaded
   } = props
   if (!isLoaded) return <Loading />
-  console.log(props)
 
   const { displayName, module: moduleId, id, tasks } = assignedLesson
   const current = getIndex(progress)
@@ -40,7 +39,6 @@ const StartLesson = props => {
         {progress.map((task = {}, i) => (
           <TaskDot
             multiple
-            tasks={tasks}
             task={{ ...task, ...tasks[i] }}
             key={task.task || i} />
         ))}

@@ -40,6 +40,7 @@ const ClassDetails = props => {
             label='Grade'
             itemProps={itemLayout}
             name='grade'
+            defaultValue='0'
             options={grades}
             component={SelectField} />
           <Form.Item label='School' {...itemLayout}>
