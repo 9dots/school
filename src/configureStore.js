@@ -19,13 +19,12 @@ const config = getConfig()
 
 firebase.initializeApp(config)
 const firestore = firebase.firestore()
-const settings = { timestampsInSnapshots: true }
-firestore.settings(settings)
+firestore.settings({ timestampsInSnapshots: true })
+firestore.enablePersistence()
 
 const rrfbConfig = {
   userProfile: 'users',
   useFirestoreForProfile: true,
-  enableLogging: true,
   updateProfileOnLogin: false,
   onAuthStateChanged: (user, firebase, dispatch) => {
     if (user && Object.keys(user.providerData).length) {

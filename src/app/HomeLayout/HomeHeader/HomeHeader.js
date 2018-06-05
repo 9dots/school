@@ -20,7 +20,7 @@ const HomeHeader = ({ login, allowSignIn }) => {
       <Row type='flex'>
         <Col className='flex-grow'>
           <h1 style={{ color: 'white', letterSpacing: '3px' }}>
-            my<b>9DOTS</b>
+            <b>9 DOTS</b>
           </h1>
         </Col>
         <Col>

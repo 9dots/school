@@ -1,4 +1,3 @@
-import registerServiceWorker from './registerServiceWorker'
 import createStore, { history } from 'configureStore'
 import Router from 'react-router-dom/Router'
 import { Provider } from 'react-redux'
@@ -15,4 +14,3 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 )
-registerServiceWorker()
