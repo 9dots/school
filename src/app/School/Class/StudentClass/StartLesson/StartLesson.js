@@ -2,22 +2,12 @@ import { Card, Button, Icon } from 'antd'
 import { Link } from 'react-router-dom'
 import TaskDot from 'components/TaskDot'
 import PropTypes from 'prop-types'
-import Loading from 'app/Loading'
-import enhancer from './enhancer'
 import React from 'react'
 
 import './StartLesson.less'
 
 const StartLesson = props => {
-  const {
-    assignedLesson = {},
-    assignToStudent,
-    progress = [],
-    classId,
-    isLoaded
-  } = props
-  if (!isLoaded) return <Loading />
-
+  const { assignedLesson = {}, assignToStudent, progress = [], classId } = props
   const { displayName, module: moduleId, id, tasks } = assignedLesson
   const current = getIndex(progress)
 
@@ -54,4 +44,4 @@ function getIndex (progress) {
 
 StartLesson.propTypes = {}
 
-export default enhancer(StartLesson)
+export default StartLesson

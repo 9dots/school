@@ -1,8 +1,9 @@
-import PropTypes from 'prop-types'
-import React from 'react'
 import { Progress, Row, Col } from 'antd'
-import './ProgressRow.less'
+import PropTypes from 'prop-types'
 import enhancer from './enhancer'
+import React from 'react'
+
+import './ProgressRow.less'
 
 const ProgressRow = ({ user, progress, active }) => {
   const activeProgress = progress.find(p => p.activity === active)
