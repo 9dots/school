@@ -24,7 +24,7 @@ const LessonHeader = ({
         <h2>
           <Link to={`/class/${classId}`}>
             <Icon type='left' size='large' style={{ marginRight: 10 }} />
-            Back To Class
+            {lesson.displayName}
           </Link>
         </h2>
       </Layout.Sider>
