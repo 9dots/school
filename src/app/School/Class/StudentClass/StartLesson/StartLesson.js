@@ -7,12 +7,7 @@ import React from 'react'
 import './StartLesson.less'
 
 const StartLesson = props => {
-  const {
-    assignedLesson = {},
-    assignToStudent,
-    progress = [],
-    classId
-  } = props
+  const { assignedLesson = {}, assignToStudent, progress = [], classId } = props
   const { displayName, module: moduleId, id, tasks } = assignedLesson
   const current = getIndex(progress)
 
@@ -34,7 +29,6 @@ const StartLesson = props => {
         {progress.map((task = {}, i) => (
           <TaskDot
             multiple
-            tasks={tasks}
             task={{ ...task, ...tasks[i] }}
             key={task.task || i} />
         ))}

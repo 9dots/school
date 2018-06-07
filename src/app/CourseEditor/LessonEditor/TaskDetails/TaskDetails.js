@@ -18,7 +18,6 @@ const TaskDetails = props => {
     removeTask,
     editTask,
     editKey,
-    tasks,
     task,
     i,
     ...rest
@@ -33,7 +32,7 @@ const TaskDetails = props => {
           <Col className='flex-grow'>
             <h3 style={{ marginBottom: 0 }}>
               <Row align='middle' type='flex'>
-                <TaskDot tasks={tasks} task={task} number={i + 1} />
+                <TaskDot task={task} number={i + 1} />
                 <Icon type={getTaskIcon(type)} />&ensp;
                 <div className='ellipsis flex-grow'>{displayName}</div>
               </Row>
@@ -73,7 +72,7 @@ const TaskForm = withFormik({
     return {
       type: undefined,
       displayName: undefined,
-      keyTask: false,
+      keyTask: 0,
       ...initialValues
     }
   },
@@ -83,15 +82,30 @@ const TaskForm = withFormik({
   ...getFormDefaults(schema.course.updateTask, cast)
 })(({ setEditKey, handleSubmit, editTask, confirmLoading, ...props }) => (
   <Form onSubmit={handleSubmit} style={{ margin: '8px 0 10px' }}>
-    <Row type='flex' gutter={16} style={{ margin: 0 }}>
+    <Row type='flex' gutter={16} style={{ margin: '0 -8px' }}>
       <Col>
         <Field
           {...props}
-          {...itemProps}
+          itemProps={itemProps}
           name='keyTask'
-          component={CheckboxField}>
-          Key Task
-        </Field>
+          defaultValue={0}
+          placeholder={
+            <div style={{ textAlign: 'center' }}>
+              <TaskDot style={{ margin: '4px 0 0 0' }} task={{ keyTask: 0 }} />
+            </div>
+          }
+          component={SelectField}
+          options={[0, 1, 2, 3, 4].map(num => ({
+            key: num,
+            value: num,
+            label: (
+              <div style={{ textAlign: 'center' }}>
+                <TaskDot
+                  style={{ margin: '4px 0 0 0' }}
+                  task={{ keyTask: num }} />
+              </div>
+            )
+          }))} />
       </Col>
       <Col>
         <Field

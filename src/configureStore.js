@@ -48,7 +48,8 @@ const rrfbConfig = {
                 if (window.gapi.auth2.getAuthInstance().isSignedIn.get()) {
                   console.log('ready')
                 } else {
-                  firebase.auth().signOut() // Something went wrong, sign out
+                  console.log('failed')
+                  // firebase.auth().signOut() // Something went wrong, sign out
                 }
               })
           }

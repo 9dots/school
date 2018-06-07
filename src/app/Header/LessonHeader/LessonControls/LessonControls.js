@@ -43,7 +43,6 @@ const LessonControls = ({ tasks, lesson, progress, studentId }) => {
           <span key={i} className='dot-wrap'>
             <Link to={urlJoin(path, '' + i, uid)}>
               <TaskDot
-                tasks={tasks}
                 task={{ ...val, ...tasks[i] }}
                 theme='dark'
                 multiple

@@ -119,6 +119,7 @@ const SelectField = props => {
     setFieldTouched,
     notFoundContent,
     setFieldValue,
+    defaultValue,
     placeholder,
     children,
     options,
@@ -128,15 +129,20 @@ const SelectField = props => {
     ...rest
   } = props
 
+  const val =
+    typeof getProp(name, values) === 'undefined'
+      ? defaultValue
+      : getProp(name, values)
+
   return (
     <Select
       {...omit(formProps, rest)}
       onBlur={() => setFieldTouched(name, true, true)}
       onChange={value => setFieldValue(name, value)}
-      value={getProp(name, values) || undefined}
       notFoundContent={notFoundContent}
       placeholder={placeholder}
       options={options}
+      value={val}
       mode={mode}>
       {children ||
         options.map(({ label, value }, i) => (

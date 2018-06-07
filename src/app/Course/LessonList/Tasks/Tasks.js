@@ -1,4 +1,4 @@
-import { Avatar, Icon, List } from 'antd'
+import { Icon, List } from 'antd'
 import { Link } from 'react-router-dom'
 import TaskDot from 'components/TaskDot'
 import { getTaskIcon } from 'utils/data'
@@ -11,7 +11,7 @@ const Tasks = ({ lesson: { tasks = [], id }, moduleId, classId, student }) => (
     {(tasks || []).map((task, i) => (
       <List.Item key={id + '-' + i}>
         <List.Item.Meta
-          avatar={<TaskDot tasks={tasks} task={task} number={i + 1} />}
+          avatar={<TaskDot task={task} number={i + 1} />}
           title={
             <span>
               <Icon type={getTaskIcon(task.type)} />

@@ -35,7 +35,7 @@ const ActiveLesson = ({ lesson, modal, studentProgress, activeByTask }) => {
         {tasks.map((task, i) => (
           <List.Item key={i}>
             <List.Item.Meta
-              avatar={<TaskDot tasks={tasks} task={task} number={i + 1} />}
+              avatar={<TaskDot task={task} number={i + 1} />}
               title={
                 <span style={{ fontWeight: 'normal' }}>
                   <Icon
