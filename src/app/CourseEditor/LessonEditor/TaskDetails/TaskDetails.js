@@ -129,7 +129,8 @@ const TaskForm = withFormik({
           {...props}
           itemProps={itemProps}
           name='displayName'
-          placeholder='Task Title'
+          addonBefore='Task Title:'
+          placeholder='Enter a title…'
           component={TextField} />
       </Col>
       <Col>
