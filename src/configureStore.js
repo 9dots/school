@@ -42,16 +42,6 @@ const rrfbConfig = {
                 discoveryDocs: config.discoveryDocs,
                 scope: config.scopes.join(' ')
               })
-              // Loading is finished, so start the app
-              .then(function () {
-                // Make sure the Google API Client is properly signed in
-                if (window.gapi.auth2.getAuthInstance().isSignedIn.get()) {
-                  console.log('ready')
-                } else {
-                  console.log('failed')
-                  // firebase.auth().signOut() // Something went wrong, sign out
-                }
-              })
           }
         })
       }

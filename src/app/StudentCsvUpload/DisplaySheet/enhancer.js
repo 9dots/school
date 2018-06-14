@@ -9,7 +9,10 @@ import { message } from 'antd'
 import omit from '@f/omit'
 
 export default compose(
-  connect(null, { rpc }),
+  connect(
+    null,
+    { rpc }
+  ),
   formModal({
     displayName: 'createStudents',
     mapPropsToValues: ({ data = {} }) => ({
@@ -41,9 +44,7 @@ export default compose(
   }),
   withHandlers({
     removeRow: ({ values, update, setState, setValues }) => key => {
-      console.log(values, key, omit(key, values))
       setValues(omit(key, values))
-
       message.success('Row Removed')
     }
   })

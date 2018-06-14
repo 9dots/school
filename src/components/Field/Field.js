@@ -1,5 +1,5 @@
+import { Form, Input, Select, Checkbox, Radio } from 'antd'
 import React, { createElement } from 'react'
-import { Form, Input, Select, Checkbox } from 'antd'
 import PropTypes from 'prop-types'
 import getProp from '@f/get-prop'
 import omit from '@f/omit'
@@ -12,18 +12,24 @@ class BaseComponent extends React.Component {
     this.input = React.createRef()
   }
   shouldComponentUpdate (nextProps) {
-    const { children = [], options, submitCount, name } = this.props
+    const {
+      children = [],
+      options,
+      submitCount,
+      name,
+      update = () => {}
+    } = this.props
     const optsChanged = options !== nextProps.options
     const nameChanged = name !== nextProps.name
     const childrenChanged =
       children.length !== (nextProps.children || []).length
     const submitChange = submitCount !== nextProps.submitCount
-
     return (
       submitChange ||
       optsChanged ||
       nameChanged ||
       childrenChanged ||
+      update(this.props, nextProps) ||
       isChanged(this.props, nextProps)
     )
   }
@@ -51,7 +57,7 @@ class BaseComponent extends React.Component {
     return createElement(
       noItem ? 'div' : Form.Item,
       noItem
-        ? {}
+        ? itemProps
         : {
           // hasFeedback: !!getProp(name, touched) && !!getProp(name, errors),
           validateStatus:
@@ -72,6 +78,7 @@ BaseComponent.propTypes = {}
 
 const TextField = props => {
   const {
+    onChange = () => {},
     setFieldTouched,
     setFieldValue,
     handleSubmit,
@@ -88,14 +95,43 @@ const TextField = props => {
       ref={itemRef}
       placeholder={placeholder}
       value={getProp(name, values)}
-      onChange={event => setFieldValue(name, event.target.value, true)}
+      onChange={event => {
+        setFieldValue(name, event.target.value, true)
+        onChange(event)
+      }}
       onBlur={() => setFieldTouched(name, true, true)}
       onPressEnter={handleSubmit} />
   )
 }
 
+const RadioField = props => {
+  const {
+    setFieldTouched,
+    setFieldValue,
+    handleSubmit,
+    options = [],
+    values,
+    name,
+    ...rest
+  } = props
+  return (
+    <Radio.Group
+      {...rest}
+      value={getProp(name, values)}
+      onChange={event => setFieldValue(name, event.target.value, true)}>
+      {props.children ||
+        options.map(({ value, label }, i) => (
+          <Radio key={i} value={value}>
+            {label}
+          </Radio>
+        ))}
+    </Radio.Group>
+  )
+}
+
 const TextAreaField = props => {
   const {
+    onChange = () => {},
     setFieldTouched,
     setFieldValue,
     handleSubmit,
@@ -109,7 +145,10 @@ const TextAreaField = props => {
       {...omit(formProps, rest)}
       placeholder={placeholder}
       value={getProp(name, values)}
-      onChange={event => setFieldValue(name, event.target.value, true)}
+      onChange={event => {
+        setFieldValue(name, event.target.value, true)
+        onChange(event)
+      }}
       onBlur={() => setFieldTouched(name, true, true)} />
   )
 }
@@ -133,7 +172,6 @@ const SelectField = props => {
     typeof getProp(name, values) === 'undefined'
       ? defaultValue
       : getProp(name, values)
-  console.log(val)
 
   return (
     <Select
@@ -169,18 +207,18 @@ const CheckboxField = props => {
   } = props
 
   return (
-    <Checkbox
+    <Checkbox.Group
       {...omit(formProps, rest)}
       ref={itemRef}
-      checked={getProp(name, values)}
-      onChange={event => setFieldValue(name, event.target.checked, true)}>
+      value={getProp(name, values)}
+      onChange={value => setFieldValue(name, value, true)}>
       {children}
-    </Checkbox>
+    </Checkbox.Group>
   )
 }
 
 export default BaseComponent
-export { TextField, SelectField, TextAreaField, CheckboxField }
+export { TextField, SelectField, TextAreaField, CheckboxField, RadioField }
 
 function isChanged (props, next, watchProps = ['errors', 'values']) {
   return watchProps.some(
