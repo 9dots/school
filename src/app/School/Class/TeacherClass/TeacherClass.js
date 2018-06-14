@@ -67,7 +67,11 @@ const ClassView = props => {
 
   const { classId } = props.match.params
 
-  const modules = Object.keys(classData.modules || {})
+  const mods = classData.modules || {}
+  const modules = Object.keys(mods).sort(
+    (modA, modB) => mods[modA].ts > mods[modB].ts
+  )
+
   const students = Object.keys(classData.students || {})
 
   return (
