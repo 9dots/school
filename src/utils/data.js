@@ -78,49 +78,111 @@ const grades = [
 
 const tags = [
   {
-    label: 'Computer Science',
-    id: 'f399cd50-3e7c-11e8-949b-c5a74b9c23b2',
-    slug: 'computer-science'
+    label: 'PixelBots',
+    id: 'f8624290-78ab-11e8-8d23-9b54f4ddd993',
+    slug: 'pixelbots'
   },
   {
-    label: 'Javascript',
-    id: 'f399f460-3e7c-11e8-949b-c5a74b9c23b2',
+    label: 'Scratch',
+    id: 'f8624291-78ab-11e8-8d23-9b54f4ddd993',
+    slug: 'scratch'
+  },
+  { label: 'p5', id: 'f8624292-78ab-11e8-8d23-9b54f4ddd993', slug: 'p5' },
+  {
+    label: 'Block-based code',
+    id: 'f8624293-78ab-11e8-8d23-9b54f4ddd993',
+    slug: 'block-based-code'
+  },
+  {
+    label: 'JavaScript',
+    id: 'f8624294-78ab-11e8-8d23-9b54f4ddd993',
     slug: 'javascript'
   },
   {
-    label: 'World Languages',
-    id: 'f399f461-3e7c-11e8-949b-c5a74b9c23b2',
-    slug: 'world-languages'
+    label: 'Digital literacy',
+    id: 'f8624295-78ab-11e8-8d23-9b54f4ddd993',
+    slug: 'digital-literacy'
   },
   {
-    label: 'Social Studies',
-    id: 'f399f462-3e7c-11e8-949b-c5a74b9c23b2',
-    slug: 'social-studies'
+    label: 'Decomposition',
+    id: 'f8624296-78ab-11e8-8d23-9b54f4ddd993',
+    slug: 'decomposition'
   },
   {
-    label: 'Science',
-    id: 'f399f463-3e7c-11e8-949b-c5a74b9c23b2',
-    slug: 'science'
+    label: 'Algorithms',
+    id: 'f8624297-78ab-11e8-8d23-9b54f4ddd993',
+    slug: 'algorithms'
   },
   {
-    label: 'Mathematics',
-    id: 'f399f464-3e7c-11e8-949b-c5a74b9c23b2',
-    slug: 'mathematics'
+    label: 'Abstraction',
+    id: 'f8624298-78ab-11e8-8d23-9b54f4ddd993',
+    slug: 'abstraction'
   },
   {
-    label: 'Language Arts',
-    id: 'f399f465-3e7c-11e8-949b-c5a74b9c23b2',
-    slug: 'language-arts'
+    label: 'Control',
+    id: 'f8624299-78ab-11e8-8d23-9b54f4ddd993',
+    slug: 'control'
   },
   {
-    label: 'Creative Arts',
-    id: 'f399f466-3e7c-11e8-949b-c5a74b9c23b2',
-    slug: 'creative-arts'
+    label: 'Sequencing',
+    id: 'f862429a-78ab-11e8-8d23-9b54f4ddd993',
+    slug: 'sequencing'
   },
   {
-    label: 'Professional Development',
-    id: 'f399f467-3e7c-11e8-949b-c5a74b9c23b2',
-    slug: 'professional-development'
+    label: 'Patterns',
+    id: 'f862429b-78ab-11e8-8d23-9b54f4ddd993',
+    slug: 'patterns'
+  },
+  {
+    label: 'Arguments',
+    id: 'f862429c-78ab-11e8-8d23-9b54f4ddd993',
+    slug: 'arguments'
+  },
+  { label: 'Loops', id: 'f862429d-78ab-11e8-8d23-9b54f4ddd993', slug: 'loops' },
+  {
+    label: 'Pixel Art',
+    id: 'f862429e-78ab-11e8-8d23-9b54f4ddd993',
+    slug: 'pixel-art'
+  },
+  {
+    label: 'Functions',
+    id: 'f862429f-78ab-11e8-8d23-9b54f4ddd993',
+    slug: 'functions'
+  },
+  {
+    label: 'Refactoring',
+    id: 'f86242a0-78ab-11e8-8d23-9b54f4ddd993',
+    slug: 'refactoring'
+  },
+  {
+    label: 'Conditionals',
+    id: 'f86242a1-78ab-11e8-8d23-9b54f4ddd993',
+    slug: 'conditionals'
+  },
+  {
+    label: 'User Experience',
+    id: 'f86242a2-78ab-11e8-8d23-9b54f4ddd993',
+    slug: 'user-experience'
+  },
+  {
+    label: 'Game Design',
+    id: 'f86242a3-78ab-11e8-8d23-9b54f4ddd993',
+    slug: 'game-design'
+  },
+  {
+    label: 'Parameters',
+    id: 'f86242a4-78ab-11e8-8d23-9b54f4ddd993',
+    slug: 'parameters'
+  },
+  {
+    label: 'Events',
+    id: 'f86242a5-78ab-11e8-8d23-9b54f4ddd993',
+    slug: 'events'
+  },
+  {
+    label: 'Operators',
+    id: 'f86242a6-78ab-11e8-8d23-9b54f4ddd993',
+    slug: 'operators'
   }
 ]
 
@@ -156,40 +218,40 @@ const timeUnits = ['Minutes', 'Hours', 'Days', 'Weeks', 'Months']
 
 const taskTypes = [
   {
-    label: 'Link',
-    icon: 'link',
-    value: 'link',
-    id: 'link'
-  },
-  {
-    label: 'Listen',
-    icon: 'sound',
-    value: 'listen',
-    id: 'listen'
-  },
-  {
-    label: 'Writing',
+    label: 'Practice',
     icon: 'edit',
-    value: 'write',
-    id: 'write'
+    value: 'practice',
+    id: 'practice'
   },
   {
-    label: 'Video',
-    icon: 'video-camera',
-    value: 'video',
-    id: 'video'
+    label: 'Review',
+    icon: 'book',
+    value: 'review',
+    id: 'review'
   },
   {
-    label: 'Assignment',
-    icon: 'file-text',
-    value: 'assignment',
-    id: 'assignment'
+    label: 'Extension',
+    icon: 'file-add',
+    value: 'extension',
+    id: 'extension'
   },
   {
-    label: 'Test',
+    label: 'Project',
+    icon: 'rocket',
+    value: 'project',
+    id: 'project'
+  },
+  {
+    label: 'Quiz / Survey',
     icon: 'profile',
-    value: 'test',
-    id: 'test'
+    value: 'quiz',
+    id: 'quiz'
+  },
+  {
+    label: 'Media',
+    icon: 'video-camera',
+    value: 'media',
+    id: 'media'
   }
 ]
 
@@ -206,7 +268,7 @@ const gradesToText = function (grades) {
 }
 
 const getTaskIcon = function (val) {
-  return (taskTypes.find(type => type.value === val) || {}).icon
+  return (taskTypes.find(type => type.value === val) || {}).icon || 'edit'
 }
 
 const idsToText = function (dataType, ids) {

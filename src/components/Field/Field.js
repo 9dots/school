@@ -133,7 +133,6 @@ const SelectField = props => {
     typeof getProp(name, values) === 'undefined'
       ? defaultValue
       : getProp(name, values)
-  console.log(val)
 
   return (
     <Select

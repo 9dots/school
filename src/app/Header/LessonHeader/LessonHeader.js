@@ -18,9 +18,11 @@ const LessonHeader = ({
   progress,
   tasks
 }) => {
+  const width = styles['@sidebar-width'] - 50
+
   return (
     <Layout className='lesson-header'>
-      <Layout.Sider width={styles['@sidebar-width']}>
+      <Layout.Sider width={width}>
         <h2>
           <Link to={`/class/${classId}`}>
             <Icon type='left' size='large' style={{ marginRight: 10 }} />
@@ -35,15 +37,11 @@ const LessonHeader = ({
           lesson={lesson}
           tasks={tasks} />
       </Layout.Content>
-      <Layout.Sider width={styles['@sidebar-width']}>
-        <UserMenu
-          // logout={logout}
-          button={
-            <h2 style={{ color: 'white', marginBottom: 0 }}>
-              <Avatar icon='user' size='large' />
-              {profile.displayName}
-            </h2>
-          } />
+      <Layout.Sider width={width}>
+        <h2 style={{ color: 'white', marginBottom: 0, textAlign: 'right' }}>
+          <Avatar icon='user' size='large' style={{ marginRight: 10 }} />
+          {profile.displayName}
+        </h2>
       </Layout.Sider>
     </Layout>
   )

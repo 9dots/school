@@ -2,6 +2,7 @@ import { Icon, List } from 'antd'
 import { Link } from 'react-router-dom'
 import TaskDot from 'components/TaskDot'
 import { getTaskIcon } from 'utils/data'
+import { getTaskTitle } from 'utils'
 import PropTypes from 'prop-types'
 import React from 'react'
 import './Tasks.less'
@@ -15,7 +16,7 @@ const Tasks = ({ lesson: { tasks = [], id }, moduleId, classId, student }) => (
           title={
             <span>
               <Icon type={getTaskIcon(task.type)} />
-              {task.displayName}
+              {getTaskTitle(task)}
             </span>
           }
           description={task.description} />

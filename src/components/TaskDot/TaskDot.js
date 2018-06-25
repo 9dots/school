@@ -13,23 +13,17 @@ const TaskDot = ({
 }) => {
   return (
     <div className={getClasses(task, multiple, number, theme)} {...rest}>
-      <Shape index={task.keyTask || shape} />
+      <Shape shape={task.type || 'practice'} />
       {number && <div className='number'>{number}</div>}
     </div>
   )
 }
 
-function getClasses (
-  { completed, active, started, keyTask },
-  multiple,
-  number,
-  theme
-) {
+function getClasses ({ completed, active, started }, multiple, number, theme) {
   let name = 'task-dot'
   if (completed) name += ' completed'
   if (multiple) name += ' multiple'
   if (number) name += ' has-number'
-  if (keyTask) name += ' key-task'
   if (started) name += ' started'
   if (theme) name += ` ${theme}`
   if (active) name += ' active'
