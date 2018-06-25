@@ -1,4 +1,4 @@
-import Field, { TextField, SelectField, CheckboxField } from 'components/Field'
+import Field, { TextField, SelectField } from 'components/Field'
 import { Button, Row, Col, Icon, Form } from 'antd'
 import { taskTypes, getTaskIcon } from 'utils/data'
 import TaskDot from 'components/TaskDot'

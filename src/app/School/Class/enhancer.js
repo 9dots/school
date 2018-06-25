@@ -104,7 +104,7 @@ export default compose(
       Modal.confirm({
         title: `Assign "${lesson.displayName}"?`,
         content:
-          'The lesson will immediately be assigned to your class. Any currently assigned lesson will be unassigned',
+          'The lesson will immediately be assigned to your class. Any currently assigned lesson will be unassigned.',
         okText: 'Yes',
         cancelText: 'No',
         async onOk () {

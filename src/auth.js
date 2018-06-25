@@ -44,8 +44,10 @@ export const userHasNoSchool = connectedRouterRedirect({
 const splashDefaults = {
   // Want to redirect the user when they are done loading and authenticated
   AuthenticatingComponent: Loading,
-  authenticatedSelector: state =>
-    state.firebase.profile.isLoaded && !state.firebase.profile.isEmpty,
+  authenticatedSelector: state => {
+    console.log(state.firebase.profile)
+    return state.firebase.profile.isLoaded && !state.firebase.profile.isEmpty
+  },
   authenticatingSelector: state => !state.firebase.profile.isLoaded,
   wrapperDisplayName: 'SplashRedirect'
 }
@@ -53,8 +55,10 @@ const splashDefaults = {
 export const userIsNotAuthenticatedDefaults = {
   // Want to redirect the user when they are done loading and authenticated
   AuthenticatingComponent: Loading,
-  authenticatedSelector: state =>
-    state.firebase.profile.isLoaded && state.firebase.profile.isEmpty,
+  authenticatedSelector: state => {
+    console.log(state)
+    return state.firebase.profile.isLoaded && state.firebase.profile.isEmpty
+  },
   authenticatingSelector: state => !state.firebase.profile.isLoaded,
   wrapperDisplayName: 'UserIsNotAuthenticated'
 }

@@ -10,7 +10,10 @@ import omit from '@f/omit'
 
 export default compose(
   addLoading,
-  connect(() => ({}), { rpc }),
+  connect(
+    () => ({}),
+    { rpc }
+  ),
   withFormik({
     displayName: 'lessonForm',
     mapPropsToValues: ({ initialValues }) => ({
@@ -51,7 +54,11 @@ export default compose(
       return window.gapi.client.drive.permissions
         .create({ fileId: files[0].id }, { type: 'anyone', role: 'reader' })
         .then(() => props.setFieldValue(name, file.url))
-        .catch(console.error)
+        .catch(e => {
+          message.error(
+            'Something went wrong. Make sure you have permission to share that file.'
+          )
+        })
     }
   })
 )

@@ -11,6 +11,7 @@ import './LessonStudentView.less'
 const LessonStudentView = ({
   assignedLesson = {},
   progress = {},
+  teacherView,
   isLoaded,
   profile,
   taskNum,
@@ -32,10 +33,14 @@ const LessonStudentView = ({
           </Layout.Header>
         )} />
       <Layout.Content>
-        <iframe src={progress[taskNum].instance || progress[taskNum].url} />
+        <iframe src={getView(progress[taskNum], teacherView)} />
       </Layout.Content>
     </Layout>
   )
+}
+
+function getView (task, teacherView) {
+  return task.instance || task.url
 }
 
 LessonStudentView.propTypes = {}

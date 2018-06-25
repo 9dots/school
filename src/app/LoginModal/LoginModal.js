@@ -1,17 +1,23 @@
 import { firebaseConnect } from 'react-redux-firebase'
 import { compose, withHandlers } from 'recompose'
 import { Modal, Button, Row, Col } from 'antd'
+import { connect } from 'react-redux'
+import { login } from 'ducks/login'
 import PropTypes from 'prop-types'
 import React from 'react'
 
 import './LoginModal.less'
 
 const enhancer = compose(
+  connect(
+    null,
+    { login }
+  ),
   firebaseConnect(),
   withHandlers({
     login: props => e => {
-      props.onOk(e)
-      return props.firebase.login({ provider: 'google' })
+      props.onCancel(null)
+      props.login()
     }
   })
 )

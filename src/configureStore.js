@@ -1,13 +1,13 @@
+import { reactReduxFirebase, getFirebase } from 'react-redux-firebase'
 import createBrowserHistory from 'history/createBrowserHistory'
 import { createStore, applyMiddleware, compose } from 'redux'
 import fetch, { fetchEncodeJSON } from 'redux-effects-fetch'
-import { reactReduxFirebase } from 'react-redux-firebase'
 import { reduxFirestore } from 'redux-firestore'
 import createSagaMiddleware from 'redux-saga'
 import createDebounce from 'redux-debounced'
 import { createLogger } from 'redux-logger'
 import * as middlewares from 'middleware'
-import rootReducer from './app/reducers'
+import rootReducer, { setAccessToken } from './app/reducers'
 import effects from 'redux-effects'
 import getConfig from './getConfig'
 import firebase from 'firebase'
@@ -22,32 +22,43 @@ const firestore = firebase.firestore()
 firestore.settings({ timestampsInSnapshots: true })
 firestore.enablePersistence()
 
+const script = document.createElement('script')
+script.type = 'text/javascript'
+script.src = 'https://apis.google.com/js/api.js'
+
+document.getElementsByTagName('head')[0].appendChild(script)
 const rrfbConfig = {
   userProfile: 'users',
   useFirestoreForProfile: true,
   updateProfileOnLogin: false,
   onAuthStateChanged: (user, firebase, dispatch) => {
     if (user && Object.keys(user.providerData).length) {
-      const script = document.createElement('script')
-      script.type = 'text/javascript'
-      script.src = 'https://apis.google.com/js/api.js'
-      script.onload = function (e) {
-        // Initialize the Google API Client with the config object
-        window.gapi.load('client', {
-          callback: function () {
-            window.gapi.client
-              .init({
-                apiKey: config.apiKey,
-                clientId: config.clientId,
-                discoveryDocs: config.discoveryDocs,
-                scope: config.scopes.join(' ')
-              })
-          }
-        })
-      }
-      // Add to the document
-      document.getElementsByTagName('head')[0].appendChild(script)
+      // script.onload = function (e) {
+      // Initialize the Google API Client with the config object
+      window.gapi.load('client', {
+        callback: () => {
+          window.gapi.client
+            .init({
+              apiKey: config.apiKey,
+              clientId: config.clientId,
+              discoveryDocs: config.discoveryDocs,
+              access_type: 'offline',
+              scope: config.scopes.join(' ')
+            })
+            .then(() => {
+              return dispatch(
+                setAccessToken(
+                  window.gapi.auth2
+                    .getAuthInstance()
+                    .currentUser.get()
+                    .getAuthResponse().access_token
+                )
+              )
+            })
+        }
+      })
     }
+    // Add to the document
   }
 }
 
@@ -62,7 +73,7 @@ export default (initialState = {}) => {
   const middleware = [
     middlewares.authRequired,
     createDebounce(),
-    thunk.withExtraArgument(history),
+    thunk.withExtraArgument({ history, getFirebase }),
     fetchEncodeJSON,
     sagaMiddleware,
     // createLogger(),

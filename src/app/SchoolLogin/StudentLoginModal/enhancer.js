@@ -1,8 +1,9 @@
-import { studentSignIn, setUrl } from 'app/actions'
 import { compose, withHandlers, lifecycle } from 'recompose'
 import addLoading from 'components/addLoading'
 import { errorToMessage } from 'utils/errors'
+import { studentSignIn } from 'ducks/login'
 import { getFormDefaults } from 'utils'
+import { setUrl } from 'app/actions'
 import avatars from 'assets/avatars'
 import { connect } from 'react-redux'
 import { withFormik } from 'formik'
@@ -17,7 +18,10 @@ export default compose(
       this.setState({ avatars: avatars.sort(() => 0.5 - Math.random()) })
     }
   }),
-  connect(() => ({}), { studentSignIn, setUrl }),
+  connect(
+    () => ({}),
+    { studentSignIn, setUrl }
+  ),
   withHandlers({
     submit: props => async values => {
       try {

@@ -1,7 +1,9 @@
 import { compose, withHandlers } from 'recompose'
+import { connect } from 'react-redux'
+import fetch from 'isomorphic-fetch'
+import { setUrl } from 'app/actions'
 import { withFormik } from 'formik'
 import setProp from '@f/set-prop'
-import map from '@f/map'
 import data from './test'
 
 const fields = data.fields
@@ -10,9 +12,33 @@ const widgets = fields
   .filter(w => !!w)
 
 export default compose(
+  connect(
+    null,
+    { setUrl }
+  ),
   withFormik({
     displayName: 'displayForm',
-    handleSubmit: (values, handbag) => console.log(cast(values, handbag.props)),
+    handleSubmit: (values, { props }) => {
+      const vals = cast(values).concat({
+        key: 'pageHistory',
+        value: Array.from({ length: 2 }, (v, i) => i).join(',')
+      })
+      const params = new URLSearchParams()
+      vals.forEach(val => params.append(val.key, val.value))
+      fetch(
+        `https://docs.google.com${data.path}/d/${data.action}/formResponse`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+          },
+          mode: 'no-cors',
+          body: params
+        }
+      )
+        .then(res => props.setUrl('/'))
+        .catch(e => props.setUrl('/'))
+    },
     validate: (values, props) => {
       const errors = widgets.reduce((acc, w) => {
         if (w.required && !values[w.id]) {
@@ -55,7 +81,9 @@ function cast (values) {
   return Object.keys(values).reduce((acc, id) => {
     const val = values[id]
     if (id.startsWith('other_option_response')) return acc
-    if (id.startsWith('emailAddress')) { return acc.concat({ key: 'emailAddress', value: val }) }
+    if (id.startsWith('emailAddress')) {
+      return acc.concat({ key: 'emailAddress', value: val })
+    }
 
     if (Array.isArray(val)) {
       return acc.concat(

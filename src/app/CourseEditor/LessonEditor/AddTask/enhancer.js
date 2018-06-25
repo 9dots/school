@@ -4,12 +4,17 @@ import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import { withFormik } from 'formik'
 import schema from 'school-schema'
-import { rpc } from 'app/actions'
+import { rpc, setUrl } from 'app/actions'
 import { message } from 'antd'
 
 export default compose(
   addLoading,
-  connect(() => ({}), { rpc }),
+  connect(
+    ({ auth }) => ({
+      access_token: auth.access_token
+    }),
+    { rpc, setUrl }
+  ),
   withFormik({
     displayName: 'addTask',
     mapPropsToValues: props => ({
@@ -18,7 +23,10 @@ export default compose(
     handleSubmit: async (values, { props, setErrors }) => {
       try {
         props.setLoading(true)
-        await props.rpc('course.addTask', cast(values, props))
+        await props.rpc('course.addTask', {
+          ...cast(values, props),
+          access_token: props.access_token
+        })
         props.setLoading(false)
         props.setEditKey(null)
       } catch (e) {
