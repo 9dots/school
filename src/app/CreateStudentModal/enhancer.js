@@ -7,12 +7,14 @@ import { rpc } from 'app/actions'
 import { message } from 'antd'
 
 export default compose(
-  connect(() => ({}), { rpc }),
+  connect(
+    () => ({}),
+    { rpc }
+  ),
   formModal({
     displayName: 'createStudent',
     mapPropsToValues: ({ user = {} }) => ({
       name: { given: '', family: '' },
-      studentId: '',
       ...user
     }),
     handleSubmit: async (values, { props, setErrors }) => {
@@ -34,11 +36,7 @@ export default compose(
         return props.onOk('done')
       } catch (e) {
         setLoading(false)
-        if (e.error === 'studentId_taken') {
-          return setErrors({
-            studentId: 'Student ID taken'
-          })
-        } else if (e.error === 'username_taken') {
+        if (e.error === 'username_taken') {
           return setErrors({
             username: 'Username taken'
           })
@@ -62,7 +60,6 @@ function cast (values, props) {
 
   return edit
     ? {
-      studentId: values.studentId || undefined,
       username: values.username,
       name: values.name,
       id: values.id

@@ -55,15 +55,6 @@ const CreateStudentModal = ({
             </Col>
           </Row>
         </Form.Item>
-        {(!edit || user.role === 'student') && (
-          <Field
-            {...props}
-            itemProps={itemLayout}
-            label='Student ID'
-            name='studentId'
-            placeholder='abc123'
-            component={TextField} />
-        )}
         {edit && (
           <Field
             {...props}

@@ -86,17 +86,17 @@ AddStudentModal.propTypes = {}
 export default enhancer(AddStudentModal)
 
 const Option = ({ student }) => {
-  const { studentId, displayName } = student
+  const { email, displayName } = student
   return (
     <span>
-      {studentId ? (
+      {email ? (
         <Row type='flex'>
           <Col span={14}>{displayName}</Col>
           <Col
             span={10}
             className='ellipsis'
             style={{ fontFamily: 'monospace' }}>
-            ID:&ensp;{studentId}
+            ID:&ensp;{email}
           </Col>
         </Row>
       ) : (
