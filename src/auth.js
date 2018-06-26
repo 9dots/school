@@ -1,4 +1,3 @@
-import locationHelperBuilder from 'redux-auth-wrapper/history4/locationHelper'
 import { connectedRouterRedirect } from 'redux-auth-wrapper/history4/redirect'
 import connectedAuthWrapper from 'redux-auth-wrapper/connectedAuthWrapper'
 
@@ -45,7 +44,6 @@ const splashDefaults = {
   // Want to redirect the user when they are done loading and authenticated
   AuthenticatingComponent: Loading,
   authenticatedSelector: state => {
-    console.log(state.firebase.profile)
     return state.firebase.profile.isLoaded && !state.firebase.profile.isEmpty
   },
   authenticatingSelector: state => !state.firebase.profile.isLoaded,
@@ -56,7 +54,6 @@ export const userIsNotAuthenticatedDefaults = {
   // Want to redirect the user when they are done loading and authenticated
   AuthenticatingComponent: Loading,
   authenticatedSelector: state => {
-    console.log(state)
     return state.firebase.profile.isLoaded && state.firebase.profile.isEmpty
   },
   authenticatingSelector: state => !state.firebase.profile.isLoaded,

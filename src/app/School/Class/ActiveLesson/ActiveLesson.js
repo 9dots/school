@@ -1,5 +1,6 @@
 import { Card, List, Icon, Tooltip, Button } from 'antd'
 import { getTaskIcon } from 'utils/data'
+import { getTaskTitle } from 'utils'
 import modalContainer from 'components/modalContainer'
 import TaskDot from 'components/TaskDot'
 import LessonProgress from '../LessonProgress'
@@ -41,7 +42,7 @@ const ActiveLesson = ({ lesson, modal, studentProgress, activeByTask }) => {
                   <Icon
                     type={getTaskIcon(task.type)}
                     style={{ marginRight: 5 }} />
-                  {task.displayName}
+                  {getTaskTitle(task)}
                 </span>
               } />
             {!!activeByTask[i].length && (

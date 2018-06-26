@@ -20,6 +20,9 @@ export function stopEvent (action = () => {}) {
   }
 }
 
+export const getTaskTitle = ({ displayName, type }) =>
+  displayName || type.charAt(0).toUpperCase() + type.slice(1)
+
 export function stopProp (action = () => {}) {
   return e => {
     e.stopPropagation()

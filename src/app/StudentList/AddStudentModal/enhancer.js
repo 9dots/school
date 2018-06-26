@@ -7,7 +7,6 @@ import {
   renderNothing,
   withProps
 } from 'recompose'
-import waitFor from 'components/waitFor'
 import formModal from 'components/formModal'
 import { getFormDefaults } from 'utils'
 import { connect } from 'react-redux'

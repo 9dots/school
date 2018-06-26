@@ -3,13 +3,13 @@
 
 /* TaskDot less */
 
-@size: 24;
+@size: 28;
 
 .resize (@s) {
   height: unit(@s, px);
   width: unit(@s, px);
   line-height: unit(@s - 0.5, px);
-  font-size: unit(@s / 2.2, px);
+  font-size: unit(@s / 2.5, px);
 }
 
 .task-dot {
@@ -36,7 +36,7 @@
     }
   }
   &.active {
-    transform: scale(1.3);
+    transform: scale(1.2);
     svg > * {
       stroke: @blue;
       stroke-width: 15px;
@@ -59,7 +59,7 @@
     .resize(15);
     margin: 0 5px;
     &.has-number {
-      .resize(25);
+      .resize(35);
       margin: 0 7px;
     }
   }

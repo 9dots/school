@@ -1,11 +1,9 @@
-import Field, { TextField, SelectField } from 'components/Field'
-import { Button, Row, Col, Icon, Form } from 'antd'
-import { taskTypes, getTaskIcon } from 'utils/data'
+import { getTaskIcon } from 'utils/data'
 import TaskDot from 'components/TaskDot'
-import { getFormDefaults } from 'utils'
-import { withFormik } from 'formik'
-import schema from 'school-schema'
+import { Row, Col, Icon } from 'antd'
+import { getTaskTitle } from 'utils'
 import PropTypes from 'prop-types'
+import TaskForm from '../TaskForm'
 import enhancer from './enhancer'
 import React from 'react'
 import './TaskDetails.less'
@@ -23,7 +21,7 @@ const TaskDetails = props => {
     ...rest
   } = props
 
-  const { displayName, id, type } = task
+  const { id, type } = task
 
   return (
     <div className='task-details-inner'>
@@ -34,17 +32,19 @@ const TaskDetails = props => {
               <Row align='middle' type='flex'>
                 <TaskDot task={task} number={i + 1} />
                 <Icon type={getTaskIcon(type)} />&ensp;
-                <div className='ellipsis flex-grow'>{displayName}</div>
+                <div className='ellipsis flex-grow'>{getTaskTitle(task)}</div>
               </Row>
             </h3>
           </Col>
           <Col className='actions'>
-            <Icon type='edit' onClick={() => setEditKey(id)} />
-            <Icon
-              type='swap'
-              style={{ transform: 'rotate(90deg)' }}
-              {...handleProps} />
-            <Icon type='delete' onClick={removeTask} />
+            <Row type='flex' align='middle' style={{ height: '100%' }}>
+              <Icon type='edit' onClick={() => setEditKey(id)} />
+              <Icon
+                type='swap'
+                style={{ transform: 'rotate(90deg)' }}
+                {...handleProps} />
+              <Icon type='delete' onClick={removeTask} />
+            </Row>
           </Col>
         </Row>
       ) : (
@@ -53,8 +53,7 @@ const TaskDetails = props => {
           task={task}
           initialValues={{
             displayName: task.displayName,
-            type: task.type,
-            keyTask: task.keyTask
+            type: task.type
           }}
           confirmLoading={confirmLoading}
           editTask={editTask}
@@ -62,105 +61,6 @@ const TaskDetails = props => {
       )}
     </div>
   )
-}
-
-const itemProps = { style: { marginBottom: 0 } }
-
-const TaskForm = withFormik({
-  displayName: 'taskEditForm',
-  mapPropsToValues: ({ initialValues = {} }) => {
-    return {
-      type: undefined,
-      displayName: undefined,
-      keyTask: 0,
-      ...initialValues
-    }
-  },
-  handleSubmit: (values, { props }) => {
-    props.editTask(values)
-  },
-  ...getFormDefaults(schema.course.updateTask, cast)
-})(({ setEditKey, handleSubmit, editTask, confirmLoading, ...props }) => (
-  <Form onSubmit={handleSubmit} style={{ margin: '8px 0 10px' }}>
-    <Row type='flex' gutter={16} style={{ margin: '0 -8px' }}>
-      <Col>
-        <Field
-          {...props}
-          itemProps={itemProps}
-          name='keyTask'
-          defaultValue={0}
-          placeholder={
-            <div style={{ textAlign: 'center' }}>
-              <TaskDot style={{ margin: '4px 0 0 0' }} task={{ keyTask: 0 }} />
-            </div>
-          }
-          component={SelectField}
-          options={[0, 1, 2, 3, 4].map(num => ({
-            key: num,
-            value: num,
-            label: (
-              <div style={{ textAlign: 'center' }}>
-                <TaskDot
-                  style={{ margin: '4px 0 0 0' }}
-                  task={{ keyTask: num }} />
-              </div>
-            )
-          }))} />
-      </Col>
-      <Col>
-        <Field
-          {...props}
-          itemProps={itemProps}
-          name='type'
-          className='type-selector'
-          component={SelectField}
-          options={taskTypes.map(task => ({
-            ...task,
-            label: (
-              <span>
-                <Icon type={task.icon} style={{ marginRight: 10 }} />
-                {task.label}
-              </span>
-            )
-          }))} />
-      </Col>
-      <Col className='flex-grow'>
-        <Field
-          {...props}
-          itemProps={itemProps}
-          name='displayName'
-          addonBefore='Task Title:'
-          placeholder='Enter a title…'
-          component={TextField} />
-      </Col>
-      <Col>
-        <Form.Item {...itemProps}>
-          <Button
-            style={{ marginRight: 10 }}
-            disabled={confirmLoading}
-            onClick={() => setEditKey(null)}>
-            Cancel
-          </Button>
-          <Button
-            loading={confirmLoading}
-            type='primary'
-            onClick={handleSubmit}>
-            Save
-          </Button>
-        </Form.Item>
-      </Col>
-    </Row>
-  </Form>
-))
-
-function cast (values, props) {
-  return {
-    ...values,
-    task: props.task.id,
-    course: props.course,
-    draft: props.draft,
-    lesson: props.lesson
-  }
 }
 
 TaskDetails.propTypes = {}
