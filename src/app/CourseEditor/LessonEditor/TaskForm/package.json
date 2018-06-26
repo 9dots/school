@@ -1,0 +1,6 @@
+
+{
+  "name": "TaskForm",
+  "main": "TaskForm.js",
+  "browser": "TaskForm.js"
+}

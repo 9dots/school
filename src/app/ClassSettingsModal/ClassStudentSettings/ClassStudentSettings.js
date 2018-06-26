@@ -85,9 +85,14 @@ const columns = props => [
     sorter: (a, b) => alphaSort(a, b, 'name.family')
   },
   {
-    title: 'SSID',
-    key: 'ssid',
-    dataIndex: 'studentId'
+    title: 'Username',
+    key: 'username',
+    dataIndex: 'username'
+  },
+  {
+    title: 'Email',
+    key: 'email',
+    dataIndex: 'email'
   },
   {
     title: 'Password',

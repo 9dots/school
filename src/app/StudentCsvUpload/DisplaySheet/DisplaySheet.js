@@ -48,14 +48,6 @@ const columns = props => [
     )
   },
   {
-    title: 'Student ID',
-    key: 'studentId',
-    dataIndex: 'studentId',
-    render: (text, data, index) => (
-      <TableInput type='studentId' text={text} data={data} {...props} />
-    )
-  },
-  {
     title: 'Email',
     key: 'email',
     dataIndex: 'email',
