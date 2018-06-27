@@ -1,6 +1,6 @@
 import { config } from '../configureStore'
 import apiRequest from 'utils/api'
-import { auth } from 'firebase'
+import auth from 'firebase/auth'
 
 const login = () => (dispatch, store, { getFirebase }) => {
   return getFirebase().login({ provider: 'google', scopes: config.scopes })

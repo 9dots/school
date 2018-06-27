@@ -1,10 +1,9 @@
-import { Modal, Table, Button } from 'antd'
 import Field, { TextField } from 'components/Field'
-import enhancer from './enhancer'
-import PropTypes from 'prop-types'
-import getProp from '@f/get-prop'
+import { Modal, Table, Button } from 'antd'
 import mapValues from '@f/map-values'
+import enhancer from './enhancer'
 import React from 'react'
+
 import './DisplaySheet.less'
 
 const DisplaySheet = ({ data, className, ...rest }) => {
@@ -12,7 +11,7 @@ const DisplaySheet = ({ data, className, ...rest }) => {
     <Modal
       className={`upload-sheet ${className}`}
       title='Create/Add Students'
-      okText={`Add ${Object.keys(data).length} Students`}
+      okText={`Add ${Object.keys(rest.values).length} Students`}
       maskClosable={false}
       closable={false}
       width={900}
@@ -35,7 +34,7 @@ const columns = props => [
     title: 'First Name',
     key: 'firstName',
     dataIndex: 'name.given',
-    render: (text, data, index) => (
+    render: (text, data) => (
       <TableInput type='name.given' text={text} data={data} {...props} />
     )
   },
@@ -43,7 +42,7 @@ const columns = props => [
     title: 'Last Name',
     key: 'lastName',
     dataIndex: 'name.family',
-    render: (text, data, index) => (
+    render: (text, data) => (
       <TableInput type='name.family' text={text} data={data} {...props} />
     )
   },
@@ -52,7 +51,7 @@ const columns = props => [
     key: 'email',
     dataIndex: 'email',
     className: 'email-col',
-    render: (text, data, index) => (
+    render: (text, data) => (
       <TableInput type='email' text={text} data={data} {...props} />
     )
   },
@@ -76,17 +75,15 @@ DisplaySheet.propTypes = {}
 export default enhancer(DisplaySheet)
 
 const TableInput = ({
-  text,
-  data,
-  type,
   setFieldValue,
-  handleSubmit,
   setFieldTouched,
   submitCount,
   isValid,
   touched,
   values,
-  errors
+  errors,
+  data,
+  type
 }) => {
   return (
     <Field
