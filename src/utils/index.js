@@ -35,7 +35,7 @@ export function validate (validator, cast, overWrites) {
     // console.log(values)
     const { valid, errors } = validator(cast(values, props), { greedy: true })
     if (valid) return
-    console.log(valid, errors)
+
     return getValidationErrors(
       {
         errorDetails: errors

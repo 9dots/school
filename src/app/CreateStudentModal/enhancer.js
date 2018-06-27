@@ -15,6 +15,7 @@ export default compose(
     displayName: 'createStudent',
     mapPropsToValues: ({ user = {} }) => ({
       name: { given: '', family: '' },
+      email: '',
       ...user
     }),
     handleSubmit: async (values, { props, setErrors }) => {
@@ -36,11 +37,7 @@ export default compose(
         return props.onOk('done')
       } catch (e) {
         setLoading(false)
-        if (e.error === 'username_taken') {
-          return setErrors({
-            username: 'Username taken'
-          })
-        } else if (e.errorDetails) {
+        if (e.errorDetails) {
           return setErrors(getValidationErrors(e))
         }
         message.error('Oops, something went wrong. Please try again.')

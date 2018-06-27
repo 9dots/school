@@ -1,14 +1,12 @@
-import { Modal, Table, Button } from 'antd'
 import Field, { TextField } from 'components/Field'
-import enhancer from './enhancer'
-import PropTypes from 'prop-types'
-import getProp from '@f/get-prop'
+import { Modal, Table, Button } from 'antd'
 import mapValues from '@f/map-values'
+import enhancer from './enhancer'
 import React from 'react'
+
 import './DisplaySheet.less'
 
 const DisplaySheet = ({ data, className, ...rest }) => {
-  console.log(rest.values)
   return (
     <Modal
       className={`upload-sheet ${className}`}

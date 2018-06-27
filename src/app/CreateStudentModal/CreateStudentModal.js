@@ -25,7 +25,7 @@ const CreateStudentModal = ({
   ...props
 }) => {
   const displayName = props.class && props.class.displayName
-
+  console.log(props.errors)
   return (
     <Modal
       {...props}
@@ -68,7 +68,7 @@ const CreateStudentModal = ({
           <Field
             {...props}
             itemProps={itemLayout}
-            label='Email (optional)'
+            label='Email'
             name='email'
             placeholder='student@email.com'
             component={TextField} />
