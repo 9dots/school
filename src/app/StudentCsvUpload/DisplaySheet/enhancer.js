@@ -6,7 +6,7 @@ import schema from 'school-schema'
 import { rpc } from 'app/actions'
 import { validate } from 'utils'
 import { message } from 'antd'
-import omit from '@f/omit'
+import map from '@f/map'
 
 export default compose(
   connect(
@@ -16,7 +16,7 @@ export default compose(
   formModal({
     displayName: 'createStudents',
     mapPropsToValues: ({ data = {} }) => ({
-      ...data
+      ...map((value, key) => ({ key, ...value }), data)
     }),
     handleSubmit: async (values, { props, setErrors }) => {
       const {
@@ -43,8 +43,24 @@ export default compose(
     validate: validate(schema.user.createStudents, cast)
   }),
   withHandlers({
-    removeRow: ({ values, update, setState, setValues }) => key => {
-      setValues(omit(key, values))
+    removeRow: ({ values, validateForm, setValues }) => key => {
+      const newVals = Object.keys(values).reduce((acc, indexString) => {
+        const index = Number(indexString)
+
+        const value = values[index]
+        if (index > key) {
+          acc[index - 1] = {
+            ...value,
+            key: value.key - 1
+          }
+        } else if (index < key) {
+          acc[index] = value
+        }
+        return acc
+      }, {})
+
+      setValues(newVals)
+      validateForm(newVals)
 
       message.success('Row Removed')
     }
