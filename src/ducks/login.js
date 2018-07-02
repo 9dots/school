@@ -1,6 +1,6 @@
 import { config } from '../configureStore'
+import { auth } from 'firebase/app'
 import apiRequest from 'utils/api'
-import auth from 'firebase/auth'
 
 const login = () => (dispatch, store, { getFirebase }) => {
   return getFirebase().login({ provider: 'google', scopes: config.scopes })
@@ -14,11 +14,6 @@ const studentSignIn = data => async () => {
     return Promise.reject(e)
   }
 }
-
-// function signInWIthCredential (cred, firebase) {
-//   console.log(firebase)
-//   // return firebase.lo
-// }
 
 function signInWithToken (token) {
   return auth().signInWithCustomToken(token)

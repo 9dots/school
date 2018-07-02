@@ -18,7 +18,10 @@ const submitKeys = [
 ]
 
 export default compose(
-  connect(() => ({}), { rpc, setUrl }),
+  connect(
+    () => ({}),
+    { rpc, setUrl }
+  ),
   formModal({
     displayName: 'createCourse',
     mapPropsToValues: ({ initialValues = {} }) => ({
@@ -43,10 +46,10 @@ export default compose(
           course: props.courseId,
           draft: props.draft
         })
-        message.success(
-          `Success! ${edit ? 'Saved' : 'Created'} ${values.displayName}.`
-        )
         props.onOk(course)
+        if (!edit) {
+          message.success(`Success! Created ${values.displayName}.`)
+        }
       } catch (e) {
         setLoading(false)
         if (e.errorDetails) {
