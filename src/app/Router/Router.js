@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
-import FormDisplay from 'integrations/gforms/FormDisplay'
 import CourseEditor from 'app/CourseEditor'
 import SchoolLogin from '../SchoolLogin'
 import CourseView from 'app/CourseView'
@@ -22,6 +21,7 @@ import {
 } from '../../auth'
 
 import './Router.less'
+import Privacy from '../Privacy/Privacy'
 
 const App = props => {
   const {
@@ -75,7 +75,7 @@ const HomeRoutes = ({
 const routes = (
   <span>
     <Switch>
-      <Route path='/form' component={FormDisplay} />
+      <Route exact path='/privacy' component={Privacy} />
       <Route
         path='/onboarding'
         component={userIsAuthenticatedRedir(Onboarding)} />
