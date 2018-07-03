@@ -30,6 +30,14 @@ const HomeHeader = ({ login, allowSignIn }) => {
           </h1>
         </Col>
         <Col>
+          <a
+            target='_blank'
+            href='/privacy'
+            style={{ color: 'white', marginRight: 30, fontSize: 13 }}>
+            Privacy Policy
+          </a>
+        </Col>
+        <Col>
           {!!allowSignIn && (
             <Button onClick={login} type='primary' className='secondary'>
               <Icon type='login' />

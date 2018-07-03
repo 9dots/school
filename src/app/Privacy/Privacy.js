@@ -7,9 +7,11 @@ const Privacy = props => {
     <Layout>
       <Layout.Header style={{ background: '#f0f2f5' }}>
         <Row type='flex' align='flex-start' justify='middle'>
-          <h1 style={{ letterSpacing: '3px', marginBottom: 0 }}>
-            <b>9 DOTS</b>
-          </h1>
+          <a href='/'>
+            <h1 style={{ letterSpacing: '3px', marginBottom: 0 }}>
+              <b>9 DOTS</b>
+            </h1>
+          </a>
           <Icon type='right' style={{ margin: '0 10px' }} />
           <h2 style={{ marginBottom: 0 }}>Privacy Policy</h2>
         </Row>
