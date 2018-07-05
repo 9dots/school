@@ -32,7 +32,7 @@ const HomeHeader = ({ login, allowSignIn }) => {
         <Col>
           <a
             target='_blank'
-            href='/privacy'
+            href='https://www.9dots.org/privacy'
             style={{ color: 'white', marginRight: 30, fontSize: 13 }}>
             Privacy Policy
           </a>
