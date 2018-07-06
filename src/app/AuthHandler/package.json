@@ -1,0 +1,6 @@
+
+{
+  "name": "AuthHandler",
+  "main": "AuthHandler.js",
+  "browser": "AuthHandler.js"
+}
