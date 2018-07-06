@@ -25,7 +25,6 @@ const CreateStudentModal = ({
   ...props
 }) => {
   const displayName = props.class && props.class.displayName
-  console.log(props.errors)
   return (
     <Modal
       {...props}

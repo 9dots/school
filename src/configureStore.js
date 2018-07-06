@@ -11,6 +11,7 @@ import * as middlewares from 'middleware'
 import effects from 'redux-effects'
 import getConfig from './getConfig'
 import firebase from 'firebase/app'
+import { rpc } from 'app/actions'
 import thunk from 'redux-thunk'
 import 'firebase/firestore'
 import 'firebase/auth'
@@ -34,32 +35,19 @@ const rrfbConfig = {
   updateProfileOnLogin: false,
   onAuthStateChanged: (user, firebase, dispatch) => {
     if (user && Object.keys(user.providerData).length) {
-      // script.onload = function (e) {
-      // Initialize the Google API Client with the config object
       window.gapi.load('client', {
-        callback: () => {
-          window.gapi.client
-            .init({
-              apiKey: config.apiKey,
-              clientId: config.clientId,
-              discoveryDocs: config.discoveryDocs,
-              access_type: 'offline',
-              scope: config.scopes.join(' ')
-            })
-            .then(() => {
-              return dispatch(
-                setAccessToken(
-                  window.gapi.auth2
-                    .getAuthInstance()
-                    .currentUser.get()
-                    .getAuthResponse().access_token
-                )
-              )
-            })
-        }
+        callback: () => window.gapi.client.load(config.discoveryDocs[0])
       })
+      dispatch(rpc('auth.getAccessToken'))
+        .then(res => {
+          window.gapi.client.setToken(res.tokens)
+        })
+        .catch(e => {
+          if (e.error === 'no_tokens') {
+            window.location = e.errorDetails
+          }
+        })
     }
-    // Add to the document
   }
 }
 

@@ -1,7 +1,9 @@
 import { compose, withHandlers } from 'recompose'
 import getConfig from '../../getConfig'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import picker from 'google-picker'
+import { rpc } from 'app/actions'
 import React from 'react'
 const config = getConfig()
 
@@ -11,12 +13,25 @@ const pick = picker({
 })
 
 const enhancer = compose(
+  connect(
+    null,
+    { rpc }
+  ),
   withHandlers({
-    handleClick: props => e => {
-      pick({ views: ['DocsView()'] }, function (err, files) {
-        if (err) throw err
-        return props.onSelect(files)
-      })
+    handleClick: props => () => {
+      pick(
+        {
+          views: [
+            'DocsView().setIncludeFolders(true).setOwnedByMe(true)',
+            'DocsView().setIncludeFolders(true).setEnableTeamDrives(true)'
+          ],
+          features: ['SUPPORT_TEAM_DRIVES']
+        },
+        function (err, files) {
+          if (err) throw err
+          return props.onSelect(files)
+        }
+      )
     }
   })
 )

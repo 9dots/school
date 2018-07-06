@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
-import FormDisplay from 'integrations/gforms/FormDisplay'
 import CourseEditor from 'app/CourseEditor'
+import AuthHandler from 'app/AuthHandler'
 import SchoolLogin from '../SchoolLogin'
 import CourseView from 'app/CourseView'
 import HomeLayout from 'app/HomeLayout'
@@ -75,7 +75,7 @@ const HomeRoutes = ({
 const routes = (
   <span>
     <Switch>
-      <Route path='/form' component={FormDisplay} />
+      <Route path='/authhandler' component={AuthHandler} />
       <Route
         path='/onboarding'
         component={userIsAuthenticatedRedir(Onboarding)} />

@@ -52,9 +52,16 @@ export default compose(
     onGoogleDoc: props => name => files => {
       const file = files[0]
       return window.gapi.client.drive.permissions
-        .create({ fileId: files[0].id }, { type: 'anyone', role: 'reader' })
+        .create(
+          {
+            fileId: files[0].id,
+            supportsTeamDrives: true
+          },
+          { type: 'anyone', role: 'reader' }
+        )
         .then(() => props.setFieldValue(name, file.url))
         .catch(e => {
+          console.log(e)
           message.error(
             'Something went wrong. Make sure you have permission to share that file.'
           )

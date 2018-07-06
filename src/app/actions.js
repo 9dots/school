@@ -23,4 +23,7 @@ function getIdToken () {
 const setUrl = (url, opts = {}) => (dispatch, getState, { history }) =>
   history.push(url, opts)
 
-export { setUrl, rpc }
+const replaceUrl = (url, opts = {}) => (dispatch, getState, { history }) =>
+  history.replace(url, opts)
+
+export { setUrl, replaceUrl, rpc }
