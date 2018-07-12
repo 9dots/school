@@ -224,6 +224,12 @@ const taskTypes = [
     id: 'practice'
   },
   {
+    label: 'Bonus',
+    icon: 'star-o',
+    value: 'bonus',
+    id: 'bonus'
+  },
+  {
     label: 'Review',
     icon: 'book',
     value: 'review',

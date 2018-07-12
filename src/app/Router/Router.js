@@ -9,6 +9,7 @@ import Onboarding from '../Onboarding'
 import AppLayout from '../AppLayout'
 import PropTypes from 'prop-types'
 import Courses from 'app/Courses'
+import Privacy from 'app/Privacy'
 import Library from 'app/Library'
 import School from 'app/School'
 import Home from 'app/Home'
@@ -76,6 +77,7 @@ const routes = (
   <span>
     <Switch>
       <Route path='/authhandler' component={AuthHandler} />
+      <Route exact path='/privacy' component={Privacy} />
       <Route
         path='/onboarding'
         component={userIsAuthenticatedRedir(Onboarding)} />

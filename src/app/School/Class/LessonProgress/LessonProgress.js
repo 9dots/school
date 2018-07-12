@@ -1,5 +1,6 @@
 import { Modal, Layout, Menu, Card, Icon } from 'antd'
 import ProgressTable from './ProgressTable'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
 import React from 'react'
@@ -18,6 +19,7 @@ const LessonProgress = ({
   ...rest
 }) => {
   const { tasks = [], displayName, description, module: moduleId } = lesson
+  const teacherView = data[0].teacherView
 
   return (
     <Modal
@@ -54,7 +56,13 @@ const LessonProgress = ({
           <p>{description}</p>
           <Card className='course' bordered={false}>
             <h2>{task ? task.displayName : 'Average score for all Tasks'}</h2>
-            <ProgressTable moduleId={moduleId} data={data} />
+            {teacherView ? (
+              <Link target='_blank' to={teacherView}>
+                View in app
+              </Link>
+            ) : (
+              <ProgressTable moduleId={moduleId} data={data} />
+            )}
           </Card>
         </Layout.Content>
       </Layout>
