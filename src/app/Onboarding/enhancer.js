@@ -1,4 +1,4 @@
-import { getValidationErrors, getFormDefaults } from 'utils'
+import { getValidationErrors, getFormDefaults, trimValues } from 'utils'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose, withHandlers } from 'recompose'
 import formModal from 'components/formModal'
@@ -43,7 +43,7 @@ const profileDetailEnhancer = compose(
 
 function cast (values, { profile, uid }) {
   return {
-    ...values,
+    ...trimValues(values),
     email: profile.email,
     teacher: uid
   }

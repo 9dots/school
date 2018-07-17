@@ -1,5 +1,12 @@
-import modalContainer from 'components/modalContainer'
 import { firestoreConnect } from 'react-redux-firebase'
+import modalContainer from 'components/modalContainer'
+import { getFormDefaults, trimValues } from 'utils'
+import formModal from 'components/formModal'
+import { connect } from 'react-redux'
+import { rpc } from '../../actions'
+import schema from 'school-schema'
+import { message } from 'antd'
+import xlsx from 'xlsx'
 import {
   compose,
   withHandlers,
@@ -7,13 +14,6 @@ import {
   renderNothing,
   withProps
 } from 'recompose'
-import formModal from 'components/formModal'
-import { getFormDefaults } from 'utils'
-import { connect } from 'react-redux'
-import { rpc } from '../../actions'
-import schema from 'school-schema'
-import { message } from 'antd'
-import xlsx from 'xlsx'
 
 export default compose(
   modalContainer,
@@ -85,6 +85,6 @@ export default compose(
 function cast (values, props) {
   return {
     class: props.class.id,
-    student: values.student
+    student: trimValues(values).student
   }
 }

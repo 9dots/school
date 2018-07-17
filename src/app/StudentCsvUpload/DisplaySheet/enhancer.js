@@ -1,10 +1,10 @@
 import { compose, withHandlers } from 'recompose'
+import { validate, trimValues } from 'utils'
 import formModal from 'components/formModal'
 import { connect } from 'react-redux'
 import mapValues from '@f/map-values'
 import schema from 'school-schema'
 import { rpc } from 'app/actions'
-import { validate } from 'utils'
 import { message } from 'antd'
 import map from '@f/map'
 
@@ -68,12 +68,13 @@ export default compose(
 )
 
 function cast (values, props) {
+  const trimmed = trimValues(values)
   return mapValues(
     value => ({
       ...value,
       email: value.email || undefined,
       school: props.school
     }),
-    values
+    trimmed
   )
 }

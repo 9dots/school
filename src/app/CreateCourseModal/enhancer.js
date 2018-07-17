@@ -1,4 +1,4 @@
-import { getFormDefaults, getValidationErrors } from 'utils'
+import { getFormDefaults, getValidationErrors, trimValues } from 'utils'
 import formModal from 'components/formModal'
 import { rpc, setUrl } from '../actions'
 import { connect } from 'react-redux'
@@ -63,9 +63,10 @@ export default compose(
 )
 
 function cast (values) {
-  const { grade = '', tags = [], duration = {} } = values
+  const trimmed = trimValues(values)
+  const { grade = '', tags = [], duration = {} } = trimmed
   return {
-    ...pick(submitKeys, values),
+    ...pick(submitKeys, trimmed),
     grade: grade.length
       ? grade.split(',').reduce((acc, g) => ({ ...acc, [g]: true }), {})
       : undefined,

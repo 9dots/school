@@ -1,4 +1,4 @@
-import { getFormDefaults, getTaskTitle } from 'utils'
+import { getFormDefaults, getTaskTitle, trimValues } from 'utils'
 import { compose, withHandlers } from 'recompose'
 import addLoading from 'components/addLoading'
 import { connect } from 'react-redux'
@@ -41,7 +41,7 @@ export default compose(
 
 function cast (values, props) {
   return {
-    ...values,
+    ...trimValues(values),
     task: props.task.id,
     course: props.course,
     draft: props.draft,

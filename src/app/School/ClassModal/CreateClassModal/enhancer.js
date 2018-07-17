@@ -1,4 +1,4 @@
-import { getFormDefaults, getValidationErrors } from 'utils'
+import { getFormDefaults, getValidationErrors, trimValues } from 'utils'
 import { profile } from 'selectors'
 import formModal from 'components/formModal'
 import { rpc, setUrl } from 'app/actions'
@@ -8,7 +8,10 @@ import schema from 'school-schema'
 import { message } from 'antd'
 
 export default compose(
-  connect(state => ({ profile: profile(state) }), { rpc, setUrl }),
+  connect(
+    state => ({ profile: profile(state) }),
+    { rpc, setUrl }
+  ),
   formModal({
     displayName: 'createClass',
     mapPropsToValues: props => ({
@@ -38,9 +41,10 @@ export default compose(
 )
 
 function cast (values, props) {
+  const trimmed = trimValues(values)
   return {
-    ...values,
-    grade: isNaN(values.grade) ? undefined : Number(values.grade),
+    ...trimmed,
+    grade: isNaN(trimmed.grade) ? undefined : Number(trimmed.grade),
     school: props.school
   }
 }

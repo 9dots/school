@@ -1,8 +1,8 @@
 import { firestoreConnect } from 'react-redux-firebase'
+import { getFormDefaults, trimValues } from 'utils'
 import formModal from 'components/formModal'
 import { rpc, setUrl } from 'app/actions'
 import waitFor from 'components/waitFor'
-import { getFormDefaults } from 'utils'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
 import schema from 'school-schema'
@@ -57,7 +57,7 @@ export default compose(
 
 function cast (values, props) {
   return {
-    ...values,
+    ...trimValues(values),
     user: props.uid,
     role: 'teacher'
   }

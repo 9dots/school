@@ -1,4 +1,4 @@
-import { validate, getValidationErrors } from 'utils'
+import { validate, getValidationErrors, trimValues } from 'utils'
 import formModal from 'components/formModal'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
@@ -53,17 +53,17 @@ export default compose(
 )
 
 function cast (values, props) {
+  const trimmed = trimValues(values)
   const { class: cls, school, edit } = props
-
   return edit
     ? {
-      username: values.username,
-      name: values.name,
-      id: values.id
+      username: trimmed.username,
+      name: trimmed.name,
+      id: trimmed.id
     }
     : {
-      ...values,
-      email: values.email || undefined,
+      ...trimmed,
+      email: trimmed.email || undefined,
       grade: cls.grade,
       school: school
     }

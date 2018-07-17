@@ -1,8 +1,8 @@
 import { compose, withHandlers, lifecycle } from 'recompose'
+import { getFormDefaults, trimValues } from 'utils'
 import addLoading from 'components/addLoading'
 import { errorToMessage } from 'utils/errors'
 import { studentSignIn } from 'ducks/login'
-import { getFormDefaults } from 'utils'
 import { setUrl } from 'app/actions'
 import avatars from 'assets/avatars'
 import { connect } from 'react-redux'
@@ -61,7 +61,7 @@ export default compose(
 
 function cast (values, props) {
   return {
-    ...values,
+    ...trimValues(values),
     user: props.student.id,
     type: props.passwordType
   }
