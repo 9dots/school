@@ -39,7 +39,7 @@ export default compose(
     }),
     { rpc }
   ),
-  // branch(props => props.classLesson, progressData),
+  branch(props => props.classLesson, progressData),
   connect(({ firestore: { data } }, props) => ({
     assignedLesson: getAssignedLesson(data, props) || null
   })),
