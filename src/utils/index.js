@@ -1,6 +1,7 @@
 import { errorToMessage } from './errors'
 import avatars from 'assets/avatars'
 import setProp from '@f/set-prop'
+import { map } from '../../node_modules/@firebase/util'
 
 export function isEmail (str) {
   return str && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(str)
@@ -48,6 +49,20 @@ export function validate (validator, cast, overWrites) {
 export function ensureHttp (url) {
   if (!url) return ''
   return url.match(/^[a-zA-Z]+:\/\//) ? url : 'http://' + url
+}
+
+export function trimValues (values, omitted) {
+  const omitFields = Array.isArray(omitted) ? omitted : [omitted]
+  if (omitFields.some(omit => typeof omit !== 'string')) {
+    throw new Error('omitted must be string or array of strings')
+  }
+  return map(
+    val =>
+      typeof val === 'string' && omitFields.indexOf(val) === -1 && !omitted.inde
+        ? val.trim()
+        : val,
+    values
+  )
 }
 
 export function getFormDefaults (validator, cast, overWrites) {

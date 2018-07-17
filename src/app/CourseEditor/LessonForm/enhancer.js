@@ -1,6 +1,6 @@
+import { getValidationErrors, ensureHttp, trimValues } from 'utils'
 import { compose, withHandlers } from 'recompose'
 import addLoading from 'components/addLoading'
-import { getValidationErrors, ensureHttp } from 'utils'
 import { connect } from 'react-redux'
 import { withFormik } from 'formik'
 import schema from 'school-schema'
@@ -71,12 +71,13 @@ export default compose(
 )
 
 function cast (values, props) {
+  const trimmed = trimValues(values)
   return {
-    ...omit(['tasks', 'lesson'], values),
+    ...omit(['tasks', 'lesson'], trimmed),
     course: props.course,
     draft: props.draft,
-    slides: ensureHttp(values.slides),
-    lessonPlan: ensureHttp(values.lessonPlan),
+    slides: ensureHttp(trimmed.slides),
+    lessonPlan: ensureHttp(trimmed.lessonPlan),
     ...(props.lesson ? { lesson: props.lesson } : {})
   }
 }

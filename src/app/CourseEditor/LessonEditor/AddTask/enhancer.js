@@ -1,4 +1,3 @@
-import { getValidationErrors, getFormDefaults, ensureHttp } from 'utils'
 import addLoading from 'components/addLoading'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
@@ -6,6 +5,12 @@ import { withFormik } from 'formik'
 import schema from 'school-schema'
 import { rpc } from 'app/actions'
 import { message } from 'antd'
+import {
+  getValidationErrors,
+  getFormDefaults,
+  ensureHttp,
+  trimValues
+} from 'utils'
 
 export default compose(
   addLoading,
@@ -37,9 +42,10 @@ export default compose(
 )
 
 function cast (values, props) {
+  const trimmed = trimValues(values)
   return {
-    ...values,
-    url: ensureHttp(values.url),
+    ...trimmed,
+    url: ensureHttp(trimmed.url),
     lesson: props.lesson,
     draft: props.draft,
     course: props.course

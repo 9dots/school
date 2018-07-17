@@ -11,7 +11,7 @@ import React from 'react'
 import './Courses.less'
 
 const enhancer = compose(
-  firestoreConnect(props => [
+  firestoreConnect(() => [
     {
       collection: 'courses',
       where: [['featured', '==', true], ['published', '==', true]],

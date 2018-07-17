@@ -1,4 +1,4 @@
-import { getFormDefaults, getValidationErrors } from 'utils'
+import { getFormDefaults, getValidationErrors, trimValues } from 'utils'
 import { firestoreConnect } from 'react-redux-firebase'
 import addLoading from 'components/addLoading'
 import waitFor from 'components/waitFor'
@@ -59,7 +59,7 @@ export default compose(
 
 function cast (values, props) {
   return {
-    ...values,
+    ...trimValues(values),
     grade: isNaN(values.grade) ? undefined : Number(values.grade),
     class: props.classData.id
   }
