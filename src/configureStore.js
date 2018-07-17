@@ -33,6 +33,7 @@ const rrfbConfig = {
   userProfile: 'users',
   useFirestoreForProfile: true,
   updateProfileOnLogin: false,
+  enableLogging: true,
   onAuthStateChanged: (user, firebase, dispatch) => {
     if (user && Object.keys(user.providerData).length) {
       window.gapi.load('client', {

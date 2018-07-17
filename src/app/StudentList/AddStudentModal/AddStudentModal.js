@@ -26,7 +26,7 @@ const AddStudentModal = ({
           <Field
             {...props}
             name='student'
-            placeholder='Find a someone in your school...'
+            placeholder='Find someone in your school...'
             component={SelectField}
             optionLabelProp='label'
             filterOption={filter}

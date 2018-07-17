@@ -14,10 +14,13 @@ const enhancer = compose(
   firestoreConnect(props => [
     {
       collection: 'courses',
-      where: [['featured', '==', true], ['published', '==', true]]
+      where: [['featured', '==', true], ['published', '==', true]],
+      orderBy: [['featuredOrder', 'asc']]
     }
   ]),
-  connect((state, props) => ({ courses: courses(state) })),
+  connect((state, props) => ({
+    courses: courses(state)
+  })),
   waitFor(['courses'])
 )
 
