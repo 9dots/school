@@ -2,7 +2,7 @@ import { firestoreConnect } from 'react-redux-firebase'
 import { moduleSelector } from 'selectors'
 import waitFor from 'components/waitFor'
 import { connect } from 'react-redux'
-import { compose } from 'recompose'
+import { compose, lifecycle } from 'recompose'
 import PropTypes from 'prop-types'
 import Course from 'app/Course'
 import React from 'react'
@@ -19,6 +19,17 @@ const enhancer = compose(
   connect((state, props) => ({
     mods: moduleSelector(state, props.modules)
   })),
+  lifecycle({
+    componentDidMount () {
+      this.props.modules.map(module =>
+        this.props.firestore.get({
+          collection: 'modules',
+          doc: module,
+          storeAs: module
+        })
+      )
+    }
+  }),
   waitFor(['mods'])
 )
 
