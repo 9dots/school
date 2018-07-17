@@ -55,7 +55,7 @@ export default compose(
 function cast (values, props) {
   const trimmed = trimValues(values)
   const { class: cls, school, edit } = props
-
+  console.log(trimmed)
   return edit
     ? {
       username: trimmed.username,
