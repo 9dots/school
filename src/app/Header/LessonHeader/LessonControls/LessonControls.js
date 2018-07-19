@@ -1,7 +1,7 @@
 import TaskDot from 'components/TaskDot'
 import { Link } from 'react-router-dom'
 import toRegexp from 'path-to-regexp'
-import { Icon, Button } from 'antd'
+import { Icon, Button, Row } from 'antd'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
 import urlJoin from 'url-join'
@@ -45,8 +45,8 @@ const LessonControls = ({
   const dotDisplay = getDisplay(progress, cur, delta)
 
   return (
-    <div className='lesson-controls'>
-      <Link to={prev()} disabled={!cur}>
+    <Row type='flex' align='middle' justify='end' className='lesson-controls'>
+      {/* <Link to={prev()} disabled={!cur}>
         <Icon type='left' size='large' />
       </Link>
       <span className='dots'>
@@ -74,14 +74,19 @@ const LessonControls = ({
               </span>
             )
         )}
-      </span>
+      </span> */}
       <Link to={next()}>
-        <Button type='primary' className='secondary'>
+        <Button type='primary' size='large' className='next-btn secondary rounded'>
           {isLast ? 'DONE' : 'NEXT'}
           <Icon type='right' />
         </Button>
       </Link>
-    </div>
+      <Button
+        icon='bars'
+        style={{ marginLeft: 10 }}
+        shape='circle'
+        size='large' />
+    </Row>
   )
 
   function prev (delta = 1) {

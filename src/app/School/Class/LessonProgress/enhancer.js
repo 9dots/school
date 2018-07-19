@@ -1,4 +1,5 @@
 import { compose, withHandlers, withState, withProps } from 'recompose'
+import { progressPercent } from 'utils'
 import mapValues from '@f/map-values'
 
 export default compose(
@@ -26,10 +27,6 @@ export default compose(
 
 function allProgress (progress = []) {
   return {
-    progress:
-      Math.round(
-        progress.reduce((acc, p) => acc + (p.progress || 0), 0) /
-          progress.length
-      ) || 0
+    progress: progressPercent(progress)
   }
 }
