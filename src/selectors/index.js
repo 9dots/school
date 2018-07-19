@@ -41,7 +41,7 @@ const schoolClasses = (state, school) => {
 
 const moduleSelector = (state, mods) =>
   mods.map(
-    m => state.firestore.data[m] && { id: m, ...state.firestore.data[m] }
+    m => state.firestore.data[m] && { ...state.firestore.data[m], id: m }
   )
 const students = (state, students) =>
   Object.keys(students).map(student => {

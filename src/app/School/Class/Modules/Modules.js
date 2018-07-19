@@ -34,6 +34,7 @@ const enhancer = compose(
 )
 
 const Modules = props => {
+  console.log(props.mods)
   const {
     assignedLesson = {},
     onAssign = () => {},

@@ -41,6 +41,7 @@ const rrfbConfig = {
       })
       dispatch(rpc('auth.getAccessToken'))
         .then(res => {
+          console.log(res.tokens)
           window.gapi.client.setToken(res.tokens)
         })
         .catch(e => {
