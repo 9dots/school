@@ -219,7 +219,7 @@ const timeUnits = ['Minutes', 'Hours', 'Days', 'Weeks', 'Months']
 const taskTypes = [
   {
     label: 'Practice',
-    icon: 'edit',
+    icon: 'profile',
     value: 'practice',
     id: 'practice'
   },

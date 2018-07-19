@@ -21,7 +21,7 @@ export function stopEvent (action = () => {}) {
   }
 }
 
-export const getTaskTitle = ({ displayName, type }) =>
+export const getTaskTitle = ({ displayName = '', type = '' }) =>
   displayName || type.charAt(0).toUpperCase() + type.slice(1)
 
 export function stopProp (action = () => {}) {
@@ -30,6 +30,11 @@ export function stopProp (action = () => {}) {
     action(e)
   }
 }
+
+export const progressPercent = (progress = []) =>
+  Math.round(
+    progress.reduce((acc, p) => acc + (p.progress || 0), 0) / progress.length
+  ) || 0
 
 export function validate (validator, cast, overWrites) {
   return (values, props, next) => {
