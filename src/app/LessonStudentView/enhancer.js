@@ -101,7 +101,7 @@ export default compose(
     },
     componentWillUnmount () {
       const { teacherView, progress, taskNum } = this.props
-      if (progress && !teacherView) {
+      if (progress && progress[taskNum] && !teacherView) {
         this.props.rpc('activity.maybeSetCompleted', {
           activity: progress[taskNum].id
         })

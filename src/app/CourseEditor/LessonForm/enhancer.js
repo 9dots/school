@@ -61,7 +61,6 @@ export default compose(
         )
         .then(() => props.setFieldValue(name, file.url))
         .catch(e => {
-          console.log(e)
           message.error(
             'Something went wrong. Make sure you have permission to share that file.'
           )
