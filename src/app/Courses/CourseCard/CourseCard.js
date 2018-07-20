@@ -18,7 +18,7 @@ const CourseCard = ({
 }) => {
   const {
     duration = {},
-    displayName,
+    displayName = '',
     description,
     tags = {},
     published,

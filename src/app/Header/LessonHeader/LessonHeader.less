@@ -1,6 +1,7 @@
 /* LessonHeader less */
 
-@import "../../../theme/vars/palette.less";
+@import "../../../theme/vars/palette";
+@import "../../../theme/mixins";
 
 .lesson-view .ant-layout-header {
   background: @blue;
@@ -10,11 +11,13 @@
     > * {
       background: transparent;
     }
+    h2,
     h3,
     h4,
     a {
       color: white;
       margin-bottom: 0;
+      font-weight: 300;
     }
     .control-title {
       height: 64px;
@@ -22,6 +25,38 @@
       h4 {
         line-height: 20px;
       }
+    }
+  }
+}
+.lesson-sider {
+  position: fixed;
+  background: white !important;
+  height: ~"calc(100vh - 64px)";
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  right: 0;
+  z-index: 1;
+  top: 64px;
+
+  .ant-menu {
+    height: 100vh;
+    overflow-y: auto;
+  }
+  .ant-menu-item {
+    height: 46px;
+    border-bottom: 1px solid #e8e8e8;
+    margin: 0 !important;
+    width: 230px;
+    overflow: hidden;
+    justify-content: space-between;
+    .flex-align-middle;
+    .sider-menu-item {
+      .ellipsis;
+    }
+    &.ant-menu-item-selected {
+      background-color: fade(@blue, 10);
+    }
+    &:after {
+      display: none;
     }
   }
 }

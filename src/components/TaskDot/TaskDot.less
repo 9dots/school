@@ -5,62 +5,35 @@
 
 @size: 28;
 
-// .resize (@s) {
-//   height: unit(@s, px);
-//   width: unit(@s, px);
-//   line-height: unit(@s - 0.5, px);
-//   font-size: unit(@s / 2.5, px);
-// }
+.task-dot {
+  overflow: visible;
+  .flex-center;
+  display: inline-flex;
+  .ant-avatar-string {
+    transform: none !important;
+    position: static !important;
+  }
 
-// .task-dot {
-//   .resize(@size);
-//   position: relative;
-//   display: inline-block;
-//   svg {
-//     .absoluteCenter;
-//     > * {
-//       fill: #ccc;
-//     }
-//   }
-//   .number {
-//     // font-family: monospace
-//     position: relative;
-//     z-index: 1;
-//     color: white;
-//     text-align: center;
-//   }
-//   &.completed {
-//     svg > * {
-//       fill: @green;
-//       stroke-width: 0;
-//     }
-//   }
-//   &.active {
-//     transform: scale(1.2);
-//     svg > * {
-//       stroke: @blue;
-//       stroke-width: 15px;
-//     }
-//   }
-
-//   &.dark {
-//     svg > * {
-//       background: lighten(white, 50);
-//     }
-//     &.active {
-//       svg > * {
-//         stroke: white;
-//         stroke-width: 15px;
-//       }
-//     }
-//   }
-
-//   &.multiple {
-//     .resize(15);
-//     margin: 0 5px;
-//     &.has-number {
-//       .resize(35);
-//       margin: 0 7px;
-//     }
-//   }
-// }
+  &.active {
+    background-color: @primary-color;
+    .rect(22px);
+    &:after {
+      @offset: -4px;
+      border: 2px solid @primary-color;
+      border-radius: 99px;
+      position: absolute;
+      bottom: @offset;
+      right: @offset;
+      display: block;
+      left: @offset;
+      top: @offset;
+      content: "";
+    }
+  }
+  &.completed {
+    background: @green;
+    &:after {
+      border-color: @green;
+    }
+  }
+}

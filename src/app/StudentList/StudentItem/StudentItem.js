@@ -2,6 +2,7 @@ import { Progress, Popover, Row, Col } from 'antd'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
+import { getTaskTitle } from 'utils'
 import React from 'react'
 
 import './StudentItem.less'
@@ -35,16 +36,23 @@ const StudentItem = ({
 
   const content = tasks.length ? (
     <div>
-      {progress.map(({ displayName, id, progress: percent }) => (
-        <Row key={id} type='flex' align='center' style={{ padding: '10px 0' }}>
-          <Col className='ellipsis flex-grow' style={{ paddingRight: 20 }}>
-            {displayName}
-          </Col>
-          <Col>
-            <Progress type='circle' width={30} percent={percent} />
-          </Col>
-        </Row>
-      ))}
+      {progress.map(task => {
+        const { id, progress: percent } = task
+        return (
+          <Row
+            key={id}
+            type='flex'
+            align='center'
+            style={{ padding: '10px 0' }}>
+            <Col className='ellipsis flex-grow' style={{ paddingRight: 20 }}>
+              {getTaskTitle(task)}
+            </Col>
+            <Col>
+              <Progress type='circle' width={30} percent={percent} />
+            </Col>
+          </Row>
+        )
+      })}
     </div>
   ) : (
     <div style={{ textAlign: 'center', padding: 10 }}>No Lesson Assigned</div>
@@ -67,7 +75,7 @@ const StudentItem = ({
           <div>{displayName}</div>
           {active && (
             <div className='meta'>
-              {idx + 1}.&ensp;{active.displayName}
+              {idx + 1}.&emsp;{getTaskTitle(active)}
             </div>
           )}
         </Col>

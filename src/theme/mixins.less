@@ -5,6 +5,23 @@
   width: 0;
 }
 
+.rect(@h, @w: @h) {
+  height: @h;
+  width: @w;
+}
+
+.flex-align-middle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .ellipsis {
   overflow: hidden;
   white-space: nowrap;

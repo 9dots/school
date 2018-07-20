@@ -8,13 +8,11 @@ const formModal = form => Component => {
     withStateHandlers(
       { confirmLoading: false },
       {
-        setLoading: ({ confirmLoading }) => value => ({ confirmLoading: value })
+        setLoading: () => value => ({ confirmLoading: value })
       }
     ),
     withHandlers({
-      close: ({ reset, dispatch, setLoading, ...props }) => handler => (
-        ...args
-      ) => {
+      close: ({ setLoading }) => handler => (...args) => {
         setLoading(false)
         handler(...args)
       }
