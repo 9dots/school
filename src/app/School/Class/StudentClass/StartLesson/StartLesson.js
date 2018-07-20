@@ -26,13 +26,13 @@ const StartLesson = props => {
           <Icon type='caret-right' />
         </Button>
       </Link>
-      <div style={{ maxWidth: 150, margin: '0 auto' }}>
+      {/* <div style={{ maxWidth: 150, margin: '0 auto' }}>
         <Progress
           className='start-lesson-progress'
           strokeWidth={12}
           style={{ marginLeft: 18 }}
           percent={progressPercent(progress)} />
-      </div>
+      </div> */}
     </Card>
   )
 }
