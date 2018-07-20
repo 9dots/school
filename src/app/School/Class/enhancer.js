@@ -33,7 +33,7 @@ export default compose(
   connect(
     ({ firestore: { data }, firebase: { auth } }, { classId }) => ({
       classLesson: (data[classId] || {}).assignedLesson || false,
-      classData: { id: classId, ...data[classId] },
+      classData: data[classId] ? { id: classId, ...data[classId] } : undefined,
       students: (data[classId] || {}).students || {},
       auth
     }),
@@ -122,7 +122,7 @@ export default compose(
       })
     }
   }),
-  waitFor(['classData', 'assignedLesson', 'progressByStudent'])
+  waitFor(['classData', 'assignedLesson', 'progressByStudent', 'auth'])
 )
 
 function getActive (assignedLesson, state, students, mod) {

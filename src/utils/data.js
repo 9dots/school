@@ -219,7 +219,7 @@ const timeUnits = ['Minutes', 'Hours', 'Days', 'Weeks', 'Months']
 const taskTypes = [
   {
     label: 'Practice',
-    icon: 'edit',
+    icon: 'form',
     value: 'practice',
     id: 'practice'
   },
@@ -274,7 +274,11 @@ const gradesToText = function (grades) {
 }
 
 const getTaskIcon = function (val) {
-  return (taskTypes.find(type => type.value === val) || {}).icon || 'edit'
+  return getIcon(val) || getIcon('practice')
+
+  function getIcon (val) {
+    return (taskTypes.find(({ value }) => value === val) || {}).icon
+  }
 }
 
 const idsToText = function (dataType, ids) {

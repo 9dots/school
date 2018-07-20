@@ -73,7 +73,8 @@ function cast (values, props) {
     value => ({
       ...value,
       email: value.email || undefined,
-      school: props.school
+      school: props.school,
+      grade: props.class.grade
     }),
     trimmed
   )

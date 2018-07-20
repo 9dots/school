@@ -1,10 +1,11 @@
-import { Card, Button, Icon } from 'antd'
+import { Card, Button, Icon, Progress } from 'antd'
 import { Link } from 'react-router-dom'
 import TaskDot from 'components/TaskDot'
 import PropTypes from 'prop-types'
 import React from 'react'
 
 import './StartLesson.less'
+import { progressPercent } from 'utils'
 
 const StartLesson = props => {
   const { assignedLesson = {}, assignToStudent, progress = [], classId } = props
@@ -25,14 +26,13 @@ const StartLesson = props => {
           <Icon type='caret-right' />
         </Button>
       </Link>
-      <div>
-        {progress.map((task = {}, i) => (
-          <TaskDot
-            multiple
-            task={{ ...task, ...tasks[i] }}
-            key={task.task || i} />
-        ))}
-      </div>
+      {/* <div style={{ maxWidth: 150, margin: '0 auto' }}>
+        <Progress
+          className='start-lesson-progress'
+          strokeWidth={12}
+          style={{ marginLeft: 18 }}
+          percent={progressPercent(progress)} />
+      </div> */}
     </Card>
   )
 }

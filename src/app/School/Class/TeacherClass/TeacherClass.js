@@ -31,7 +31,6 @@ const TeacherClass = props => {
                 {...routeProps}
                 teacherView
                 uid={routeProps.match.params.uid}
-                // progress={progressByStudent[routeProps.match.params.uid].progress}
                 assignedLesson={assignedLesson}
                 profile={progressByStudent[routeProps.match.params.uid].student}
                 key={
@@ -42,19 +41,16 @@ const TeacherClass = props => {
               <Loading />
             )
         } />
-      <Route
-        exact
-        path='/class/:classId'
-        render={() => <ClassView {...props} />} />
+      <ClassView {...props} />
     </Switch>
   )
 }
 
 TeacherClass.propTypes = {}
 
-export default modalContainer(TeacherClass)
+export default TeacherClass
 
-const ClassView = props => {
+const ClassView = modalContainer(props => {
   const {
     progressByStudent,
     assignedLesson,
@@ -165,7 +161,7 @@ const ClassView = props => {
       </Layout>
     </Layout>
   )
-}
+})
 
 const NoCourses = props => {
   return (

@@ -1,6 +1,7 @@
 import { Modal, Layout, Menu, Card, Icon } from 'antd'
 import ProgressTable from './ProgressTable'
 import { Link } from 'react-router-dom'
+import { getTaskTitle } from 'utils'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
 import React from 'react'
@@ -46,7 +47,7 @@ const LessonProgress = ({
             </Menu.Item>
             {tasks.map((task, i) => (
               <Menu.Item key={task.id}>
-                {i + 1}.&emsp;{task.displayName}
+                {i + 1}.&emsp;{getTaskTitle(task)}
               </Menu.Item>
             ))}
           </Menu>
@@ -55,7 +56,7 @@ const LessonProgress = ({
           <h1>{displayName}</h1>
           <p>{description}</p>
           <Card className='course' bordered={false}>
-            <h2>{task ? task.displayName : 'Average score for all Tasks'}</h2>
+            <h2>{task ? getTaskTitle(task) : 'Average score for all Tasks'}</h2>
             {teacherView ? (
               <Link target='_blank' to={teacherView}>
                 View in app
