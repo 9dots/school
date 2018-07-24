@@ -15,7 +15,7 @@ const Tasks = ({ lesson: { tasks = [], id }, moduleId, classId, student }) => (
           avatar={<TaskDot task={task} number={i + 1} />}
           title={
             <span>
-              <Icon type={getTaskIcon(task.type)} />
+              <Icon type={getTaskIcon(task)} />
               {getTaskTitle(task)}
             </span>
           }

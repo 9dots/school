@@ -9,7 +9,7 @@ import React from 'react'
 import './LessonStudentView.less'
 
 const LessonStudentView = ({
-  assignedLesson = {},
+  activeLesson = {},
   progress = {},
   teacherView,
   isLoaded,
@@ -27,7 +27,7 @@ const LessonStudentView = ({
             <LessonHeader
               progress={progress}
               profile={profile}
-              lesson={assignedLesson}
+              lesson={activeLesson}
               tasks={tasks}
               {...params} />
           </Layout.Header>

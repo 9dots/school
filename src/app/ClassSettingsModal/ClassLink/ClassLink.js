@@ -21,13 +21,13 @@ const ClassLink = ({ classData }) => {
           value={`${window.location.origin}/school/${classData.school}`}
           style={{ width: 410 }}
           size='large' />
-        <Divider />
+        {/* <Divider />
         <h4>Gmail Sign on</h4>
         <p>
           If you added gmail addresses when creating your students’ accounts,
           they will be able to log in using the normal &quot;Sign on with
           Gmail&quot; flow on the home page.
-        </p>
+        </p> */}
       </div>
     </Card>
   )
