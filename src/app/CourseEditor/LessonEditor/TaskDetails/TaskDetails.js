@@ -31,7 +31,7 @@ const TaskDetails = props => {
             <h3 style={{ marginBottom: 0 }}>
               <Row align='middle' type='flex'>
                 <TaskDot task={task} number={i + 1} />
-                <Icon type={getTaskIcon(type)} />&ensp;
+                <Icon type={getTaskIcon({ type })} />&ensp;
                 <div className='ellipsis flex-grow'>{getTaskTitle(task)}</div>
               </Row>
             </h3>

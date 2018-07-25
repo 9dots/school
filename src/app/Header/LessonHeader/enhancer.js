@@ -35,7 +35,7 @@ export default compose(
 )
 
 function getNewPath (params, i) {
-  const { classId, moduleId, lessonId, uid = '' } = params
+  const { classId, moduleId, lessonId, uid = '', studentId = '' } = params
   return urlJoin(
     '/class',
     classId,
@@ -44,6 +44,7 @@ function getNewPath (params, i) {
     'lesson',
     lessonId,
     '' + i,
-    uid
+    uid,
+    studentId
   )
 }

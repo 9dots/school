@@ -39,9 +39,7 @@ const ActiveLesson = ({ lesson, modal, studentProgress, activeByTask }) => {
               avatar={<TaskDot task={task} number={i + 1} />}
               title={
                 <span style={{ fontWeight: 'normal' }}>
-                  <Icon
-                    type={getTaskIcon(task.type)}
-                    style={{ marginRight: 5 }} />
+                  <Icon type={getTaskIcon(task)} style={{ marginRight: 5 }} />
                   {getTaskTitle(task)}
                 </span>
               } />
