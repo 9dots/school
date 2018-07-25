@@ -5,7 +5,8 @@ import React from 'react'
 import './LessonControls.less'
 
 const LessonControls = ({
-  toggleCollapsed,
+  toggleSider,
+  // openSider,
   progress,
   next,
   collapsed,
@@ -29,8 +30,8 @@ const LessonControls = ({
       </span>
       <Button
         icon={collapsed ? 'bars' : 'close'}
-        onClick={toggleCollapsed}
         style={{ marginLeft: 10 }}
+        onClick={toggleSider}
         shape='circle'
         size='large' />
     </Row>

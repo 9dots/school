@@ -80,6 +80,7 @@ const LessonHeader = props => {
           ))}
         </Menu>
       </Layout.Sider>
+      {/* {!collapsed && <div className='iframe-cover' />} */}
     </Layout>
   )
 }
