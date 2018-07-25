@@ -1,26 +1,23 @@
-import findKey from 'lodash/findKey'
 import getProp from '@f/get-prop'
 import map from '@f/map'
 
 const progressByStudent = (state, lesson, students, mod) => {
-  const progress = stateToProgress(state, mod, students)
+  const progress = state.firestore.data[`${mod}-${(lesson || {}).id}`] || {}
   return map(
-    (val, key) =>
-      (Object.keys(progress[key] || {}) || []).length > 0
-        ? {
-          student: state.firestore.data[key],
-          progress: lesson.tasks
-            .map((t, i) => {
-              const k = findKey(progress[key], p => p.task === t.id)
-              return k ? { ...progress[key][k], id: k } : null
-            })
-            .filter(p => !!p)
-        }
-        : state.firestore.data[key]
-          ? {
-            student: state.firestore.data[key]
+    (_, key) => ({
+      student: state.firestore.data[key],
+      progress:
+        lesson &&
+        lesson.tasks.map(t => {
+          const taskProgress = (progress[key] || {})[t.id] || {}
+          return {
+            ...t,
+            ...taskProgress,
+            lesson: lesson.id,
+            module: mod
           }
-          : null,
+        })
+    }),
     students
   )
 }
@@ -93,20 +90,4 @@ function getClasses (state, schools) {
     }),
     {}
   )
-}
-
-function stateToProgress (state, mod, students) {
-  return Object.keys(state.firestore.ordered)
-    .filter(key => key.indexOf(`${mod}-`) === 0)
-    .reduce((acc, key) => acc.concat(state.firestore.ordered[key]), [])
-    .reduce(
-      (acc, task) => ({
-        ...acc,
-        [task.student]: (Array.isArray(acc[task.student])
-          ? acc[task.student]
-          : []
-        ).concat(task)
-      }),
-      students
-    )
 }

@@ -9,7 +9,12 @@ import React from 'react'
 
 import './ActiveLesson.less'
 
-const ActiveLesson = ({ lesson, modal, studentProgress, activeByTask }) => {
+const ActiveLesson = ({
+  lesson,
+  modal,
+  studentProgress,
+  activeByTask = []
+}) => {
   const { displayName, tasks = [], slides, lessonPlan } = lesson
   return (
     <Card
@@ -45,7 +50,7 @@ const ActiveLesson = ({ lesson, modal, studentProgress, activeByTask }) => {
                   {getTaskTitle(task)}
                 </span>
               } />
-            {!!activeByTask[i].length && (
+            {/* {!!activeByTask[i].length && (
               <Tooltip
                 overlayStyle={{
                   whiteSpace: 'pre',
@@ -57,7 +62,7 @@ const ActiveLesson = ({ lesson, modal, studentProgress, activeByTask }) => {
                     's'}
                 </div>
               </Tooltip>
-            )}
+            )} */}
             <Tooltip title='Preview' mouseEnterDelay={0.4}>
               <Button
                 href={task.url}

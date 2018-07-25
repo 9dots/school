@@ -11,13 +11,16 @@ import EmptyState from 'app/EmptyState'
 import styles from 'theme/vars/vars.js'
 import PropTypes from 'prop-types'
 import Loading from 'app/Loading'
+import enhancer from './enhancer'
 import Modules from '../Modules'
 import React from 'react'
 
 import './TeacherClass.less'
 
 const TeacherClass = props => {
-  const { progressByStudent, assignedLesson } = props
+  const { progressByStudent, assignedLesson, isLoaded } = props
+  if (!isLoaded) return <Loading />
+  console.log(progressByStudent)
 
   return (
     <Switch>
@@ -48,13 +51,13 @@ const TeacherClass = props => {
 
 TeacherClass.propTypes = {}
 
-export default TeacherClass
+export default enhancer(TeacherClass)
 
 const ClassView = modalContainer(props => {
   const {
     progressByStudent,
     assignedLesson,
-    activeByTask,
+    activeByTask = [],
     classData = {},
     studentData,
     onAssign,

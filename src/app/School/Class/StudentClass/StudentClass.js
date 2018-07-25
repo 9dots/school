@@ -13,7 +13,6 @@ import './StudentClass.less'
 
 const StudentClass = props => {
   const {
-    progressByStudent,
     assignToStudent,
     classData = {},
     assignedLesson,
@@ -51,7 +50,6 @@ const StudentClass = props => {
               <StartLesson
                 uid={auth.uid}
                 assignToStudent={assignToStudent}
-                progress={(progressByStudent[auth.uid] || {}).progress}
                 classId={classId}
                 assignedLesson={{
                   ...assignedLesson,
@@ -62,7 +60,6 @@ const StudentClass = props => {
             <Modules
               assignedLesson={assignedLesson}
               assignToStudent={assignToStudent}
-              progress={progressByStudent}
               student={auth.uid}
               classId={classId}
               modules={modules} />

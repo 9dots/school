@@ -1,26 +1,23 @@
 import { Progress, Popover, Row, Col } from 'antd'
 import { Link } from 'react-router-dom'
+import { getTaskTitle } from 'utils'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
-import { getTaskTitle } from 'utils'
 import React from 'react'
 
 import './StudentItem.less'
 
-const StudentItem = ({
-  studentProgress = {},
-  deleteStudent,
-  tasks = [],
-  moduleId,
-  uid
-}) => {
+const StudentItem = ({ studentProgress = {}, tasks = [], class: cls, uid }) => {
   const { student, progress = [] } = studentProgress
-  const { displayName } = student
+  const { displayName, activeTask: active = progress[0] } = student
 
-  const idx = progress.findIndex((p, i) => p.active)
-  const active = idx > -1 ? progress[idx] : false
+  // const idx = progress.findIndex((p, i) => p.active)
+  // const active = idx > -1 ? progress[idx] : false
+
+  const idx = active.index
+
   const path = active
-    ? `/class/${active.class}/module/${moduleId}/lesson/${
+    ? `/class/${cls.id}/module/${active.module}/lesson/${
       active.lesson
     }/${idx}/${uid}`
     : ''
