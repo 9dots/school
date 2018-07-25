@@ -25,7 +25,7 @@ export default compose(
     goTo: ({ setUrl, match: { params } }) => i => {
       return setUrl(getNewPath(params, i))
     },
-    next: ({ setUrl, progress, match }) => {
+    next: ({ setUrl, progress, match }) => () => {
       const { params } = match
       const { classId, taskNum } = params
 
