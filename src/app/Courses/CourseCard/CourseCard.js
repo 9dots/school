@@ -13,7 +13,6 @@ const CourseCard = ({
   modal,
   editCourse,
   editable,
-  setUrl,
   context = ''
 }) => {
   const {
@@ -24,7 +23,7 @@ const CourseCard = ({
     published,
     bordered,
     imageUrl,
-    grade,
+    grade = {},
     id
   } = course
 

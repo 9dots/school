@@ -30,10 +30,9 @@ export default compose(
     }),
     { rpc }
   ),
-  connect(({ firestore }, props) => ({
-    tasks: props.mod
-      ? props.mod.lessons.find(l => l.id === props.lessonId).tasks
-      : []
+  connect(({ firestore }, { mod, lessonId }) => ({
+    activeLesson: mod ? mod.lessons.find(l => l.id === lessonId) : {},
+    tasks: mod ? mod.lessons.find(l => l.id === lessonId).tasks : []
   })),
   firestoreConnect(props =>
     props.tasks.map(task => ({

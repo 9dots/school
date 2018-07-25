@@ -1,5 +1,5 @@
 import LessonControls from './LessonControls'
-import { Avatar, Icon, Layout, List, Row, Col, Menu } from 'antd'
+import { Icon, Layout, Row, Col, Menu } from 'antd'
 import TaskDot from '../../../components/TaskDot'
 import { getTaskTitle } from 'utils'
 import { getTaskIcon } from 'utils/data'
@@ -16,16 +16,14 @@ const LessonHeader = props => {
     profile,
     classId,
     taskNum,
-    studentId,
     lesson = {},
     collapsed,
-    toggleCollapsed,
     progress,
-    tasks,
     goTo
   } = props
+  // console.log(props)
   const width = styles['@sidebar-width'] - 50
-  const task = progress[taskNum] || {}
+  const progTask = progress[taskNum] || {}
 
   return (
     <Layout className='lesson-header'>
@@ -45,12 +43,12 @@ const LessonHeader = props => {
           className='control-title'>
           <TaskDot
             style={{ marginRight: 10 }}
-            number={(task.index || 0) + 1}
-            task={{ completed: task.completed }}
+            number={(progTask.index || 0) + 1}
+            task={{ completed: progTask.completed }}
             size='default' />
           <Col>
             <h3>
-              <b>{getTaskTitle(task)}</b>
+              <b>{getTaskTitle(progTask)}</b>
             </h3>
             <h4>{lesson.displayName}</h4>
           </Col>
@@ -70,18 +68,19 @@ const LessonHeader = props => {
         <Menu onClick={({ key }) => goTo(key)} mode='inline'>
           {progress.map((task, i) => (
             <Menu.Item key={i}>
-              <span className='sider-item-title'>
+              <span className='sider-dot-title'>
                 <TaskDot
                   number={i + 1}
                   style={{ marginRight: 10 }}
                   task={task} />
-                {getTaskTitle(tasks[i])}
+                <span className='sider-item-title'>{getTaskTitle(task)}</span>
               </span>
               <Icon type={getTaskIcon(task)} />
             </Menu.Item>
           ))}
         </Menu>
       </Layout.Sider>
+      {/* {!collapsed && <div className='iframe-cover' />} */}
     </Layout>
   )
 }

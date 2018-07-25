@@ -273,8 +273,8 @@ const gradesToText = function (grades) {
   else return `${min === 'Kindergarten' ? 'K' : min} - ${max}`
 }
 
-const getTaskIcon = function (val) {
-  return getIcon(val) || getIcon('practice')
+const getTaskIcon = function (val = {}) {
+  return getIcon(val.type) || getIcon('practice')
 
   function getIcon (val) {
     return (taskTypes.find(({ value }) => value === val) || {}).icon
