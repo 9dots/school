@@ -25,6 +25,7 @@ export default compose(
       lessonId: props.match.params.lessonId,
       taskNum: props.match.params.taskNum,
       profile: props.profile || profile,
+      moduleId: props.match.params.moduleId,
       uid: props.uid || auth.uid
     }),
     { rpc }
@@ -40,7 +41,7 @@ export default compose(
       where: [
         ['student', '==', props.uid],
         ['task', '==', task.id],
-        ['module', '==', props.match.params.moduleId]
+        ['module', '==', props.moduleId]
       ],
       storeAs: props.uid + '-' + task.id
     }))
@@ -61,7 +62,7 @@ export default compose(
         progress,
         tasks,
         taskNum,
-        match,
+        moduleId,
         teacherView,
         isLoaded,
         firestore
@@ -73,21 +74,22 @@ export default compose(
             where: [
               ['student', '==', uid],
               ['task', '==', task.id],
-              ['module', '==', match.params.moduleId]
+              ['module', '==', moduleId]
             ],
             storeAs: uid + '-' + task.id
           }))
           .concat({
             collection: 'modules',
-            doc: match.params.moduleId,
-            storeAs: match.params.moduleId
+            doc: moduleId,
+            storeAs: moduleId
           })
       )
       if (progress && isLoaded && !teacherView) {
         this.props.rpc(
-          'activity.setActive',
+          'module.setActive',
           {
-            activity: progress[taskNum].id,
+            activity: progress[taskNum],
+            module: moduleId,
             lesson: lessonId
           },
           {
@@ -109,12 +111,13 @@ export default compose(
     },
     componentWillUpdate (nextProps) {
       if (!this.props.isLoaded && nextProps.isLoaded) {
-        const { lessonId, progress, taskNum, teacherView } = nextProps
+        const { moduleId, lessonId, progress, taskNum, teacherView } = nextProps
         if (progress.length && !teacherView) {
           this.props.rpc(
-            'activity.setActive',
+            'module.setActive',
             {
-              activity: progress[taskNum].id,
+              activity: progress[taskNum],
+              module: moduleId,
               lesson: lessonId
             },
             {

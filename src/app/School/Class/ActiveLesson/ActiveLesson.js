@@ -50,7 +50,7 @@ const ActiveLesson = ({
                   {getTaskTitle(task)}
                 </span>
               } />
-            {/* {!!activeByTask[i].length && (
+            {!!activeByTask[i].length && (
               <Tooltip
                 overlayStyle={{
                   whiteSpace: 'pre',
@@ -62,7 +62,7 @@ const ActiveLesson = ({
                     's'}
                 </div>
               </Tooltip>
-            )} */}
+            )}
             <Tooltip title='Preview' mouseEnterDelay={0.4}>
               <Button
                 href={task.url}

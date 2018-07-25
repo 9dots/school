@@ -11,10 +11,7 @@ const StudentItem = ({ studentProgress = {}, tasks = [], class: cls, uid }) => {
   const { student, progress = [] } = studentProgress
   const { displayName, activeTask: active = progress[0] } = student
 
-  // const idx = progress.findIndex((p, i) => p.active)
-  // const active = idx > -1 ? progress[idx] : false
-
-  const idx = active.index
+  const idx = active ? active.index : undefined
 
   const path = active
     ? `/class/${cls.id}/module/${active.module}/lesson/${

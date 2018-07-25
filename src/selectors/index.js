@@ -6,21 +6,23 @@ const progressByStudent = (state, lesson, students, mod) => {
   return map(
     (_, key) => ({
       student: state.firestore.data[key],
-      progress:
-        lesson &&
-        lesson.tasks.map(t => {
+      active: (progress[key] || {}).active,
+      progress: lesson
+        ? lesson.tasks.map(t => {
           const taskProgress = (progress[key] || {})[t.id] || {}
           return {
             ...t,
-            ...taskProgress,
+            ...taskProgress.progress,
             lesson: lesson.id,
             module: mod
           }
         })
+        : undefined
     }),
     students
   )
 }
+
 const classBySchools = (state, schools) => {
   return map(
     (classes, key) => ({

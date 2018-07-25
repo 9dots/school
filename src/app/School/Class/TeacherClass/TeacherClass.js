@@ -20,7 +20,6 @@ import './TeacherClass.less'
 const TeacherClass = props => {
   const { progressByStudent, assignedLesson, isLoaded } = props
   if (!isLoaded) return <Loading />
-  console.log(progressByStudent)
 
   return (
     <Switch>
@@ -57,8 +56,8 @@ const ClassView = modalContainer(props => {
   const {
     progressByStudent,
     assignedLesson,
-    activeByTask = [],
     classData = {},
+    activeByTask,
     studentData,
     onAssign,
     modal

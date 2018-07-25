@@ -31,38 +31,29 @@ export default compose(
           : []
       )
   ),
-  connect((state, { assignedLesson, classLesson, students }) => ({
-    studentData: studentsSelector(state, students),
-    progressByStudent: progressByStudent(
+  connect((state, { assignedLesson, classLesson, students }) => {
+    const progress = progressByStudent(
       state,
       assignedLesson,
       students,
       classLesson.module
-    ),
-    activeByTask: getActive(state, assignedLesson, students, classLesson.module)
-  })),
+    )
+    return {
+      studentData: studentsSelector(state, students),
+      progressByStudent: progress,
+      activeByTask: getActive(assignedLesson, progress)
+    }
+  }),
   waitFor(['progressByStudent', 'studentData'])
 )
 
-function getActive (state, assignedLesson, students, mod) {
-  const studentProgress = progressByStudent(
-    state,
-    assignedLesson,
-    students,
-    mod
-  )
+function getActive (assignedLesson, progress) {
   if (assignedLesson) {
     return (assignedLesson.tasks || []).map(({ id }) =>
       mapValues(
-        (val, key) => isActive(val, id) && val.student,
-        studentProgress || {}
+        (val, key) => val.active === id && val.student,
+        progress || {}
       ).filter(student => student)
     )
   }
-}
-
-function isActive (prog, lessonId) {
-  return (getProp('progress', prog) || []).some(
-    p => p.active && p.task === lessonId
-  )
 }
