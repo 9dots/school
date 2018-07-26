@@ -16,6 +16,7 @@ const LessonControls = ({
   const length = progress.length
   const cur = parseInt(taskNum, 10)
   const isLast = length <= cur + 1
+  const isComplete = progress[cur].progress >= 100
 
   return (
     <Row type='flex' align='middle' justify='end' className='lesson-controls'>
@@ -23,7 +24,9 @@ const LessonControls = ({
         <Button
           type='primary'
           size='large'
-          className='next-btn secondary rounded'>
+          className={`next-btn secondary rounded ${
+            isComplete ? 'complete' : ''
+          }`}>
           {isLast ? 'DONE' : 'NEXT'}
           <Icon type='right' />
         </Button>

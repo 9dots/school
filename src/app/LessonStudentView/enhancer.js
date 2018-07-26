@@ -74,10 +74,12 @@ export default compose(
     }
   }),
   withProps(props => ({
+    log: console.log(props.progressData),
     progress: props.tasks.map(task => ({
       ...task,
       ...props.progressData.tasks[task.id],
-      ...(task.id === props.task.id ? props.activityProgress : {})
+      ...(task.id === props.task.id ? props.activityProgress : {}),
+      active: props.progressData.active === task.id
     }))
   })),
   waitFor(['progress', 'uid', 'mod', 'profile', 'activityProgress']),

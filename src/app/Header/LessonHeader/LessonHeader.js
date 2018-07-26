@@ -13,15 +13,16 @@ import './LessonHeader.less'
 
 const LessonHeader = props => {
   const {
-    profile,
-    classId,
+    teacherView,
     lesson = {},
     collapsed,
     progress,
+    profile,
+    classId,
     taskNum,
-    tasks,
     goTo
   } = props
+
   const width = styles['@sidebar-width'] - 50
   const taskProgress = progress[taskNum]
 
@@ -66,7 +67,7 @@ const LessonHeader = props => {
         width={230}
         collapsible>
         <Menu onClick={({ key }) => goTo(key)} mode='inline'>
-          {tasks.map((task, i) => (
+          {progress.map((task, i) => (
             <Menu.Item key={i}>
               <span className='sider-dot-title'>
                 <TaskDot
