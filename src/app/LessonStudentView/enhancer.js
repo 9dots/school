@@ -88,26 +88,30 @@ export default compose(
         lessonId,
         progress,
         taskNum,
+        firestore,
         moduleId,
-        isLoaded
+        isLoaded,
+        uid
       } = this.props
-      // firestore.setListeners(
-      //   // tasks
-      //   //   .map(task => ({
-      //   //     collection: 'activities',
-      //   //     where: [
-      //   //       ['student', '==', uid],
-      //   //       ['task', '==', task.id],
-      //   //       ['module', '==', moduleId]
-      //   //     ],
-      //   //     storeAs: uid + '-' + task.id
-      //   //   }))
-      //   [].concat({
-      //     collection: 'modules',
-      //     doc: moduleId,
-      //     storeAs: moduleId
-      //   })
-      // )
+      firestore.setListeners([
+        {
+          collection: 'modules',
+          doc: moduleId,
+          storeAs: moduleId
+        },
+        {
+          collection: 'modules',
+          doc: moduleId,
+          subcollections: [
+            {
+              collection: 'progress',
+              doc: lessonId,
+              subcollections: [{ collection: 'users', doc: uid }]
+            }
+          ],
+          storeAs: getProgressString(moduleId, lessonId, uid)
+        }
+      ])
       if (progress && isLoaded && !teacherView) {
         this.props.rpc(
           'module.setActive',
