@@ -1,88 +1,113 @@
 import { firestoreConnect } from 'react-redux-firebase'
-import { compose, lifecycle } from 'recompose'
 import waitFor from 'components/waitFor'
 import { connect } from 'react-redux'
+import Loading from 'app/Loading'
 import { rpc } from '../actions'
+import {
+  renderComponent,
+  lifecycle,
+  withProps,
+  compose,
+  branch
+} from 'recompose'
 
-function getData (ordered, props, task) {
-  const val = ordered[props.uid + '-' + task.id]
-  if (!val) return undefined
-  if (!val.length) return undefined
-  return val
+function getProgressString (mod, lesson, uid) {
+  return mod + '-' + lesson + '-' + uid
 }
 
 export default compose(
+  connect(({ firebase: { auth, profile } }, props) => ({
+    lessonId: props.match.params.lessonId,
+    taskNum: Number(props.match.params.taskNum),
+    profile: props.profile || profile,
+    moduleId: props.match.params.moduleId,
+    uid: props.uid || auth.uid
+  })),
   firestoreConnect(props => [
     {
       collection: 'modules',
-      doc: props.match.params.moduleId,
-      storeAs: props.match.params.moduleId
+      doc: props.moduleId,
+      storeAs: props.moduleId
+    },
+    {
+      collection: 'modules',
+      doc: props.moduleId,
+      subcollections: [
+        {
+          collection: 'progress',
+          doc: props.lessonId,
+          subcollections: [{ collection: 'users', doc: props.uid }]
+        }
+      ],
+      storeAs: getProgressString(props.moduleId, props.lessonId, props.uid)
     }
   ]),
   connect(
-    ({ firestore, firebase: { auth, profile } }, props) => ({
-      mod: firestore.data[props.match.params.moduleId],
-      lessonId: props.match.params.lessonId,
-      taskNum: props.match.params.taskNum,
-      profile: props.profile || profile,
-      moduleId: props.match.params.moduleId,
-      uid: props.uid || auth.uid
+    ({ firestore }, { moduleId, lessonId, uid }) => ({
+      mod: firestore.data[moduleId],
+      progressData: firestore.data[getProgressString(moduleId, lessonId, uid)]
     }),
     { rpc }
   ),
+  branch(props => !props.mod || !props.progressData, renderComponent(Loading)),
   connect(({ firestore }, { mod, lessonId }) => ({
     activeLesson: mod ? mod.lessons.find(l => l.id === lessonId) : {},
     tasks: mod ? mod.lessons.find(l => l.id === lessonId).tasks : []
   })),
-  firestoreConnect(props =>
-    props.tasks.map(task => ({
+  firestoreConnect(props => [
+    {
       collection: 'activities',
       where: [
         ['student', '==', props.uid],
-        ['task', '==', task.id],
+        ['task', '==', props.tasks[props.taskNum].id],
         ['module', '==', props.moduleId]
       ],
-      storeAs: props.uid + '-' + task.id
+      storeAs: 'activityProgress-' + props.uid + '-' + props.taskNum
+    }
+  ]),
+  connect((state, props) => {
+    const activityProgress =
+      state.firestore.ordered[`activityProgress-${props.uid}-${props.taskNum}`]
+    return {
+      task: props.tasks[props.taskNum],
+      activityProgress: activityProgress ? activityProgress[0] : undefined
+    }
+  }),
+  withProps(props => ({
+    progress: props.tasks.map(task => ({
+      ...task,
+      ...props.progressData.tasks[task.id],
+      ...(task.id === props.task.id ? props.activityProgress : {})
     }))
-  ),
-  connect(({ firestore: { ordered, data } }, props) => ({
-    progress: props.tasks.length
-      ? props.tasks
-        .map(task => getData(ordered, props, task))
-        .reduce((acc, next) => acc.concat(next), [])
-      : undefined
   })),
-  waitFor(['progress', 'uid', 'profile']),
+  waitFor(['progress', 'uid', 'mod', 'profile', 'activityProgress']),
   lifecycle({
     componentDidMount () {
       const {
-        uid,
+        teacherView,
         lessonId,
         progress,
-        tasks,
         taskNum,
         moduleId,
-        teacherView,
-        isLoaded,
-        firestore
+        isLoaded
       } = this.props
-      firestore.setListeners(
-        tasks
-          .map(task => ({
-            collection: 'activities',
-            where: [
-              ['student', '==', uid],
-              ['task', '==', task.id],
-              ['module', '==', moduleId]
-            ],
-            storeAs: uid + '-' + task.id
-          }))
-          .concat({
-            collection: 'modules',
-            doc: moduleId,
-            storeAs: moduleId
-          })
-      )
+      // firestore.setListeners(
+      //   // tasks
+      //   //   .map(task => ({
+      //   //     collection: 'activities',
+      //   //     where: [
+      //   //       ['student', '==', uid],
+      //   //       ['task', '==', task.id],
+      //   //       ['module', '==', moduleId]
+      //   //     ],
+      //   //     storeAs: uid + '-' + task.id
+      //   //   }))
+      //   [].concat({
+      //     collection: 'modules',
+      //     doc: moduleId,
+      //     storeAs: moduleId
+      //   })
+      // )
       if (progress && isLoaded && !teacherView) {
         this.props.rpc(
           'module.setActive',

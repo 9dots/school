@@ -1,10 +1,17 @@
-import { withHandlers, lifecycle, compose, branch } from 'recompose'
 import { firestoreConnect } from 'react-redux-firebase'
 import modalContainer from 'components/modalContainer'
 import waitFor from 'components/waitFor'
 import { connect } from 'react-redux'
 import { message, Modal } from 'antd'
+import Loading from 'app/Loading'
 import { rpc } from 'app/actions'
+import {
+  withHandlers,
+  renderComponent,
+  lifecycle,
+  compose,
+  branch
+} from 'recompose'
 
 const progressData = firestoreConnect(props => [
   {
@@ -36,9 +43,9 @@ export default compose(
     }),
     { rpc }
   ),
-  branch(props => props.classLesson, progressData),
+  branch(props => !props.classData, renderComponent(Loading), progressData),
   connect(({ firestore: { data } }, props) => ({
-    assignedLesson: getAssignedLesson(data, props) || null
+    assignedLesson: getAssignedLesson(data, props)
   })),
   lifecycle({
     componentWillMount () {
@@ -51,38 +58,33 @@ export default compose(
       props.hideModal('createStudent', null)
       message.success(msg)
     },
-    assignToStudent: props => (lesson, module) => async e => {
-      try {
-        await props.rpc('user.assignLesson', {
-          class: props.classId,
-          teachers: props.classData.teachers,
-          module,
-          lesson
-        })
-      } catch (e) {
-        message.error(e.message)
+    onAssign: props => (lesson, module, opts = {}) => e => {
+      const { student } = opts
+      if (student) {
+        return onOk()
       }
-    },
-    onAssign: props => (lesson, module) => e => {
       Modal.confirm({
         title: `Assign "${lesson.displayName}"?`,
         content:
           'The lesson will immediately be assigned to your class. Any currently assigned lesson will be unassigned.',
         okText: 'Yes',
         cancelText: 'No',
-        async onOk () {
-          try {
-            await props.rpc('class.assignLesson', {
-              class: props.classId,
-              lesson: lesson.id,
-              module
-            })
-            message.success('Lesson assigned')
-          } catch (e) {
-            message.error(e.message)
-          }
-        }
+        onOk
       })
+
+      async function onOk () {
+        try {
+          await props.rpc('class.assignLesson', {
+            class: props.classId,
+            lesson: lesson.id,
+            student: student ? props.auth.uid : undefined,
+            module
+          })
+          if (!student) message.success('Lesson assigned')
+        } catch (e) {
+          message.error(e.message)
+        }
+      }
     }
   }),
   waitFor(['assignedLesson', 'auth', 'classData'])
@@ -90,6 +92,8 @@ export default compose(
 
 function getAssignedLesson (data, props) {
   const lesson = props.classLesson.id
+  if (!lesson) return null
+  if (!data[props.classLesson.module]) return undefined
   const lessons = (data[props.classLesson.module] || {}).lessons || []
   const assigned = lessons.find(l => l.id === lesson)
 

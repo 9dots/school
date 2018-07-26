@@ -7,7 +7,7 @@ import { compose } from 'recompose'
 import getProp from '@f/get-prop'
 
 export default compose(
-  firestoreConnect(({ students, classLesson, assignedLesson }) =>
+  firestoreConnect(({ students = {}, classLesson, assignedLesson }) =>
     Object.keys(students)
       .map(student => ({
         collection: 'users',

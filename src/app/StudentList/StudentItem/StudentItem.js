@@ -7,9 +7,22 @@ import React from 'react'
 
 import './StudentItem.less'
 
+function getActive (studentProgress) {
+  const {
+    student: { activeTask },
+    progress,
+    active
+  } = studentProgress
+
+  if (activeTask) return activeTask
+  if (active) return progress.find(task => task.id === active)
+  return undefined
+}
+
 const StudentItem = ({ studentProgress = {}, tasks = [], class: cls, uid }) => {
   const { student, progress = [] } = studentProgress
-  const { displayName, activeTask: active = progress[0] } = student
+  const { displayName } = student
+  const active = getActive(studentProgress)
 
   const idx = active ? active.index : undefined
 

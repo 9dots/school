@@ -10,7 +10,7 @@ import './LessonStudentView.less'
 
 const LessonStudentView = ({
   activeLesson = {},
-  progress = {},
+  progress = [],
   teacherView,
   isLoaded,
   profile,

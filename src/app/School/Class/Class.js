@@ -14,7 +14,7 @@ const Class = props => {
   return isTeacher ? (
     <TeacherClass {...omit('isLoaded', props)} />
   ) : (
-    <StudentClass {...props} />
+    <StudentClass {...omit('isLoaded', props)} />
   )
 }
 
