@@ -74,7 +74,6 @@ export default compose(
     }
   }),
   withProps(props => ({
-    log: console.log(props.progressData),
     progress: props.tasks.map(task => ({
       ...task,
       ...props.progressData.tasks[task.id],
