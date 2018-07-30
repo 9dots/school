@@ -50,7 +50,7 @@ export default compose(
     { rpc }
   ),
   branch(props => !props.mod || !props.progressData, renderComponent(Loading)),
-  connect(({ firestore }, { mod, lessonId }) => ({
+  connect((_, { mod, lessonId }) => ({
     activeLesson: mod ? mod.lessons.find(l => l.id === lessonId) : {},
     tasks: mod ? mod.lessons.find(l => l.id === lessonId).tasks : []
   })),
