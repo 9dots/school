@@ -13,7 +13,6 @@ import './LessonHeader.less'
 
 const LessonHeader = props => {
   const {
-    teacherView,
     lesson = {},
     collapsed,
     progress,
@@ -25,6 +24,7 @@ const LessonHeader = props => {
 
   const width = styles['@sidebar-width'] - 50
   const taskProgress = progress[taskNum]
+  // const integration = taskProgress.integration
 
   return (
     <Layout className='lesson-header'>

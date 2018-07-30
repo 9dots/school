@@ -1,6 +1,6 @@
 import { connectedRouterRedirect } from 'redux-auth-wrapper/history4/redirect'
 import connectedAuthWrapper from 'redux-auth-wrapper/connectedAuthWrapper'
-
+import { version } from './app/Terms'
 import Loading from './app/Loading'
 
 const userIsAuthenticatedDefaults = {
@@ -29,6 +29,18 @@ export const userHasSchool = connectedRouterRedirect({
     state.firebase.profile &&
     Object.keys(state.firebase.profile.schools || {}).length > 0,
   wrapperDisplayName: 'UserHasSchool'
+})
+
+export const agreedToTerms = connectedRouterRedirect({
+  redirectPath: '/terms',
+  allowRedirectBack: false,
+  authenticatingSelector: state => !state.firebase.profile.isLoaded,
+  AuthenticatingComponent: Loading,
+  authenticatedSelector: ({ firebase: { profile } }) =>
+    profile &&
+    (profile.role !== 'teacher' ||
+      (parseInt(profile.termsVersion, 10) || 0) >= version),
+  wrapperDisplayName: 'AgreedToTerms'
 })
 
 export const userHasNoSchool = connectedRouterRedirect({

@@ -37,9 +37,7 @@ export default compose(
     onCreateModal: props => (msg, modal) => {
       props.hideModal(modal, null)
       message.success(msg)
-    }
-  }),
-  withHandlers({
+    },
     logout: props => {
       return props.firebase
         .logout()
