@@ -24,14 +24,17 @@ export default compose(
   ),
   withProps(props => ({
     task: (props.lesson.tasks || []).find(({ id }) => id === props.active),
-    data: mapValues(({ progress, student }, key) => {
+    data: mapValues(({ progress = [], student, ...rest }, key) => {
       const prog =
         props.active === 'all'
-          ? allProgress(progress)
-          : (progress || []).find(p => p.task === props.active)
+          ? {
+            ...(progress[0] || {}),
+            progress: progressPercent(progress)
+          }
+          : (progress || []).find(({ id }) => id === props.active)
 
       return {
-        studentData: student,
+        studentData: { id: key, ...student },
         ...prog
       }
     }, props.studentProgress)
@@ -61,9 +64,3 @@ export default compose(
   }),
   waitFor(['teacherView'])
 )
-
-function allProgress (progress = []) {
-  return {
-    progress: progressPercent(progress)
-  }
-}

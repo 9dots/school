@@ -96,7 +96,7 @@ const routes = (
           </Switch>
           <Route
             path='/:route?'
-            component={userIsAuthenticated(agreedToTerms(userHasSchool(App)))} />
+            component={userIsAuthenticated(userHasSchool(agreedToTerms(App)))} />
         </div>
       </Route>
     </Switch>

@@ -1,7 +1,7 @@
 import getProp from '@f/get-prop'
 import map from '@f/map'
 
-const progressByStudent = (state, lesson, students, mod) => {
+const progressByStudent = (state, lesson, students, mod, classId) => {
   const progress = state.firestore.data[`${mod}-${(lesson || {}).id}`] || {}
   return map(
     (_, key) => ({
@@ -14,7 +14,8 @@ const progressByStudent = (state, lesson, students, mod) => {
             ...t,
             ...taskProgress,
             lesson: lesson.id,
-            module: mod
+            module: mod,
+            class: classId
           }
         })
         : undefined
