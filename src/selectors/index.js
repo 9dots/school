@@ -9,10 +9,10 @@ const progressByStudent = (state, lesson, students, mod) => {
       active: (progress[key] || {}).active,
       progress: lesson
         ? lesson.tasks.map(t => {
-          const taskProgress = (progress[key] || {})[t.id] || {}
+          const taskProgress = getProp(`${key}.tasks.${t.id}`, progress) || {}
           return {
             ...t,
-            ...taskProgress.progress,
+            ...taskProgress,
             lesson: lesson.id,
             module: mod
           }
