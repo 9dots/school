@@ -11,7 +11,7 @@ const ProgressTable = ({ data, moduleId }) => {
     <Table
       className='progress-table'
       pagination={false}
-      rowKey={(data, i) => i}
+      rowKey={(_, i) => i}
       columns={columns(moduleId)}
       dataSource={data} />
   )
@@ -21,7 +21,7 @@ ProgressTable.propTypes = {}
 
 export default ProgressTable
 
-const columns = moduleId => [
+const columns = (moduleId, cls) => [
   {
     title: 'First',
     key: 'first',
@@ -37,10 +37,12 @@ const columns = moduleId => [
   {
     title: 'Work',
     key: 'link',
-    render: ({ class: cls, student, lesson, index }) => (
+    render: ({ class: cls, studentData, lesson, index = 0, ...rest }) => (
       <div style={{ minWidth: 70 }}>
         <Link
-          to={`/class/${cls}/module/${moduleId}/lesson/${lesson}/${index}/${student}`}>
+          to={`/class/${cls}/module/${moduleId}/lesson/${lesson}/${index}/${
+            studentData.id
+          }`}>
           View Work
         </Link>
       </div>

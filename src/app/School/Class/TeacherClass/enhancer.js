@@ -31,12 +31,13 @@ export default compose(
           : []
       )
   ),
-  connect((state, { assignedLesson, classLesson, students }) => {
+  connect((state, { assignedLesson, classLesson, students, classId }) => {
     const progress = progressByStudent(
       state,
       assignedLesson,
       students,
-      classLesson.module
+      classLesson.module,
+      classId
     )
     return {
       studentData: studentsSelector(state, students),
