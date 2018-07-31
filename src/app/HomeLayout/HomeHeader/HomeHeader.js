@@ -42,7 +42,7 @@ const HomeHeader = ({ login, allowSignIn }) => {
             href='https://www.9dots.org/terms-of-service'
             rel='noopener noreferrer'
             target='_blank'>
-            Terms of Service
+            Terms of Use
           </a>
         </Col>
         <Col>
