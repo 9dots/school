@@ -12,6 +12,7 @@ import Courses from 'app/Courses'
 import Privacy from 'app/Privacy'
 import Library from 'app/Library'
 import School from 'app/School'
+import Terms from '../Terms'
 import Home from 'app/Home'
 import React from 'react'
 import {
@@ -19,6 +20,7 @@ import {
   userIsNotAuthenticated,
   userIsAuthenticated,
   userHasSchool,
+  agreedToTerms,
   splashRedir
 } from '../../auth'
 
@@ -78,6 +80,7 @@ const routes = (
     <Switch>
       <Route path='/authhandler' component={AuthHandler} />
       <Route exact path='/privacy' component={Privacy} />
+      <Route path='/terms' component={userIsAuthenticatedRedir(Terms)} />
       <Route
         path='/onboarding'
         component={userIsAuthenticatedRedir(Onboarding)} />
@@ -93,7 +96,7 @@ const routes = (
           </Switch>
           <Route
             path='/:route?'
-            component={userIsAuthenticated(userHasSchool(App))} />
+            component={userIsAuthenticated(agreedToTerms(userHasSchool(App)))} />
         </div>
       </Route>
     </Switch>

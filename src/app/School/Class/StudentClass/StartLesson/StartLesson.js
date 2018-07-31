@@ -1,16 +1,15 @@
-import { Card, Button, Icon, Progress } from 'antd'
+import { Card, Button, Icon } from 'antd'
 import { Link } from 'react-router-dom'
-import TaskDot from 'components/TaskDot'
 import PropTypes from 'prop-types'
 import React from 'react'
 
 import './StartLesson.less'
-import { progressPercent } from 'utils'
 
 const StartLesson = props => {
-  const { assignedLesson = {}, assignToStudent, progress = [], classId } = props
+  const { assignedLesson = {}, onAssign, progress, classId } = props
   const { displayName, module: moduleId, id, tasks } = assignedLesson
-  const current = getIndex(progress)
+  const idx = tasks.findIndex(task => task.id === progress.active)
+  const current = idx === -1 ? 0 : idx
 
   return (
     <Card className='course start-lesson'>
@@ -18,7 +17,7 @@ const StartLesson = props => {
       <p>Click the button below to begin!</p>
       <Link to={`/class/${classId}/module/${moduleId}/lesson/${id}/${current}`}>
         <Button
-          onClick={assignToStudent(id, moduleId)}
+          onClick={onAssign(assignedLesson, moduleId, { student: true })}
           size='large'
           type='primary'
           className='secondary rounded'>
@@ -35,11 +34,6 @@ const StartLesson = props => {
       </div> */}
     </Card>
   )
-}
-
-function getIndex (progress) {
-  const idx = progress.findIndex(p => p && !!p.active) || 0
-  return idx > -1 ? idx : 0
 }
 
 StartLesson.propTypes = {}

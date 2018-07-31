@@ -1,11 +1,14 @@
 import { Icon, Button, Row } from 'antd'
+import enhancer from './enhancer'
 import PropTypes from 'prop-types'
 import React from 'react'
 
 import './LessonControls.less'
 
 const LessonControls = ({
-  toggleCollapsed,
+  becameComplete,
+  teacherView,
+  toggleSider,
   progress,
   next,
   collapsed,
@@ -15,6 +18,11 @@ const LessonControls = ({
   const length = progress.length
   const cur = parseInt(taskNum, 10)
   const isLast = length <= cur + 1
+  const task = progress[cur] || {}
+  const integration = task.integration
+  const isComplete = task.progress >= 100
+  const flash = integration && becameComplete && !teacherView && isComplete
+  const opacity = teacherView || !integration ? 1 : isComplete ? 1 : 0.7
 
   return (
     <Row type='flex' align='middle' justify='end' className='lesson-controls'>
@@ -22,15 +30,16 @@ const LessonControls = ({
         <Button
           type='primary'
           size='large'
-          className='next-btn secondary rounded'>
+          style={{ opacity }}
+          className={`next-btn secondary rounded ${flash ? 'btn-flash' : ''}`}>
           {isLast ? 'DONE' : 'NEXT'}
           <Icon type='right' />
         </Button>
       </span>
       <Button
         icon={collapsed ? 'bars' : 'close'}
-        onClick={toggleCollapsed}
         style={{ marginLeft: 10 }}
+        onClick={toggleSider}
         shape='circle'
         size='large' />
     </Row>
@@ -39,4 +48,4 @@ const LessonControls = ({
 
 LessonControls.propTypes = {}
 
-export default LessonControls
+export default enhancer(LessonControls)

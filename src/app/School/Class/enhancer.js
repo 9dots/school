@@ -1,13 +1,17 @@
-import { progressByStudent, students as studentsSelector } from 'selectors'
-import { withHandlers, lifecycle, compose, branch } from 'recompose'
 import { firestoreConnect } from 'react-redux-firebase'
 import modalContainer from 'components/modalContainer'
 import waitFor from 'components/waitFor'
 import { connect } from 'react-redux'
 import { message, Modal } from 'antd'
-import mapValues from '@f/map-values'
-import getProp from '@f/get-prop'
+import Loading from 'app/Loading'
 import { rpc } from 'app/actions'
+import {
+  withHandlers,
+  renderComponent,
+  lifecycle,
+  compose,
+  branch
+} from 'recompose'
 
 const progressData = firestoreConnect(props => [
   {
@@ -39,43 +43,9 @@ export default compose(
     }),
     { rpc }
   ),
-  branch(props => props.classLesson, progressData),
+  branch(props => !props.classData, renderComponent(Loading), progressData),
   connect(({ firestore: { data } }, props) => ({
-    assignedLesson: getAssignedLesson(data, props) || null
-  })),
-  firestoreConnect(({ assignedLesson, classLesson, classData, students }) =>
-    (assignedLesson
-      ? assignedLesson.tasks.map(task => ({
-        collection: 'activities',
-        where: [
-          ['module', '==', classLesson.module],
-          ['task', '==', task.id]
-        ],
-        storeAs: classLesson.module + '-' + task.id
-      }))
-      : []
-    ).concat(
-      Object.keys(students).map(student => ({
-        collection: 'users',
-        doc: student,
-        storeAs: student
-      }))
-    )
-  ),
-  connect((state, { assignedLesson, students, classLesson }) => ({
-    progressByStudent: getProgress(
-      assignedLesson,
-      state,
-      students,
-      classLesson.module
-    ),
-    activeByTask: getActive(
-      assignedLesson,
-      state,
-      students,
-      classLesson.module
-    ),
-    studentData: studentsSelector(state, students)
+    assignedLesson: getAssignedLesson(data, props)
   })),
   lifecycle({
     componentWillMount () {
@@ -88,67 +58,42 @@ export default compose(
       props.hideModal('createStudent', null)
       message.success(msg)
     },
-    assignToStudent: props => (lesson, module) => async e => {
-      try {
-        await props.rpc('user.assignLesson', {
-          class: props.classId,
-          teachers: props.classData.teachers,
-          module,
-          lesson
-        })
-      } catch (e) {
-        message.error(e.message)
+    onAssign: props => (lesson, module, opts = {}) => e => {
+      const { student } = opts
+      if (student) {
+        return onOk()
       }
-    },
-    onAssign: props => (lesson, module) => e => {
       Modal.confirm({
         title: `Assign "${lesson.displayName}"?`,
         content:
           'The lesson will immediately be assigned to your class. Any currently assigned lesson will be unassigned.',
         okText: 'Yes',
         cancelText: 'No',
-        async onOk () {
-          try {
-            await props.rpc('class.assignLesson', {
-              class: props.classId,
-              lesson: lesson.id,
-              module
-            })
-            message.success('Lesson assigned')
-          } catch (e) {
-            message.error(e.message)
-          }
-        }
+        onOk
       })
+
+      async function onOk () {
+        try {
+          await props.rpc('class.assignLesson', {
+            class: props.classId,
+            lesson: lesson.id,
+            student: student ? props.auth.uid : undefined,
+            module
+          })
+          if (!student) message.success('Lesson assigned')
+        } catch (e) {
+          message.error(e.message)
+        }
+      }
     }
   }),
-  waitFor(['classData', 'assignedLesson', 'progressByStudent', 'auth'])
+  waitFor(['assignedLesson', 'auth', 'classData'])
 )
-
-function getActive (assignedLesson, state, students, mod) {
-  const studentProgress = getProgress(assignedLesson, state, students, mod)
-  if (assignedLesson) {
-    return assignedLesson.tasks.map(({ id }) =>
-      mapValues(
-        (val, key) => isActive(val, id) && val.student,
-        studentProgress || {}
-      ).filter(student => student)
-    )
-  }
-}
-
-function getProgress (assignedLesson, state, students, mod) {
-  return progressByStudent(state, assignedLesson, students, mod)
-}
-
-function isActive (prog, lessonId) {
-  return (getProp('progress', prog) || []).some(
-    p => p.active && p.task === lessonId
-  )
-}
 
 function getAssignedLesson (data, props) {
   const lesson = props.classLesson.id
+  if (!lesson) return null
+  if (!data[props.classLesson.module]) return undefined
   const lessons = (data[props.classLesson.module] || {}).lessons || []
   const assigned = lessons.find(l => l.id === lesson)
 

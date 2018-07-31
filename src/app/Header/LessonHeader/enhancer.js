@@ -1,4 +1,4 @@
-import { compose, withStateHandlers, withHandlers } from 'recompose'
+import { compose, withStateHandlers, withHandlers, lifecycle } from 'recompose'
 import { withRouter } from 'react-router-dom'
 import urlJoin from 'url-join'
 import { setUrl } from 'app/actions'
@@ -11,13 +11,21 @@ export default compose(
     { setUrl }
   ),
   withStateHandlers(({ collapsed = true }) => ({ collapsed }), {
-    toggleCollapsed: ({ collapsed }) => () => ({ collapsed: !collapsed })
+    // openSider: () => e => {
+    //   e.stopPropagation()
+    //   return { collapsed: false }
+    // },
+    // closeSider: () => () => {
+    //   console.log('call')
+    //   return { collapsed: true }
+    // },
+    toggleSider: ({ collapsed }) => () => ({ collapsed: !collapsed })
   }),
   withHandlers({
     goTo: ({ setUrl, match: { params } }) => i => {
       return setUrl(getNewPath(params, i))
     },
-    next: ({ setUrl, progress, match }) => {
+    next: ({ setUrl, progress, match }) => () => {
       const { params } = match
       const { classId, taskNum } = params
 
@@ -32,6 +40,21 @@ export default compose(
       return setUrl(path)
     }
   })
+  // lifecycle({
+  //   componentWillUnmount () {
+  //     const { closeSider } = this.props
+  //     window.removeEventListener('click', closeSider)
+  //   },
+  //   componentWillReceiveProps (nextProps) {
+  //     const { collapsed, closeSider } = this.props
+
+  //     if (nextProps.collapsed !== collapsed) {
+  //       collapsed
+  //         ? window.addEventListener('click', closeSider)
+  //         : window.removeEventListener('click', closeSider)
+  //     }
+  //   }
+  // })
 )
 
 function getNewPath (params, i) {

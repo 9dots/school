@@ -1,9 +1,9 @@
 import { Menu, Icon, Layout, Avatar } from 'antd'
+import styles from 'theme/vars/vars.js'
 import { Link } from 'react-router-dom'
 import UserMenu from '../UserMenu'
 import React from 'react'
 import './Header.less'
-import styles from 'theme/vars/vars.js'
 
 const Header = ({ location, profile = {}, logout }) => {
   const active = location.pathname.split('/')[1]

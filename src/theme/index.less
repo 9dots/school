@@ -15,3 +15,16 @@
 body {
   font-family: @font-family;
 }
+
+.btn-flash {
+  animation: btn-flash 850ms 4;
+}
+
+@keyframes btn-flash {
+  from {
+    box-shadow: 0 0 0 0px fade(@secondary-color, 60);
+  }
+  to {
+    box-shadow: 0 0 0 10px fade(@secondary-color, 0);
+  }
+}
