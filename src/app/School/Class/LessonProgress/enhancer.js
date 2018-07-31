@@ -51,10 +51,12 @@ export default compose(
   }),
   lifecycle({
     componentWillMount () {
-      this.props.getTeacherView(this.props.task)
+      if (this.props.task) {
+        this.props.getTeacherView(this.props.task)
+      }
     },
     componentWillUpdate (nextProps) {
-      if (this.props.task !== nextProps.task) {
+      if (this.props.task !== nextProps.task && nextProps.task) {
         this.props.getTeacherView(nextProps.task)
       }
     }
