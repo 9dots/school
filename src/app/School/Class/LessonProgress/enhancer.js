@@ -56,11 +56,17 @@ export default compose(
     componentWillMount () {
       if (this.props.task) {
         this.props.getTeacherView(this.props.task)
+      } else {
+        this.props.setTeacherView(null)
       }
     },
     componentWillUpdate (nextProps) {
-      if (this.props.task !== nextProps.task && nextProps.task) {
-        this.props.getTeacherView(nextProps.task)
+      if (this.props.task !== nextProps.task) {
+        if (nextProps.task) {
+          this.props.getTeacherView(nextProps.task)
+        } else {
+          this.props.setTeacherView(null)
+        }
       }
     }
   }),
