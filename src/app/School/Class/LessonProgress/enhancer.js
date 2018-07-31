@@ -54,11 +54,19 @@ export default compose(
   }),
   lifecycle({
     componentWillMount () {
-      this.props.getTeacherView(this.props.task)
+      if (this.props.task) {
+        this.props.getTeacherView(this.props.task)
+      } else {
+        this.props.setTeacherView(null)
+      }
     },
     componentWillUpdate (nextProps) {
       if (this.props.task !== nextProps.task) {
-        this.props.getTeacherView(nextProps.task)
+        if (nextProps.task) {
+          this.props.getTeacherView(nextProps.task)
+        } else {
+          this.props.setTeacherView(null)
+        }
       }
     }
   }),
