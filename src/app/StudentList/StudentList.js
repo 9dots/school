@@ -1,8 +1,11 @@
 import { Button, Menu, Icon, Divider, Row, Col } from 'antd'
+import { alphaSort } from 'utils'
 import waitFor from 'components/waitFor'
 import StudentItem from './StudentItem'
+import mapValues from '@f/map-values'
 import { compose } from 'recompose'
 import PropTypes from 'prop-types'
+import natsort from 'natsort'
 import Loading from '../Loading'
 import React from 'react'
 
@@ -11,15 +14,15 @@ import './StudentList.less'
 const enhancer = compose(waitFor(['studentData']))
 
 const StudentList = props => {
-  const {
-    progressByStudent,
-    moduleId,
-    students,
-    isLoaded,
-    modal,
-    tasks
-  } = props
+  const { progressByStudent, moduleId, isLoaded, modal, tasks } = props
   if (!isLoaded) return <Loading />
+
+  var sorter = natsort({ insensitive: true })
+  const students = mapValues(
+    ({ student }, key) => ({ uid: key, ...student }),
+    progressByStudent
+  ).sort((a, b) => sorter(a.displayName, b.displayName))
+
   return (
     <div>
       <Row
@@ -45,7 +48,7 @@ const StudentList = props => {
         selectedKeys={[]}
         fluid
         style={{ borderLeft: 'none' }}>
-        {students.map(uid => (
+        {students.map(({ uid }) => (
           <Menu.Item
             key={uid}
             style={{ borderTop: '1px solid #e8e8e8', margin: 0 }}>
