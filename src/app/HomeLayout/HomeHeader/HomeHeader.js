@@ -39,10 +39,10 @@ const HomeHeader = ({ login, allowSignIn }) => {
           </a>
           <a
             style={{ color: 'white', marginRight: 30, fontSize: 12 }}
-            href='https://www.9dots.org/terms-of-service'
+            href='https://www.9dots.org/terms-of-use'
             rel='noopener noreferrer'
             target='_blank'>
-            Terms of Service
+            Terms of Use
           </a>
         </Col>
         <Col>

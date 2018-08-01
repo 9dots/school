@@ -22,7 +22,7 @@ const LessonControls = ({
   const integration = task.integration
   const isComplete = task.progress >= 100
   const flash = integration && becameComplete && !teacherView && isComplete
-  const opacity = teacherView || !integration ? 1 : isComplete ? 1 : 0.7
+  const opacity = teacherView || !integration ? 1 : isComplete ? 1 : 0.75
 
   return (
     <Row type='flex' align='middle' justify='end' className='lesson-controls'>
