@@ -1,10 +1,10 @@
-import LessonControls from './LessonControls'
 import { Icon, Layout, Row, Col, Menu } from 'antd'
-import TaskDot from '../../../components/TaskDot'
-import { getTaskTitle } from 'utils'
+import LessonControls from './LessonControls'
+import TaskDot from 'components/TaskDot'
 import { getTaskIcon } from 'utils/data'
 import { Link } from 'react-router-dom'
 import styles from 'theme/vars/vars.js'
+import { getTaskTitle } from 'utils'
 import PropTypes from 'prop-types'
 import enhancer from './enhancer'
 import React from 'react'
@@ -13,17 +13,18 @@ import './LessonHeader.less'
 
 const LessonHeader = props => {
   const {
-    profile,
-    classId,
-    taskNum,
     lesson = {},
     collapsed,
     progress,
+    profile,
+    classId,
+    taskNum,
     goTo
   } = props
-  // console.log(props)
+
   const width = styles['@sidebar-width'] - 50
-  const progTask = progress[taskNum] || {}
+  const taskProgress = progress[taskNum]
+  // const integration = taskProgress.integration
 
   return (
     <Layout className='lesson-header'>
@@ -43,12 +44,12 @@ const LessonHeader = props => {
           className='control-title'>
           <TaskDot
             style={{ marginRight: 10 }}
-            number={(progTask.index || 0) + 1}
-            task={{ completed: progTask.completed }}
+            number={(Number(taskNum) || 0) + 1}
+            task={{ completed: taskProgress.completed }}
             size='default' />
           <Col>
             <h3>
-              <b>{getTaskTitle(progTask)}</b>
+              <b>{getTaskTitle(taskProgress)}</b>
             </h3>
             <h4>{lesson.displayName}</h4>
           </Col>

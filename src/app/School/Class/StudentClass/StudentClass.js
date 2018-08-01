@@ -1,11 +1,14 @@
+import { Switch, Route, Redirect } from 'react-router-dom'
 import LessonStudentView from 'app/LessonStudentView'
 import backpack from 'assets/images/emptypack.png'
-import { Switch, Route } from 'react-router-dom'
 import EmptyState from 'app/EmptyState'
 import StartLesson from './StartLesson'
 import { Layout, Divider } from 'antd'
 import PropTypes from 'prop-types'
+import Loading from 'app/Loading'
+import enhancer from './enhancer'
 import Modules from '../Modules'
+import urlJoin from 'url-join'
 import React from 'react'
 import './StudentClass.less'
 
@@ -13,13 +16,16 @@ import './StudentClass.less'
 
 const StudentClass = props => {
   const {
-    progressByStudent,
-    assignToStudent,
     classData = {},
     assignedLesson,
     classLesson,
+    progress,
+    onAssign,
+    isLoaded,
     auth
   } = props
+  if (!isLoaded) return <Loading />
+
   const { classId } = props.match.params
 
   const mods = classData.modules || {}
@@ -50,8 +56,8 @@ const StudentClass = props => {
             ) : (
               <StartLesson
                 uid={auth.uid}
-                assignToStudent={assignToStudent}
-                progress={(progressByStudent[auth.uid] || {}).progress}
+                onAssign={onAssign}
+                progress={progress || {}}
                 classId={classId}
                 assignedLesson={{
                   ...assignedLesson,
@@ -61,8 +67,8 @@ const StudentClass = props => {
             <Divider style={{ margin: '45px 0px 40px' }}>Courses</Divider>
             <Modules
               assignedLesson={assignedLesson}
-              assignToStudent={assignToStudent}
-              progress={progressByStudent}
+              onAssign={onAssign}
+              progress={progress || {}}
               student={auth.uid}
               classId={classId}
               modules={modules} />
@@ -84,6 +90,19 @@ const StudentClass = props => {
               matchProp.match.params.lessonId + matchProp.match.params.taskNum
             } />
         )} />
+      <Route
+        exact
+        path='/class/:classId/module/:moduleId/lesson/:lessonId/'
+        render={matchProp => {
+          const idx = assignedLesson
+            ? assignedLesson.tasks.findIndex(
+              task => task.id === progress.active
+            )
+            : 0
+          return (
+            <Redirect to={urlJoin(matchProp.location.pathname, '' + idx)} />
+          )
+        }} />
       <Route exact path='/class/:classId' render={() => classView} />
     </Switch>
   )
@@ -91,7 +110,7 @@ const StudentClass = props => {
 
 StudentClass.propTypes = {}
 
-export default StudentClass
+export default enhancer(StudentClass)
 
 const NoCourses = props => {
   return (
