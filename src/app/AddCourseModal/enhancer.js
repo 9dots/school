@@ -1,7 +1,7 @@
 import { firestoreConnect } from 'react-redux-firebase'
 import modalContainer from 'components/modalContainer'
 import formModal from 'components/formModal'
-import { allClasses, uid } from 'selectors'
+import { teacherClasses, uid } from 'selectors'
 import waitFor from 'components/waitFor'
 import { getFormDefaults } from 'utils'
 import mapValues from '@f/map-values'
@@ -25,7 +25,7 @@ export default compose(
   ]),
   connect(
     (state, props) => ({
-      classes: allClasses(state),
+      classes: teacherClasses(state),
       modalId: getSuccessModal(props.id)
     }),
     { rpc }

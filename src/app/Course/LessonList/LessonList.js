@@ -9,7 +9,6 @@ import React from 'react'
 import './LessonList.less'
 
 const LessonList = ({
-  assignToStudent,
   studentLessons,
   lessons = [],
   assignedId,
@@ -31,7 +30,6 @@ const LessonList = ({
             key={key}
             header={
               <Header
-                assignToStudent={assignToStudent}
                 onAssign={onAssign}
                 assigned={assignedId === lesson.id}
                 moduleId={moduleId}
@@ -57,7 +55,6 @@ const LessonList = ({
 
 const Header = props => {
   const {
-    assignToStudent,
     displayName,
     description,
     assigned,
@@ -79,12 +76,10 @@ const Header = props => {
       <Col className='extra'>
         {student ? (
           <StudentExtra
-            path={`/class/${classId}/module/${moduleId}/lesson/${
-              lesson.id
-            }/${progress.current || 0}`}
+            path={`/class/${classId}/module/${moduleId}/lesson/${lesson.id}`}
             module={moduleId}
-            lesson={lesson.id}
-            assignToStudent={assignToStudent}
+            lesson={lesson}
+            onAssign={onAssign}
             started={typeof progress.current !== 'undefined'}
             assigned={assigned} />
         ) : (
@@ -106,7 +101,7 @@ const StudentExtra = ({
   assigned,
   path,
   started,
-  assignToStudent
+  onAssign
 }) => {
   return (
     <div style={{ paddingLeft: 20 }}>
@@ -118,7 +113,7 @@ const StudentExtra = ({
           Assigned
         </Button>
       )}
-      <Link onClick={assignToStudent(lesson, module)} to={path}>
+      <Link onClick={onAssign(lesson, module, { student: true })} to={path}>
         {started ? 'Continue' : 'Start'}
         <Icon type='caret-right' style={{ marginLeft: 5 }} />
       </Link>
