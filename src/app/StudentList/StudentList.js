@@ -1,5 +1,4 @@
 import { Button, Menu, Icon, Divider, Row, Col } from 'antd'
-import { alphaSort } from 'utils'
 import waitFor from 'components/waitFor'
 import StudentItem from './StudentItem'
 import mapValues from '@f/map-values'
