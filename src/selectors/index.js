@@ -35,7 +35,7 @@ const classBySchools = (state, schools) => {
 }
 
 const schoolClasses = (state, school) => {
-  const classes = state.firestore.data[`${school}-classes`] || {}
+  const classes = state.firestore.ordered[`${school}-classes`] || {}
   return Object.keys(classes).map(key => ({ id: key, ...classes[key] }))
 }
 

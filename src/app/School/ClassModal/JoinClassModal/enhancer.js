@@ -22,7 +22,8 @@ export default compose(
           {
             collection: 'classes',
             where: ['school', '==', props.school],
-            storeAs: `${props.school}-classes`
+            storeAs: `${props.school}-classes`,
+            orderBy: ['displayName']
           }
         ]
         : []
