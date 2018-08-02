@@ -36,6 +36,7 @@ export default compose(
         }
         return props.onOk('done')
       } catch (e) {
+        console.error(e)
         setLoading(false)
         if (e.errorDetails) {
           return setErrors(getValidationErrors(e))

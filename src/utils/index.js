@@ -61,6 +61,7 @@ export function trimValues (values, omitted) {
     throw new Error('omitted must be string or array of strings')
   }
   return map(val => {
+    if (!val) return val
     if (typeof val === 'object') return trimValues(val, omitted)
     return typeof val === 'string' && omitFields.indexOf(val) === -1
       ? val.trim()
