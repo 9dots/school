@@ -33,6 +33,7 @@ const rrfbConfig = {
   userProfile: 'users',
   useFirestoreForProfile: true,
   updateProfileOnLogin: false,
+  logListenerError: true,
   enableLogging: true,
   onAuthStateChanged: (user, firebase, dispatch) => {
     if (user && Object.keys(user.providerData).length) {

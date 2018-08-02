@@ -35,9 +35,13 @@ const StudentItem = ({ studentProgress = {}, tasks = [], class: cls, uid }) => {
   const title = (
     <div style={{ textAlign: 'center', padding: 7 }}>
       <h3>{displayName}</h3>
-      <Link disabled={!active} to={path}>
+      <a
+        rel='noopener noreferrer'
+        disabled={!active}
+        target='_blank'
+        href={path}>
         View Work
-      </Link>
+      </a>
     </div>
   )
 
